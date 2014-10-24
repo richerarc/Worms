@@ -1,0 +1,2 @@
+Ven. 24 oct. 11h00
+J’ai structuré de façon arbitraire le repo pour organisé les fichiers et ajouté les journaux de bords
