@@ -19,8 +19,15 @@ public:
 		SDL_CreateRenderer(_Window, NULL, NULL);
 	}
 
-	void AddElement(CGUIE* _Element, unsigned int _uiX, unsigned int _uiY, unsigned int _uiW, unsigned int _uiH){
+	bool AddElement(CGUIE* _Element, unsigned int _uiX, unsigned int _uiY, unsigned int _uiW, unsigned int _uiH){
+		for (int i = 0; i < m_pList->Count(); i++)
+		{
+			if (m_pList->ObtenirElement()->getName() == _Element->getName())
+				return false;
+			m_pList->AllerSuivant();
+		}
 		m_pList->AjouterFin(_Element);
+		return true;
 	}
 
 	void setOnScreenPos(const char* _Name, unsigned int _uiX, unsigned int _uiY){
@@ -46,7 +53,4 @@ public:
 			m_pList->AllerSuivant();
 		}
 	}
-	}
-
-
 };
