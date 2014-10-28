@@ -14,6 +14,7 @@
 
 #include "CTimer.h"
 #include "CGUIE.h"
+#include "CMenus.h"
 
 #define WIDTH 1280
 #define HEIGHT 720
