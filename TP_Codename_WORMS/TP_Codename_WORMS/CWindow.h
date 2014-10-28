@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Richer Archambault. All rights reserved.
 //
 
-#include <SDL2/SDL.h>
+
 
 #ifndef CFenetre_CWindowManager_h
 #define CFenetre_CWindowManager_h

@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Richer Archambault. All rights reserved.
 //
 
-#include <SDL2_mixer/SDL_mixer.h>
-
 #ifndef Ate5_CMusic_h
 #define Ate5_CMusic_h
 
