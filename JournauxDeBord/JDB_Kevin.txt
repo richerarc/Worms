@@ -1,1 +1,2 @@
-Test du Journal de bord
+11:00 2014-10-28 : Test du Journal de bord
+14:14 2014-10-28 : Conception du code du CMenus //To do: Arbre?, Finir CMenu(code et commentaires)

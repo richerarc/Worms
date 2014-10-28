@@ -285,7 +285,7 @@ public:
 		return nullptr;
 	}
 
-	unsigned int Compte(){
+	unsigned int Count(){
 		return m_uiCompte;
 	}
 };
