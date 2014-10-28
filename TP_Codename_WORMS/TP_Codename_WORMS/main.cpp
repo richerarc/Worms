@@ -12,6 +12,9 @@
 #include <SDL2\SDL_mixer.h>
 #endif
 
+#include "CTimer.h"
+#include "CGUIE.h"
+
 #define WIDTH 1280
 #define HEIGHT 720
 

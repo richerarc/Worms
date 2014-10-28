@@ -32,12 +32,12 @@
 		CB81A5D219FF1EFF00935BA4 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = TP_Codename_WORMS/main.cpp; sourceTree = SOURCE_ROOT; };
 		CB81A5DF19FF230600935BA4 /* CTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTimer.h; path = TP_Codename_WORMS/CTimer.h; sourceTree = SOURCE_ROOT; };
 		CB81A5E019FF230600935BA4 /* CWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWindow.h; path = TP_Codename_WORMS/CWindow.h; sourceTree = SOURCE_ROOT; };
+		F96CFAEA1A0001EB00A114A9 /* CGUIE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUIE.h; path = TP_Codename_WORMS/CGUIE.h; sourceTree = SOURCE_ROOT; };
 		F97DCB4119FFBEC7006F17CF /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
 		F97DCB4219FFBEC7006F17CF /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../../../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
 		F97DCB4319FFBEC7006F17CF /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../../Library/Frameworks/SDL2_ttf.framework; sourceTree = "<group>"; };
 		F97DCB4419FFBEC7006F17CF /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
 		F9FA55FC19FFFFEC004CFAC6 /* CRessource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRessource.h; path = TP_Codename_WORMS/CRessource.h; sourceTree = SOURCE_ROOT; };
-		F9FA55FD19FFFFFF004CFAC6 /* CGUIE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGUIE.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,11 +78,11 @@
 		CB81A5C819FF1E6800935BA4 /* TP_Codename_WORMS_Mac */ = {
 			isa = PBXGroup;
 			children = (
-				F9FA55FC19FFFFEC004CFAC6 /* CRessource.h */,
-				CB81A5DF19FF230600935BA4 /* CTimer.h */,
 				CB81A5E019FF230600935BA4 /* CWindow.h */,
+				CB81A5DF19FF230600935BA4 /* CTimer.h */,
+				F9FA55FC19FFFFEC004CFAC6 /* CRessource.h */,
+				F96CFAEA1A0001EB00A114A9 /* CGUIE.h */,
 				CB81A5D219FF1EFF00935BA4 /* main.cpp */,
-				F9FA55FD19FFFFFF004CFAC6 /* CGUIE.h */,
 			);
 			path = TP_Codename_WORMS_Mac;
 			sourceTree = "<group>";

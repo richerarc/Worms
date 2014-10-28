@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Richer Archambault. All rights reserved.
 //
 
+#define BUFFER 1024
+
 #ifndef TP_Codename_WORMS_CRessource_h
 #define TP_Codename_WORMS_CRessource_h
 
@@ -102,7 +104,7 @@ private:
 		}
 	}
 public:
-	CSprite(cont char* _Name, SDL_Texture* _Texture, int _nbrFrame, int _nbrAnimation, int _delai, int _loop) : CRessource(_Name){
+	CSprite(const char* _Name, SDL_Texture* _Texture, int _nbrFrame, int _nbrAnimation, int _delai, int _loop) : CRessource(_Name){
 		m_pTexture = _Texture;
 		m_NbrFrame = _nbrFrame;
 		m_NbrAnimation = _nbrAnimation;
