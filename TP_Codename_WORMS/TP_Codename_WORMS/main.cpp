@@ -13,8 +13,10 @@
 #endif
 
 #include "CTimer.h"
+#include "CListeDC.h"
+#include "CWindow.h"
 #include "CGUIE.h"
-#include "CMenus.h"
+#include "CMenu.h"
 
 #define WIDTH 1280
 #define HEIGHT 720

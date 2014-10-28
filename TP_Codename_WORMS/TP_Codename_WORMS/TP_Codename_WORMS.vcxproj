@@ -71,7 +71,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGUIE.h" />
-    <ClInclude Include="CMenus.h" />
+    <ClInclude Include="CListeDC.h" />
+    <ClInclude Include="CMenu.h" />
     <ClInclude Include="CRessource.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="CWindow.h" />
