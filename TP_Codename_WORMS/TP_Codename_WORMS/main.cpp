@@ -1,16 +1,31 @@
-/*
-420-203-RE : Atelier : Image clickable
-Crée le 9 novembre 2014 par Kevin Pantelakis( DA : 1303126  /  E-mail : kev.pantelakis@gail.com)
-*/
 
-#define WIDTH 800
-#define HEIGHT 600
 
+#if defined(__APPLE__) && defined(__MACH__) /* __APPLE & __MACH__ sont les deux Macro dÃ©fini par LLVM */
+#include <SDL2/SDL.h>
+#include <SDL2_image/SDL_image.h>
+#include <SDL2_mixer/SDL_mixer.h>
+#include <SDL2_ttf/SDL_ttf.h>
+#elif defined _WIN32 /* _Win32 Pour les configuration windows 32 & 64 bit */
 #include <SDL2\SDL.h>
 #include <SDL2\SDL_image.h>
 #include <SDL2\SDL_ttf.h>
 #include <SDL2\SDL_mixer.h>
+#endif
+
+#define WIDTH 1280
+#define HEIGHT 720
+
+
 
 int main(int argc, char** argv) {
+	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);// Initialisation des composantes
+	TTF_Init();				 // SDL et autres librairies.
+	Mix_Init(0);
+	
+	
+	SDL_Quit();
+	TTF_Quit();
+	Mix_Quit();
+	
 	return 0;
 }

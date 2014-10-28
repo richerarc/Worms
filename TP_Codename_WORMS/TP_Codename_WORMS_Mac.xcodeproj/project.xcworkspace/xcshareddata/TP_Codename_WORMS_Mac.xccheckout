@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>50CD3580-FCE6-43BA-B2AE-6B672E94B3ED</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TP_Codename_WORMS_Mac</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D80CF648EE80B82A6C9002DAA4F1EF4E714DFB4D</key>
+		<string>https://github.com/richerarc/Worms.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TP_Codename_WORMS/TP_Codename_WORMS_Mac.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D80CF648EE80B82A6C9002DAA4F1EF4E714DFB4D</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/richerarc/Worms.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D80CF648EE80B82A6C9002DAA4F1EF4E714DFB4D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D80CF648EE80B82A6C9002DAA4F1EF4E714DFB4D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Worms</string>
+		</dict>
+	</array>
+</dict>
+</plist>
