@@ -30,3 +30,5 @@ Données membre:
 -Pas commenté mais les noms doivent être significatifs
  
 Indentation : Normale
+ 1 tab = 4 espace 
+ Très important!!!!!
