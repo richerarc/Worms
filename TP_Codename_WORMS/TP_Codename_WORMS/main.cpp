@@ -16,6 +16,10 @@
 #include "CListeDC.h"
 #include "CWindow.h"
 #include "CGUIE.h"
+#include "CLabel.h"
+#include "CButton.h"
+#include "CListBox.h"
+#include "CTextBox.h"
 #include "CMenu.h"
 
 #define WIDTH 1280
