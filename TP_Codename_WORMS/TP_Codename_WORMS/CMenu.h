@@ -28,9 +28,24 @@ public:
 		for (int i = 0; i < m_pList->Count(); i++)
 		{
 			if (m_pList->ObtenirElement()->getName() == _Name){
-				
+				m_pList->ObtenirElement()->setPos(_uiX, _uiY);
+				break;
 			}
+			m_pList->AllerSuivant();
 		}
+	}
+
+	void setSize(const char* _Name, unsigned int _uiWidth, unsigned int _uiHeight){
+		m_pList->AllerDebut();
+		for (int i = 0; i < m_pList->Count(); i++)
+		{
+			if (m_pList->ObtenirElement()->getName() == _Name){
+				m_pList->ObtenirElement()->setPos(_uiWidth,_uiHeight);
+				break;
+			}
+			m_pList->AllerSuivant();
+		}
+	}
 	}
 
 
