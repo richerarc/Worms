@@ -27,6 +27,14 @@ private:
 	SDL_Rect m_Rect;
 	
 public:
+	
+	/*!
+	 @method Constucteur
+	 @param _Name : le nom du Controle visuel
+	 @param _strText : le text contenu dans le controle
+	 @param _Font : La police de caractère pour dessiner le texte
+	 @param _Rect : le rectangle pour les information d'affichage (position, hauteur largeur)
+	 */
 	CGUIE(const char* _Name, string _strText, CFont* _Font, SDL_Rect _Rect){
 		m_strName = _Name;
 		m_strText = _strText;
