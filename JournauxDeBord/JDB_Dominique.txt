@@ -1,2 +1,3 @@
 28 oct
-Test du JDB
+J'ai ajouté des méthodes pour Pauser/DéPauser la minuterie dans CTimer.h et 
+j'y ai ajouté des commentaires pour plus de clarté.
