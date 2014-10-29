@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CB81A5D319FF1EFF00935BA4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CB81A5D219FF1EFF00935BA4 /* main.cpp */; };
+		CBECA7DB1A004E360030E776 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBECA7D91A004E360030E776 /* SDL2_image.framework */; };
+		CBECA7DC1A004E360030E776 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBECA7DA1A004E360030E776 /* SDL2_mixer.framework */; };
 		F97DCB4519FFBEC7006F17CF /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F97DCB4119FFBEC7006F17CF /* SDL2_image.framework */; };
 		F97DCB4619FFBEC7006F17CF /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F97DCB4219FFBEC7006F17CF /* SDL2_mixer.framework */; };
 		F97DCB4719FFBEC7006F17CF /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F97DCB4319FFBEC7006F17CF /* SDL2_ttf.framework */; };
@@ -32,6 +34,8 @@
 		CB81A5D219FF1EFF00935BA4 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = TP_Codename_WORMS/main.cpp; sourceTree = SOURCE_ROOT; };
 		CB81A5DF19FF230600935BA4 /* CTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTimer.h; path = TP_Codename_WORMS/CTimer.h; sourceTree = SOURCE_ROOT; };
 		CB81A5E019FF230600935BA4 /* CWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWindow.h; path = TP_Codename_WORMS/CWindow.h; sourceTree = SOURCE_ROOT; };
+		CBECA7D91A004E360030E776 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
+		CBECA7DA1A004E360030E776 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
 		F96CFAEA1A0001EB00A114A9 /* CGUIE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUIE.h; path = TP_Codename_WORMS/CGUIE.h; sourceTree = SOURCE_ROOT; };
 		F97DCB4119FFBEC7006F17CF /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
 		F97DCB4219FFBEC7006F17CF /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../../../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
@@ -51,6 +55,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBECA7DB1A004E360030E776 /* SDL2_image.framework in Frameworks */,
+				CBECA7DC1A004E360030E776 /* SDL2_mixer.framework in Frameworks */,
 				F97DCB4519FFBEC7006F17CF /* SDL2_image.framework in Frameworks */,
 				F97DCB4619FFBEC7006F17CF /* SDL2_mixer.framework in Frameworks */,
 				F97DCB4719FFBEC7006F17CF /* SDL2_ttf.framework in Frameworks */,
@@ -64,7 +70,9 @@
 		CB81A5BD19FF1E6800935BA4 = {
 			isa = PBXGroup;
 			children = (
+				CBECA7D91A004E360030E776 /* SDL2_image.framework */,
 				F97DCB4119FFBEC7006F17CF /* SDL2_image.framework */,
+				CBECA7DA1A004E360030E776 /* SDL2_mixer.framework */,
 				F97DCB4219FFBEC7006F17CF /* SDL2_mixer.framework */,
 				F97DCB4319FFBEC7006F17CF /* SDL2_ttf.framework */,
 				F97DCB4419FFBEC7006F17CF /* SDL2.framework */,

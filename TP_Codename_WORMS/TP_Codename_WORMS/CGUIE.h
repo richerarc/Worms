@@ -20,7 +20,7 @@ using namespace std;
  @discussion Classe de base pour les éléments de controles visuels
  */
 class CGUIE {
-private:
+protected:
 	const char* m_strName;
 	string m_strText;
 	CFont* m_Font;
