@@ -1,3 +1,4 @@
 11:00 2014-10-28 : Test du Journal de bord
 14:14 2014-10-28 : Conception du code du CMenus //To do: Arbre?, Finir CMenu(code et commentaires)
 18:07 2014-10-28 : Code pour empecher les doublons dans le CMenus.//To do: Arbre?, Finir CMenu(code et commentaires)
+22:59 2014-10-28 : Petites modif dans CTextBox
