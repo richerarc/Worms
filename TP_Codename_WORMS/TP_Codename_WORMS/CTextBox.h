@@ -30,6 +30,10 @@ public:
 		m_MenuRenderer = _MenuRenderer;
 	}
 	
+	~CTextBox(){
+		SDL_DestroyTexture(m_texture);
+	}
+	
 	void OnClick(int _x, int _y){
 		SDL_Event Event;
 		bool boLoop = true;

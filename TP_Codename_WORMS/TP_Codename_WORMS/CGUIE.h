@@ -45,12 +45,19 @@ public:
 		m_Rect.h = _Rect.h;
 	}
 	
+	~CGUIE(){
+		delete m_Font;
+	}
+	
 	/*!
 	 @method Draw
 	 @brief Fonction virtuel pour dessiner le contrôle visuel sur un Renderer
 	 @param _Renderer : Le renderer sur lequel dessiner
 	 @return Aucun
 	 */
+	
+	virtual void OnClick(int _x, int _y);
+	
 	virtual void Draw(SDL_Renderer* _Renderer);
 	
 		//Accesseur
