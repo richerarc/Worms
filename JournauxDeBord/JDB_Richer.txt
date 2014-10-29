@@ -1,3 +1,5 @@
 Ven. 24 oct. 11h00 :J’ai structuré de façon arbitraire le repo pour organisé les fichiers et ajouté les journaux de bords
 
 Mar. 28 oct. 14h17 : J’ai ajouté les fichier nécéssaire au développement des Éléments visuel (label button etc.) et déclaré les classes sans pour autant les coder. J’ai aussi codé la classe CGUIE (Graphic User Interface Elements) pour que chaque classe dérivées puisse déjà en hériter.
+
+Mar. 28 oct. 21h36 : J’ai enfin fini de coder la textbox, elle est commenté, elle marche Nickel! aussi, j’ai changé par rapport à l’UML, il va falloir le modifié, je m’y met demain!
