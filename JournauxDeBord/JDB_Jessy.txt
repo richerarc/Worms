@@ -1,3 +1,7 @@
-Test
+28 octobre 2014:
 
-Je fais un deuxième test
+Nous avons fait ensemble la réalisation des diagrammes de classes
+qui englobe tout ce qui est en rapport aux Menus.
+
+J'ai commencer le constructeur de la classe CLabel.h et CLabelImage.h,
+il reste à complèter le tout et faire mes commentaires nécessaires.
