@@ -46,6 +46,7 @@ public:
 	}
 	
 	~CGUIE(){
+		delete m_strName;
 		delete m_Font;
 	}
 	

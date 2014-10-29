@@ -40,11 +40,10 @@ public:
 	 @param _y : La position en y du clic
 	 @return Aucun
 	 */
-	void OnClick(int _x, int _y){
+	void OnClick(){
 		SDL_Event Event;
 		bool boLoop = true;
 		bool boShift = false;
-		if ((_x >= m_Rect.x) && (_y >= m_Rect.y) && (_x <= m_Rect.x + m_Rect.w) && (_y <= m_Rect.y + m_Rect.h)){
 			m_strText.push_back('_'); // Jai changer sa parce que sa faisait du caca quand tu rechangait le texte.
 			while (boLoop){
 				while (SDL_PollEvent(&Event)) {
@@ -61,6 +60,7 @@ public:
 									break;
 								case SDLK_ESCAPE:			// Pour sortir de l'édition de la textBox
 								case SDLK_RETURN:			// il faut appuyer sur enter ou sur escape
+								case SDL_MOUSEBUTTONDOWN:
 									boLoop = false;
 									if(*m_strText.rbegin() == '_')
 										m_strText.pop_back();
@@ -94,7 +94,6 @@ public:
 				Draw(m_MenuRenderer);				// On applique les modification de la string
 				SDL_RenderPresent(m_MenuRenderer);  // directement en live à l'écran
 			}
-		}
 	}
 	
 	/*!
