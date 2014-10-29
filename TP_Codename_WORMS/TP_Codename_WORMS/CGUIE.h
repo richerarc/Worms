@@ -55,7 +55,7 @@ public:
 	 @param _Renderer : Le renderer sur lequel dessiner
 	 @return Aucun
 	 */
-	virtual void OnClick(int _x, int _y);
+	virtual void OnClick();
 	
 	virtual void Draw(SDL_Renderer* _Renderer);
 	
@@ -78,6 +78,23 @@ public:
 		m_Rect.w = _iw;
 		m_Rect.h = _ih;
 	}
+
+	unsigned int getX(){
+		return m_Rect.x;
+	}
+
+	unsigned int getY(){
+		return m_Rect.y;
+	}
+
+	unsigned int getWidth(){
+		return m_Rect.w;
+	}
+
+	unsigned int getHeight(){
+		return m_Rect.h;
+	}
+
 };
 
 #endif

@@ -102,4 +102,31 @@ public:
 		return m_pRenderer;
 	}
 
+	/*!
+	@Method ClickEvent.
+	@brief Appelle le bon OnClick.
+	@param  _uiX: Position en x de la souris.
+	@param  _uiY: Position en y de la souris.
+	@return Aucun.
+	*/
+	void ClickEvent(unsigned int _uiX, unsigned int _uiY){
+		CGUIE* Temp;
+		unsigned int uiXTemp, uiYTemp;
+		m_pList->AllerDebut();
+		for (int i = 0; i < m_pList->Count(); i++)
+		{
+			Temp = m_pList->ObtenirElement();
+			uiXTemp = Temp->getX();
+			uiYTemp = Temp->getY();
+			if ((_uiX >= uiXTemp) &&
+				(_uiX <= (uiXTemp + Temp->getWidth())) &&
+				(_uiY >= uiYTemp) &&
+				(_uiY <= (uiYTemp + Temp->getHeight()))){
+				Temp->OnClick();
+				break;
+			}
+			m_pList->AllerSuivant();
+		}
+	}
+
 };
