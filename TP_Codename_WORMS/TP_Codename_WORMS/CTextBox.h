@@ -26,7 +26,7 @@ public:
 	 @param _Rect : le rectangle pour les information d'affichage (position, hauteur largeur)
 	 */
 	CTextBox(const char* _Name, string _strText, CFont* _Font, SDL_Rect _Rect, SDL_Renderer* _MenuRenderer) : CGUIE(_Name, _strText, _Font, _Rect){
-		m_strText = "";
+		m_strText = "";// Jai changer sa parce que sa faisait du caca quand tu rechangait le texte.
 		m_MenuRenderer = _MenuRenderer;
 	}
 	
@@ -45,7 +45,7 @@ public:
 		bool boLoop = true;
 		bool boShift = false;
 		if ((_x >= m_Rect.x) && (_y >= m_Rect.y) && (_x <= m_Rect.x + m_Rect.w) && (_y <= m_Rect.y + m_Rect.h)){
-			m_strText.push_back('_');
+			m_strText.push_back('_'); // Jai changer sa parce que sa faisait du caca quand tu rechangait le texte.
 			while (boLoop){
 				while (SDL_PollEvent(&Event)) {
 					switch (Event.type){
