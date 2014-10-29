@@ -70,10 +70,14 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CButton.h" />
     <ClInclude Include="CGUIE.h" />
+    <ClInclude Include="CLabel.h" />
+    <ClInclude Include="CListBox.h" />
     <ClInclude Include="CListeDC.h" />
     <ClInclude Include="CMenu.h" />
     <ClInclude Include="CRessource.h" />
+    <ClInclude Include="CTextBox.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="CWindow.h" />
   </ItemGroup>

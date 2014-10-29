@@ -26,7 +26,7 @@ public:
 	 @param _Rect : le rectangle pour les information d'affichage (position, hauteur largeur)
 	 */
 	CTextBox(const char* _Name, string _strText, CFont* _Font, SDL_Rect _Rect, SDL_Renderer* _MenuRenderer) : CGUIE(_Name, _strText, _Font, _Rect){
-		m_strText = "_";
+		m_strText = "";
 		m_MenuRenderer = _MenuRenderer;
 	}
 	
@@ -45,12 +45,13 @@ public:
 		bool boLoop = true;
 		bool boShift = false;
 		if ((_x >= m_Rect.x) && (_y >= m_Rect.y) && (_x <= m_Rect.x + m_Rect.w) && (_y <= m_Rect.y + m_Rect.h)){
+			m_strText.push_back('_');
 			while (boLoop){
 				while (SDL_PollEvent(&Event)) {
 					switch (Event.type){
 						case SDL_KEYUP:
 							if ((Event.key.keysym.sym == SDLK_RSHIFT) || (Event.key.keysym.sym == SDLK_LSHIFT))
-								boShift = true;
+								boShift = false; // J'ai (kevin) changer sa sinon des que tu pesait shift c'était en uppercase FOREVER : Modified boShift = true;
 							break;
 						case SDL_KEYDOWN:
 							switch (Event.key.keysym.sym) {
@@ -65,8 +66,16 @@ public:
 										m_strText.pop_back();
 									break;
 								case SDLK_BACKSPACE:
+									/*
+									J'ai(Kevin) changer sa pour regler un plantage quand on backspace le dernier caractere.
 									if (!m_strText.empty())
 										m_strText.pop_back();
+									*/
+									if (m_strText != "_"){
+										m_strText.pop_back();
+										m_strText.pop_back();
+										m_strText.push_back('_');
+									}
 									break;
 								default:
 									if (m_strText.length() < 20) {
