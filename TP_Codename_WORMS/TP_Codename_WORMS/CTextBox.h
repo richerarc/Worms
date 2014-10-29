@@ -34,6 +34,12 @@ public:
 		SDL_DestroyTexture(m_texture);
 	}
 	
+	/*!
+	 @method OnClick
+	 @param _x : La position en x du clic
+	 @param _y : La position en y du clic
+	 @return Aucun
+	 */
 	void OnClick(int _x, int _y){
 		SDL_Event Event;
 		bool boLoop = true;
@@ -52,8 +58,8 @@ public:
 								case SDLK_RSHIFT:
 									boShift = true;
 									break;
-								case SDLK_ESCAPE:
-								case SDLK_RETURN:
+								case SDLK_ESCAPE:			// Pour sortir de l'édition de la textBox
+								case SDLK_RETURN:			// il faut appuyer sur enter ou sur escape
 									boLoop = false;
 									if(*m_strText.rbegin() == '_')
 										m_strText.pop_back();
@@ -76,12 +82,18 @@ public:
 					}
 					break;
 				}
-				Draw(m_MenuRenderer);
-				SDL_RenderPresent(m_MenuRenderer);
+				Draw(m_MenuRenderer);				// On applique les modification de la string
+				SDL_RenderPresent(m_MenuRenderer);  // directement en live à l'écran
 			}
 		}
 	}
 	
+	/*!
+	 @method Draw
+	 @brief Fonction virtuel pour dessiner le contrôle visuel sur un Renderer
+	 @param _Renderer : Le renderer sur lequel dessiner
+	 @return Aucun
+	 */
 	void Draw(SDL_Renderer* _Renderer){
 		m_Font->setFontColor(SDL_Color{0,0,0,255});
 		SDL_SetRenderDrawColor(_Renderer, 255, 255, 255, 255);
