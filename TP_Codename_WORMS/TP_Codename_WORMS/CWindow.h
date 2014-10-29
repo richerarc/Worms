@@ -34,7 +34,6 @@ public:
 	}
 
 	void Refresh(){
-
 		SDL_RenderPresent(m_pSDLRenderer);
 	}
 
