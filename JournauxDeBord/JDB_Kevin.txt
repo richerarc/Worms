@@ -2,3 +2,4 @@
 14:14 2014-10-28 : Conception du code du CMenus //To do: Arbre?, Finir CMenu(code et commentaires)
 18:07 2014-10-28 : Code pour empecher les doublons dans le CMenus.//To do: Arbre?, Finir CMenu(code et commentaires)
 22:59 2014-10-28 : Petites modif dans CTextBox
+17:00 2014-10-29 : Je pense que jai terminer la classe CMenus... Jai fait des modifications dans le code de CGUIE(Arrenger le OnClick et ajouter des acesseurs).
