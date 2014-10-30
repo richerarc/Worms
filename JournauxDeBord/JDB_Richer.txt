@@ -3,3 +3,9 @@ Ven. 24 oct. 11h00 :J’ai structuré de façon arbitraire le repo pour organisé les
 Mar. 28 oct. 14h17 : J’ai ajouté les fichier nécéssaire au développement des Éléments visuel (label button etc.) et déclaré les classes sans pour autant les coder. J’ai aussi codé la classe CGUIE (Graphic User Interface Elements) pour que chaque classe dérivées puisse déjà en hériter.
 
 Mar. 28 oct. 21h36 : J’ai enfin fini de coder la textbox, elle est commenté, elle marche Nickel! aussi, j’ai changé par rapport à l’UML, il va falloir le modifié, je m’y met demain!
+
+Mer. 29 oct. 16h12 : J’ai fait une refonte complète de l’UML des Menus, et je l’ai porté sur un repo GenMyModel.
+
+Mer. 29 oct. 22h47 : J’ai Fini de coder les classes CListboxItem, et ses deux dérivé, il manque encore de commentaire. j’ai commencé la listBox mais pas terminer.
+
+Mer. 29 oct. 23h00 : Ajout des commentaire dans CListBox.h

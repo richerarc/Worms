@@ -36,8 +36,8 @@ public:
 	
 	/*!
 	 @method OnClick
-	 @param _x : La position en x du clic
-	 @param _y : La position en y du clic
+	 @brief Méthode pour gérer l'events d'un clic de souri, recu par le menu
+	 @param Aucun
 	 @return Aucun
 	 */
 	void OnClick(){
