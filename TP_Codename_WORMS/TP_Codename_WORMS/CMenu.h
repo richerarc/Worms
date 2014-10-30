@@ -1,3 +1,12 @@
+//
+//  CMenu.h
+//  TP_Codename_WORMS
+//
+//  Créé par Kevin Pantelakis le 2014-10-28.
+//  Mise à jour par Kevin Pantelakis le 2014-10-29
+//  
+//
+
 /*!
 @class CMenus
 @discussion Classe qui représente les menus
@@ -16,7 +25,7 @@ public:
 	*/
 	CMenu(SDL_Window* _Window){
 		m_pList = new CListeDC < CGUIE* >;
-		m_pRenderer = SDL_CreateRenderer(_Window, -1, NULL);
+		m_pRenderer = SDL_CreateRenderer(_Window, -1, SDL_RENDERER_ACCELERATED);
 	}
 
 	~CMenu(){
@@ -66,16 +75,16 @@ public:
 	/*!
 	@Method setOnCreenPos
 	@brief Définit un nouvel emplacement pour le contrôle visuel.
-	@param  _Element: Contrôle visuel à ajouter
+	@param  _chrName: Nom du Contrôle Visuel.
 	@param  _uiX: Position en x
 	@param  _uiY: Position en y
 	@return Aucun.
 	*/
-	void setOnScreenPos(const char* _Name, unsigned int _uiX, unsigned int _uiY){
+	void setOnScreenPos(const char* _chrName, unsigned int _uiX, unsigned int _uiY){
 		m_pList->AllerDebut();
 		for (int i = 0; i < m_pList->Count(); i++)
 		{
-			if (m_pList->ObtenirElement()->getName() == _Name){
+			if (m_pList->ObtenirElement()->getName() == _chrName){
 				m_pList->ObtenirElement()->setPos(_uiX, _uiY);
 				break;
 			}
@@ -86,21 +95,39 @@ public:
 	/*!
 	@Method setSize
 	@brief Modifie la taille du contrôle visuel.
-	@param  _Name: Nom du controle a changer.
+	@param  _chrName: Nom du controle a changer.
 	@param  _uiWidth: Largueur.
 	@param  _uiHeight: Hauteur.
 	@return Aucun.
 	*/
-	void setSize(const char* _Name, unsigned int _uiWidth, unsigned int _uiHeight){
+	void setSize(const char* _chrName, unsigned int _uiWidth, unsigned int _uiHeight){
 		m_pList->AllerDebut();
 		for (int i = 0; i < m_pList->Count(); i++)
 		{
-			if (m_pList->ObtenirElement()->getName() == _Name){
+			if (m_pList->ObtenirElement()->getName() == _chrName){
 				m_pList->ObtenirElement()->setPos(_uiWidth, _uiHeight);
 				break;
 			}
 			m_pList->AllerSuivant();
 		}
+	}
+
+	/*!
+	@Method getElement
+	@brief : Obtient le contrôle visuel désiré
+	@param  _chrName: Nom du controle a trouver.
+	@return Le controle visuel rechercher si il est présent.
+	@return nullptr si le controle ne fait pas parti de la liste.
+	*/
+	CGUIE* getElement(const char* _chrName){
+		m_pList->AllerDebut();
+		for (int i = 0; i < m_pList->Count(); i++)
+		{
+			if (m_pList->ObtenirElement()->getName() == _chrName)
+				return m_pList->ObtenirElement();
+			m_pList->AllerSuivant();
+		}
+		return nullptr;
 	}
 
 	SDL_Renderer* getRenderer(){
