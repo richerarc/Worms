@@ -56,9 +56,9 @@ public:
 	 @param _Renderer : Le renderer sur lequel dessiner
 	 @return Aucun
 	 */
-	virtual void OnClick();
+	virtual void OnClick(){};
 	
-	virtual void Draw(SDL_Renderer* _Renderer);
+	virtual void Draw(SDL_Renderer* _Renderer){};
 	
 		//Accesseur
 

@@ -16,7 +16,12 @@ public:
 	*/
 	CMenu(SDL_Window* _Window){
 		m_pList = new CListeDC < CGUIE* >;
-		SDL_CreateRenderer(_Window, NULL, NULL);
+		m_pRenderer = SDL_CreateRenderer(_Window, -1, NULL);
+	}
+
+	~CMenu(){
+		SDL_DestroyRenderer(m_pRenderer);
+		delete m_pList;
 	}
 
 	/*!
@@ -47,7 +52,7 @@ public:
 	@Method Render
 	@brief Appelle la fonction Draw de chaque contrôle visuel dans la liste.
 	@param  Aucun
-	@return false si il y un doublon et ne l'ajoute pas à la liste.
+	@return Aucun.
 	*/
 	void Render(){
 		m_pList->AllerDebut();
