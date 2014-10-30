@@ -24,11 +24,11 @@ public:
 	/*!
 	@Constructeur
 	@Description: Permet d'initialiser les données membres
-	@Paramètres: Le nom du labelImage afin de l'identifier, sa position en x et y, le text à l'intérieur, le font et le rect.
+	@Paramètres: Le nom du labelImage afin de l'identifier, le text à l'intérieur, le font et le rect.
 	@Classe héritant de CGUIE, donc elle passe les paramètres nécessaires au constructeur de CGUIE
 	*/
 
-	CLabel(const char* _Name, int _iX, int _iY, const char* _strText, CFont* _Font, SDL_Rect _Rect) :CGUIE(_Name, _strText, _Font, _Rect){
+	CLabel(const char* _Name, const char* _strText, CFont* _Font, SDL_Rect _Rect) :CGUIE(_Name, _strText, _Font, _Rect){
 
 	}
 	/*!
@@ -59,12 +59,6 @@ public:
 	int ObtenirHeight(){
 		return m_Rect.h;
 	}
-	int ObtenirPosImageX(){
-		return m_Rect.x;
-	}
-	int ObtenirPosImageY(){
-		return m_Rect.y;
-	}
 };
 
 
@@ -83,10 +77,10 @@ public:
 	/*!
 	@Constructeur
 	@Description: Permet d'initialiser les données membres
-	@Paramètres: Le nom du labelImage afin de l'identifier, sa position en x et y, le text à l'intérieur, le font et le rect, et la texture contenant l'image.
+	@Paramètres: Le nom du labelImage afin de l'identifier, le text à l'intérieur, le font et le rect, et la texture contenant l'image.
 	@Classe héritant de CGUIE, donc elle passe les paramètres nécessaires au constructeur de CGUIE
 	*/
-	CLabelImage(const char* _Name, int _iX, int _iY, const char* _strText, CFont* _Font, SDL_Rect _Rect, SDL_Texture* _Texture) :CLabel(_Name, _iX, _iY, _strText, _Font, _Rect){
+	CLabelImage(const char* _Name, const char* _strText, CFont* _Font, SDL_Rect _Rect, SDL_Texture* _Texture) :CLabel(_Name,, _strText, _Font, _Rect){
 		m_pTexture = _Texture;
 	}
 	/*!
@@ -118,12 +112,6 @@ public:
 	}
 	int ObtenirHeight(){
 		return m_Rect.h;
-	}
-	int ObtenirPosImageX(){
-		return m_Rect.x;
-	}
-	int ObtenirPosImageY(){
-		return m_Rect.y;
 	}
 };
 
