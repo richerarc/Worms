@@ -15,22 +15,43 @@ class CMenu{
 private:
 	CListeDC<CGUIE*>* m_pList;
 	SDL_Renderer* m_pRenderer;
+	bool m_boMenuActif;
 public:
 
+
+	//Pour une raison obscure un fenetre ne peut contenir plus d'un renderer.
 	/*!
 	@ Constructeur
 	@brief Initialise les données membres
 	@param _Window : Fenêtre ou afficher le renderer
 	@return l'adresse mémoire de l'objet
 	*/
+	CMenu(SDL_Renderer* _Renderer){
+		m_pList = new CListeDC < CGUIE* >;
+		m_pRenderer = _Renderer;
+		m_boMenuActif = false;
+	}
+
+	/*
 	CMenu(SDL_Window* _Window){
 		m_pList = new CListeDC < CGUIE* >;
 		m_pRenderer = SDL_CreateRenderer(_Window, -1, SDL_RENDERER_ACCELERATED);
+		m_boMenuActif = false;
 	}
+	*/
+
 
 	~CMenu(){
 		SDL_DestroyRenderer(m_pRenderer);
 		delete m_pList;
+	}
+
+	void ActivateMenu(){
+		m_boMenuActif = true;
+	}
+
+	void DisableMenu(){
+		m_boMenuActif = false;
 	}
 
 	/*!
@@ -64,11 +85,14 @@ public:
 	@return Aucun.
 	*/
 	void Render(){
-		m_pList->AllerDebut();
-		for (int i = 0; i < m_pList->Count(); i++)
+		if (m_boMenuActif)
 		{
-			m_pList->ObtenirElement()->Draw(m_pRenderer);
-			m_pList->AllerSuivant();
+			m_pList->AllerDebut();
+			for (int i = 0; i < m_pList->Count(); i++)
+			{
+				m_pList->ObtenirElement()->Draw(m_pRenderer);
+				m_pList->AllerSuivant();
+			}
 		}
 	}
 
@@ -142,22 +166,25 @@ public:
 	@return Aucun.
 	*/
 	void ClickEvent(unsigned int _uiX, unsigned int _uiY){
-		CGUIE* Temp;
-		unsigned int uiXTemp, uiYTemp;
-		m_pList->AllerDebut();
-		for (int i = 0; i < m_pList->Count(); i++)
+		if (m_boMenuActif)
 		{
-			Temp = m_pList->ObtenirElement();
-			uiXTemp = Temp->getX();
-			uiYTemp = Temp->getY();
-			if ((_uiX >= uiXTemp) &&
-				(_uiX <= (uiXTemp + Temp->getWidth())) &&
-				(_uiY >= uiYTemp) &&
-				(_uiY <= (uiYTemp + Temp->getHeight()))){
-				Temp->OnClick();
-				break;
+			CGUIE* Temp;
+			unsigned int uiXTemp, uiYTemp;
+			m_pList->AllerDebut();
+			for (int i = 0; i < m_pList->Count(); i++)
+			{
+				Temp = m_pList->ObtenirElement();
+				uiXTemp = Temp->getX();
+				uiYTemp = Temp->getY();
+				if ((_uiX >= uiXTemp) &&
+					(_uiX <= (uiXTemp + Temp->getWidth())) &&
+					(_uiY >= uiYTemp) &&
+					(_uiY <= (uiYTemp + Temp->getHeight()))){
+					Temp->OnClick();
+					break;
+				}
+				m_pList->AllerSuivant();
 			}
-			m_pList->AllerSuivant();
 		}
 	}
 
