@@ -16,7 +16,12 @@ public:
 	*/
 	CMenu(SDL_Window* _Window){
 		m_pList = new CListeDC < CGUIE* >;
-		SDL_CreateRenderer(_Window, NULL, NULL);
+		m_pRenderer = SDL_CreateRenderer(_Window, -1, NULL);
+	}
+
+	~CMenu(){
+		SDL_DestroyRenderer(m_pRenderer);
+		delete m_pList;
 	}
 
 	/*!
