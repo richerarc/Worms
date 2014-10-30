@@ -15,6 +15,7 @@ class CMenu{
 private:
 	CListeDC<CGUIE*>* m_pList;
 	SDL_Renderer* m_pRenderer;
+	SDL_Rect m_MenuDimension;
 	bool m_boMenuActif;
 public:
 
@@ -26,11 +27,16 @@ public:
 	@param _Window : Fenêtre ou afficher le renderer
 	@return l'adresse mémoire de l'objet
 	*/
-	CMenu(SDL_Renderer* _Renderer){
+	CMenu(SDL_Renderer* _Renderer, SDL_Rect _PositionDimension){
 		m_pList = new CListeDC < CGUIE* >;
 		m_pRenderer = _Renderer;
+		m_MenuDimension.x = _PositionDimension.x;
+		m_MenuDimension.y = _PositionDimension.y;
+		m_MenuDimension.w = _PositionDimension.w;
+		m_MenuDimension.h = _PositionDimension.h;
 		m_boMenuActif = false;
 	}
+
 
 	/*
 	CMenu(SDL_Window* _Window){
@@ -42,7 +48,7 @@ public:
 
 
 	~CMenu(){
-		SDL_DestroyRenderer(m_pRenderer);
+		//SDL_DestroyRenderer(m_pRenderer);
 		delete m_pList;
 	}
 
@@ -50,8 +56,12 @@ public:
 		m_boMenuActif = true;
 	}
 
-	void DisableMenu(){
+	void DeActivateMenu(){
 		m_boMenuActif = false;
+	}
+
+	bool IsActive(){
+		return m_boMenuActif;
 	}
 
 	/*!
@@ -66,6 +76,7 @@ public:
 	@return false si il y un doublon et ne l'ajoute pas à la liste.
 	*/
 	bool AddElement(CGUIE* _Element, unsigned int _uiX, unsigned int _uiY, unsigned int _uiW, unsigned int _uiH){
+		m_pList->AllerDebut();
 		for (int i = 0; i < m_pList->Count(); i++)
 		{
 			if (m_pList->ObtenirElement()->getName() == _Element->getName())
