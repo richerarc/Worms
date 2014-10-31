@@ -20,7 +20,6 @@ private:
 public:
 
 
-	//Pour une raison obscure un fenetre ne peut contenir plus d'un renderer.
 	/*!
 	@ Constructeur
 	@brief Initialise les données membres
@@ -38,17 +37,7 @@ public:
 	}
 
 
-	/*
-	CMenu(SDL_Window* _Window){
-		m_pList = new CListeDC < CGUIE* >;
-		m_pRenderer = SDL_CreateRenderer(_Window, -1, SDL_RENDERER_ACCELERATED);
-		m_boMenuActif = false;
-	}
-	*/
-
-
 	~CMenu(){
-		//SDL_DestroyRenderer(m_pRenderer);
 		delete m_pList;
 	}
 
@@ -65,7 +54,7 @@ public:
 	}
 
 	/*!
-	@Method AddElement
+	@method AddElement
 	@brief Ajoute un Contrôle visuel dans une liste.
 	@param  _Element: Contrôle visuel à ajouter
 	@param  _uiX: Position en x
@@ -90,7 +79,7 @@ public:
 	}
 
 	/*!
-	@Method Render
+	@method Render
 	@brief Appelle la fonction Draw de chaque contrôle visuel dans la liste.
 	@param  Aucun
 	@return Aucun.
@@ -108,7 +97,7 @@ public:
 	}
 
 	/*!
-	@Method setOnCreenPos
+	@method setOnCreenPos
 	@brief Définit un nouvel emplacement pour le contrôle visuel.
 	@param  _chrName: Nom du Contrôle Visuel.
 	@param  _uiX: Position en x
@@ -128,7 +117,7 @@ public:
 	}
 
 	/*!
-	@Method setSize
+	@method setSize
 	@brief Modifie la taille du contrôle visuel.
 	@param  _chrName: Nom du controle a changer.
 	@param  _uiWidth: Largueur.
@@ -148,7 +137,7 @@ public:
 	}
 
 	/*!
-	@Method getElement
+	@method getElement
 	@brief : Obtient le contrôle visuel désiré
 	@param  _chrName: Nom du controle a trouver.
 	@return Le controle visuel rechercher si il est présent.
@@ -170,13 +159,15 @@ public:
 	}
 
 	/*!
-	@Method ClickEvent.
+	@method ClickEvent.
 	@brief Appelle le bon OnClick.
 	@param  _uiX: Position en x de la souris.
 	@param  _uiY: Position en y de la souris.
 	@return Aucun.
 	*/
 	void ClickEvent(unsigned int _uiX, unsigned int _uiY){
+		MousePosOnClick::x = _uiX;
+		MousePosOnClick::y = _uiY;
 		if (m_boMenuActif)
 		{
 			CGUIE* Temp;

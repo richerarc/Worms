@@ -9,6 +9,16 @@
 #ifndef TP_Codename_WORMS_CListBox_h
 #define TP_Codename_WORMS_CListBox_h
 
+
+
+struct MousePosOnClick {
+	static int x;
+	static int y;
+};
+
+int MousePosOnClick::x = 0;
+int MousePosOnClick::y = 0;
+
 /*!
  @class CListBoxItem
  @discussion Classe de base pour implémenter un element de listbox.
@@ -227,7 +237,8 @@ public:
 	 @return Aucun
 	 */
 	void OnClick(){
-		//TODO
+		OnClickAction();
+		
 	}
 };
 
