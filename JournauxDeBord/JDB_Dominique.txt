@@ -1,3 +1,7 @@
 28 oct
 J'ai ajouté des méthodes pour Pauser/DéPauser la minuterie dans CTimer.h et 
 j'y ai ajouté des commentaires pour plus de clarté.
+
+2 nov
+J'ai créé et ajouté la classe CGestionnaireRessources, qui utilise la liste fournie par Kevin 
+et la classe CRessource.
