@@ -9,3 +9,4 @@
 
 3 Novembre 2014
 15h00 - J'ai recommencé la classe CButton au complet, j'ai codé une grande partie. Il mamque a coder comme il faut la procedure OnClick.
+15h45 - Ajout de commentaires dans le code de la classe CButton
