@@ -100,8 +100,6 @@ public:
 				case SDL_KEYDOWN:
 					for (int i = 0; i < m_pList->Count(); i++){
 						Temp = m_pList->ObtenirElement();
-						uiXTemp = Temp->getX();
-						uiYTemp = Temp->getY();
 						if (Temp->isFocussed()){
 							Temp->HandleEvent(_Event);
 							break;
