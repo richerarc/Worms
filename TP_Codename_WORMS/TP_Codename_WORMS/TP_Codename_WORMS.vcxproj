@@ -74,7 +74,6 @@
     <ClInclude Include="CGestionnaireRessources.h" />
     <ClInclude Include="CGUIE.h" />
     <ClInclude Include="CLabel.h" />
-    <ClInclude Include="CListBox.h" />
     <ClInclude Include="CListeDC.h" />
     <ClInclude Include="CMenu.h" />
     <ClInclude Include="CRessource.h" />
