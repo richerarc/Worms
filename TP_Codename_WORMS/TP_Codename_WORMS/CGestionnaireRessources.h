@@ -10,7 +10,7 @@ Discussion : Classe pour implémenté un gestionnaire des ressources
 
 class CGestionnaireRessources{
 private:
-	ClisteDC<CRessource>* m_pListeRessources;
+	CListeDC<CRessource*>* m_pListeRessources;
 public:
 	//Constructeur...
 	CGestionnaireRessources(){
