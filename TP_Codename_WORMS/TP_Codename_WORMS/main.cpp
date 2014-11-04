@@ -14,6 +14,7 @@
 
 #include "CTimer.h"
 #include "CListeDC.h"
+#include "CGestionnaireRessources.h"
 #include "CWindow.h"
 #include "CGUIE.h"
 #include "CLabel.h"

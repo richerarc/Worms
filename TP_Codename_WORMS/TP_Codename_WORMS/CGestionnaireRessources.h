@@ -6,7 +6,6 @@
 Classe : CGestionnaireRessources
 Discussion : Classe pour implémenté un gestionnaire des ressources
 */
-#include "CListeDC.h"
 #include "CRessource.h"
 
 class CGestionnaireRessources{
