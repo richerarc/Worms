@@ -18,7 +18,6 @@
 #include "CGUIE.h"
 #include "CLabel.h"
 #include "CButton.h"
-#include "CListBox.h"
 #include "CTextBox.h"
 #include "CChoiceLabel.h"
 #include "CMenu.h"
