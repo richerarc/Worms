@@ -5,3 +5,6 @@ j'y ai ajouté des commentaires pour plus de clarté.
 2 nov
 J'ai créé et ajouté la classe CGestionnaireRessources, qui utilise la liste fournie par Kevin 
 et la classe CRessource.
+
+4 nov
+Addition de CGestionnaireRessources (erreur la première fois) et ajout de GetName dans CRessource
