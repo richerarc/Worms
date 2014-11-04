@@ -12,3 +12,6 @@
 		  J'ai enlever des commentaires inutiles dans CTextBox.
 		  Il va surment falloir repenser le design de nos menus.
 	          CMenus finalement non terminé.
+
+18:00 2014-11-04: Aujourdhui j'ai commencer a monter les menus et a placer les boutons je ferai les tests plus tard 
+		  Je crois qu'il y a du code superflux j'en parlerai aux autres jeudi.
