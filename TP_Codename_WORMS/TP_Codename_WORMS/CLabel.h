@@ -96,7 +96,6 @@ public:
 	@Permet de détruire les objets créés en mémoire
 	*/
 	~CLabelImage(){
-		SDL_DestroyTexture(m_pTexture);
 	}
 	/*!
 	@Méthode Draw:

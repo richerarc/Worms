@@ -29,20 +29,24 @@ public:
 		m_Sprite = _Sprite;
 		//m_Sprite->Pause();
 	}
+
 	/*!
 	@method *OnClickAction
 	@return null
 	*/
 	void(*OnClickAction)();
+
 	/*!
 	@method Onclick
 	@return null
 	*/
 	void OnClick(){
 		if (OnClickAction != nullptr){
-			m_Sprite->setCurrentAnimation(2);
+			OnClickAction();
 		}
+		m_Sprite->setCurrentAnimation(2);
 	}
+
 	/*!
 	@method Draw
 	@param _Renderer : Renderer pour rendre le textures du Sprite et du texte du bouton
@@ -53,11 +57,11 @@ public:
 		m_Font->setFontColor(SDL_Color{ 0, 0, 0, 0 });
 		m_Font->RenderText(_Renderer, m_strText.c_str(), m_Rect.x, m_Rect.y);
 	}
+
 	/*!
 	@method Destructeur : Permet de détruire les objets créés en mémoire
 	*/
 	~CButton(){
-		delete m_Sprite;
 	}
 	
 };
