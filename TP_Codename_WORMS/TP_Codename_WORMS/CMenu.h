@@ -73,8 +73,6 @@ public:
 	@return Aucun.
 	*/
 	void ClickEvent(unsigned int _uiX, unsigned int _uiY){
-		MousePosOnClick::x = _uiX;
-		MousePosOnClick::y = _uiY;
 		if (m_boMenuActif)
 		{
 			CGUIE* Temp;
