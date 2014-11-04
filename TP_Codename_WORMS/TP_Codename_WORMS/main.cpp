@@ -20,6 +20,7 @@
 #include "CButton.h"
 #include "CListBox.h"
 #include "CTextBox.h"
+#include "CChoiceLabel.h"
 #include "CMenu.h"
 
 #define WIDTH 1280

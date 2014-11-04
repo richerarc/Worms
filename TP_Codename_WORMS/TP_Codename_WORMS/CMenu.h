@@ -15,50 +15,37 @@ class CMenu{
 private:
 	CListeDC<CGUIE*>* m_pList;
 	SDL_Renderer* m_pRenderer;
-	SDL_Rect m_MenuDimension;
+	SDL_Rect m_MenuInfo;
 	bool m_boMenuActif;
 public:
 
-
 	/*!
 	@ Constructeur
-	@brief Initialise les données membres
-	@param _Window : Fenêtre ou afficher le renderer
-	@return l'adresse mémoire de l'objet
+	@brief Initialise les données membres.
+	@param _Renderer : Renderer de la fenetre.
+	@param _PositionDimension : Informations sur la position et la dimension de la fênetre.
+	@return l'adresse mémoire de l'objet.
 	*/
 	CMenu(SDL_Renderer* _Renderer, SDL_Rect _PositionDimension){
 		m_pList = new CListeDC < CGUIE* >;
 		m_pRenderer = _Renderer;
-		m_MenuDimension.x = _PositionDimension.x;
-		m_MenuDimension.y = _PositionDimension.y;
-		m_MenuDimension.w = _PositionDimension.w;
-		m_MenuDimension.h = _PositionDimension.h;
+		m_MenuInfo.x = _PositionDimension.x;
+		m_MenuInfo.y = _PositionDimension.y;
+		m_MenuInfo.w = _PositionDimension.w;
+		m_MenuInfo.h = _PositionDimension.h;
 		m_boMenuActif = false;
 	}
-
 
 	~CMenu(){
 		delete m_pList;
-	}
-
-	void ActivateMenu(){
-		m_boMenuActif = true;
-	}
-
-	void DeActivateMenu(){
-		m_boMenuActif = false;
-	}
-
-	bool IsActive(){
-		return m_boMenuActif;
 	}
 
 	/*!
 	@method AddElement
 	@brief Ajoute un Contrôle visuel dans une liste.
 	@param  _Element: Contrôle visuel à ajouter
-	@param  _uiX: Position en x
-	@param  _uiY: Position en y
+	@param  _uiX: Position en x par rapport a la position du menu.
+	@param  _uiY: Position en y par rapport a la position du menu.
 	@param  _uiW: Largueur du contrôle
 	@param  _uiH: Hauteur du contrôle
 	@return true si il n'y avait aucun doublon et ajoute l'objet
@@ -72,10 +59,42 @@ public:
 				return false;
 			m_pList->AllerSuivant();
 		}
-		_Element->setPos(_uiX, _uiY);
+		_Element->setPos(m_MenuInfo.x + _uiX, m_MenuInfo.y + _uiY);
 		_Element->setSize(_uiW, _uiH);
 		m_pList->AjouterFin(_Element);
 		return true;
+	}
+
+	/*!
+	@method ClickEvent.
+	@brief Appelle le bon OnClick.
+	@param  _uiX: Position en x de la souris.
+	@param  _uiY: Position en y de la souris.
+	@return Aucun.
+	*/
+	void ClickEvent(unsigned int _uiX, unsigned int _uiY){
+		MousePosOnClick::x = _uiX;
+		MousePosOnClick::y = _uiY;
+		if (m_boMenuActif)
+		{
+			CGUIE* Temp;
+			unsigned int uiXTemp, uiYTemp;
+			m_pList->AllerDebut();
+			for (int i = 0; i < m_pList->Count(); i++)
+			{
+				Temp = m_pList->ObtenirElement();
+				uiXTemp = Temp->getX();
+				uiYTemp = Temp->getY();
+				if ((_uiX >= uiXTemp) &&
+					(_uiX <= (uiXTemp + Temp->getWidth())) &&
+					(_uiY >= uiYTemp) &&
+					(_uiY <= (uiYTemp + Temp->getHeight()))){
+					Temp->OnClick();
+					break;
+				}
+				m_pList->AllerSuivant();
+			}
+		}
 	}
 
 	/*!
@@ -114,6 +133,18 @@ public:
 			}
 			m_pList->AllerSuivant();
 		}
+	}
+
+	void ActivateMenu(){
+		m_boMenuActif = true;
+	}
+
+	void DeActivateMenu(){
+		m_boMenuActif = false;
+	}
+
+	bool IsActive(){
+		return m_boMenuActif;
 	}
 
 	/*!
@@ -156,38 +187,6 @@ public:
 
 	SDL_Renderer* getRenderer(){
 		return m_pRenderer;
-	}
-
-	/*!
-	@method ClickEvent.
-	@brief Appelle le bon OnClick.
-	@param  _uiX: Position en x de la souris.
-	@param  _uiY: Position en y de la souris.
-	@return Aucun.
-	*/
-	void ClickEvent(unsigned int _uiX, unsigned int _uiY){
-		MousePosOnClick::x = _uiX;
-		MousePosOnClick::y = _uiY;
-		if (m_boMenuActif)
-		{
-			CGUIE* Temp;
-			unsigned int uiXTemp, uiYTemp;
-			m_pList->AllerDebut();
-			for (int i = 0; i < m_pList->Count(); i++)
-			{
-				Temp = m_pList->ObtenirElement();
-				uiXTemp = Temp->getX();
-				uiYTemp = Temp->getY();
-				if ((_uiX >= uiXTemp) &&
-					(_uiX <= (uiXTemp + Temp->getWidth())) &&
-					(_uiY >= uiYTemp) &&
-					(_uiY <= (uiYTemp + Temp->getHeight()))){
-					Temp->OnClick();
-					break;
-				}
-				m_pList->AllerSuivant();
-			}
-		}
 	}
 
 };
