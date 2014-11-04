@@ -36,6 +36,7 @@ private:
 	SDL_Texture* m_pTexture;	// membre pour l'affichage du texte
 	SDL_Color m_Color;			// Membre pour la couleur du texte
 	SDL_Rect m_Rect;			// Section de l'affichage
+	int iSize;                  //Représente la taille de la police de caractère
 public:
 	
 	/*!
@@ -57,6 +58,10 @@ public:
 		//Accesseur
 	void setFontColor(SDL_Color _Color){
 		m_Color = _Color;
+	}
+
+	int getFontSize(){
+		return iSize;
 	}
 	
 	/*!
