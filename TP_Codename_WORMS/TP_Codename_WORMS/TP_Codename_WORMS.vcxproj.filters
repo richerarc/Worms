@@ -44,9 +44,6 @@
     <ClInclude Include="CLabel.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="CListBox.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="CTextBox.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
