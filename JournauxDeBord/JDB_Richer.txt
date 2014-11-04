@@ -9,3 +9,4 @@ Mer. 29 oct. 16h12 : J’ai fait une refonte complète de l’UML des Menus, et je l’
 Mer. 29 oct. 22h47 : J’ai Fini de coder les classes CListboxItem, et ses deux dérivé, il manque encore de commentaire. j’ai commencé la listBox mais pas terminer.
 
 Mer. 29 oct. 23h00 : Ajout des commentaire dans CListBox.h
+Mar. 03 nov. 17h40 : Retrait de la listBox, modification majeure de la gestion des event dans les controle visuels et dans cMenu, ajout des Map de base pour l'affichage, et ajout du fichier Declarationmenu.h.
