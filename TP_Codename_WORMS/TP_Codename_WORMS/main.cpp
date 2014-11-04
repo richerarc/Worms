@@ -12,6 +12,9 @@
 #include <SDL2\SDL_mixer.h>
 #endif
 
+#define WIDTH 1280
+#define HEIGHT 720
+
 #include "CTimer.h"
 #include "CListeDC.h"
 #include "CGestionnaireRessources.h"
@@ -23,8 +26,7 @@
 #include "CMenu.h"
 #include "MenuDeclaration.h"
 
-#define WIDTH 1280
-#define HEIGHT 720
+
 
 
 

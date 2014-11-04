@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CButton.h" />
+    <ClInclude Include="CGestionnaireRessources.h" />
     <ClInclude Include="CGUIE.h" />
     <ClInclude Include="CLabel.h" />
     <ClInclude Include="CListBox.h" />
@@ -80,6 +81,7 @@
     <ClInclude Include="CTextBox.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="CWindow.h" />
+    <ClInclude Include="MenuDeclaration.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
