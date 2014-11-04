@@ -56,7 +56,7 @@ public:
 	 @param _Renderer : Le renderer sur lequel dessiner
 	 @return Aucun
 	 */
-	virtual void OnClick(){};
+	virtual void HandleEvent(SDL_Event _Event){};
 	
 	virtual void Draw(SDL_Renderer* _Renderer){};
 	
@@ -95,6 +95,11 @@ public:
 	unsigned int getHeight(){
 		return m_Rect.h;
 	}
+	
+	virtual bool isFocussed(){return 0;}
+	
+	virtual void setFocus(bool _Focus){}
+
 
 };
 

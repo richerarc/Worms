@@ -72,25 +72,41 @@ public:
 	@param  _uiY: Position en y de la souris.
 	@return Aucun.
 	*/
-	void ClickEvent(unsigned int _uiX, unsigned int _uiY){
-		if (m_boMenuActif)
-		{
-			CGUIE* Temp;
-			unsigned int uiXTemp, uiYTemp;
-			m_pList->AllerDebut();
-			for (int i = 0; i < m_pList->Count(); i++)
-			{
-				Temp = m_pList->ObtenirElement();
-				uiXTemp = Temp->getX();
-				uiYTemp = Temp->getY();
-				if ((_uiX >= uiXTemp) &&
-					(_uiX <= (uiXTemp + Temp->getWidth())) &&
-					(_uiY >= uiYTemp) &&
-					(_uiY <= (uiYTemp + Temp->getHeight()))){
-					Temp->OnClick();
+	void HandleEvent(SDL_Event _Event){
+		if (m_boMenuActif){
+			
+			switch (_Event.type) {
+				
+				case SDL_MOUSEBUTTONDOWN:
+					CGUIE* Temp;
+					unsigned int uiXTemp, uiYTemp;
+					m_pList->AllerDebut();
+					for (int i = 0; i < m_pList->Count(); i++){
+						Temp = m_pList->ObtenirElement();
+						uiXTemp = Temp->getX();
+						uiYTemp = Temp->getY();
+						if ((_Event.button.x >= uiXTemp) &&
+							(_Event.button.x <= (uiXTemp + Temp->getWidth())) &&
+							(_Event.button.y >= uiYTemp) &&
+							(_Event.button.y <= (uiYTemp + Temp->getHeight()))){
+							Temp->HandleEvent(_Event);
+							break;
+						}
+						else if (Temp->isFocussed())
+							Temp->setFocus(false);
+						m_pList->AllerSuivant();
+					}
 					break;
-				}
-				m_pList->AllerSuivant();
+				case SDL_KEYDOWN:
+					for (int i = 0; i < m_pList->Count(); i++){
+						Temp = m_pList->ObtenirElement();
+						uiXTemp = Temp->getX();
+						uiYTemp = Temp->getY();
+						if (Temp->isFocussed()){
+							Temp->HandleEvent(_Event);
+							break;
+						}
+					break;
 			}
 		}
 	}

@@ -40,7 +40,7 @@ public:
 	@method Onclick
 	@return null
 	*/
-	void OnClick(){
+	void HandleEvent(SDL_Event _Event){
 		if (OnClickAction != nullptr){
 			OnClickAction();
 		}

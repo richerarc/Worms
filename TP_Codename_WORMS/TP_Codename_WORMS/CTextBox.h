@@ -14,6 +14,7 @@
  @discussion Classe représentant une boite de texte
  */
 class CTextBox : public CGUIE{
+	bool m_boFocussed;
 	SDL_Texture* m_texture;
 	SDL_Renderer* m_MenuRenderer;
 public:
@@ -28,6 +29,7 @@ public:
 	CTextBox(const char* _Name, string _strText, CFont* _Font, SDL_Rect _Rect, SDL_Renderer* _MenuRenderer) : CGUIE(_Name, _strText, _Font, _Rect){
 		m_strText = "";
 		m_MenuRenderer = _MenuRenderer;
+		m_boFocussed = false;
 	}
 	
 	~CTextBox(){
@@ -35,60 +37,65 @@ public:
 	}
 	
 	/*!
-	 @method OnClick
+	 @method HandleEvent
 	 @brief Méthode pour gérer l'events d'un clic de souri, recu par le menu
 	 @param Aucun
 	 @return Aucun
 	 */
-	void OnClick(){
-		SDL_Event Event;
-		bool boLoop = true;
+	void HandleEvent(SDL_Event _Event){
 		bool boShift = false;
+		if ((m_boFocussed) && !(m_strText[m_strText.length() - 1] == '_'))
 			m_strText.push_back('_');
-			while (boLoop){
-				while (SDL_PollEvent(&Event)) {
-					switch (Event.type){
-						case SDL_KEYUP:
-							if ((Event.key.keysym.sym == SDLK_RSHIFT) || (Event.key.keysym.sym == SDLK_LSHIFT))
-								boShift = false;
-							break;
-						case SDL_KEYDOWN:
-							switch (Event.key.keysym.sym) {
-								case SDLK_LSHIFT:
-								case SDLK_RSHIFT:
-									boShift = true;
-									break;
-								case SDLK_ESCAPE:			// Pour sortir de l'édition de la textBox
-								case SDLK_RETURN:			// il faut appuyer sur enter ou sur escape
-								case SDL_MOUSEBUTTONDOWN:
-									boLoop = false;
-									if(*m_strText.rbegin() == '_')
-										m_strText.pop_back();
-									break;
-								case SDLK_BACKSPACE:
-									if (m_strText != "_"){
-										m_strText.pop_back();
-										m_strText.pop_back();
-										m_strText.push_back('_');
-									}
-									break;
-								default:
-									if (m_strText.length() < 20) {
-										m_strText.pop_back();
-										if (boShift)
-											Event.key.keysym.sym = toupper(Event.key.keysym.sym);
-										m_strText.push_back(Event.key.keysym.sym);
-										m_strText.push_back('_');
-									}
-									
-							}
-							break;
-					}
-					break;
+		switch (_Event.type) {
+			case SDL_MOUSEBUTTONDOWN:
+				m_boFocussed = true;
+				break;
+				
+			case SDL_KEYUP:
+				if ((_Event.key.keysym.sym == SDLK_RSHIFT) || (_Event.key.keysym.sym == SDLK_LSHIFT))
+					boShift = false;
+				break;
+				
+			case SDL_KEYDOWN:
+				switch (_Event.key.keysym.sym) {
+					case SDLK_LSHIFT:
+					case SDLK_RSHIFT:
+						boShift = true;
+						break;
+					case SDLK_ESCAPE:			// Pour sortir de l'édition de la textBox
+					case SDLK_RETURN:			// il faut appuyer sur enter ou sur escape
+						if(*m_strText.rbegin() == '_')
+							m_strText.pop_back();
+						break;
+					case SDLK_BACKSPACE:
+						if (m_strText != "_"){
+							m_strText.pop_back();
+							m_strText.pop_back();
+							m_strText.push_back('_');
+						}
+						break;
+					default:
+						if (m_strText.length() < 20) {
+							m_strText.pop_back();
+							if (boShift)
+								_Event.key.keysym.sym = toupper(_Event.key.keysym.sym);
+							m_strText.push_back(_Event.key.keysym.sym);
+							m_strText.push_back('_');
+						}
+						break;
 				}
-				Draw(m_MenuRenderer);				// On applique les modification de la string
-				SDL_RenderPresent(m_MenuRenderer);  // directement en live à l'écran
-			}
+				break;
+		}
+		Draw(m_MenuRenderer);				// On applique les modification de la string
+		SDL_RenderPresent(m_MenuRenderer);  // directement en live à l'écran
+	}
+	
+	bool isFocussed(){
+		return m_boFocussed;
+	}
+	
+	void setFocus(bool _Focus){
+		m_boFocussed = _Focus;
 	}
 	
 	/*!
