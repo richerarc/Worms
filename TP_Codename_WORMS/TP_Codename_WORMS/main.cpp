@@ -19,8 +19,8 @@
 #include "CLabel.h"
 #include "CButton.h"
 #include "CTextBox.h"
-#include "CChoiceLabel.h"
 #include "CMenu.h"
+#include "MenuDeclaration.h"
 
 #define WIDTH 1280
 #define HEIGHT 720
