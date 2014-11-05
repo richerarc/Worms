@@ -23,3 +23,7 @@ prochainement nous être utile.
 
 J'ai fait le diagramme d'utilisation des différents Menus proposés
 à l'utilisateur. L'adresse du lien est : https://app.genmymodel.com/edit/_0xMKgF-PEeSmRKwulsG6-Q#
+
+4 novembre 2014 20h48:
+
+Ajout des sprites combat/armes/explosion dans les ressources
