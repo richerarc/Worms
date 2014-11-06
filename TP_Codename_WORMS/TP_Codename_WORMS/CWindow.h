@@ -23,8 +23,9 @@ private:
 	unsigned int m_uiWindowID;
 public:
 
-	CWindow(unsigned int _width, unsigned int _height){
-		SDL_CreateWindowAndRenderer(_width, _height, NULL, &m_pSDLWindow, &m_pSDLRenderer);
+	CWindow(const char* _WindowTitle, unsigned int _width, unsigned int _height){
+		m_pSDLWindow = SDL_CreateWindow(_WindowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, NULL);
+		m_pSDLRenderer = SDL_CreateRenderer(m_pSDLWindow, -1, SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
 		m_uiWindowID = SDL_GetWindowID(m_pSDLWindow);
 	}
 

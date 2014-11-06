@@ -17,7 +17,11 @@
 
 class CWorms {
 private:
-
+	CWindow* m_pWindow;
+	CMenu* m_MenuPrincipal;
+	CMenu* m_MenuNewGame;
+	CMenu* m_MenuPause;
+	CMenu* m_MenuNewTeam;
 public:
 	
 	CWorms(){
