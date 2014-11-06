@@ -50,7 +50,7 @@ public:
 	/*!
 	@Accesseurs:
 	*/
-	void DefinirFontColor(unsigned int _iR, unsigned int _iB, unsigned int _iG, unsigned int _iA){
+	void DefinirFontColor(Uint8 _iR, Uint8 _iB, Uint8 _iG, Uint8 _iA){
 		m_Font->setFontColor(SDL_Color{ _iR, _iB, _iG, _iA });
 	}
 

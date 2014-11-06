@@ -66,17 +66,17 @@ public:
 	}
 
 	/*!
-	@method ClickEvent.
-	@brief Appelle le bon OnClick.
-	@param  _uiX: Position en x de la souris.
-	@param  _uiY: Position en y de la souris.
-	@return Aucun.
-	*/
+	 @method ClickEvent.
+	 @brief Appelle le bon OnClick.
+	 @param  _uiX: Position en x de la souris.
+	 @param  _uiY: Position en y de la souris.
+	 @return Aucun.
+	 */
 	void HandleEvent(SDL_Event _Event){
 		if (m_boMenuActif){
 			
 			switch (_Event.type) {
-				
+					
 				case SDL_MOUSEBUTTONDOWN:
 					CGUIE* Temp;
 					unsigned int uiXTemp, uiYTemp;
@@ -104,7 +104,8 @@ public:
 							Temp->HandleEvent(_Event);
 							break;
 						}
-					break;
+						break;
+					}
 			}
 		}
 	}

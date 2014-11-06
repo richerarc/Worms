@@ -15,18 +15,8 @@
 #define WIDTH 1280
 #define HEIGHT 720
 
-#include "CTimer.h"
-#include "CListeDC.h"
-#include "CGestionnaireRessources.h"
-#include "CWindow.h"
-#include "CGUIE.h"
-#include "CLabel.h"
-#include "ClabelImage.h"
-#include "CButton.h"
-#include "CTextBox.h"
-#include "CMenu.h"
-#include "MenuDeclaration.h"
 
+#include "CWorms.h"
 
 
 
@@ -36,7 +26,13 @@ int main(int argc, char** argv) {
 	TTF_Init();				 // SDL et autres librairies.
 	Mix_Init(0);
 	
+	CWorms* Worms = new CWorms();
+	Worms->Init();
 	
+	
+	
+	Worms->Quit();
+	delete Worms;
 	SDL_Quit();
 	TTF_Quit();
 	Mix_Quit();

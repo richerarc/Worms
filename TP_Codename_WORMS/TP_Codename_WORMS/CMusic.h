@@ -1,5 +1,5 @@
 #define BUFFER 1024
-class CMusic : CRessource{
+class CMusic : public CRessource{
 private:
 	Mix_Music* m_pMusic;
 	static bool m_boInitialized;

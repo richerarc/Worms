@@ -135,6 +135,7 @@ public:
 				return nullptr;
 			}
 		}
+		return nullptr;
 	}
 
 	/*
@@ -155,6 +156,7 @@ public:
 				return nullptr;
 			}
 		}
+		return nullptr;
 	}
 
 	/*
@@ -175,5 +177,6 @@ public:
 				return nullptr;
 			}
 		}
+		return nullptr;
 	}
 };
