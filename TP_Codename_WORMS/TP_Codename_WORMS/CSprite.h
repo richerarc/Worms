@@ -57,8 +57,12 @@ public:
 		m_rDest.y = _iy;
 	}
 
-	void Start_Pause(){
-		m_boActif = !m_boActif;
+	void Start(){
+		m_boActif = true;
+	}
+
+	void Pause(){
+		m_boActif = false;
 	}
 
 	void setNbLoop(int _loop){

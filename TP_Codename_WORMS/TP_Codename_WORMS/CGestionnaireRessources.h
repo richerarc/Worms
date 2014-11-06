@@ -73,6 +73,24 @@ public:
 		m_pListeMusics->AjouterFin(_Ressource);
 	}
 
+	/*!
+	@MéthodeAjouterTexture:
+	@Brief: Fonction qui ajoute un CTexture de la liste appropriée
+	@Paramètre: _Texture  , texture a ajouter.
+	*/
+	void AjouterTexture(CTexture* _Texture){
+		m_pListeTexture->AjouterFin(_Texture);
+	}
+
+	/*!
+	@Méthode: AjouterSurface:
+	@Brief: Fonction qui ajoute un CSurface de la liste appropriée
+	@Paramètre: _Surface  , Surface à ajouter.
+	*/
+	void AjouterSurface(CSurface* _Surface){
+		m_pListeSurface->AjouterFin(_Surface);
+	}
+
 	/*
 	Méthode : RetirerSprite
 	Brief : Procédure qui retire un sprite à la liste appropriée
