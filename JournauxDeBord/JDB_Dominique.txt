@@ -12,3 +12,6 @@ J'ai aussi ajouté un dossier pour les sprites de Worms qui contient actuellement
 
 5 nov
 Modification de CGestionnaireRessources pour utiliser plusieurs listes et ajout de certains sprites
+
+6 nov
+Ajout de sprites de worms manquantes
