@@ -87,7 +87,6 @@
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="CWindow.h" />
     <ClInclude Include="CWorms.h" />
-    <ClInclude Include="MenuDeclaration.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
