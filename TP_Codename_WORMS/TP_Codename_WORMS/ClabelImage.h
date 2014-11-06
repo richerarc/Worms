@@ -1,5 +1,7 @@
 #ifndef TP_Codename_WORMS_CLabelImage_h
 #define TP_Codename_WORMS_CLabelImage_h
+
+
 /*!
 @CLabelImage
 @Classe permettant la création et l'affichage d'un label contenant du texte et une image.

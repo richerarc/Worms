@@ -21,8 +21,6 @@ void LoadResources(){
  @discussion Déclaration du Menu Principal.
  */
 CMenu* MenuPrincipal;
-CButton* ButtonNewGame = new CButton("BtnNewGame", "Play", GestionnaireDeResources->GetFont("Font"), {0,0,0,0}, GestionnaireDeResources->GetSprite("SpriteBtnClick"));
-CButton* ButtonQuit = new CButton("BtnQuit", "Quit", GestionnaireDeResources->GetFont("Font"), { 0, 0, 0, 0 }, GestionnaireDeResources->GetSprite("SpriteBtnClick"));
 
 /*!
 @discussion Déclaration du Menu nouvelle partie.
@@ -41,6 +39,6 @@ CMenu* MenuPause;
 
 void CreateMenuPrincipal(){
 	MenuPrincipal = new CMenu(Window->getRenderer(), { 0, 0, WIDTH, HEIGHT });
-	MenuPrincipal->AddElement(ButtonNewGame, WIDTH - 200, HEIGHT - 130, 100, 30);
-	MenuPrincipal->AddElement(ButtonQuit, WIDTH - 200, HEIGHT - 170, 100, 30);
+	MenuPrincipal->AddElement(new CButton("BtnNewGame", "Play", GestionnaireDeResources->GetFont("Font"), { 0, 0, 0, 0 }, GestionnaireDeResources->GetSprite("SpriteBtnClick")), WIDTH - 200, HEIGHT - 130, 100, 30);
+	MenuPrincipal->AddElement(new CButton("BtnQuit", "Quit", GestionnaireDeResources->GetFont("Font"), { 0, 0, 0, 0 }, GestionnaireDeResources->GetSprite("SpriteBtnClick")), WIDTH - 200, HEIGHT - 170, 100, 30);
 }
