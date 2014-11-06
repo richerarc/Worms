@@ -74,39 +74,32 @@ public:
 	 */
 	void HandleEvent(SDL_Event _Event){
 		if (m_boMenuActif){
-			
-			switch (_Event.type) {
-					
-				case SDL_MOUSEBUTTONDOWN:
-					CGUIE* Temp;
-					unsigned int uiXTemp, uiYTemp;
-					m_pList->AllerDebut();
-					for (int i = 0; i < m_pList->Count(); i++){
-						Temp = m_pList->ObtenirElement();
-						uiXTemp = Temp->getX();
-						uiYTemp = Temp->getY();
-						if ((_Event.button.x >= uiXTemp) &&
-							(_Event.button.x <= (uiXTemp + Temp->getWidth())) &&
-							(_Event.button.y >= uiYTemp) &&
-							(_Event.button.y <= (uiYTemp + Temp->getHeight()))){
-							Temp->HandleEvent(_Event);
-							break;
-						}
-						else if (Temp->isFocussed())
-							Temp->setFocus(false);
-						m_pList->AllerSuivant();
-					}
+			CGUIE* Temp;
+			unsigned int uiXTemp, uiYTemp;
+			m_pList->AllerDebut();
+			for (int i = 0; i < m_pList->Count(); i++){
+				Temp = m_pList->ObtenirElement();
+				uiXTemp = Temp->getX();
+				uiYTemp = Temp->getY();
+				if ((_Event.button.x >= uiXTemp) &&
+					(_Event.button.x <= (uiXTemp + Temp->getWidth())) &&
+					(_Event.button.y >= uiYTemp) &&
+					(_Event.button.y <= (uiYTemp + Temp->getHeight()))){
+					Temp->setFocus(true);
 					break;
-				case SDL_KEYDOWN:
-					for (int i = 0; i < m_pList->Count(); i++){
-						Temp = m_pList->ObtenirElement();
-						if (Temp->isFocussed()){
-							Temp->HandleEvent(_Event);
-							break;
-						}
-					}
-					break;
+				}
+				else if (Temp->isFocussed())
+					Temp->setFocus(false);
+				m_pList->AllerSuivant();
 			}
+			for (int i = 0; i < m_pList->Count(); i++){
+				Temp = m_pList->ObtenirElement();
+				if (Temp->isFocussed()){
+					Temp->HandleEvent(_Event);
+					break;
+				}
+			}
+			
 		}
 	}
 

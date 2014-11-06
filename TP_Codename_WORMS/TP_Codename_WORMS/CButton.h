@@ -17,6 +17,7 @@ class CButton : public CGUIE{
 private:
 	CSprite * m_Sprite;
 	bool m_boClicked;
+	SDL_Rect m_RectText;
 public:
 	void(*OnClickAction)();
 	
@@ -32,6 +33,7 @@ public:
 		m_Sprite = _Sprite;
 		OnClickAction = nullptr;
 		m_boClicked = false;
+		m_RectText = {m_Rect.x, m_Rect.y, m_Rect.w, m_Rect.h};
 		m_Sprite->setSpritePos(m_Rect.x, m_Rect.y);
 	}
 
@@ -42,16 +44,22 @@ public:
 	@return null
 	*/
 	void HandleEvent(SDL_Event _Event){
-		if (_Event.type == SDL_MOUSEBUTTONDOWN)
+		if (_Event.type == SDL_MOUSEBUTTONDOWN){
 			if (OnClickAction != nullptr)
 				OnClickAction();
 			m_boClicked = true;
+		}
 	}
 	
 	void setPos(int _ix, int _iy){
 		m_Rect.x = _ix;
 		m_Rect.y = _iy;
 		m_Sprite->setSpritePos(m_Rect.x, m_Rect.y);
+	}
+	
+	void setTextPos(int _ix, int _iy){
+		m_RectText.x = _ix;
+		m_RectText.y = _iy;
 	}
 
 
@@ -61,6 +69,11 @@ public:
 	@return null
 	*/
 	void Draw(SDL_Renderer * _Renderer){
+		if (m_boFocussed && (m_RectText.x == m_Rect.x))
+			setTextPos(m_RectText.x + 10, m_Rect.y);
+		else if (!m_boFocussed && (m_RectText.x != m_Rect.x))
+			setTextPos(m_Rect.x, m_Rect.y);
+		
 		if (m_boClicked){
 			m_Sprite->Render(_Renderer, 1);
 			m_boClicked = false;
@@ -68,7 +81,7 @@ public:
 		else
 			m_Sprite->Render(_Renderer, 0);
 		m_Font->setFontColor(SDL_Color{ 255, 255, 255, 0 });
-		m_Font->RenderText(_Renderer, m_strText.c_str(), m_Rect.x, m_Rect.y);
+		m_Font->RenderText(_Renderer, m_strText.c_str(), m_RectText.x, m_RectText.y);
 	}
 
 	/*!

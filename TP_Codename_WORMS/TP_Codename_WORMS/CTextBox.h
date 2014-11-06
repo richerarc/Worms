@@ -14,7 +14,6 @@
  @discussion Classe représentant une boite de texte
  */
 class CTextBox : public CGUIE{
-	bool m_boFocussed;
 	SDL_Texture* m_texture;
 	SDL_Renderer* m_MenuRenderer;
 public:
@@ -29,7 +28,6 @@ public:
 	CTextBox(const char* _Name, string _strText, CFont* _Font, SDL_Rect _Rect, SDL_Renderer* _MenuRenderer) : CGUIE(_Name, _strText, _Font, _Rect){
 		m_strText = "";
 		m_MenuRenderer = _MenuRenderer;
-		m_boFocussed = false;
 	}
 	
 	~CTextBox(){
@@ -88,14 +86,6 @@ public:
 		}
 		Draw(m_MenuRenderer);				// On applique les modification de la string
 		SDL_RenderPresent(m_MenuRenderer);  // directement en live à l'écran
-	}
-	
-	bool isFocussed(){
-		return m_boFocussed;
-	}
-	
-	void setFocus(bool _Focus){
-		m_boFocussed = _Focus;
 	}
 	
 	/*!

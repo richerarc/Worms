@@ -25,7 +25,7 @@ protected:
 	string m_strText;
 	CFont* m_Font;
 	SDL_Rect m_Rect;
-	
+	bool m_boFocussed;
 public:
 	
 	/*!
@@ -43,6 +43,7 @@ public:
 		m_Rect.y = _Rect.y;
 		m_Rect.w = _Rect.w;
 		m_Rect.h = _Rect.h;
+		m_boFocussed = false;
 	}
 	
 	~CGUIE(){
@@ -96,9 +97,9 @@ public:
 		return m_Rect.h;
 	}
 	
-	virtual bool isFocussed(){return 0;}
+	virtual bool isFocussed(){return m_boFocussed;}
 	
-	virtual void setFocus(bool _Focus){}
+	virtual void setFocus(bool _Focus){m_boFocussed = _Focus;}
 
 
 };
