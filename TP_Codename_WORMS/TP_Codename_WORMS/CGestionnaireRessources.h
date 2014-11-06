@@ -10,18 +10,27 @@ Discussion : Classe pour implémenté un gestionnaire des ressources
 #include "CMusic.h"
 #include "CSprite.h"
 #include "CFont.h"
+#include "CTexture.h"
+#include "CSurface.h"
 
 class CGestionnaireRessources{
 private:
 	CListeDC<CSprite*>* m_pListeSprites;
 	CListeDC<CFont*>* m_pListeFonts;
 	CListeDC<CMusic*>* m_pListeMusics;
+	CListeDC<CTexture*>* m_pListeTexture;
+	CListeDC<CSurface*>* m_pListeSurface;
+
 public:
+
 	//Constructeur...
 	CGestionnaireRessources(){
 		m_pListeSprites = new CListeDC<CSprite*>();
 		m_pListeFonts = new CListeDC<CFont*>();
 		m_pListeMusics = new CListeDC<CMusic*>();
+		m_pListeTexture = new CListeDC<CTexture*>();
+		m_pListeSurface = new CListeDC<CSurface*>();
+
 	}
 
 	//Destructeur...
@@ -29,6 +38,8 @@ public:
 		delete m_pListeSprites;
 		delete m_pListeFonts;
 		delete m_pListeMusics;
+		delete m_pListeSurface;
+		delete m_pListeTexture;
 	}
 
 	//Méthodes...
@@ -179,4 +190,47 @@ public:
 		}
 		return nullptr;
 	}
+
+	/*!
+	@Méthode GetTexture:
+	@Brief: Fonction qui retourne un CTexture de la liste appropriée
+	@Paramètre: Param : _Name : Nom de la ressource à obtenir
+	*/
+	CTexture* GetTexture(const char* _Name){
+		m_pListeTexture->AllerDebut();
+		for (int i = 0; i < m_pListeTexture->Count(); i++){
+			if (m_pListeTexture->ObtenirElement()->GetName() == _Name){
+				return m_pListeTexture->ObtenirElement();
+			}
+			else {
+				m_pListeTexture->AllerSuivant();
+			}
+			if (i == m_pListeTexture->Count() - 1){
+				return nullptr;
+			}
+		}
+		return nullptr;
+	}
+
+	/*!
+	@Méthode GetTexture:
+	@Brief: Fonction qui retourne un CTexture de la liste appropriée
+	@Paramètre: Param : _Name : Nom de la ressource à obtenir
+	*/
+	CSurface* GetSurface(const char* _Name){
+		m_pListeSurface->AllerDebut();
+		for (int i = 0; i < m_pListeSurface->Count(); i++){
+			if (m_pListeSurface->ObtenirElement()->GetName() == _Name){
+				return m_pListeSurface->ObtenirElement();
+			}
+			else {
+				m_pListeSurface->AllerSuivant();
+			}
+			if (i == m_pListeSurface->Count() - 1){
+				return nullptr;
+			}
+		}
+		return nullptr;
+	}
+
 };
