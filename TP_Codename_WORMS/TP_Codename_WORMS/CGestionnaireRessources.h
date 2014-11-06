@@ -60,7 +60,6 @@ public:
 		m_pListeMusics->AjouterFin(_Ressource);
 	}
 
-
 	/*
 	Méthode : RetirerSprite
 	Brief : Procédure qui retire un sprite à la liste appropriée
