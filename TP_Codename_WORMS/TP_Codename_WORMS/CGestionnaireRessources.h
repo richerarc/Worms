@@ -11,8 +11,8 @@ Discussion : Classe pour implémenté un gestionnaire des ressources
 class CGestionnaireRessources{
 private:
 	CListeDC<CSprite*>* m_pListeSprites;
-	CListeDC<CFont*> m_pListeFonts;
-	CListeDC<CMusic*> m_pListeMusics;
+	CListeDC<CFont*>* m_pListeFonts;
+	CListeDC<CMusic*>* m_pListeMusics;
 public:
 	//Constructeur...
 	CGestionnaireRessources(){
