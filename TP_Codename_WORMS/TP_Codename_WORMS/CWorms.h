@@ -25,11 +25,19 @@ private:
 public:
 	
 	CWorms(){
-		
+		m_pWindow = new CWindow("Worms", WIDTH, HEIGHT);
+		m_MenuPrincipal = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
+		m_MenuNewGame = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
+		m_MenuPause = new CMenu(m_pWindow->getRenderer(), {0, 0, (WIDTH / 2), (HEIGHT / 2)});
+		m_MenuNewTeam = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
 	}
 	
 	~CWorms(){
-		
+		delete m_pWindow;
+		delete m_MenuPrincipal;
+		delete m_MenuNewGame;
+		delete m_MenuPause;
+		delete m_MenuNewTeam;
 	}
 	
 	void Init(){
