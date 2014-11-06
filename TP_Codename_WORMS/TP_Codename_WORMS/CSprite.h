@@ -40,7 +40,7 @@ public:
 		m_rDest.h = m_rSource.h;
 		m_pTimer->Start();
 		m_currentFrame = 0;
-		m_boActif = true;
+		m_boActif = false;
 		m_uinbLoop = _loop;
 		if (!m_uinbLoop)
 			m_uinbLoop = 1;

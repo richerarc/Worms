@@ -72,6 +72,7 @@ public:
 	}
 	
 	void Render(){
+		SDL_RenderClear(m_pWindow->getRenderer());
 		if (m_boInMenu){
 			if (m_MenuPrincipal->IsActive())
 				m_MenuPrincipal->Render();
@@ -89,7 +90,7 @@ public:
 	}
 	
 	void LoadResources(){
-		m_Gestionaire->AjouterFont(new CFont("FontMenu", "/Users/richer/worms/Ressources/Archeologicaps.ttf", 18));
+		m_Gestionaire->AjouterFont(new CFont("FontMenu", "/Users/richer/worms/Ressources/Archeologicaps.ttf", 24));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnFleche", IMG_LoadTexture(m_pWindow->getRenderer(), "/Users/richer/worms/Ressources/Btn2.png"), 2, 4, 10, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnClick", IMG_LoadTexture(m_pWindow->getRenderer(), "/Users/richer/worms/Ressources/Btn1.png"), 2, 1, 10, 0));
 	}
@@ -99,6 +100,7 @@ public:
 			// Initialisation du menu Principal
 		m_MenuPrincipal->AddElement(new CButton("btnNewGame", "New Game", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnClick")), 800, 200, 400, 200);
 		m_MenuPrincipal->AddElement(new CButton("btnQuit", "Quit", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnClick")), 800, 500, 400, 200);
+		m_MenuPrincipal->AddElement(new CLabel("lblWorms", "Worms", m_Gestionaire->GetFont("FontMenu"), {0, 0, 10, 10}), (WIDTH/2 - 200), (HEIGHT/2 - 200), 400, 200);
 		m_MenuPrincipal->ActivateMenu();
 	}
 };
