@@ -9,3 +9,6 @@ et la classe CRessource.
 4 nov
 Addition de CGestionnaireRessources (erreur la première fois) et ajout de GetName dans CRessource
 J'ai aussi ajouté un dossier pour les sprites de Worms qui contient actuellement la mort d'un worm
+
+5 nov
+Modification de CGestionnaireRessources pour utiliser plusieurs listes et ajout de certains sprites
