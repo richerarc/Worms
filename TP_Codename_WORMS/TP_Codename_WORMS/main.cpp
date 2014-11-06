@@ -21,6 +21,7 @@
 #include "CWindow.h"
 #include "CGUIE.h"
 #include "CLabel.h"
+#include "ClabelImage.h"
 #include "CButton.h"
 #include "CTextBox.h"
 #include "CMenu.h"

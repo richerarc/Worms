@@ -10,9 +10,9 @@ CWindow* Window = new CWindow(WIDTH,HEIGHT);
 CGestionnaireRessources* GestionnaireDeResources = new CGestionnaireRessources();
 
 void LoadResources(){
-	GestionnaireDeResources->Ajouter(new CFont("Font", "C:\\Users\\1303126\\Documents\\GitHub\\Worms\\Ressources\\Archeologicaps.ttf", 18));
-	GestionnaireDeResources->Ajouter(new CSprite("SpriteBtnFleche", IMG_LoadTexture(Window->getRenderer(), "C:\\Users\\1303126\\Documents\\GitHub\\Worms\\Ressources\\Btn2.png"), 2, 4, 10, 0));
-	GestionnaireDeResources->Ajouter(new CSprite("SpriteBtnClick", IMG_LoadTexture(Window->getRenderer(), "C:\\Users\\1303126\\Documents\\GitHub\\Worms\\Ressources\\Btn1.png"), 2, 4, 10, 0));
+	GestionnaireDeResources->AjouterFont(new CFont("Font", "C:\\Users\\1303126\\Documents\\GitHub\\Worms\\Ressources\\Archeologicaps.ttf", 18));
+	GestionnaireDeResources->AjouterSprite(new CSprite("SpriteBtnFleche", IMG_LoadTexture(Window->getRenderer(), "C:\\Users\\1303126\\Documents\\GitHub\\Worms\\Ressources\\Btn2.png"), 2, 4, 10, 0));
+	GestionnaireDeResources->AjouterSprite(new CSprite("SpriteBtnClick", IMG_LoadTexture(Window->getRenderer(), "C:\\Users\\1303126\\Documents\\GitHub\\Worms\\Ressources\\Btn1.png"), 2, 4, 10, 0));
 }
 
 
@@ -21,8 +21,8 @@ void LoadResources(){
  @discussion Déclaration du Menu Principal.
  */
 CMenu* MenuPrincipal;
-CButton* ButtonNewGame = new CButton("BtnNewGame", "Play", (CFont*)GestionnaireDeResources->Obtenir("Font"), {0,0,0,0}, (CSprite*)GestionnaireDeResources->Obtenir("SpriteBtnClick"));
-CButton* ButtonQuit = new CButton("BtnQuit", "Quit", (CFont*)GestionnaireDeResources->Obtenir("Font"), { 0, 0, 0, 0 }, (CSprite*)GestionnaireDeResources->Obtenir("SpriteBtnClick"));
+CButton* ButtonNewGame = new CButton("BtnNewGame", "Play", GestionnaireDeResources->GetFont("Font"), {0,0,0,0}, GestionnaireDeResources->GetSprite("SpriteBtnClick"));
+CButton* ButtonQuit = new CButton("BtnQuit", "Quit", GestionnaireDeResources->GetFont("Font"), { 0, 0, 0, 0 }, GestionnaireDeResources->GetSprite("SpriteBtnClick"));
 
 /*!
 @discussion Déclaration du Menu nouvelle partie.

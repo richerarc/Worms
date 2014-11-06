@@ -139,7 +139,7 @@ public:
 	Brief : Fonction qui retourne un font de la liste appropriée
 	Param : _Name : Nom de la ressource à obtenir
 	*/
-	CSprite* GetFont(const char* _Name){
+	CFont* GetFont(const char* _Name){
 		m_pListeFonts->AllerDebut();
 		for (int i = 0; i < m_pListeFonts->Count(); i++){
 			if (m_pListeFonts->ObtenirElement()->GetName() == _Name){
@@ -159,7 +159,7 @@ public:
 	Brief : Fonction qui retourne un font de la liste appropriée
 	Param : _Name : Nom de la ressource à obtenir
 	*/
-	CSprite* GetMusic(const char* _Name){
+	CMusic* GetMusic(const char* _Name){
 		m_pListeMusics->AllerDebut();
 		for (int i = 0; i < m_pListeMusics->Count(); i++){
 			if (m_pListeMusics->ObtenirElement()->GetName() == _Name){

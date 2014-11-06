@@ -71,12 +71,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CButton.h" />
+    <ClInclude Include="CFont.h" />
     <ClInclude Include="CGestionnaireRessources.h" />
     <ClInclude Include="CGUIE.h" />
     <ClInclude Include="CLabel.h" />
+    <ClInclude Include="ClabelImage.h" />
     <ClInclude Include="CListeDC.h" />
     <ClInclude Include="CMenu.h" />
+    <ClInclude Include="CMusic.h" />
     <ClInclude Include="CRessource.h" />
+    <ClInclude Include="CSprite.h" />
     <ClInclude Include="CTextBox.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="CWindow.h" />
