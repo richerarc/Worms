@@ -104,8 +104,8 @@ public:
 							Temp->HandleEvent(_Event);
 							break;
 						}
-						break;
 					}
+					break;
 			}
 		}
 	}
