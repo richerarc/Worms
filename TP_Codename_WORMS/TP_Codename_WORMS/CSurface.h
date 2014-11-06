@@ -1,0 +1,1 @@
+class CSurface :public CRessource{};

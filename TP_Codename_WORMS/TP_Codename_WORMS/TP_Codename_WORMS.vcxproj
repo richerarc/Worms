@@ -81,7 +81,9 @@
     <ClInclude Include="CMusic.h" />
     <ClInclude Include="CRessource.h" />
     <ClInclude Include="CSprite.h" />
+    <ClInclude Include="CSurface.h" />
     <ClInclude Include="CTextBox.h" />
+    <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="CWindow.h" />
     <ClInclude Include="MenuDeclaration.h" />
