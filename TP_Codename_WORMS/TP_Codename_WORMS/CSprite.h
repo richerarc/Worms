@@ -96,4 +96,9 @@ public:
 		setRectSource();
 		SDL_RenderCopy(_Renderer, m_pTexture, &m_rSource, &m_rDest);
 	}
+	
+	void Render(SDL_Renderer* _Renderer , int _iIMG){
+		m_rSource.x = _iIMG * m_rSource.w;
+		SDL_RenderCopy(_Renderer, m_pTexture, &m_rSource, &m_rDest);
+	}
 };

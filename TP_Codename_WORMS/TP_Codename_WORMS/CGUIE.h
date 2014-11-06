@@ -70,12 +70,12 @@ public:
 		m_strText = _Text;
 	}
 	
-	void setPos(int _ix, int _iy){
+	virtual void setPos(int _ix, int _iy){
 		m_Rect.x = _ix;
 		m_Rect.y = _iy;
 	}
 	
-	void setSize(int _iw, int _ih){
+	virtual void setSize(int _iw, int _ih){
 		m_Rect.w = _iw;
 		m_Rect.h = _ih;
 	}
