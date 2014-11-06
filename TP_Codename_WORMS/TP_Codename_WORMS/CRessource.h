@@ -5,9 +5,7 @@
 //  Created by Richer Archambault on 2014-10-28.
 //  Copyright (c) 2014 Richer Archambault. All rights reserved.
 //
-#include "CMusic.h"
-#include "CSprite.h"
-#include "CFont.h"
+
 
 #ifndef TP_Codename_WORMS_CRessource_h
 #define TP_Codename_WORMS_CRessource_h

@@ -7,6 +7,9 @@ Classe : CGestionnaireRessources
 Discussion : Classe pour implémenté un gestionnaire des ressources
 */
 #include "CRessource.h"
+#include "CMusic.h"
+#include "CSprite.h"
+#include "CFont.h"
 
 class CGestionnaireRessources{
 private:
