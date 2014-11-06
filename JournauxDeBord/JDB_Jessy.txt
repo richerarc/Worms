@@ -27,3 +27,9 @@ J'ai fait le diagramme d'utilisation des différents Menus proposés
 4 novembre 2014 20h48:
 
 Ajout des sprites combat/armes/explosion dans les ressources
+
+6 novembre 2014 :
+
+-Ajout des sprites en png et amélioration du SpriteExplosion parcequ'il
+n'était pas centré. 
+-J'ai aidé Kevin à completer les UML des Ressources.
