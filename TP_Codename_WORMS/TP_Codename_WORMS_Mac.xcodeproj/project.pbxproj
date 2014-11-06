@@ -46,6 +46,8 @@
 		F985BB431A0BFB3600FFAB23 /* CMusic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMusic.h; path = TP_Codename_WORMS/CMusic.h; sourceTree = SOURCE_ROOT; };
 		F985BB441A0BFB3600FFAB23 /* CSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSprite.h; path = TP_Codename_WORMS/CSprite.h; sourceTree = SOURCE_ROOT; };
 		F985BB451A0BFB3600FFAB23 /* CWorms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWorms.h; path = TP_Codename_WORMS/CWorms.h; sourceTree = SOURCE_ROOT; };
+		F985BB461A0C045900FFAB23 /* CSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSurface.h; path = TP_Codename_WORMS/CSurface.h; sourceTree = SOURCE_ROOT; };
+		F985BB471A0C045900FFAB23 /* CTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTexture.h; path = TP_Codename_WORMS/CTexture.h; sourceTree = SOURCE_ROOT; };
 		F9F404731A000D4B0020554C /* CButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CButton.h; path = TP_Codename_WORMS/CButton.h; sourceTree = SOURCE_ROOT; };
 		F9F404741A000D4B0020554C /* CLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLabel.h; path = TP_Codename_WORMS/CLabel.h; sourceTree = SOURCE_ROOT; };
 		F9F404751A000D4B0020554C /* CListeDC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CListeDC.h; path = TP_Codename_WORMS/CListeDC.h; sourceTree = SOURCE_ROOT; };
@@ -97,6 +99,8 @@
 		CB81A5C819FF1E6800935BA4 /* TP_Codename_WORMS_Mac */ = {
 			isa = PBXGroup;
 			children = (
+				F985BB461A0C045900FFAB23 /* CSurface.h */,
+				F985BB471A0C045900FFAB23 /* CTexture.h */,
 				F985BB411A0BFB3600FFAB23 /* CFont.h */,
 				F985BB421A0BFB3600FFAB23 /* ClabelImage.h */,
 				F985BB431A0BFB3600FFAB23 /* CMusic.h */,

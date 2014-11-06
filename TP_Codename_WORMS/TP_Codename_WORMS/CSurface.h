@@ -7,7 +7,9 @@ private:
 		m_pSurface = _Surface;
 	}
 
-	~CSurface(){}
+	~CSurface(){
+		SDL_FreeSurface(m_pSurface);
+	}
 
 	SDL_Surface* getSurface(){
 		return m_pSurface;

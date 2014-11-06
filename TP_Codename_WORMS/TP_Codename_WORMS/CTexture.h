@@ -8,7 +8,9 @@ public:
 		m_pTexture = _Texture;
 	}
 
-	~CTexture(){}
+	~CTexture(){
+		SDL_DestroyTexture(m_pTexture);
+	}
 
 	SDL_Texture* GetTexture(){
 		return m_pTexture;

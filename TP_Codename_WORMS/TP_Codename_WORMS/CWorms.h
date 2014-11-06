@@ -13,7 +13,6 @@
 #include "CButton.h"
 #include "CTextBox.h"
 #include "CMenu.h"
-#include "MenuDeclaration.h"
 
 class CWorms {
 private:
@@ -39,6 +38,8 @@ public:
 		delete m_MenuPause;
 		delete m_MenuNewTeam;
 	}
+	
+	
 	
 	void Init(){
 		

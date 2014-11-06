@@ -38,7 +38,6 @@ public:
 		delete m_pListeSprites;
 		delete m_pListeFonts;
 		delete m_pListeMusics;
-		delete m_pListeSurface;
 		delete m_pListeTexture;
 	}
 
