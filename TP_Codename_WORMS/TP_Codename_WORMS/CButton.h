@@ -54,7 +54,7 @@ public:
 	*/
 	void Draw(SDL_Renderer * _Renderer){
 		m_Sprite->Render(_Renderer);
-		m_Font->setFontColor(SDL_Color{ 0, 0, 0, 0 });
+		m_Font->setFontColor(SDL_Color{ 255, 255, 255, 0 });
 		m_Font->RenderText(_Renderer, m_strText.c_str(), m_Rect.x, m_Rect.y);
 	}
 

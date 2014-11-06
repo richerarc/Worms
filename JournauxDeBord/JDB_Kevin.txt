@@ -15,3 +15,5 @@
 
 18:00 2014-11-04: Aujourdhui j'ai commencer a monter les menus et a placer les boutons je ferai les tests plus tard 
 		  Je crois qu'il y a du code superflux j'en parlerai aux autres jeudi.
+
+17:17 2014-11-06: Nous avons fini les les menus, il reste a les monter, nous avons commencer le ump pour les 		  entitées.

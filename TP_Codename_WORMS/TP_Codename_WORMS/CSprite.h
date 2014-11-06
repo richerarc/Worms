@@ -40,7 +40,7 @@ public:
 		m_rDest.h = m_rSource.h;
 		m_pTimer->Start();
 		m_currentFrame = 0;
-		m_boActif = true;
+		m_boActif = false;
 		m_uinbLoop = _loop;
 		if (!m_uinbLoop)
 			m_uinbLoop = 1;
@@ -57,8 +57,12 @@ public:
 		m_rDest.y = _iy;
 	}
 
-	void Start_Pause(){
-		m_boActif = !m_boActif;
+	void Start(){
+		m_boActif = true;
+	}
+
+	void Pause(){
+		m_boActif = false;
 	}
 
 	void setNbLoop(int _loop){

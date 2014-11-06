@@ -29,9 +29,8 @@ int main(int argc, char** argv) {
 	CWorms* Worms = new CWorms();
 	Worms->Init();
 	
-	
-	
-	Worms->Quit();
+	Worms->Start();
+
 	delete Worms;
 	SDL_Quit();
 	TTF_Quit();
