@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
 	Mix_Init(0);
 	
 	CWorms* Worms = new CWorms();
-	Worms->Init();
+	Worms->Init(argv[0]);
 	
 	Worms->Start();
 

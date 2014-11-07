@@ -3,6 +3,7 @@
  * Créé le 06/11/2014 à 13h50 par Richer Archambault
  */
 
+
 #include "CTimer.h"
 #include "CListeDC.h"
 #include "CGestionnaireRessources.h"
@@ -13,6 +14,7 @@
 #include "CButton.h"
 #include "CTextBox.h"
 #include "CMenu.h"
+
 
 class CWorms {
 private:
@@ -89,15 +91,40 @@ public:
 		m_pWindow->Refresh();
 	}
 	
-	void LoadResources(){
-		m_Gestionaire->AjouterFont(new CFont("FontMenu", "/Users/richer/worms/Ressources/Arpegius.ttf", 30));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnFleche", IMG_LoadTexture(m_pWindow->getRenderer(), "/Users/richer/worms/Ressources/Btn2.png"), 2, 4, 10, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnNG", IMG_LoadTexture(m_pWindow->getRenderer(), "/Users/richer/worms/Ressources/Btn1.png"), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnQ", IMG_LoadTexture(m_pWindow->getRenderer(), "/Users/richer/worms/Ressources/Btn1.png"), 2, 1, 0, 0));
+	void LoadResources(char* _argv){
+		string strPath(_argv); //Donnée membre représentant le chemin du fichier.
+		unsigned int uiPosString = (strPath.length() - 1); // Donnée membre représentant une position dans la string.
+#if defined(__APPLE__) && defined(__MACH__)
+		while (strPath[uiPosString] != '/'){
+			strPath.erase(uiPosString, 1);
+			uiPosString--;
+		}
+#elif defined (_win32)
+		while (strPath[uiPosString] != '\\'){
+			strPath.erase(uiPosString, 1);
+			uiPosString--;
+		}
+#endif
+		strPath.append("Ressources");
+#if defined(__APPLE__) && defined(__MACH__)
+		strPath.append("/");
+#elif defined (_win32)
+		strPath.append("\\");
+#endif
+		string FileName[3] = {"/Arpegius.ttf", "/Btn1.png", "/Btn2.png"};
+		string strFilePath[3];
+		for (int i = 0; i < 3; i++){
+			strFilePath[i] = strPath;
+			strFilePath[i].append(FileName[i]);
+		}
+		m_Gestionaire->AjouterFont(new CFont("FontMenu", strFilePath[1].c_str(), 30));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnFleche", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[2].c_str()), 2, 4, 10, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnNG", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[1].c_str()), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnQ", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
 	}
 	
-	void Init(){
-		LoadResources();
+	void Init(char* _argv){
+		LoadResources(_argv);
 			//
 			// Initialisation du menu Principal
 			//
@@ -110,6 +137,7 @@ public:
 			//
 		
 	}
+	
 	
 	
 };
