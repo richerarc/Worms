@@ -33,3 +33,4 @@ Ajout des sprites combat/armes/explosion dans les ressources
 -Ajout des sprites en png et amélioration du SpriteExplosion parcequ'il
 n'était pas centré. 
 -J'ai aidé Kevin à completer les UML des Ressources.
+-J'ai fait et testé la méthode pathFinder avec l'aide de Richer.
