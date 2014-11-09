@@ -27,7 +27,7 @@ protected:
 	SDL_Rect m_Rect;
 	bool m_boFocussed;
 public:
-	
+	void (*OnClickAction)();
 	/*!
 	 @method Constucteur
 	 @param _Name : le nom du Controle visuel
@@ -47,8 +47,6 @@ public:
 	}
 	
 	~CGUIE(){
-		delete m_strName;
-		delete m_Font;
 	}
 	
 	/*!

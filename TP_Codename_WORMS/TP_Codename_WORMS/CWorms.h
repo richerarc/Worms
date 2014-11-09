@@ -24,7 +24,8 @@ private:
 	CMenu* m_MenuPause;
 	CMenu* m_MenuNewTeam;
 	SDL_Event* m_pEvent;
-	bool m_boRun, m_boInMenu;
+	static	bool m_boRun;
+ 	bool m_boInMenu;
 	CGestionnaireRessources* m_Gestionaire;
 public:
 	
@@ -34,7 +35,6 @@ public:
 		m_MenuNewGame = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
 		m_MenuPause = new CMenu(m_pWindow->getRenderer(), {0, 0, (WIDTH / 2), (HEIGHT / 2)});
 		m_MenuNewTeam = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
-		m_boRun = true;
 		m_boInMenu = true;
 		m_pEvent = new SDL_Event();
 		m_Gestionaire = new CGestionnaireRessources();
@@ -132,6 +132,8 @@ public:
 		m_MenuPrincipal->AddElement(new CButton("btnQuit", "Quit", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnQ")), 800, 500, 162, 33);
 		m_MenuPrincipal->AddElement(new CLabel("lblWorms", "Worms", m_Gestionaire->GetFont("FontMenu"), {0, 0, 10, 10}), (WIDTH/2 - 200), (HEIGHT/2 - 200), 400, 200);
 		m_MenuPrincipal->ActivateMenu();
+		m_MenuPrincipal->getElement("btnQuit")->OnClickAction = FuncBtnQuit;
+
 			//
 			// Initialisation du menu NewGame
 			//
@@ -141,7 +143,11 @@ public:
 		//
 		// Définition des action de chaque bouton dans les menu.
 		//
-	
-	
+	static void FuncBtnQuit(){
+		m_boRun = false;
+	}
 	
 };
+
+bool CWorms::m_boRun = true;
+

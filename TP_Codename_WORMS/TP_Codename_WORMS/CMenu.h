@@ -27,7 +27,7 @@ public:
 	@return l'adresse mémoire de l'objet.
 	*/
 	CMenu(SDL_Renderer* _Renderer, SDL_Rect _PositionDimension){
-		m_pList = new CListeDC < CGUIE* >;
+		m_pList = new CListeDC <CGUIE*>;
 		m_pRenderer = _Renderer;
 		m_MenuInfo.x = _PositionDimension.x;
 		m_MenuInfo.y = _PositionDimension.y;

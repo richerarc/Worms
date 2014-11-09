@@ -19,7 +19,6 @@ private:
 	bool m_boClicked;
 	SDL_Rect m_RectText;
 public:
-	void(*OnClickAction)();
 	
 	/*!
 	 @method Constucteur
