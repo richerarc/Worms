@@ -80,7 +80,6 @@
 		F985BB931A0C162300FFAB23 /* WormImmobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WormImmobile.png; sourceTree = "<group>"; };
 		F985BB941A0C162300FFAB23 /* WormPaniqueVersDroite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WormPaniqueVersDroite.png; sourceTree = "<group>"; };
 		F985BB951A0C162300FFAB23 /* WormPaniqueVersDroite.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WormPaniqueVersDroite.xcf; sourceTree = "<group>"; };
-		F985BB961A0C458400FFAB23 /* Procedure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Procedure.h; path = TP_Codename_WORMS/Procedure.h; sourceTree = SOURCE_ROOT; };
 		F9F404731A000D4B0020554C /* CButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CButton.h; path = TP_Codename_WORMS/CButton.h; sourceTree = SOURCE_ROOT; };
 		F9F404741A000D4B0020554C /* CLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLabel.h; path = TP_Codename_WORMS/CLabel.h; sourceTree = SOURCE_ROOT; };
 		F9F404751A000D4B0020554C /* CListeDC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CListeDC.h; path = TP_Codename_WORMS/CListeDC.h; sourceTree = SOURCE_ROOT; };
@@ -133,7 +132,6 @@
 		CB81A5C819FF1E6800935BA4 /* TP_Codename_WORMS_Mac */ = {
 			isa = PBXGroup;
 			children = (
-				F985BB961A0C458400FFAB23 /* Procedure.h */,
 				F985BB461A0C045900FFAB23 /* CSurface.h */,
 				F985BB471A0C045900FFAB23 /* CTexture.h */,
 				F985BB411A0BFB3600FFAB23 /* CFont.h */,

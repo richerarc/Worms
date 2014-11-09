@@ -91,7 +91,7 @@ public:
 		m_pWindow->Refresh();
 	}
 	
-	void LoadResources(char* _argv){
+	void LoadResources(string _argv){
 		string strPath(_argv); //Donnée membre représentant le chemin du fichier.
 		unsigned int uiPosString = (strPath.length() - 1); // Donnée membre représentant une position dans la string.
 #if defined(__APPLE__) && defined(__MACH__)
@@ -111,19 +111,19 @@ public:
 #elif defined (_win32)
 		strPath.append("\\");
 #endif
-		string FileName[3] = {"/Arpegius.ttf", "/Btn1.png", "/Btn2.png"};
+		string FileName[3] = {"Arpegius.ttf", "Btn1.png", "Btn2.png"};
 		string strFilePath[3];
 		for (int i = 0; i < 3; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
-		m_Gestionaire->AjouterFont(new CFont("FontMenu", strFilePath[1].c_str(), 30));
+		m_Gestionaire->AjouterFont(new CFont("FontMenu", strFilePath[0].c_str(), 30));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnFleche", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[2].c_str()), 2, 4, 10, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnNG", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[1].c_str()), 2, 1, 0, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnQ", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
 	}
 	
-	void Init(char* _argv){
+	void Init(string _argv){
 		LoadResources(_argv);
 			//
 			// Initialisation du menu Principal
@@ -137,6 +137,10 @@ public:
 			//
 		
 	}
+	
+		//
+		// Définition des action de chaque bouton dans les menu.
+		//
 	
 	
 	
