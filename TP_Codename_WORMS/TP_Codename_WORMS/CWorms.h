@@ -80,6 +80,7 @@ public:
 	
 	static void Render(){
 		SDL_RenderClear(m_pWindow->getRenderer());
+		SDL_SetRenderDrawColor(m_pWindow->getRenderer(), 255, 255, 255, 255);
 		if (m_boInMenu){
 			if (m_MenuPrincipal->IsActive())
 				m_MenuPrincipal->Render();
@@ -116,27 +117,33 @@ public:
 #elif defined (_win32)
 		strPath.append("\\");
 #endif
-		string FileName[11] = {"Arpegius.ttf", "Btn1.png", "Btn2.png", "map1.png", "background1.png", "map2.png", "background2.png", "map3.png", "background3.png", "map4.png", "background4.png"};
-		string strFilePath[11];
+		string FileName[12] = {"Arpegius.ttf", "Btn1.png", "BtnL.png", "BtnR.png", "map1.png", "background1.png", "map2.png", "background2.png", "map3.png", "background3.png", "map4.png", "background4.png"};
+		string strFilePath[12];
 		for (int i = 0; i < 3; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
 		m_Gestionaire->AjouterFont(new CFont("FontMenu", strFilePath[0].c_str(), 30));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnFleche", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[2].c_str()), 2, 4, 10, 0));
+			/* Sprite pour le menu principal */
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnNG", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[1].c_str()), 2, 1, 0, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnQ", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
+			/* Sprite pour le menu New Game */
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnCancel", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnPlay", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnNT", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSurface(new CSurface("map1", IMG_Load(strFilePath[4].c_str())));
-		m_Gestionaire->AjouterSurface(new CSurface("background1", IMG_Load(strFilePath[5].c_str())));
-		m_Gestionaire->AjouterSurface(new CSurface("map2", IMG_Load(strFilePath[4].c_str())));
-		m_Gestionaire->AjouterSurface(new CSurface("background2", IMG_Load(strFilePath[5].c_str())));
-		m_Gestionaire->AjouterSurface(new CSurface("map3", IMG_Load(strFilePath[4].c_str())));
-		m_Gestionaire->AjouterSurface(new CSurface("background3", IMG_Load(strFilePath[5].c_str())));
-		m_Gestionaire->AjouterSurface(new CSurface("map4", IMG_Load(strFilePath[4].c_str())));
-		m_Gestionaire->AjouterSurface(new CSurface("background4", IMG_Load(strFilePath[5].c_str())));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteMapLeft", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[2].c_str()), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteMapRight", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[3].c_str()), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteTeamLeft", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[2].c_str()), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteTeamRight", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[3].c_str()), 2, 1, 0, 0));
+			/* Map et leur background */
+		m_Gestionaire->AjouterSurface(new CSurface("map1", IMG_Load(strFilePath[5].c_str())));
+		m_Gestionaire->AjouterSurface(new CSurface("background1", IMG_Load(strFilePath[6].c_str())));
+		m_Gestionaire->AjouterSurface(new CSurface("map2", IMG_Load(strFilePath[7].c_str())));
+		m_Gestionaire->AjouterSurface(new CSurface("background2", IMG_Load(strFilePath[8].c_str())));
+		m_Gestionaire->AjouterSurface(new CSurface("map3", IMG_Load(strFilePath[9].c_str())));
+		m_Gestionaire->AjouterSurface(new CSurface("background3", IMG_Load(strFilePath[10].c_str())));
+		m_Gestionaire->AjouterSurface(new CSurface("map4", IMG_Load(strFilePath[11].c_str())));
+		m_Gestionaire->AjouterSurface(new CSurface("background4", IMG_Load(strFilePath[12].c_str())));
 
 		
 	}
@@ -148,18 +155,21 @@ public:
 			//
 		m_MenuPrincipal->AddElement(new CButton("btnNewGame", "New Game", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnNG")), 800, 200, 162, 33);
 		m_MenuPrincipal->AddElement(new CButton("btnQuit", "Quit", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnQ")), 800, 500, 162, 33);
-		m_MenuPrincipal->AddElement(new CLabel("lblWorms", "Worms", m_Gestionaire->GetFont("FontMenu"), {0, 0, 10, 10}), (WIDTH/2 - 200), (HEIGHT/2 - 200), 400, 200);
-		m_MenuPrincipal->ActivateMenu();
 		m_MenuPrincipal->getElement("btnQuit")->OnClickAction = FuncBtnQuit;
+		m_MenuPrincipal->AddElement(new CLabel("lblWorms", "Worms", m_Gestionaire->GetFont("FontMenu"), {0, 0, 10, 10}), 100, 100, 400, 200);
 		m_MenuPrincipal->getElement("btnNewGame")->OnClickAction = FuncBtnNewGame;
-
+		m_MenuPrincipal->ActivateMenu();
 			//
 			// Initialisation du menu NewGame
 			//
 		m_MenuNewGame->AddElement(new CLabel("lblNewGame", "Create a new game", m_Gestionaire->GetFont("FontMenu"), {}), 0, 0, 100, 20);
-		m_MenuNewGame->AddElement(new CButton("btnCancel", "Cancel", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnCancel")), 0, (HEIGHT - 66), 162, 33);
+		m_MenuNewGame->AddElement(new CButton("btnCancel", "Cancel", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnCancel")), 20, (HEIGHT - 66), 162, 33);
 		m_MenuNewGame->AddElement(new CButton("btnPlay", "Play", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnPlay")), ((WIDTH / 2) - 81), (HEIGHT - 66), 162, 33);
-		m_MenuNewGame->AddElement(new CButton("btnPlay", "New Team", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnNT")), (WIDTH - 162), (HEIGHT - 66), 162, 33);
+		m_MenuNewGame->AddElement(new CButton("btnNTeam", "New Team", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnNT")), (WIDTH - 182), (HEIGHT - 66), 162, 33);
+		CSlideShow* SSTemp = new CSlideShow("SSMap", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteMapLeft"), m_Gestionaire->GetSprite("SpriteMapRight"));
+		SSTemp->ajouterTexture(4, SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map1")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map2")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map3")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map4")->getSurface()));
+		m_MenuNewGame->AddElement(SSTemp, 20, 40, 500, 300);
+		
 	}
 	
 		//

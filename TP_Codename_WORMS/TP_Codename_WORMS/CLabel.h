@@ -29,7 +29,7 @@ public:
 	*/
 
 	CLabel(const char* _Name, const char* _strText, CFont* _Font, SDL_Rect _Rect) :CGUIE(_Name, _strText, _Font, _Rect){
-		m_Font->setFontColor(SDL_Color{ 0, 0, 0, 0 });
+		m_Font->setFontColor(SDL_Color{ 0, 0, 0, 255 });
 	}
 	/*!
 	@Destructeur:
@@ -44,6 +44,7 @@ public:
 	@Paramètre: Le renderer sur lequel on dessine l'image
 	*/
 	void Draw(SDL_Renderer* _Renderer){
+		m_Font->setFontColor({0,0,0,255});
 		m_Font->RenderText(_Renderer, m_strText.c_str(), m_Rect.x, m_Rect.y);
 	}
 

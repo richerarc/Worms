@@ -30,6 +30,62 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CB171CA91A110CFA00D80280 /* Archeologicaps.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Archeologicaps.ttf; sourceTree = "<group>"; };
+		CB171CAA1A110CFA00D80280 /* Arpegius.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Arpegius.ttf; sourceTree = "<group>"; };
+		CB171CAB1A110CFA00D80280 /* background1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background1.jpg; sourceTree = "<group>"; };
+		CB171CAC1A110CFA00D80280 /* background2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background2.jpg; sourceTree = "<group>"; };
+		CB171CAD1A110CFA00D80280 /* background3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background3.jpg; sourceTree = "<group>"; };
+		CB171CAE1A110CFA00D80280 /* background4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background4.jpg; sourceTree = "<group>"; };
+		CB171CAF1A110CFA00D80280 /* Btn1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Btn1.png; sourceTree = "<group>"; };
+		CB171CB01A110CFA00D80280 /* BtnL.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BtnL.png; sourceTree = "<group>"; };
+		CB171CB11A110CFA00D80280 /* BtnR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BtnR.png; sourceTree = "<group>"; };
+		CB171CB21A110CFA00D80280 /* map1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map1.png; sourceTree = "<group>"; };
+		CB171CB31A110CFA00D80280 /* map2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map2.png; sourceTree = "<group>"; };
+		CB171CB41A110CFA00D80280 /* map3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map3.png; sourceTree = "<group>"; };
+		CB171CB51A110CFA00D80280 /* map4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map4.png; sourceTree = "<group>"; };
+		CB171CB71A110CFA00D80280 /* BazoukaDroite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BazoukaDroite.png; sourceTree = "<group>"; };
+		CB171CB81A110CFA00D80280 /* BazoukaDroite.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = BazoukaDroite.psd; sourceTree = "<group>"; };
+		CB171CB91A110CFA00D80280 /* BazoukaGauche.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BazoukaGauche.png; sourceTree = "<group>"; };
+		CB171CBA1A110CFA00D80280 /* BazoukaGauche.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = BazoukaGauche.psd; sourceTree = "<group>"; };
+		CB171CBB1A110CFA00D80280 /* Information.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Information.txt; sourceTree = "<group>"; };
+		CB171CBC1A110CFA00D80280 /* SpriteBazoukaDroite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpriteBazoukaDroite.png; sourceTree = "<group>"; };
+		CB171CBD1A110CFA00D80280 /* SpriteBazoukaDroite.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpriteBazoukaDroite.psd; sourceTree = "<group>"; };
+		CB171CBE1A110CFA00D80280 /* SpriteBazoukaGauche.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpriteBazoukaGauche.png; sourceTree = "<group>"; };
+		CB171CBF1A110CFA00D80280 /* SpriteBazoukaGauche.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpriteBazoukaGauche.psd; sourceTree = "<group>"; };
+		CB171CC01A110CFA00D80280 /* SpriteExplosion.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpriteExplosion.psd; sourceTree = "<group>"; };
+		CB171CC11A110CFA00D80280 /* SpriteExplosionFInal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpriteExplosionFInal.png; sourceTree = "<group>"; };
+		CB171CC21A110CFA00D80280 /* SpriteGrenade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpriteGrenade.png; sourceTree = "<group>"; };
+		CB171CC31A110CFA00D80280 /* SpriteGrenade.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpriteGrenade.psd; sourceTree = "<group>"; };
+		CB171CC41A110CFA00D80280 /* SpriteMine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpriteMine.png; sourceTree = "<group>"; };
+		CB171CC51A110CFA00D80280 /* SpriteMine.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpriteMine.psd; sourceTree = "<group>"; };
+		CB171CC61A110CFA00D80280 /* SpritesSource.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpritesSource.psd; sourceTree = "<group>"; };
+		CB171CC81A110CFA00D80280 /* BechageDroite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BechageDroite.png; sourceTree = "<group>"; };
+		CB171CC91A110CFA00D80280 /* BechageGauche.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BechageGauche.png; sourceTree = "<group>"; };
+		CB171CCA1A110CFA00D80280 /* DomvsDiego.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DomvsDiego.txt; sourceTree = "<group>"; };
+		CB171CCB1A110CFA00D80280 /* EncaisseDepuisDroiteWormGIMP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EncaisseDepuisDroiteWormGIMP.png; sourceTree = "<group>"; };
+		CB171CCC1A110CFA00D80280 /* EncaisseDepuisDroiteWormGIMP.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EncaisseDepuisDroiteWormGIMP.xcf; sourceTree = "<group>"; };
+		CB171CCD1A110CFA00D80280 /* EncaisseDepuisGaucheWormGIMP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EncaisseDepuisGaucheWormGIMP.png; sourceTree = "<group>"; };
+		CB171CCE1A110CFA00D80280 /* EncaisseDepuisGaucheWormGIMP.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EncaisseDepuisGaucheWormGIMP.xcf; sourceTree = "<group>"; };
+		CB171CCF1A110CFA00D80280 /* JetpackWormDroiteGIMP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = JetpackWormDroiteGIMP.png; sourceTree = "<group>"; };
+		CB171CD01A110CFA00D80280 /* JetpackWormGaucheGIMP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = JetpackWormGaucheGIMP.png; sourceTree = "<group>"; };
+		CB171CD11A110CFA00D80280 /* JetpackWormGIMP.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = JetpackWormGIMP.xcf; sourceTree = "<group>"; };
+		CB171CD21A110CFA00D80280 /* MeleeWormGIMP.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MeleeWormGIMP.xcf; sourceTree = "<group>"; };
+		CB171CD31A110CFA00D80280 /* MeleeWormVersDroiteGIMP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MeleeWormVersDroiteGIMP.png; sourceTree = "<group>"; };
+		CB171CD41A110CFA00D80280 /* MeleeWormVersGaucheGIMP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MeleeWormVersGaucheGIMP.png; sourceTree = "<group>"; };
+		CB171CD51A110CFA00D80280 /* MortWormGIMP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MortWormGIMP.png; sourceTree = "<group>"; };
+		CB171CD61A110CFA00D80280 /* MortWormGIMP.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MortWormGIMP.xcf; sourceTree = "<group>"; };
+		CB171CD71A110CFA00D80280 /* SpritesSource.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpritesSource.png; sourceTree = "<group>"; };
+		CB171CD81A110CFA00D80280 /* SpritesSource.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpritesSource.xcf; sourceTree = "<group>"; };
+		CB171CD91A110CFA00D80280 /* TemplateWormGIMP.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = TemplateWormGIMP.xcf; sourceTree = "<group>"; };
+		CB171CDA1A110CFA00D80280 /* WormImmobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WormImmobile.png; sourceTree = "<group>"; };
+		CB171CDB1A110CFA00D80280 /* WormMoveLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WormMoveLeft.png; sourceTree = "<group>"; };
+		CB171CDC1A110CFA00D80280 /* WormMoveRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WormMoveRight.png; sourceTree = "<group>"; };
+		CB171CDD1A110CFA00D80280 /* WormPaniqueVersDroite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WormPaniqueVersDroite.png; sourceTree = "<group>"; };
+		CB171CDE1A110CFA00D80280 /* WormPaniqueVersDroite.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WormPaniqueVersDroite.xcf; sourceTree = "<group>"; };
+		CB171CDF1A110CFA00D80280 /* WormPaniqueVersGauche.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WormPaniqueVersGauche.png; sourceTree = "<group>"; };
+		CB171CE01A110CFA00D80280 /* WormPaniqueVersGauche.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WormPaniqueVersGauche.xcf; sourceTree = "<group>"; };
+		CB171CE11A110CFA00D80280 /* WormsJumpDroite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WormsJumpDroite.png; sourceTree = "<group>"; };
+		CB171CE21A110CFA00D80280 /* WormsJumpGauche.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WormsJumpGauche.png; sourceTree = "<group>"; };
 		CB81A5C619FF1E6800935BA4 /* TP_Codename_WORMS_Mac */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TP_Codename_WORMS_Mac; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB81A5D219FF1EFF00935BA4 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = TP_Codename_WORMS/main.cpp; sourceTree = SOURCE_ROOT; };
 		CB81A5DF19FF230600935BA4 /* CTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTimer.h; path = TP_Codename_WORMS/CTimer.h; sourceTree = SOURCE_ROOT; };
@@ -49,38 +105,6 @@
 		F985BB451A0BFB3600FFAB23 /* CWorms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWorms.h; path = TP_Codename_WORMS/CWorms.h; sourceTree = SOURCE_ROOT; };
 		F985BB461A0C045900FFAB23 /* CSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSurface.h; path = TP_Codename_WORMS/CSurface.h; sourceTree = SOURCE_ROOT; };
 		F985BB471A0C045900FFAB23 /* CTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTexture.h; path = TP_Codename_WORMS/CTexture.h; sourceTree = SOURCE_ROOT; };
-		F985BB711A0C162300FFAB23 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
-		F985BB721A0C162300FFAB23 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
-		F985BB731A0C162300FFAB23 /* Archeologicaps.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Archeologicaps.ttf; sourceTree = "<group>"; };
-		F985BB741A0C162300FFAB23 /* Btn1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Btn1.png; sourceTree = "<group>"; };
-		F985BB751A0C162300FFAB23 /* Btn2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Btn2.png; sourceTree = "<group>"; };
-		F985BB771A0C162300FFAB23 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
-		F985BB781A0C162300FFAB23 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
-		F985BB7A1A0C162300FFAB23 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
-		F985BB7B1A0C162300FFAB23 /* desert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desert.png; sourceTree = "<group>"; };
-		F985BB7D1A0C162300FFAB23 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
-		F985BB7E1A0C162300FFAB23 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
-		F985BB801A0C162300FFAB23 /* BazoukaDroite.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = BazoukaDroite.psd; sourceTree = "<group>"; };
-		F985BB811A0C162300FFAB23 /* BazoukaGauche.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = BazoukaGauche.psd; sourceTree = "<group>"; };
-		F985BB821A0C162300FFAB23 /* SpriteBazoukaDroite.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpriteBazoukaDroite.psd; sourceTree = "<group>"; };
-		F985BB831A0C162300FFAB23 /* SpriteBazoukaGauche.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpriteBazoukaGauche.psd; sourceTree = "<group>"; };
-		F985BB841A0C162300FFAB23 /* SpriteExplosion.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpriteExplosion.psd; sourceTree = "<group>"; };
-		F985BB851A0C162300FFAB23 /* SpriteGrenade.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpriteGrenade.psd; sourceTree = "<group>"; };
-		F985BB861A0C162300FFAB23 /* SpriteMine.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpriteMine.psd; sourceTree = "<group>"; };
-		F985BB871A0C162300FFAB23 /* SpritesSource.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpritesSource.psd; sourceTree = "<group>"; };
-		F985BB891A0C162300FFAB23 /* DomvsDiego.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DomvsDiego.txt; sourceTree = "<group>"; };
-		F985BB8A1A0C162300FFAB23 /* EncaisseDepuisGaucheWormGIMP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EncaisseDepuisGaucheWormGIMP.png; sourceTree = "<group>"; };
-		F985BB8B1A0C162300FFAB23 /* EncaisseDepuisGaucheWormGIMP.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EncaisseDepuisGaucheWormGIMP.xcf; sourceTree = "<group>"; };
-		F985BB8C1A0C162300FFAB23 /* MeleeWormGIMP.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MeleeWormGIMP.xcf; sourceTree = "<group>"; };
-		F985BB8D1A0C162300FFAB23 /* MeleeWormVersGaucheGIMP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MeleeWormVersGaucheGIMP.png; sourceTree = "<group>"; };
-		F985BB8E1A0C162300FFAB23 /* MortWormGIMP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MortWormGIMP.png; sourceTree = "<group>"; };
-		F985BB8F1A0C162300FFAB23 /* MortWormGIMP.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MortWormGIMP.xcf; sourceTree = "<group>"; };
-		F985BB901A0C162300FFAB23 /* SpritesSource.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpritesSource.png; sourceTree = "<group>"; };
-		F985BB911A0C162300FFAB23 /* SpritesSource.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpritesSource.xcf; sourceTree = "<group>"; };
-		F985BB921A0C162300FFAB23 /* TemplateWormGIMP.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = TemplateWormGIMP.xcf; sourceTree = "<group>"; };
-		F985BB931A0C162300FFAB23 /* WormImmobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WormImmobile.png; sourceTree = "<group>"; };
-		F985BB941A0C162300FFAB23 /* WormPaniqueVersDroite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WormPaniqueVersDroite.png; sourceTree = "<group>"; };
-		F985BB951A0C162300FFAB23 /* WormPaniqueVersDroite.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WormPaniqueVersDroite.xcf; sourceTree = "<group>"; };
 		F9F404731A000D4B0020554C /* CButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CButton.h; path = TP_Codename_WORMS/CButton.h; sourceTree = SOURCE_ROOT; };
 		F9F404741A000D4B0020554C /* CLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLabel.h; path = TP_Codename_WORMS/CLabel.h; sourceTree = SOURCE_ROOT; };
 		F9F404751A000D4B0020554C /* CListeDC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CListeDC.h; path = TP_Codename_WORMS/CListeDC.h; sourceTree = SOURCE_ROOT; };
@@ -107,10 +131,90 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CB171CA81A110CFA00D80280 /* Ressources */ = {
+			isa = PBXGroup;
+			children = (
+				CB171CA91A110CFA00D80280 /* Archeologicaps.ttf */,
+				CB171CAA1A110CFA00D80280 /* Arpegius.ttf */,
+				CB171CAB1A110CFA00D80280 /* background1.jpg */,
+				CB171CAC1A110CFA00D80280 /* background2.jpg */,
+				CB171CAD1A110CFA00D80280 /* background3.jpg */,
+				CB171CAE1A110CFA00D80280 /* background4.jpg */,
+				CB171CAF1A110CFA00D80280 /* Btn1.png */,
+				CB171CB01A110CFA00D80280 /* BtnL.png */,
+				CB171CB11A110CFA00D80280 /* BtnR.png */,
+				CB171CB21A110CFA00D80280 /* map1.png */,
+				CB171CB31A110CFA00D80280 /* map2.png */,
+				CB171CB41A110CFA00D80280 /* map3.png */,
+				CB171CB51A110CFA00D80280 /* map4.png */,
+				CB171CB61A110CFA00D80280 /* SpriteaJessyCombat */,
+				CB171CC71A110CFA00D80280 /* Sprites de Worms */,
+			);
+			name = Ressources;
+			path = ../Ressources;
+			sourceTree = "<group>";
+		};
+		CB171CB61A110CFA00D80280 /* SpriteaJessyCombat */ = {
+			isa = PBXGroup;
+			children = (
+				CB171CB71A110CFA00D80280 /* BazoukaDroite.png */,
+				CB171CB81A110CFA00D80280 /* BazoukaDroite.psd */,
+				CB171CB91A110CFA00D80280 /* BazoukaGauche.png */,
+				CB171CBA1A110CFA00D80280 /* BazoukaGauche.psd */,
+				CB171CBB1A110CFA00D80280 /* Information.txt */,
+				CB171CBC1A110CFA00D80280 /* SpriteBazoukaDroite.png */,
+				CB171CBD1A110CFA00D80280 /* SpriteBazoukaDroite.psd */,
+				CB171CBE1A110CFA00D80280 /* SpriteBazoukaGauche.png */,
+				CB171CBF1A110CFA00D80280 /* SpriteBazoukaGauche.psd */,
+				CB171CC01A110CFA00D80280 /* SpriteExplosion.psd */,
+				CB171CC11A110CFA00D80280 /* SpriteExplosionFInal.png */,
+				CB171CC21A110CFA00D80280 /* SpriteGrenade.png */,
+				CB171CC31A110CFA00D80280 /* SpriteGrenade.psd */,
+				CB171CC41A110CFA00D80280 /* SpriteMine.png */,
+				CB171CC51A110CFA00D80280 /* SpriteMine.psd */,
+				CB171CC61A110CFA00D80280 /* SpritesSource.psd */,
+			);
+			path = SpriteaJessyCombat;
+			sourceTree = "<group>";
+		};
+		CB171CC71A110CFA00D80280 /* Sprites de Worms */ = {
+			isa = PBXGroup;
+			children = (
+				CB171CC81A110CFA00D80280 /* BechageDroite.png */,
+				CB171CC91A110CFA00D80280 /* BechageGauche.png */,
+				CB171CCA1A110CFA00D80280 /* DomvsDiego.txt */,
+				CB171CCB1A110CFA00D80280 /* EncaisseDepuisDroiteWormGIMP.png */,
+				CB171CCC1A110CFA00D80280 /* EncaisseDepuisDroiteWormGIMP.xcf */,
+				CB171CCD1A110CFA00D80280 /* EncaisseDepuisGaucheWormGIMP.png */,
+				CB171CCE1A110CFA00D80280 /* EncaisseDepuisGaucheWormGIMP.xcf */,
+				CB171CCF1A110CFA00D80280 /* JetpackWormDroiteGIMP.png */,
+				CB171CD01A110CFA00D80280 /* JetpackWormGaucheGIMP.png */,
+				CB171CD11A110CFA00D80280 /* JetpackWormGIMP.xcf */,
+				CB171CD21A110CFA00D80280 /* MeleeWormGIMP.xcf */,
+				CB171CD31A110CFA00D80280 /* MeleeWormVersDroiteGIMP.png */,
+				CB171CD41A110CFA00D80280 /* MeleeWormVersGaucheGIMP.png */,
+				CB171CD51A110CFA00D80280 /* MortWormGIMP.png */,
+				CB171CD61A110CFA00D80280 /* MortWormGIMP.xcf */,
+				CB171CD71A110CFA00D80280 /* SpritesSource.png */,
+				CB171CD81A110CFA00D80280 /* SpritesSource.xcf */,
+				CB171CD91A110CFA00D80280 /* TemplateWormGIMP.xcf */,
+				CB171CDA1A110CFA00D80280 /* WormImmobile.png */,
+				CB171CDB1A110CFA00D80280 /* WormMoveLeft.png */,
+				CB171CDC1A110CFA00D80280 /* WormMoveRight.png */,
+				CB171CDD1A110CFA00D80280 /* WormPaniqueVersDroite.png */,
+				CB171CDE1A110CFA00D80280 /* WormPaniqueVersDroite.xcf */,
+				CB171CDF1A110CFA00D80280 /* WormPaniqueVersGauche.png */,
+				CB171CE01A110CFA00D80280 /* WormPaniqueVersGauche.xcf */,
+				CB171CE11A110CFA00D80280 /* WormsJumpDroite.png */,
+				CB171CE21A110CFA00D80280 /* WormsJumpGauche.png */,
+			);
+			path = "Sprites de Worms";
+			sourceTree = "<group>";
+		};
 		CB81A5BD19FF1E6800935BA4 = {
 			isa = PBXGroup;
 			children = (
-				F985BB6F1A0C162300FFAB23 /* Ressources */,
+				CB171CA81A110CFA00D80280 /* Ressources */,
 				CBECA7D91A004E360030E776 /* SDL2_image.framework */,
 				F97DCB4119FFBEC7006F17CF /* SDL2_image.framework */,
 				CBECA7DA1A004E360030E776 /* SDL2_mixer.framework */,
@@ -154,94 +258,6 @@
 				CB81A5D219FF1EFF00935BA4 /* main.cpp */,
 			);
 			path = TP_Codename_WORMS_Mac;
-			sourceTree = "<group>";
-		};
-		F985BB6F1A0C162300FFAB23 /* Ressources */ = {
-			isa = PBXGroup;
-			children = (
-				F985BB701A0C162300FFAB23 /* arcaderoom */,
-				F985BB731A0C162300FFAB23 /* Archeologicaps.ttf */,
-				F985BB741A0C162300FFAB23 /* Btn1.png */,
-				F985BB751A0C162300FFAB23 /* Btn2.png */,
-				F985BB761A0C162300FFAB23 /* country */,
-				F985BB791A0C162300FFAB23 /* desert */,
-				F985BB7C1A0C162300FFAB23 /* farm */,
-				F985BB7F1A0C162300FFAB23 /* SpriteaJessyCombat */,
-				F985BB881A0C162300FFAB23 /* Sprites de Worms */,
-			);
-			name = Ressources;
-			path = ../Ressources;
-			sourceTree = "<group>";
-		};
-		F985BB701A0C162300FFAB23 /* arcaderoom */ = {
-			isa = PBXGroup;
-			children = (
-				F985BB711A0C162300FFAB23 /* background.jpg */,
-				F985BB721A0C162300FFAB23 /* map.png */,
-			);
-			path = arcaderoom;
-			sourceTree = "<group>";
-		};
-		F985BB761A0C162300FFAB23 /* country */ = {
-			isa = PBXGroup;
-			children = (
-				F985BB771A0C162300FFAB23 /* background.jpg */,
-				F985BB781A0C162300FFAB23 /* map.png */,
-			);
-			path = country;
-			sourceTree = "<group>";
-		};
-		F985BB791A0C162300FFAB23 /* desert */ = {
-			isa = PBXGroup;
-			children = (
-				F985BB7A1A0C162300FFAB23 /* background.jpg */,
-				F985BB7B1A0C162300FFAB23 /* desert.png */,
-			);
-			path = desert;
-			sourceTree = "<group>";
-		};
-		F985BB7C1A0C162300FFAB23 /* farm */ = {
-			isa = PBXGroup;
-			children = (
-				F985BB7D1A0C162300FFAB23 /* background.jpg */,
-				F985BB7E1A0C162300FFAB23 /* map.png */,
-			);
-			path = farm;
-			sourceTree = "<group>";
-		};
-		F985BB7F1A0C162300FFAB23 /* SpriteaJessyCombat */ = {
-			isa = PBXGroup;
-			children = (
-				F985BB801A0C162300FFAB23 /* BazoukaDroite.psd */,
-				F985BB811A0C162300FFAB23 /* BazoukaGauche.psd */,
-				F985BB821A0C162300FFAB23 /* SpriteBazoukaDroite.psd */,
-				F985BB831A0C162300FFAB23 /* SpriteBazoukaGauche.psd */,
-				F985BB841A0C162300FFAB23 /* SpriteExplosion.psd */,
-				F985BB851A0C162300FFAB23 /* SpriteGrenade.psd */,
-				F985BB861A0C162300FFAB23 /* SpriteMine.psd */,
-				F985BB871A0C162300FFAB23 /* SpritesSource.psd */,
-			);
-			path = SpriteaJessyCombat;
-			sourceTree = "<group>";
-		};
-		F985BB881A0C162300FFAB23 /* Sprites de Worms */ = {
-			isa = PBXGroup;
-			children = (
-				F985BB891A0C162300FFAB23 /* DomvsDiego.txt */,
-				F985BB8A1A0C162300FFAB23 /* EncaisseDepuisGaucheWormGIMP.png */,
-				F985BB8B1A0C162300FFAB23 /* EncaisseDepuisGaucheWormGIMP.xcf */,
-				F985BB8C1A0C162300FFAB23 /* MeleeWormGIMP.xcf */,
-				F985BB8D1A0C162300FFAB23 /* MeleeWormVersGaucheGIMP.png */,
-				F985BB8E1A0C162300FFAB23 /* MortWormGIMP.png */,
-				F985BB8F1A0C162300FFAB23 /* MortWormGIMP.xcf */,
-				F985BB901A0C162300FFAB23 /* SpritesSource.png */,
-				F985BB911A0C162300FFAB23 /* SpritesSource.xcf */,
-				F985BB921A0C162300FFAB23 /* TemplateWormGIMP.xcf */,
-				F985BB931A0C162300FFAB23 /* WormImmobile.png */,
-				F985BB941A0C162300FFAB23 /* WormPaniqueVersDroite.png */,
-				F985BB951A0C162300FFAB23 /* WormPaniqueVersDroite.xcf */,
-			);
-			path = "Sprites de Worms";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

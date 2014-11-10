@@ -15,13 +15,15 @@ private:
 	int m_iIMGSelected;
 	int m_iTextSelected;
 public:
-	CSlideShow(const char* _Name, const char* _strText, CFont* _Font, SDL_Rect _Rect, CSprite* _SpritePrev, CSprite* _SpriteNext) :CGUIE(_Name, _strText, _Font, _Rect){
+	CSlideShow(const char* _Name, CFont* _Font, SDL_Rect _Rect, CSprite* _SpritePrev, CSprite* _SpriteNext) :CGUIE(_Name, "", _Font, _Rect){
 		m_Font->setFontColor(SDL_Color{ 0, 0, 0, 255 });
-		m_btnNext = new CButton("btnPrev", "", _Font, {0, m_Rect.h / 42, 22}, _SpritePrev);
-		m_btnNext = new CButton("btnNext", "", _Font, {m_Rect.w - 42, m_Rect.h / 42, 22}, _SpriteNext);
+		m_btnPrev= new CButton("btnPrev", "", _Font, {0, (m_Rect.h / 2), 42, 22}, _SpritePrev);
+		m_btnNext = new CButton("btnNext", "", _Font, {(m_Rect.w - 42), (m_Rect.h / 2), 42, 22}, _SpriteNext);
 		m_lblContain = new CLabelImage("lblContain", "", _Font, {((m_Rect.w / 2) -((m_Rect.w - 84) / 2)), 0, (m_Rect.w - 84), m_Rect.h}, nullptr);
 		m_ListText = new CListeDC<string*>();
 		m_ListTexture = new CListeDC<SDL_Texture*>();
+		m_iIMGSelected = 0;
+		m_iTextSelected = 0;
 	}
 	
 	void ajouterTexture(int _argc, ...){
@@ -32,6 +34,7 @@ public:
 		for (int i = 0; i < _argc; i++)
 			m_ListTexture->AjouterFin(va_arg(argv, SDL_Texture*));
 		va_end(argv);
+		setlblContain();
 	}
 	
 	void ajouterText(int _argc, ...){
@@ -42,6 +45,7 @@ public:
 		for (int i = 0; i < _argc; i++)
 			m_ListText->AjouterFin(va_arg(argv, string*));
 		va_end(argv);
+		setlblContain();
 	}
 	
 	/*!

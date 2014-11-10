@@ -32,7 +32,10 @@ public:
 		m_Sprite = _Sprite;
 		OnClickAction = nullptr;
 		m_boClicked = false;
-		m_RectText = {m_Rect.x, m_Rect.y, m_Rect.w, m_Rect.h};
+		m_RectText.x = m_Rect.x;
+		m_RectText.y = m_Rect.y;
+		m_RectText.w = m_Rect.w;
+		m_RectText.h = m_Rect.h;
 		m_Sprite->setSpritePos(m_Rect.x, m_Rect.y);
 	}
 
@@ -54,6 +57,7 @@ public:
 	void setPos(int _ix, int _iy){
 		m_Rect.x = _ix;
 		m_Rect.y = _iy;
+		setTextPos(_ix, _iy);
 		m_Sprite->setSpritePos(m_Rect.x, m_Rect.y);
 	}
 	

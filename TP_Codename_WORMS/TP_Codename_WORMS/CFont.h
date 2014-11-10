@@ -19,7 +19,7 @@ public:
 	*/
 	CFont(const char* _Name, const char* _FontPath, int _iSize) : CRessource(_Name){
 		m_pFont = TTF_OpenFont(_FontPath, _iSize);
-		m_Color = { 0, 0, 0, 255 };
+		m_Color = { 1, 1, 1, 255 };
 	}
 	//Destructeur
 	~CFont(){
