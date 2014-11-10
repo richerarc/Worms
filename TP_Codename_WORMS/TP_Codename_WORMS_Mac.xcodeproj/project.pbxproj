@@ -36,6 +36,7 @@
 		CB81A5E019FF230600935BA4 /* CWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWindow.h; path = TP_Codename_WORMS/CWindow.h; sourceTree = SOURCE_ROOT; };
 		CBECA7D91A004E360030E776 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
 		CBECA7DA1A004E360030E776 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
+		F9455D501A1072D60036C9AC /* CSlideShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSlideShow.h; path = TP_Codename_WORMS/CSlideShow.h; sourceTree = SOURCE_ROOT; };
 		F96CFAEA1A0001EB00A114A9 /* CGUIE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUIE.h; path = TP_Codename_WORMS/CGUIE.h; sourceTree = SOURCE_ROOT; };
 		F97DCB4119FFBEC7006F17CF /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
 		F97DCB4219FFBEC7006F17CF /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../../../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
@@ -132,6 +133,7 @@
 		CB81A5C819FF1E6800935BA4 /* TP_Codename_WORMS_Mac */ = {
 			isa = PBXGroup;
 			children = (
+				F9455D501A1072D60036C9AC /* CSlideShow.h */,
 				F985BB461A0C045900FFAB23 /* CSurface.h */,
 				F985BB471A0C045900FFAB23 /* CTexture.h */,
 				F985BB411A0BFB3600FFAB23 /* CFont.h */,

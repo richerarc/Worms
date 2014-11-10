@@ -39,7 +39,8 @@ public:
 	
 
 	/*!
-	@method Onclick
+	@method HandleEvent
+	@param _Evant : Un SDL_Event pour traiter les evenement
 	@return null
 	*/
 	void HandleEvent(SDL_Event _Event){

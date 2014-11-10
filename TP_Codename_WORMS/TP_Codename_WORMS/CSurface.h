@@ -1,7 +1,7 @@
 class CSurface :public CRessource{
-public:
-	SDL_Surface* m_pSurface;
 private:
+	SDL_Surface* m_pSurface;
+public:
 
 	CSurface(const char* _strName, SDL_Surface* _Surface):CRessource(_strName){
 		m_pSurface = _Surface;

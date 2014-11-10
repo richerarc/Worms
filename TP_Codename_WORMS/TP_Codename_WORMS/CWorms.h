@@ -13,7 +13,9 @@
 #include "ClabelImage.h"
 #include "CButton.h"
 #include "CTextBox.h"
+#include "CSlideShow.h"
 #include "CMenu.h"
+
 
 
 /*!
@@ -114,8 +116,8 @@ public:
 #elif defined (_win32)
 		strPath.append("\\");
 #endif
-		string FileName[3] = {"Arpegius.ttf", "Btn1.png", "Btn2.png"};
-		string strFilePath[3];
+		string FileName[11] = {"Arpegius.ttf", "Btn1.png", "Btn2.png", "map1.png", "background1.png", "map2.png", "background2.png", "map3.png", "background3.png", "map4.png", "background4.png"};
+		string strFilePath[11];
 		for (int i = 0; i < 3; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
@@ -124,6 +126,19 @@ public:
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnFleche", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[2].c_str()), 2, 4, 10, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnNG", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[1].c_str()), 2, 1, 0, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnQ", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnCancel", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnPlay", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnNT", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSurface(new CSurface("map1", IMG_Load(strFilePath[4].c_str())));
+		m_Gestionaire->AjouterSurface(new CSurface("background1", IMG_Load(strFilePath[5].c_str())));
+		m_Gestionaire->AjouterSurface(new CSurface("map2", IMG_Load(strFilePath[4].c_str())));
+		m_Gestionaire->AjouterSurface(new CSurface("background2", IMG_Load(strFilePath[5].c_str())));
+		m_Gestionaire->AjouterSurface(new CSurface("map3", IMG_Load(strFilePath[4].c_str())));
+		m_Gestionaire->AjouterSurface(new CSurface("background3", IMG_Load(strFilePath[5].c_str())));
+		m_Gestionaire->AjouterSurface(new CSurface("map4", IMG_Load(strFilePath[4].c_str())));
+		m_Gestionaire->AjouterSurface(new CSurface("background4", IMG_Load(strFilePath[5].c_str())));
+
+		
 	}
 	
 	static void Init(string _argv){
@@ -141,8 +156,10 @@ public:
 			//
 			// Initialisation du menu NewGame
 			//
-		m_MenuNewGame->AddElement(new CLabel("lblNewGame", "Creer une nouvelle partie", m_Gestionaire->GetFont("FontMenu"), {0, 0, 10, 10}), 0, 0, 100, 20);
-		
+		m_MenuNewGame->AddElement(new CLabel("lblNewGame", "Create a new game", m_Gestionaire->GetFont("FontMenu"), {}), 0, 0, 100, 20);
+		m_MenuNewGame->AddElement(new CButton("btnCancel", "Cancel", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnCancel")), 0, (HEIGHT - 66), 162, 33);
+		m_MenuNewGame->AddElement(new CButton("btnPlay", "Play", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnPlay")), ((WIDTH / 2) - 81), (HEIGHT - 66), 162, 33);
+		m_MenuNewGame->AddElement(new CButton("btnPlay", "New Team", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnNT")), (WIDTH - 162), (HEIGHT - 66), 162, 33);
 	}
 	
 		//

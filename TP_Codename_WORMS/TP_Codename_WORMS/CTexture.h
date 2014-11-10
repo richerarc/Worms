@@ -1,5 +1,4 @@
-class CTexture :public CRessource
-{
+class CTexture :public CRessource{
 private:
 	SDL_Texture* m_pTexture;
 public:

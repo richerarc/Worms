@@ -65,6 +65,10 @@ public:
 	int ObtenirHeight(){
 		return m_Rect.h;
 	}
+	
+	void setTexture(SDL_Texture* _texture){
+		m_pTexture = _texture;
+	}
 };
 
 #endif

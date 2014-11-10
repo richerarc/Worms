@@ -55,9 +55,16 @@ public:
 	 @param _Renderer : Le renderer sur lequel dessiner
 	 @return Aucun
 	 */
-	virtual void HandleEvent(SDL_Event _Event){};
 	
 	virtual void Draw(SDL_Renderer* _Renderer){};
+	/*!
+	 @method HandleEvent
+	 @param _Evant : Un SDL_Event pour traiter les evenement
+	 @return null
+	 */
+	virtual void HandleEvent(SDL_Event _Event){};
+	
+	
 	
 		//Accesseur
 
