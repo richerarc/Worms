@@ -25,16 +25,12 @@ int main(int argc, char** argv) {
 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);// Initialisation des composantes
 	TTF_Init();				 // SDL et autres librairies.
 	Mix_Init(0);
-	
 	CWorms* Worms = new CWorms();
-	Worms->Init(argv[0]);
-	
-	Worms->Start();
-
+	CWorms::Init(argv[0]);
+	CWorms::Start();
 	delete Worms;
 	SDL_Quit();
 	TTF_Quit();
 	Mix_Quit();
-	
 	return 0;
 }

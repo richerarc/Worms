@@ -16,17 +16,21 @@
 #include "CMenu.h"
 
 
+/*!
+ @class CWorms
+ @discussion Classe principale du projet, dans lequel se fait la gestion de l'affichage et des SDLEvent.
+ */
 class CWorms {
 private:
-	CWindow* m_pWindow;
-	CMenu* m_MenuPrincipal;
-	CMenu* m_MenuNewGame;
-	CMenu* m_MenuPause;
-	CMenu* m_MenuNewTeam;
-	SDL_Event* m_pEvent;
+	static	CWindow* m_pWindow;
+	static	CMenu* m_MenuPrincipal;
+	static	CMenu* m_MenuNewGame;
+	static	CMenu* m_MenuPause;
+	static	CMenu* m_MenuNewTeam;
+	static	SDL_Event* m_pEvent;
 	static	bool m_boRun;
- 	bool m_boInMenu;
-	CGestionnaireRessources* m_Gestionaire;
+	static 	bool m_boInMenu;
+	static	CGestionnaireRessources* m_Gestionaire;
 public:
 	
 	CWorms(){
@@ -35,7 +39,6 @@ public:
 		m_MenuNewGame = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
 		m_MenuPause = new CMenu(m_pWindow->getRenderer(), {0, 0, (WIDTH / 2), (HEIGHT / 2)});
 		m_MenuNewTeam = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
-		m_boInMenu = true;
 		m_pEvent = new SDL_Event();
 		m_Gestionaire = new CGestionnaireRessources();
 	}
@@ -49,7 +52,7 @@ public:
 		delete m_pEvent;
 	}
 	
-	void Start(){
+	static void Start(){
 		while (m_boRun) {
 			Render();
 			while (SDL_PollEvent(m_pEvent)) {
@@ -73,7 +76,7 @@ public:
 		}
 	}
 	
-	void Render(){
+	static void Render(){
 		SDL_RenderClear(m_pWindow->getRenderer());
 		if (m_boInMenu){
 			if (m_MenuPrincipal->IsActive())
@@ -91,7 +94,7 @@ public:
 		m_pWindow->Refresh();
 	}
 	
-	void LoadResources(string _argv){
+	static void LoadResources(string _argv){
 		string strPath(_argv); //Donnée membre représentant le chemin du fichier.
 		unsigned int uiPosString = (strPath.length() - 1); // Donnée membre représentant une position dans la string.
 #if defined(__APPLE__) && defined(__MACH__)
@@ -123,7 +126,7 @@ public:
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnQ", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
 	}
 	
-	void Init(string _argv){
+	static void Init(string _argv){
 		LoadResources(_argv);
 			//
 			// Initialisation du menu Principal
@@ -133,10 +136,12 @@ public:
 		m_MenuPrincipal->AddElement(new CLabel("lblWorms", "Worms", m_Gestionaire->GetFont("FontMenu"), {0, 0, 10, 10}), (WIDTH/2 - 200), (HEIGHT/2 - 200), 400, 200);
 		m_MenuPrincipal->ActivateMenu();
 		m_MenuPrincipal->getElement("btnQuit")->OnClickAction = FuncBtnQuit;
+		m_MenuPrincipal->getElement("btnNewGame")->OnClickAction = FuncBtnNewGame;
 
 			//
 			// Initialisation du menu NewGame
 			//
+		m_MenuNewGame->AddElement(new CLabel("lblNewGame", "Creer une nouvelle partie", m_Gestionaire->GetFont("FontMenu"), {0, 0, 10, 10}), 0, 0, 100, 20);
 		
 	}
 	
@@ -146,8 +151,22 @@ public:
 	static void FuncBtnQuit(){
 		m_boRun = false;
 	}
+	static void FuncBtnNewGame(){
+		m_MenuPrincipal->DeActivateMenu();
+		m_MenuNewGame->ActivateMenu();
+	}
 	
 };
 
+	// Initialisation des données membre statique
+
+CWindow* CWorms::m_pWindow = new CWindow("Worms", WIDTH, HEIGHT);
+CMenu* CWorms::m_MenuPrincipal = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
+CMenu* CWorms::m_MenuNewGame = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
+CMenu* CWorms::m_MenuPause = new CMenu(m_pWindow->getRenderer(), {0, 0, (WIDTH / 2), (HEIGHT / 2)});
+CMenu* CWorms::m_MenuNewTeam = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
+bool CWorms::m_boInMenu = true;
+SDL_Event* CWorms::m_pEvent = new SDL_Event();
+CGestionnaireRessources* CWorms::m_Gestionaire = new CGestionnaireRessources();
 bool CWorms::m_boRun = true;
 
