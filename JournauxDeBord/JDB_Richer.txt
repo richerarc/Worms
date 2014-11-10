@@ -13,3 +13,5 @@ Mer. 29 oct. 23h00 : Ajout des commentaire dans CListBox.h
 Mar. 03 nov. 17h40 : Retrait de la listBox, modification majeure de la gestion des event dans les controle visuels et dans cMenu, ajout des Map de base pour l'affichage, et ajout du fichier Declarationmenu.h.
 
 Jeu. 06 nov. 21h44 : Retrait de menuDeclaration.h et ajout de CWorms.h, avec la classes CWorms, jÕai aussi terminer la gestion des event en cascade, et Žtablie un bonne base pour lÕaffichage des menu: Le menu dŽmarrer est fonctionnel, plus que 3!
+
+Dim. 9 nov. 23h37 : Continuation des menu, ajout d'un nouveau controle visuel cSlideshow. j'ai aussi réglé quelque bug et mit l'entièreté de la classe CWorms en statique.
