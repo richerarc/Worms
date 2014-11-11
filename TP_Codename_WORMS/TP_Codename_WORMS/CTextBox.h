@@ -14,8 +14,8 @@
  @discussion Classe représentant une boite de texte
  */
 class CTextBox : public CGUIE{
-	SDL_Texture* m_texture;
-	SDL_Renderer* m_MenuRenderer;
+	SDL_Texture* m_texture; // Texture de la textBox
+	SDL_Renderer* m_MenuRenderer; // Rendu.
 public:
 	
 	/*!

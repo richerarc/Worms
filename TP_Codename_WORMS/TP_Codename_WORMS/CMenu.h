@@ -13,10 +13,10 @@
 */
 class CMenu{
 private:
-	CListeDC<CGUIE*>* m_pList;
-	SDL_Renderer* m_pRenderer;
-	SDL_Rect m_MenuInfo;
-	bool m_boMenuActif;
+	CListeDC<CGUIE*>* m_pList; // Liste de contrôle visuel.
+	SDL_Renderer* m_pRenderer; // Rendu de la fenêtre sur la quelle afficher le menu.
+	SDL_Rect m_MenuInfo;	   // Position et dimension du menu.
+	bool m_boMenuActif;		   // Indique si le menu est actif ou non
 public:
 
 	/*!

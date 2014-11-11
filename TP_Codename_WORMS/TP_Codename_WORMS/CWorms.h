@@ -24,15 +24,15 @@
  */
 class CWorms {
 private:
-	static	CWindow* m_pWindow;
-	static	CMenu* m_MenuPrincipal;
-	static	CMenu* m_MenuNewGame;
-	static	CMenu* m_MenuPause;
-	static	CMenu* m_MenuNewTeam;
-	static	SDL_Event* m_pEvent;
-	static	bool m_boRun;
-	static 	bool m_boInMenu;
-	static	CGestionnaireRessources* m_Gestionaire;
+	static	CWindow* m_pWindow;						// Fenêtre principale de l'application.
+	static	CMenu* m_MenuPrincipal;					// Menu principal du jeu 
+	static	CMenu* m_MenuNewGame;					// Menu Nouvelle partie
+	static	CMenu* m_MenuPause;						// Menu Pause
+	static	CMenu* m_MenuNewTeam;					// Menu Création d'une nouvelle équipe.
+	static	SDL_Event* m_pEvent;					// Event SDL
+	static	bool m_boRun;							// Indique si le jeu est en terminé ou non.
+	static 	bool m_boInMenu;						// Indique si on se trouve dans un menu.
+	static	CGestionnaireRessources* m_Gestionaire; // Gestionnaire de Resource pour le Worms
 public:
 	
 	CWorms(){

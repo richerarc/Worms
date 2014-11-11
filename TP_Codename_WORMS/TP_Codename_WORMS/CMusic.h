@@ -1,8 +1,8 @@
 #define BUFFER 1024
 class CMusic : public CRessource{
 private:
-	Mix_Music* m_pMusic;
-	static bool m_boInitialized;
+	Mix_Music* m_pMusic; // Musique à afficher
+	static bool m_boInitialized; // Indique si la musique à été initialisé.
 public:
 	CMusic(const char* _Name, const char* _Path) : CRessource(_Name){
 		if (!m_boInitialized){

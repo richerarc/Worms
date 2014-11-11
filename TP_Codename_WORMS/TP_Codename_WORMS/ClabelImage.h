@@ -9,7 +9,7 @@
 class CLabelImage : public CLabel {
 private:
 	//Données membres:
-	SDL_Texture* m_pTexture;
+	SDL_Texture* m_pTexture; // Texture de l'image à afficher.
 
 public:
 	/*!
