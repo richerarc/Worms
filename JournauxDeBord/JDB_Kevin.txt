@@ -16,4 +16,8 @@
 18:00 2014-11-04: Aujourdhui j'ai commencer a monter les menus et a placer les boutons je ferai les tests plus tard 
 		  Je crois qu'il y a du code superflux j'en parlerai aux autres jeudi.
 
-17:17 2014-11-06: Nous avons fini les les menus, il reste a les monter, nous avons commencer le ump pour les 		  entitées.
+17:17 2014-11-06: Nous avons fini les les menus, il reste a les monter, nous avons commencer le uml pour les
+ 		  entitées.
+
+22:33 2014-11-10: J'ai pas eu beaucoup de temps pour travailler sur le worms ces temps-ci. Ce soir j'ai commenter 
+		  les données membres pour ajouter de la précision sur leur utilité.
