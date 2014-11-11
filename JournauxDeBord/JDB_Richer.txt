@@ -14,4 +14,6 @@ Mar. 03 nov. 17h40 : Retrait de la listBox, modification majeure de la gestion d
 
 Jeu. 06 nov. 21h44 : Retrait de menuDeclaration.h et ajout de CWorms.h, avec la classes CWorms, jÕai aussi terminer la gestion des event en cascade, et Žtablie un bonne base pour lÕaffichage des menu: Le menu dŽmarrer est fonctionnel, plus que 3!
 
-Dim. 9 nov. 23h37 : Continuation des menu, ajout d'un nouveau controle visuel cSlideshow. j'ai aussi réglé quelque bug et mit l'entièreté de la classe CWorms en statique.
+Dim. 09 nov. 23h37 : Continuation des menu, ajout d'un nouveau controle visuel cSlideshow. j'ai aussi réglé quelque bug et mit l'entièreté de la classe CWorms en statique.
+
+Lun. 10 nov. 23h46 : J'ai réussi à faire marché le slideshow, on peu visualisé les carte, j'ai aussi ajouté les procédures dans boutons du menu NewGame
