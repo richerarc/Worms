@@ -15,6 +15,17 @@
 #include "CTextBox.h"
 #include "CSlideShow.h"
 #include "CMenu.h"
+#include "CEntity.h"
+#include "CObjets.h"
+#include "CMines.h"
+#include "CMissiles.h"
+#include "CGrenades.h"
+#include "CCaisses.h"
+#include "CCaisseSoin.h"
+#include "CWorm.h"
+#include "CTeam.h"
+#include "CMap.h"
+#include "CInGame.h"
 
 
 
