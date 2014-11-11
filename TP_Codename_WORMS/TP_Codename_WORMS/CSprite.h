@@ -1,16 +1,16 @@
 class CSprite : public CRessource{
 private:
-	SDL_Texture* m_pTexture;
-	SDL_Rect m_rSource;
-	SDL_Rect m_rDest;
-	CTimer* m_pTimer;
-	int m_NbrFrame;
-	int m_currentFrame;
-	int m_NbrAnimation;
-	int m_currentAnimation;
-	unsigned int m_uinbLoop;
-	unsigned int m_uiCurrentLoop;
-	bool m_boActif;
+	SDL_Texture* m_pTexture;		// Texture du sprite.
+	SDL_Rect m_rSource;				// Informations Source.
+	SDL_Rect m_rDest;				// Information sur la destination
+	CTimer* m_pTimer;				// Temps entre les images.
+	int m_NbrFrame;					// Nombre de Frames que contiennent l'immage en x.
+	int m_currentFrame;				// On est rendu l'animation (en x).
+	int m_NbrAnimation;				// Nombre d'Animation en y.
+	int m_currentAnimation;			// On on est rendu en y.
+	unsigned int m_uinbLoop;		// Combien de fois devons nous repeter l'animation.
+	unsigned int m_uiCurrentLoop;	// A quel répétiton l'animation est rendue.
+	bool m_boActif;					// Indique si l'Animation joue ou non.
 
 
 	void setRectSource(){

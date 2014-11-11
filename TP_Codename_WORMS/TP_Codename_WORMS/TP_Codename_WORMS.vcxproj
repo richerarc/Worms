@@ -80,6 +80,7 @@
     <ClInclude Include="CMenu.h" />
     <ClInclude Include="CMusic.h" />
     <ClInclude Include="CRessource.h" />
+    <ClInclude Include="CSlideShow.h" />
     <ClInclude Include="CSprite.h" />
     <ClInclude Include="CSurface.h" />
     <ClInclude Include="CTextBox.h" />

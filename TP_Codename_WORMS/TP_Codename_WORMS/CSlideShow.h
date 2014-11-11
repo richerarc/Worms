@@ -3,17 +3,15 @@
  * Créé le 09/11/2014 à 23h15 par Richer Archambault
  */
 
-
-
 class CSlideShow : public CGUIE {
 private:
-	CButton* m_btnNext;
-	CButton* m_btnPrev;
-	CLabelImage* m_lblContain;
-	CListeDC<SDL_Texture*>* m_ListTexture;
-	CListeDC<string*>* m_ListText;
-	int m_iIMGSelected;
-	int m_iTextSelected;
+	CButton* m_btnNext;					   // Boutton Suivant.
+	CButton* m_btnPrev;					   // Boutton Précédant.
+	CLabelImage* m_lblContain;			   // Label Image a afficher.
+	CListeDC<SDL_Texture*>* m_ListTexture; // Liste de texture.
+	CListeDC<string*>* m_ListText;		   // Liste de Textes.
+	int m_iIMGSelected;					   // Indique si l'image est selectionnée.
+	int m_iTextSelected;				   // Indique si le texte est selectionné.
 public:
 	CSlideShow(const char* _Name, CFont* _Font, SDL_Rect _Rect, CSprite* _SpritePrev, CSprite* _SpriteNext) :CGUIE(_Name, "", _Font, _Rect){
 		m_Font->setFontColor(SDL_Color{ 0, 0, 0, 255 });

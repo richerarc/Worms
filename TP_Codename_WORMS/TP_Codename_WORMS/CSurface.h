@@ -1,6 +1,6 @@
 class CSurface :public CRessource{
 private:
-	SDL_Surface* m_pSurface;
+	SDL_Surface* m_pSurface;  // Surface pour les modifications de pixel.
 public:
 
 	CSurface(const char* _strName, SDL_Surface* _Surface):CRessource(_strName){

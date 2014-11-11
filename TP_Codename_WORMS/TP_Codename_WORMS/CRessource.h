@@ -17,7 +17,7 @@
 */
 class CRessource {
 private:
-	const char* m_strName;
+	const char* m_strName; // Nom de la ressource pour faciliter l'accès.
 	
 public:
 	//Constructeur...

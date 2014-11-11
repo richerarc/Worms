@@ -15,9 +15,9 @@
  */
 class CButton : public CGUIE{
 private:
-	CSprite * m_Sprite;
-	bool m_boClicked;
-	SDL_Rect m_RectText;
+	CSprite * m_Sprite;  // Sprite du boutton.
+	bool m_boClicked;    // Indique si le bouton à été cliqué.
+	SDL_Rect m_RectText; // Position du texte.
 public:
 	
 	/*!
@@ -39,8 +39,6 @@ public:
 		m_Sprite->setSpritePos(m_Rect.x, m_Rect.y);
 	}
 
-	
-
 	/*!
 	@method HandleEvent
 	@param _Evant : Un SDL_Event pour traiter les evenement
@@ -53,19 +51,20 @@ public:
 			m_boClicked = true;
 		}
 	}
-	
+
+	//Acesseurs.
+
 	void setPos(int _ix, int _iy){
 		m_Rect.x = _ix;
 		m_Rect.y = _iy;
 		setTextPos(_ix, _iy);
 		m_Sprite->setSpritePos(m_Rect.x, m_Rect.y);
 	}
-	
+
 	void setTextPos(int _ix, int _iy){
 		m_RectText.x = _ix;
 		m_RectText.y = _iy;
 	}
-
 
 	/*!
 	@method Draw
@@ -93,9 +92,6 @@ public:
 	*/
 	~CButton(){
 	}
-	
+
 };
-
-
-
 #endif

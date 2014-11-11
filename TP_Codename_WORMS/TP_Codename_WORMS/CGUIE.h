@@ -21,13 +21,15 @@ using namespace std;
  */
 class CGUIE {
 protected:
-	const char* m_strName;
-	string m_strText;
-	CFont* m_Font;
-	SDL_Rect m_Rect;
-	bool m_boFocussed;
+	const char* m_strName;  // Nom du contrôle visuel.
+	string m_strText;		//Text que contien le Contrôle visuel.
+	CFont* m_Font;			// Police utilisé.
+	SDL_Rect m_Rect;		// Rect d'affichage.
+	bool m_boFocussed;		// Indique si le contrôle est actif.
+
 public:
 	void (*OnClickAction)();
+
 	/*!
 	 @method Constucteur
 	 @param _Name : le nom du Controle visuel
@@ -55,8 +57,8 @@ public:
 	 @param _Renderer : Le renderer sur lequel dessiner
 	 @return Aucun
 	 */
-	
 	virtual void Draw(SDL_Renderer* _Renderer){};
+
 	/*!
 	 @method HandleEvent
 	 @param _Evant : Un SDL_Event pour traiter les evenement
@@ -64,9 +66,7 @@ public:
 	 */
 	virtual void HandleEvent(SDL_Event _Event){};
 	
-	
-	
-		//Accesseur
+		//Accesseurs...
 
 	string getName(){
 		return m_strName;

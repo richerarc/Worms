@@ -18,9 +18,9 @@
  */
 class CWindow {
 private:
-	SDL_Window* m_pSDLWindow;
-	SDL_Renderer* m_pSDLRenderer;
-	unsigned int m_uiWindowID;
+	SDL_Window* m_pSDLWindow;		// Fenêtre.
+	SDL_Renderer* m_pSDLRenderer;	// Rendu de la fenêtre.
+	unsigned int m_uiWindowID;		// ID de la Fênetre.
 public:
 
 	CWindow(const char* _WindowTitle, unsigned int _width, unsigned int _height){

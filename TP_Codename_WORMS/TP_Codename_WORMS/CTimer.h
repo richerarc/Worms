@@ -16,9 +16,10 @@
  */
 class CTimer {
 private:
-	unsigned int m_uiTicks,
-				 m_uiTimeToElapse;
+	unsigned int m_uiTicks,			// Nombre de ticks du départ du timer (miliSecondes).
+				 m_uiTimeToElapse;	// Combien de ticks avant le déclenchement(miliSecondes).
 public:
+
 	/*!
 	 @method Constructeur
 	 */
