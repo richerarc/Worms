@@ -19,7 +19,7 @@ public:
 		m_Font->setFontColor(SDL_Color{ 0, 0, 0, 255 });
 		m_btnPrev= new CButton("btnPrev", "", _Font, {0, (m_Rect.h / 2), 42, 22}, _SpritePrev);
 		m_btnNext = new CButton("btnNext", "", _Font, {(m_Rect.w - 42), (m_Rect.h / 2), 42, 22}, _SpriteNext);
-		m_lblContain = new CLabelImage("lblContain", "", _Font, {((m_Rect.w / 2) -((m_Rect.w - 84) / 2)), 0, (m_Rect.w - 84), m_Rect.h}, nullptr);
+		m_lblContain = new CLabelImage("lblContain", "", _Font, {((m_Rect.w / 2) -((m_Rect.w - 84) / 2)), 20, (m_Rect.w - 84), m_Rect.h}, nullptr);
 		m_ListText = new CListeDC<string*>();
 		m_ListTexture = new CListeDC<SDL_Texture*>();
 		m_iIMGSelected = 0;
@@ -28,8 +28,6 @@ public:
 	
 	void ajouterTexture(int _argc, ...){
 		va_list argv;
-		va_arg(argv, SDL_Texture*);
-		
 		va_start(argv, _argc);
 		for (int i = 0; i < _argc; i++)
 			m_ListTexture->AjouterFin(va_arg(argv, SDL_Texture*));
@@ -39,8 +37,6 @@ public:
 	
 	void ajouterText(int _argc, ...){
 		va_list argv;
-		va_arg(argv, SDL_Texture*);
-		
 		va_start(argv, _argc);
 		for (int i = 0; i < _argc; i++)
 			m_ListText->AjouterFin(va_arg(argv, string*));
@@ -64,17 +60,20 @@ public:
 				(_Event.button.x <= (uiXNext + m_btnNext->getWidth())) &&
 				(_Event.button.y >= uiYNext) &&
 				(_Event.button.y <= (uiYNext + m_btnNext->getHeight()))){
-				m_btnNext->CGUIE::HandleEvent(_Event);
+				m_btnNext->HandleEvent(_Event);
 				m_iIMGSelected = (m_iIMGSelected + 1) % m_ListTexture->Count();
-				m_iTextSelected = (m_iTextSelected + 1) % m_ListText->Count();
+				m_iTextSelected = m_iIMGSelected;
 			}
 			else if ((_Event.button.x >= uiXPrev) &&
 				(_Event.button.x <= (uiXPrev + m_btnPrev->getWidth())) &&
 				(_Event.button.y >= uiYPrev) &&
 				(_Event.button.y <= (uiYPrev + m_btnPrev->getHeight()))){
 				m_btnPrev->HandleEvent(_Event);
-				m_iIMGSelected = (m_iIMGSelected - 1) % m_ListTexture->Count();
-				m_iTextSelected = (m_iTextSelected - 1) % m_ListText->Count();
+				m_iIMGSelected -= 1;
+				if (m_iIMGSelected < 0)
+					m_iIMGSelected = m_ListTexture->Count() + m_iIMGSelected;
+				m_iTextSelected = m_iIMGSelected;
+					
 			}
 			setlblContain();
 		}
@@ -96,6 +95,26 @@ public:
 			m_lblContain->setText(m_ListText->ObtenirElement()->c_str());
 		}
 		
+	}
+	
+	/*!
+	 @method setOnClickPrev
+	 @brief Methode pour configurer l'action onclick du bouton previous.
+	 @param Aucun
+	 @return Aucun
+	 */
+	void setOnClickPrev(void(*_func)()){
+		m_btnPrev->OnClickAction = _func;
+	}
+	
+	/*!
+	 @method setOnClickNext
+	 @brief Methode pour configurer l'action onclick du bouton next.
+	 @param Aucun
+	 @return Aucun
+	 */
+	void setOnClickNext(void(*_func)()){
+		m_btnNext->OnClickAction = _func;
 	}
 	
 	/*!
