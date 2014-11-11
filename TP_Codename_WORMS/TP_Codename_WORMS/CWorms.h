@@ -86,7 +86,7 @@ public:
 			strPath.erase(uiPosString, 1);
 			uiPosString--;
 		}
-#elif defined (_win32)
+#elif defined (_WIN32)
 		while (strPath[uiPosString] != '\\'){
 			strPath.erase(uiPosString, 1);
 			uiPosString--;
@@ -95,7 +95,7 @@ public:
 		strPath.append("Ressources");
 #if defined(__APPLE__) && defined(__MACH__)
 		strPath.append("/");
-#elif defined (_win32)
+#elif defined (_WIN32)
 		strPath.append("\\");
 #endif
 		string FileName[12] = {"Arpegius.ttf", "Btn1.png", "BtnL.png", "BtnR.png", "map1.png", "background1.png", "map2.png", "background2.png", "map3.png", "background3.png", "map4.png", "background4.png"};
