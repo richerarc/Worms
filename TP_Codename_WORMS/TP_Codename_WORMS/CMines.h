@@ -3,8 +3,8 @@
 
 
 /*!
-@CGrenades
-@Classe permettant la création d'une grenade
+@CMines
+@Classe permettant la création d'une mines
 */
 class CMines : public CObjets{
 
