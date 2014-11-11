@@ -156,8 +156,8 @@ public:
 		m_MenuPrincipal->AddElement(new CButton("btnNewGame", "New Game", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnNG")), 800, 200, 162, 33);
 		m_MenuPrincipal->AddElement(new CButton("btnQuit", "Quit", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnQ")), 800, 500, 162, 33);
 		m_MenuPrincipal->AddElement(new CLabel("lblWorms", "Worms", m_Gestionaire->GetFont("FontMenu"), {0, 0, 10, 10}), 100, 100, 400, 200);
-		m_MenuPrincipal->getElement("btnQuit")->OnClickAction = FuncBtnQuit;
-		m_MenuPrincipal->getElement("btnNewGame")->OnClickAction = FuncBtnNewGame;
+		m_MenuPrincipal->getElement("btnQuit")->OnClickAction = BtnQuit;
+		m_MenuPrincipal->getElement("btnNewGame")->OnClickAction = BtnNewGame;
 		m_MenuPrincipal->ActivateMenu();
 			//
 			// Initialisation du menu NewGame
@@ -168,42 +168,42 @@ public:
 		m_MenuNewGame->AddElement(new CButton("btnNTeam", "New Team", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnNT")), (WIDTH - 182), (HEIGHT - 66), 162, 33);
 		CSlideShow* SSTemp = new CSlideShow("SSMap", m_Gestionaire->GetFont("FontMenu"), {20, 40, 600, 300}, m_Gestionaire->GetSprite("SpriteMapLeft"), m_Gestionaire->GetSprite("SpriteMapRight"));
 		SSTemp->ajouterTexture(4, SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map1")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map2")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map3")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map4")->getSurface()));
-		SSTemp->setOnClickNext(FuncMapNext);
-		SSTemp->setOnClickNext(FuncMapPrev);
+		SSTemp->setOnClickNext(BtnMapNext);
+		SSTemp->setOnClickNext(BtnMapPrev);
 		m_MenuNewGame->AddElement(SSTemp, 20, 40, 600, 300);
 		m_MenuNewGame->AddElement(new CLabel("lblMapName", "Map : ", m_Gestionaire->GetFont("FontMenu"), {}), 20, 380, 100, 20);
 		m_MenuNewGame->AddElement(new CLabel("lblMapInfo", "Wind : ", m_Gestionaire->GetFont("FontMenu"), {}), 20, 420, 100, 20);
 		CSlideShow* SSTemp2 = new CSlideShow("SSTeam", m_Gestionaire->GetFont("FontMenu"), {660, 40, 600, 300}, m_Gestionaire->GetSprite("SpriteTeamLeft"), m_Gestionaire->GetSprite("SpriteTeamRight"));
 		SSTemp2->ajouterText(4, new string("Team Ritch"), new string("Team Kev"), new string("Team Die-Jess"), new string("Team Dom"));
 		m_MenuNewGame->AddElement(SSTemp2, 660, 40, 600, 300);
-		m_MenuNewGame->getElement("btnCancel")->OnClickAction = FuncBtnCancelNG;
-		m_MenuNewGame->getElement("btnNTeam")->OnClickAction = FuncBtnNewTeam;
+		m_MenuNewGame->getElement("btnCancel")->OnClickAction = BtnCancelNG;
+		m_MenuNewGame->getElement("btnNTeam")->OnClickAction = BtnNewTeam;
 		
 	}
 	
 		//
 		// Définition des action de chaque bouton dans les menu.
 		//
-	static void FuncBtnQuit(){
+	static void BtnQuit(){
 		m_boRun = false;
 	}
-	static void FuncBtnNewGame(){
+	static void BtnNewGame(){
 		m_MenuPrincipal->DeActivateMenu();
 		m_MenuNewGame->ActivateMenu();
 	}
-	static void FuncBtnCancelNG(){
+	static void BtnCancelNG(){
 		m_MenuNewGame->DeActivateMenu();
 		m_MenuPrincipal->ActivateMenu();
 	}
-	static void FuncBtnNewTeam(){
+	static void BtnNewTeam(){
 		m_MenuNewGame->DeActivateMenu();
 		m_MenuNewTeam->ActivateMenu();
 	}
-	static void FuncMapNext(){
+	static void BtnMapNext(){
 		m_MenuNewGame->getElement("lblMapName")->setText("Map : Yolo");
 		m_MenuNewGame->getElement("lblMapInfo")->setText("Wind : Evil");
 	}
-	static void FuncMapPrev(){
+	static void BtnMapPrev(){
 		m_MenuNewGame->getElement("lblMapName")->setText("Map : Yolo");
 		m_MenuNewGame->getElement("lblMapInfo")->setText("Wind : Evil");
 	}
