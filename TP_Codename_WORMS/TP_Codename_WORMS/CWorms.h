@@ -35,25 +35,6 @@ private:
 	static	CGestionnaireRessources* m_Gestionaire; // Gestionnaire de Resource pour le Worms
 public:
 	
-	CWorms(){
-		m_pWindow = new CWindow("Worms", WIDTH, HEIGHT);
-		m_MenuPrincipal = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
-		m_MenuNewGame = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
-		m_MenuPause = new CMenu(m_pWindow->getRenderer(), {0, 0, (WIDTH / 2), (HEIGHT / 2)});
-		m_MenuNewTeam = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
-		m_pEvent = new SDL_Event();
-		m_Gestionaire = new CGestionnaireRessources();
-	}
-	
-	~CWorms(){
-		delete m_pWindow;
-		delete m_MenuPrincipal;
-		delete m_MenuNewGame;
-		delete m_MenuPause;
-		delete m_MenuNewTeam;
-		delete m_pEvent;
-	}
-	
 	static void Start(){
 		while (m_boRun) {
 			Render();
@@ -144,11 +125,30 @@ public:
 		m_Gestionaire->AjouterSurface(new CSurface("background3", IMG_Load(strFilePath[9].c_str())));
 		m_Gestionaire->AjouterSurface(new CSurface("map4", IMG_Load(strFilePath[10].c_str())));
 		m_Gestionaire->AjouterSurface(new CSurface("background4", IMG_Load(strFilePath[11].c_str())));
-
+		/* The potato is a lie */
 		
 	}
 	
+	
+	static void Quit(){
+		delete m_pWindow;
+		delete m_MenuPrincipal;
+		delete m_MenuNewGame;
+		delete m_MenuPause;
+		delete m_MenuNewTeam;
+		delete m_pEvent;
+	}
+	
+	
 	static void Init(string _argv){
+		m_pWindow = new CWindow("Worms", WIDTH, HEIGHT);
+		m_MenuPrincipal = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
+		m_MenuNewGame = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
+		m_MenuPause = new CMenu(m_pWindow->getRenderer(), {0, 0, (WIDTH / 2), (HEIGHT / 2)});
+		m_MenuNewTeam = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
+		m_pEvent = new SDL_Event();
+		m_Gestionaire = new CGestionnaireRessources();
+		
 		LoadResources(_argv);
 			//
 			// Initialisation du menu Principal
@@ -212,13 +212,13 @@ public:
 
 	// Initialisation des données membre statique
 
-CWindow* CWorms::m_pWindow = new CWindow("Worms", WIDTH, HEIGHT);
-CMenu* CWorms::m_MenuPrincipal = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
-CMenu* CWorms::m_MenuNewGame = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
-CMenu* CWorms::m_MenuPause = new CMenu(m_pWindow->getRenderer(), {0, 0, (WIDTH / 2), (HEIGHT / 2)});
-CMenu* CWorms::m_MenuNewTeam = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
+CWindow* CWorms::m_pWindow = nullptr;
+CMenu* CWorms::m_MenuPrincipal = nullptr;
+CMenu* CWorms::m_MenuNewGame = nullptr;
+CMenu* CWorms::m_MenuPause = nullptr;
+CMenu* CWorms::m_MenuNewTeam = nullptr;
 bool CWorms::m_boInMenu = true;
-SDL_Event* CWorms::m_pEvent = new SDL_Event();
-CGestionnaireRessources* CWorms::m_Gestionaire = new CGestionnaireRessources();
+SDL_Event* CWorms::m_pEvent = nullptr;
+CGestionnaireRessources* CWorms::m_Gestionaire = nullptr;
 bool CWorms::m_boRun = true;
 
