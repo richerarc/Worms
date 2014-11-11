@@ -78,9 +78,11 @@
     <ClInclude Include="CGestionnaireRessources.h" />
     <ClInclude Include="CGrenades.h" />
     <ClInclude Include="CGUIE.h" />
+    <ClInclude Include="CInGame.h" />
     <ClInclude Include="CLabel.h" />
     <ClInclude Include="ClabelImage.h" />
     <ClInclude Include="CListeDC.h" />
+    <ClInclude Include="CMap.h" />
     <ClInclude Include="CMenu.h" />
     <ClInclude Include="CMines.h" />
     <ClInclude Include="CMissiles.h" />
@@ -90,10 +92,12 @@
     <ClInclude Include="CSlideShow.h" />
     <ClInclude Include="CSprite.h" />
     <ClInclude Include="CSurface.h" />
+    <ClInclude Include="CTeam.h" />
     <ClInclude Include="CTextBox.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="CWindow.h" />
+    <ClInclude Include="CWorm.h" />
     <ClInclude Include="CWorms.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
