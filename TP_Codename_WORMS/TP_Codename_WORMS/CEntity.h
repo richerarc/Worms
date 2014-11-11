@@ -12,7 +12,6 @@ private:
 	unsigned int m_uiMasse;
 	SDL_Rect m_RectPosition;
 	bool m_boFocus;
-
 public:
 
 	/*!
