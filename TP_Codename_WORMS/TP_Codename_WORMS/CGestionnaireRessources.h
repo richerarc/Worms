@@ -15,11 +15,11 @@ Discussion : Classe pour implémenté un gestionnaire des ressources
 
 class CGestionnaireRessources{
 private:
-	CListeDC<CSprite*>* m_pListeSprites;
-	CListeDC<CFont*>* m_pListeFonts;
-	CListeDC<CMusic*>* m_pListeMusics;
-	CListeDC<CTexture*>* m_pListeTexture;
-	CListeDC<CSurface*>* m_pListeSurface;
+	CListeDC<CSprite*>* m_pListeSprites;  // Liste de Sprites.
+	CListeDC<CFont*>* m_pListeFonts;	  // Liste de Police.
+	CListeDC<CMusic*>* m_pListeMusics;	  // Liste de Sons.
+	CListeDC<CTexture*>* m_pListeTexture; // Liste de Textures.
+	CListeDC<CSurface*>* m_pListeSurface; // Liste de Surfaces.
 
 public:
 
@@ -39,6 +39,7 @@ public:
 		delete m_pListeFonts;
 		delete m_pListeMusics;
 		delete m_pListeTexture;
+		delete m_pListeSurface;
 	}
 
 	//Méthodes...
