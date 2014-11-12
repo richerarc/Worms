@@ -47,7 +47,7 @@ public:
 	@Permet de calculer les dommages subit par l'explosion
 	*/
 	float ReactToExplosion(CEntity* _pEntity){
-		//
+		//To do
 	}
 
 	/*!
@@ -61,18 +61,18 @@ public:
 
 		case SDLK_UP:
 		case SDLK_w:
-			//
+			//To do
 			break;
 		case SDLK_LEFT:
 		case SDLK_a:
-			//
+			//To do
 			break;
 		case SDLK_RIGHT:
 		case SDLK_d:
-			//
+			//To do
 			break;
 		case SDLK_SPACE:
-			//
+			//To do
 			break;
 		}
 	}

@@ -34,3 +34,17 @@ Ajout des sprites combat/armes/explosion dans les ressources
 n'était pas centré. 
 -J'ai aidé Kevin à completer les UML des Ressources.
 -J'ai fait et testé la méthode pathFinder avec l'aide de Richer.
+
+11 novembre 2014:
+Rencontre avec Richer et Kevin au cégep de 10h à 14h30. Nous avons
+fait ensemble l'UML du "InGame". J'ai ensuite fait les classes : 
+-CWorm
+-CObjets
+-CMissiles
+-CMines
+-CGrenades
+-CCaisses et CCaisseSoin.
+
+Elles ne sont pas finales, il me reste à faire les méthodes HandleEvent
+et quelques autres éléments. Je dois également discuter avec les gars
+du fonctionnement du déclanchement de l'explosion des armes.

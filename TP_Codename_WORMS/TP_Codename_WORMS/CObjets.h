@@ -7,15 +7,22 @@
 @Classe permettant la création d'une grenade
 */
 class CObjets : public CEntity{
+protected:
+	//Données membres:
+	int m_iRayon; //Donnée représentant la longueur du rayon de l'explosion.
 
 public:
 	/*!
 	@Constructeur
 	@Description: Permet d'initialiser les données membres
-	@Paramètres: Le nom du labelImage afin de l'identifier, le text à l'intérieur, le font et le rect, et la texture contenant l'image.
-	@Classe héritant de CGUIE, donc elle passe les paramètres nécessaires au constructeur de CGUIE
+	 @param _iRayon : le rayon d'explosion
+	 @param _Name : le nom de l'entitée
+	 @param _uiMasse : la masse de l'entitée
+	 @param _RectPos : le rect de l'entitée
+	@Classe héritant de CEntity, elle prend donc les paramètres de CEntity.
 	*/
-	CObjets() :CEntity(){
+	CObjets(int _iRayon, const char* _Name, unsigned int _uiMasse, SDL_Rect _RectPos) :CEntity(_Name,_uiMasse,_RectPos){
+		m_iRayon = _iRayon;
 	}
 	/*!
 	@Destructeur:
@@ -24,11 +31,21 @@ public:
 	~CObjets(){
 	}
 
+	/*!
+	@method Draw
+	@brief Fonction virtuel pour dessiner l'entitée sur un Renderer
+	@param _Renderer : Le renderer sur lequel dessiner
+	@return Aucun
+	*/
+	virtual void Draw(SDL_Renderer* _Renderer){};
 
 
 	/*!
 	@Accesseurs:
 	*/
+	int getRayon(){
+		return m_iRayon;
+	}
 
 };
 
