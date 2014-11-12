@@ -7,7 +7,7 @@
 @Classe Abstraite représentant les entitées affectés par la physique.
 */
 class CEntity{
-private:
+protected:
 	const char* m_strName;
 	unsigned int m_uiMasse;
 	SDL_Rect m_RectPosition;
