@@ -41,9 +41,9 @@ public:
 		return m_strName;
 	}
 
-	unsigned int m_uiMasse(){
-		return m_uiMasse;
-	}
+		//	unsigned int m_uiMasse(){
+		//return m_uiMasse;
+		//	}
 
 	SDL_Rect getPosition(){
 		return m_RectPosition;
