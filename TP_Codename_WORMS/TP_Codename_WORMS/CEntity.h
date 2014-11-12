@@ -9,7 +9,6 @@
 class CEntity{
 protected:
 	const char* m_strName;
-	unsigned int m_uiMasse;
 	SDL_Rect m_RectPosition;
 	bool m_boFocus;
 
@@ -20,9 +19,8 @@ public:
 	@Description: Permet d'initialiser les données membres
 	@Paramètres:
 	*/
-	CEntity(const char* _Name, unsigned int _uiMasse,SDL_Rect _RectPos){
+	CEntity(const char* _Name,SDL_Rect _RectPos){
 		m_strName = _Name;
-		m_uiMasse = _uiMasse;
 		m_RectPosition = _RectPos;
 		m_boFocus = false;
 	}

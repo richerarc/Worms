@@ -28,9 +28,8 @@ public:
 	 @param _RectPos : la position du sprite
 	@Classe héritant de CEntity
 	*/
-	CWorm(int _iLifeMax, CSprite* _pSprite, const char* _Name, unsigned int _uiMasse, SDL_Rect _RectPos) :CEntity(_Name, _uiMasse, _RectPos){
-		m_iLife = _iLifeMax;
-		m_iLifeMax = _iLifeMax;
+	CWorm(CSprite* _pSprite, const char* _Name, SDL_Rect _RectPos) :CEntity(_Name, _RectPos){
+		m_iLife = 100;
 		m_pSprite = _pSprite;
 		m_pSprite->setSpritePos(_RectPos.x, _RectPos.y);
 

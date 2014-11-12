@@ -21,7 +21,7 @@ public:
 	 @param _RectPos : le rect de l'entitée
 	@Classe héritant de CEntity, elle prend donc les paramètres de CEntity.
 	*/
-	CObjets(int _iRayon, const char* _Name, unsigned int _uiMasse, SDL_Rect _RectPos) :CEntity(_Name,_uiMasse,_RectPos){
+	CObjets(int _iRayon, const char* _Name, SDL_Rect _RectPos) :CEntity(_Name,_RectPos){
 		m_iRayon = _iRayon;
 	}
 	/*!

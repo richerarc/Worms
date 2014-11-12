@@ -23,7 +23,7 @@ public:
 	 @param _pTexture : texture de l'image à afficher
 	@Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
-	CGrenades(int _iRayon, const char* _Name, unsigned int _uiMasse, SDL_Rect _RectPos, SDL_Texture* _pTexture) :CObjets(_iRayon,_Name,_uiMasse,_RectPos){
+	CGrenades(int _iRayon, const char* _Name, SDL_Rect _RectPos, SDL_Texture* _pTexture) :CObjets(_iRayon,_Name,_RectPos){
 		m_pTexture = _pTexture;
 		m_pTimer = new CTimer();
 		m_pTimer->SetTimer(1000);
