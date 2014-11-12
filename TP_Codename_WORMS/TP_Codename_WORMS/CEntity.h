@@ -8,7 +8,7 @@
 */
 class CEntity{
 protected:
-	const char* m_strName;
+	string m_strName;
 	SDL_Rect m_RectPosition;
 	bool m_boFocus;
 
@@ -19,8 +19,7 @@ public:
 	@Description: Permet d'initialiser les données membres
 	@Paramètres:
 	*/
-	CEntity(const char* _Name,SDL_Rect _RectPos){
-		m_strName = _Name;
+	CEntity(SDL_Rect _RectPos){
 		m_RectPosition = _RectPos;
 		m_boFocus = false;
 	}
@@ -30,18 +29,12 @@ public:
 	@Permet de détruire les objets créés en mémoire
 	*/
 	~CEntity(){
-		delete m_strName;
 	}
 
 	/*!
 	@Accesseurs:
 	*/
 	const char* getName(){
-		return m_strName;
-	}
-
-	unsigned int m_uiMasse(){
-		return m_uiMasse;
 	}
 
 	SDL_Rect getPosition(){

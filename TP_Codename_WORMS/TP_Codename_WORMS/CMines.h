@@ -23,7 +23,7 @@ public:
 	 @param _pTexture : texture de l'image à afficher
 	@Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
-	CMines(int _iRayon, const char* _Name, unsigned int _uiMasse, SDL_Rect _RectPos, SDL_Texture* _pTexture) :CObjets(_iRayon, _Name, _uiMasse, _RectPos){
+	CMines(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _pTexture) :CObjets(_iRayon, _RectPos){
 		m_pTexture = _pTexture;
 		m_iRayon = _iRayon;
 	}

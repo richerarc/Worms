@@ -15,6 +15,7 @@
 */
 class CWorm : public CEntity{
 private:
+	string m_strName;
 	int m_iLife; //Donnée représentant la vie actuelle du worm
 	int m_iLifeMax;//Donnée représentant la vie maximum du worm
 	CSprite* m_pSprite;//Sprite du worm
@@ -28,17 +29,18 @@ public:
 	 @param _RectPos : la position du sprite
 	@Classe héritant de CEntity
 	*/
-	CWorm(CSprite* _pSprite, const char* _Name, SDL_Rect _RectPos) :CEntity(_Name, _RectPos){
-		m_iLife = 100;
+	CWorm(string _Name, CSprite* _pSprite, SDL_Rect _RectPos) :CEntity(_RectPos){
+		m_strName = _Name;
 		m_pSprite = _pSprite;
 		m_pSprite->setSpritePos(_RectPos.x, _RectPos.y);
-
+		m_iLife = 100;
 	}
 	/*!
 	@Destructeur:
 	@Permet de détruire les objets créés en mémoire
 	*/
 	~CWorm(){
+		delete m_pSprite;
 	}
 	/*!
 	@Méthode:

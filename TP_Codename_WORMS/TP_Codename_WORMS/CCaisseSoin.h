@@ -19,7 +19,7 @@ public:
 	@Paramètres: 
 	@Classe héritant 
 	*/
-	CCaisseSoin(int _iRayon, const char* _Name, unsigned int _uiMasse, SDL_Rect _RectPos, SDL_Texture* _pTexture) :CCaisses(_iRayon,_Name,_uiMasse, _RectPos){
+	CCaisseSoin(int _iRayon, SDL_Rect _RectPos , SDL_Texture* _pTexture) :CCaisses(_iRayon, _RectPos,_pTexture){
 	}
 
 
