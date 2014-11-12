@@ -17,7 +17,6 @@ class CWorm : public CEntity{
 private:
 	string m_strName;
 	int m_iLife; //Donnée représentant la vie actuelle du worm
-	int m_iLifeMax;//Donnée représentant la vie maximum du worm
 	CSprite* m_pSprite;//Sprite du worm
 	
 public:
@@ -88,13 +87,17 @@ public:
 	}
 
 
-
 	/*!
 	@Accesseurs:
 	*/
+
 	void SetLife(int _iLifeActuelle){
 		m_iLife = _iLifeActuelle;
 	}
+
+	void setName(string _Name){ m_strName = _Name; }
+
+	string getName(){ return m_strName; }
 
 };
 
