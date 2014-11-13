@@ -29,7 +29,8 @@ public:
 	}
 
 	//Méthode: VerifyCollision permet de vérifier une collision entre deux entités
-	//		Paramètres:
+	//		Paramètres: _Collider - Entité qui crée la collision, donc est en mouvement.
+	//					_Collidee - Entité qui reçoit la collision, donc est immobile.
 	bool VerifyCollision(CEntity* _Collider, CEntity* _Collidee){
 
 	}
