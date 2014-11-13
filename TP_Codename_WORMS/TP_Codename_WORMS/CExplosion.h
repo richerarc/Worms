@@ -1,4 +1,4 @@
-class CExlosion{
+class CExplosion{
 private:
 	CSprite* m_pSprite;
 	SDL_Rect m_Rect;

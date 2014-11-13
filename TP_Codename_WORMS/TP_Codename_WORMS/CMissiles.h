@@ -39,7 +39,8 @@ public:
 	@return null
 	*/
 	void HandleEvent(SDL_Event _Event){
-		// To do
+		m_boFocus = true;
+		ReactToExplosion(m_iRayon);
 	}
 
 	/*!
