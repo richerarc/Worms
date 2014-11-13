@@ -39,8 +39,19 @@ public:
 	@return null
 	*/
 	void HandleEvent(SDL_Event _Event){
-		// TO do
+		m_boFocus = true;
+	
 	}
+
+	/*!
+	@Méthode:
+	@ReactToExplosion
+	@Permet de calculer les dommages subit par l'explosion
+	*/
+	void ReactToExplosion(int _iRayon){
+
+	}
+
 
 	/*!
 	@Destructeur:
