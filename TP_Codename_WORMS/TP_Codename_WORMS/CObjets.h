@@ -38,8 +38,8 @@ public:
 	@param _Renderer : Le renderer sur lequel dessiner
 	@return Aucun
 	*/
-	virtual void Draw(SDL_Renderer* _Renderer){};
-
+	virtual void Draw(SDL_Renderer) =0;
+	virtual void Explosed() = 0;
 
 	/*!
 	@Accesseurs:

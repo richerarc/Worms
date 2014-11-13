@@ -45,7 +45,6 @@ public:
 	*/
 	void HandleEvent(SDL_Event _Event){
 		m_boFocus = true;
-		ReactToExplosion(m_iRayon);
 	}
 
 	/*!
@@ -53,7 +52,7 @@ public:
 	@ReactToExplosion
 	@Permet de calculer les dommages subit par l'explosion
 	*/
-	void ReactToExplosion(int _iRayon){
+	void ReactToExplosion(int _iX, int _iY, int _iRayon){
 
 	}
 

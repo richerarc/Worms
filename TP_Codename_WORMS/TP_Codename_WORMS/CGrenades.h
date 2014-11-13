@@ -48,17 +48,23 @@ public:
 	void HandleEvent(SDL_Event _Event){
 		m_boFocus = true;
 		if (m_pTimer->IsElapsed())
-			ReactToExplosion(m_iRayon);
+			Explosed();
 	}
 	
+	/*!
+	@Méthode:
+	@Explosed
+	@Permet de déclancher l'explosion
+	*/
+	void Explosed(){
+		m_RectPosition.x = 
+	}
 	/*!
 	@Méthode:
 	@ReactToExplosion
 	@Permet de calculer les dommages subit par l'explosion
 	*/
-	void ReactToExplosion(int _iRayon){
-		m_boFocus = false;
-	}
+	void ReactToExplosion(int _iX, int _iY, int _iRayon){}
 	/*!
 	@Accesseurs:
 	*/
