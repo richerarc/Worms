@@ -1,7 +1,7 @@
-class 2DVector{
+class C2DVector{
 private:
 	double	m_iX,  // m_iY et m_iX:  Positions en X et en Y du vecteur 2D
-			m_iY;
+		m_iY;
 public:
 
 	//Contructeur:
@@ -10,6 +10,12 @@ public:
 	C2DVector(double _iX, double _iY){
 		m_iX = _iX;
 		m_iY = _iY;
+	}
+
+	//Redefinition de l'opérateur +:
+	//
+	C2DVector * operator+ (C2DVector * _Vector){
+		return new C2DVector(m_iX + _Vector->getX(), m_iY + _Vector->getY());
 	}
 
 	//Accesseurs...
