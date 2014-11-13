@@ -12,6 +12,7 @@ private:
 	CListeDC<string*>* m_ListText;		   // Liste de Textes.
 	unsigned int m_uiCurrentSlide;		   // slide à afficher
 	unsigned int m_uiCount;				   // Nombre d'élément dans le slideshow
+	SDL_Rect m_RectFilled;
 public:
 	CSlideShow(const char* _Name, CFont* _Font, SDL_Rect _Rect, CSprite* _SpritePrev, CSprite* _SpriteNext) :CGUIE(_Name, "", _Font, _Rect){
 		m_Font->setFontColor(SDL_Color{ 0, 0, 0, 255 });
@@ -22,6 +23,7 @@ public:
 		m_ListTexture = new CListeDC<SDL_Texture*>();
 		m_uiCurrentSlide = 0;
 		m_uiCount = 0;
+		m_RectFilled = {m_Rect.x + 42, m_Rect.y, m_Rect.w - 84, m_Rect.h};
 	}
 	
 	void ajouterTexture(int _argc, ...){										//
@@ -125,7 +127,7 @@ public:
 	 */
 	void Draw(SDL_Renderer * _Renderer){
 		SDL_SetRenderDrawColor(_Renderer, 210, 214, 217, 1);
-		SDL_RenderFillRect(_Renderer, new SDL_Rect{m_Rect.x + 42, m_Rect.y, m_Rect.w - 84, m_Rect.h});
+		SDL_RenderFillRect(_Renderer, &m_RectFilled);
 		m_btnNext->Draw(_Renderer);
 		m_btnPrev->Draw(_Renderer);
 		m_Font->setFontColor({0,0,0,255});

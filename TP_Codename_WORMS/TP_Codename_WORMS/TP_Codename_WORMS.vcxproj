@@ -74,6 +74,7 @@
     <ClInclude Include="CCaisses.h" />
     <ClInclude Include="CCaisseSoin.h" />
     <ClInclude Include="CEntity.h" />
+    <ClInclude Include="CExplosion.h" />
     <ClInclude Include="CFont.h" />
     <ClInclude Include="CGestionnaireRessources.h" />
     <ClInclude Include="CGrenades.h" />
