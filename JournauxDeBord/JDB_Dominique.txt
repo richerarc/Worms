@@ -1,17 +1,20 @@
 28 oct
-J'ai ajouté des méthodes pour Pauser/DéPauser la minuterie dans CTimer.h et 
-j'y ai ajouté des commentaires pour plus de clarté.
+J'ai ajoutÃ© des mÃ©thodes pour Pauser/DÃ©Pauser la minuterie dans CTimer.h et 
+j'y ai ajoutÃ© des commentaires pour plus de clartÃ©.
 
 2 nov
-J'ai créé et ajouté la classe CGestionnaireRessources, qui utilise la liste fournie par Kevin 
+J'ai crÃ©Ã© et ajoutÃ© la classe CGestionnaireRessources, qui utilise la liste fournie par Kevin 
 et la classe CRessource.
 
 4 nov
-Addition de CGestionnaireRessources (erreur la première fois) et ajout de GetName dans CRessource
-J'ai aussi ajouté un dossier pour les sprites de Worms qui contient actuellement la mort d'un worm
+Addition de CGestionnaireRessources (erreur la premiÃ¨re fois) et ajout de GetName dans CRessource
+J'ai aussi ajoutÃ© un dossier pour les sprites de Worms qui contient actuellement la mort d'un worm
 
 5 nov
 Modification de CGestionnaireRessources pour utiliser plusieurs listes et ajout de certains sprites
 
 6 nov
 Ajout de sprites de worms manquantes
+
+13 nov
+Ajout des classes liÃ©es Ã  la physique

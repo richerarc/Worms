@@ -46,9 +46,13 @@ public:
 	@ReactToExplosion
 	@Permet de calculer les dommages subit par l'explosion
 	*/
+<<<<<<< HEAD
 	float ReactToExplosion(CEntity* _pEntity){
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+	void ReactToExplosion(CEntity* _pEntity){
+>>>>>>> InGame
 		//To do
 =======
 		return 0.f;
