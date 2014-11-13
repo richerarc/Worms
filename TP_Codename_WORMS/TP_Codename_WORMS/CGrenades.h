@@ -46,18 +46,19 @@ public:
 	@return null
 	*/
 	void HandleEvent(SDL_Event _Event){
-		// TO do
+		m_boFocus = true;
+		ReactToExplosion(m_iRayon);
+
 	}
 	
 	/*!
-	@method IsExplose
-	@param null
-	@return bool: Explose=true / Unexplose=false;
+	@Méthode:
+	@ReactToExplosion
+	@Permet de calculer les dommages subit par l'explosion
 	*/
-	bool IsExplose(){
-		return m_pTimer->IsElapsed();
+	void ReactToExplosion(int _iRayon){
+		
 	}
-
 	/*!
 	@Accesseurs:
 	*/

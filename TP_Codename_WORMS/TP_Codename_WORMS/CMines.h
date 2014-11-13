@@ -48,15 +48,11 @@ public:
 	}
 
 	/*!
-	@method IsExplose
-	@param null
-	@return bool: Explose=true / Unexplose=false;
+	@Méthode:
+	@ReactToExplosion
+	@Permet de calculer les dommages subit par l'explosion
 	*/
-	bool IsExplose(CWorm* _pWorm){
-		if (( _pWorm->getPosition.x == m_RectPosition.x) && (_pWorm->getPosition.y == m_RectPosition.y))
-			return true;
-		else
-			return false;
+	void ReactToExplosion(int _iRayon){
 
 	}
 

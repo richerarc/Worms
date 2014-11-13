@@ -43,12 +43,12 @@ public:
 	}
 
 	/*!
-	@method IsExplose
-	@param null
-	@return bool: Explose=true / Unexplose=false;
+	@Méthode:
+	@ReactToExplosion
+	@Permet de calculer les dommages subit par l'explosion
 	*/
-	bool IsExplose(){
-		//To do
+	void ReactToExplosion(int _iRayon){
+
 	}
 
 
