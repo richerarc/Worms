@@ -81,15 +81,27 @@ public:
 				Temp = m_pList->ObtenirElement();
 				uiXTemp = Temp->getX();
 				uiYTemp = Temp->getY();
-				if ((_Event.button.x >= uiXTemp) &&
-					(_Event.button.x <= (uiXTemp + Temp->getWidth())) &&
-					(_Event.button.y >= uiYTemp) &&
-					(_Event.button.y <= (uiYTemp + Temp->getHeight()))){
-					Temp->setFocus(true);
-					break;
+				if (Temp->isTextBox()){
+					if ((_Event.button.x >= uiXTemp) &&
+						(_Event.button.x <= (uiXTemp + Temp->getWidth())) &&
+						(_Event.button.y >= uiYTemp) &&
+						(_Event.button.y <= (uiYTemp + Temp->getHeight())) &&
+						(_Event.type == SDL_MOUSEBUTTONDOWN)){
+						Temp->setFocus(true);
+						break;
+					}
 				}
-				else if (Temp->isFocussed())
-					Temp->setFocus(false);
+				else{
+					if ((_Event.button.x >= uiXTemp) &&
+						(_Event.button.x <= (uiXTemp + Temp->getWidth())) &&
+						(_Event.button.y >= uiYTemp) &&
+						(_Event.button.y <= (uiYTemp + Temp->getHeight()))){
+						Temp->setFocus(true);
+						break;
+					}
+					else if (Temp->isFocussed())
+						Temp->setFocus(false);
+				}
 				m_pList->AllerSuivant();
 			}
 			for (int i = 0; i < m_pList->Count(); i++){

@@ -110,7 +110,7 @@ public:
 	
 	virtual void setFocus(bool _Focus){m_boFocussed = _Focus;}
 
-
+	virtual bool isTextBox(){return false;}
 };
 
 #endif
