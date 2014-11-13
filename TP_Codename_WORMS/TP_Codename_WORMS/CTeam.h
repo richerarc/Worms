@@ -18,12 +18,13 @@ private:
 public:
 
 
-	CTeam(string _strTeamName,SDL_Color _Color){
+	CTeam(string _strTeamName,SDL_Color _Color,CSprite _Sprite,SDL_Rect _Rect){
 		string strNom = "Worm";
 		char Buffer[255];
 		for (int i = 0; i < MAXWORMS; i++)
 		{
-			m_pTabWorm[i] = new CWorm(strNom.append(SDL_itoa(i, Buffer, 10)), CSprite, SDL_Rect)
+			strNom.append(SDL_itoa(i, Buffer, 10));
+			m_pTabWorm[i] = new CWorm(strNom, _Sprite, _Rect)
 		}
 	}
 

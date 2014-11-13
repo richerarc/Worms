@@ -46,7 +46,7 @@ public:
 	@ReactToExplosion
 	@Permet de calculer les dommages subit par l'explosion
 	*/
-	void ReactToExplosion(CEntity* _pEntity){
+	void ReactToExplosion(int _Rayon){
 		//To do
 	}
 

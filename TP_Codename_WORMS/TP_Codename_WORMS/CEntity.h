@@ -50,8 +50,8 @@ public:
 		m_boFocus = _Focus;
 	}
 
-	virtual void ReactToExplosion() = 0;
-	virtual void HandleEvent() = 0;
+	virtual void ReactToExplosion(int) = 0;
+	virtual void HandleEvent(SDL_Event) = 0;
 
 };
 
