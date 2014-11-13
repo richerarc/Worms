@@ -15,23 +15,13 @@ public:
 	@Constructeur
 	@Description: Permet d'initialiser les données membres
 	 @param _iRayon: le rayond d'explosion de l'objet
-	 @param _Name : le nom de l'objet
-	 @param _uiMasse: la masse de l'objet
 	 @param _RectPos: la pos du rectangle de l'objet
 	 @param _pTexture : texture de l'image à afficher
 	@Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
-<<<<<<< HEAD
-<<<<<<< HEAD
 	CMissiles(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _pTexture) :CObjets(_iRayon, _RectPos){
 		m_pTexture = _pTexture;
 		m_iRayon = _iRayon;
-=======
-	CMissiles(const char* _Name, unsigned int _uiMasse, SDL_Rect _RectPos) : CObjets(_Name, _uiMasse, _RectPos){
->>>>>>> 620d262c90c1eaa43e43336d6e0d57479837c984
-=======
-	CMissiles(const char* _Name, unsigned int _uiMasse, SDL_Rect _RectPos) : CObjets(_Name, _uiMasse, _RectPos){
->>>>>>> FETCH_HEAD
 	}
 	
 	/*!
