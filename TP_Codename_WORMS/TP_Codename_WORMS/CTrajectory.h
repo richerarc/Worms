@@ -11,7 +11,7 @@ private:
 	C2DVector* m_TrajectoryInitSpeed;
 public:
 	//Constructeur...
-	CTrajectory(long _StartTime, C2DVector* _StartPos, C2DVector* _InitSpeed){
+	CTrajectory(C2DVector* _StartPos, C2DVector* _InitSpeed){
 		m_lTrajectoryStartTime = SDL_GetTicks();
 		m_StartPos = _StartPos;
 		m_TrajectoryInitSpeed = _InitSpeed;

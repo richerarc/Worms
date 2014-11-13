@@ -35,7 +35,15 @@ public:
 
 	}
 
-
+	/*Méthode : Propulsion
+	Brief : Fonction qui retourne la trajectoire d'une chose propulsée
+	Params :
+	_PosInit : Position initiale de la propulsion
+	_Vit : Vitesse initiale de la propulsion
+	*/
+	CTrajectory Propulsion(C2DVector* _PosInit, C2DVector* _Vit){
+		return CTrajectory(_PosInit, _Vit);
+	}
 
 
 
