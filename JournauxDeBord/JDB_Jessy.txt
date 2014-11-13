@@ -1,3 +1,50 @@
-Test
+28 octobre 2014:
 
-Je fais un deuxième test
+Nous avons fait ensemble la réalisation des diagrammes de classes
+qui englobe tout ce qui est en rapport aux Menus.
+
+J'ai commencer le constructeur de la classe CLabel.h et CLabelImage.h,
+il reste à complèter le tout et faire mes commentaires nécessaires.
+
+29 octobre 2014:
+
+J'ai continuer la classe CLabel et CLabelImage en finalisant le
+constructeur, les commentaires, et les deux méthodes Draw ainsi que
+quelques Accesseurs qui pourraient possiblement (?) être utiles.
+Il resterait à tester le tout, ce que je ferai un autre jour. 
+
+3 novembre 2014:
+
+J'ai tester la classe CLabel et CLabelImage et elles fonctionnent bien.
+J'en ai profiter pour rajouter une méthode AutoSize qui pourrait 
+prochainement nous être utile.
+
+4 novembre 2014:
+
+J'ai fait le diagramme d'utilisation des différents Menus proposés
+à l'utilisateur. L'adresse du lien est : https://app.genmymodel.com/edit/_0xMKgF-PEeSmRKwulsG6-Q#
+
+4 novembre 2014 20h48:
+
+Ajout des sprites combat/armes/explosion dans les ressources
+
+6 novembre 2014 :
+
+-Ajout des sprites en png et amélioration du SpriteExplosion parcequ'il
+n'était pas centré. 
+-J'ai aidé Kevin à completer les UML des Ressources.
+-J'ai fait et testé la méthode pathFinder avec l'aide de Richer.
+
+11 novembre 2014:
+Rencontre avec Richer et Kevin au cégep de 10h à 14h30. Nous avons
+fait ensemble l'UML du "InGame". J'ai ensuite fait les classes : 
+-CWorm
+-CObjets
+-CMissiles
+-CMines
+-CGrenades
+-CCaisses et CCaisseSoin.
+
+Elles ne sont pas finales, il me reste à faire les méthodes HandleEvent
+et quelques autres éléments. Je dois également discuter avec les gars
+du fonctionnement du déclanchement de l'explosion des armes.

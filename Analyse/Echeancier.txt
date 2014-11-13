@@ -1,0 +1,8 @@
+1)
+Coder les controlles visuels : fini le 4 nov.
+
+2)
+ ->Trouver les sprite, les normaliser.
+ ->Déclarer les menus.
+ ->Gérer l'affichage.
+ ->->->Avant le 11 nov.

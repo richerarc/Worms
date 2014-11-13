@@ -1,1 +1,17 @@
-28 octobre 2014
+28 octobre 2014 (écrit le 3 Nov)
+- J'avais codé une petite partie du CButton, mais elle a été perdue :(
+
+29, 30, 31 Octobre 2014 (Écrit le 3 Nov)
+- J'ai pas pu travailler sur le projet à cause d'un probleme de réseau.
+
+1, 2 Novembre 2014 (Écrit le 3 Nov)
+- IDEM
+
+3 Novembre 2014
+15h00 - J'ai recommencé la classe CButton au complet, j'ai codé une grande partie. Il mamque a coder comme il faut la procedure OnClick.
+15h45 - Ajout de commentaires dans le code de la classe CButton
+
+4 novembre 2014
+ - J'ai travaillé sur les sprites de mouvement
+
+6 Novembre
