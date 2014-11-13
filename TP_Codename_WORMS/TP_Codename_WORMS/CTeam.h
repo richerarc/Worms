@@ -23,7 +23,7 @@ public:
 		char Buffer[255];
 		for (int i = 0; i < MAXWORMS; i++)
 		{
-
+			m_pTabWorm[i] = new CWorm(strNom.append(SDL_itoa(i, Buffer, 10)), CSprite, SDL_Rect)
 		}
 	}
 
