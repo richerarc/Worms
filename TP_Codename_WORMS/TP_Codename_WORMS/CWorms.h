@@ -22,6 +22,7 @@
 #include "CGrenades.h"
 #include "CCaisses.h"
 #include "CCaisseSoin.h"
+#include "CExplosion.h"
 #include "CWorm.h"
 #include "CTeam.h"
 #include "CMap.h"
