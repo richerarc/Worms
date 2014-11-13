@@ -48,10 +48,14 @@ public:
 	*/
 	float ReactToExplosion(CEntity* _pEntity){
 <<<<<<< HEAD
+<<<<<<< HEAD
 		//To do
 =======
 		return 0.f;
 >>>>>>> 620d262c90c1eaa43e43336d6e0d57479837c984
+=======
+		return 0.f;
+>>>>>>> FETCH_HEAD
 	}
 
 	/*!

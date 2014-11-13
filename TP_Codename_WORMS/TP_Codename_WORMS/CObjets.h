@@ -22,11 +22,15 @@ public:
 	@Classe héritant de CEntity, elle prend donc les paramètres de CEntity.
 	*/
 <<<<<<< HEAD
+<<<<<<< HEAD
 	CObjets(int _iRayon, SDL_Rect _RectPos) :CEntity(_RectPos){
 		m_iRayon = _iRayon;
 =======
 	CObjets(const char* _Name, unsigned int _uiMasse,SDL_Rect _RectPos) : CEntity( _Name, _uiMasse, _RectPos){
 >>>>>>> 620d262c90c1eaa43e43336d6e0d57479837c984
+=======
+	CObjets(const char* _Name, unsigned int _uiMasse,SDL_Rect _RectPos) : CEntity( _Name, _uiMasse, _RectPos){
+>>>>>>> FETCH_HEAD
 	}
 	/*!
 	@Destructeur:
