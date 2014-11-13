@@ -34,6 +34,20 @@ public:
 	bool VerifyCollision(CEntity* _Collider, CEntity* _Collidee){
 
 	}
+	
+	//Méthode: Fall:	Calcule la trajectoire d'une chute d'une entité.
+	//			Paramètres:	_Vector - Vecteur(vitesse et direction) initiale de la chute.
+	//						_X et _Y - Positions en X et en Y intiales de l'entité.
+	CTrajectory * Fall(C2DVector * _Vector, int _X, int _Y){
+
+	}
+
+	//Méthode: Fall:	Calcule la trajectoire d'un glissement d'une entité.
+	//			Paramètres:	_Vector - Vecteur(vitesse et direction) initiale du glissement.
+	//						_X et _Y - Positions en X et en Y intiales de l'entité.
+	CTrajectory * Slide(C2DVector * _Vector, int _X, int _Y){
+
+	}
 
 	/*Méthode : Propulsion
 	Brief : Fonction qui retourne la trajectoire d'une chose propulsée
@@ -41,7 +55,7 @@ public:
 	_PosInit : Position initiale de la propulsion
 	_Vit : Vitesse initiale de la propulsion
 	*/
-	CTrajectory Propulsion(C2DVector* _PosInit, C2DVector* _Vit){
+	CTrajectory * Propulsion(C2DVector* _PosInit, C2DVector* _Vit){
 		return CTrajectory(_PosInit, _Vit);
 	}
 
