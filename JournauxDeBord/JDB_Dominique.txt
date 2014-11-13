@@ -16,5 +16,6 @@ Modification de CGestionnaireRessources pour utiliser plusieurs listes et ajout 
 6 nov
 Ajout de sprites de worms manquantes
 
-13 nov
-Ajout des classes liées à la physique
+13 nov : 14h40 à 17h05
+Ajout des classes liées à la physique, incluant CPhysic, CTrajectory et C2DVector. C2DVector est terminé, 
+CTrajectory est à optimiser ou à partiellement refaire et CPhysic n'est pas terminé. UMLs mis à jour.
