@@ -16,6 +16,7 @@
 class CTextBox : public CGUIE{
 	SDL_Texture* m_texture; // Texture de la textBox
 	SDL_Renderer* m_MenuRenderer; // Rendu.
+	SDL_Rect m_RectFrame;
 public:
 	
 	/*!
@@ -28,6 +29,12 @@ public:
 	CTextBox(const char* _Name, string _strText, CFont* _Font, SDL_Rect _Rect, SDL_Renderer* _MenuRenderer) : CGUIE(_Name, _strText, _Font, _Rect){
 		m_strText = "";
 		m_MenuRenderer = _MenuRenderer;
+		m_Rect.x += 1;
+		m_Rect.y += 1;
+		m_RectFrame.x = m_Rect.x - 2;
+		m_RectFrame.y = m_Rect.y - 2;
+		m_RectFrame.w = m_Rect.w + 2;
+		m_RectFrame.h = m_Rect.h + 2;
 	}
 	
 	~CTextBox(){
@@ -96,6 +103,8 @@ public:
 	 */
 	void Draw(SDL_Renderer* _Renderer){
 		m_Font->setFontColor(SDL_Color{0,0,0,255});
+		SDL_SetRenderDrawColor(_Renderer, 0, 0, 0, 255);
+		SDL_RenderFillRect(_Renderer, &m_RectFrame);
 		SDL_SetRenderDrawColor(_Renderer, 255, 255, 255, 255);
 		SDL_RenderFillRect(_Renderer, &m_Rect);
 		m_Font->RenderText(_Renderer, m_strText.c_str(), m_Rect.x, m_Rect.y);

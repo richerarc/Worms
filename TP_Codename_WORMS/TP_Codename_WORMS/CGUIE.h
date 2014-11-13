@@ -102,6 +102,10 @@ public:
 		return m_Rect.h;
 	}
 	
+	virtual string getText(){
+		return m_strText;
+	}
+	
 	virtual bool isFocussed(){return m_boFocussed;}
 	
 	virtual void setFocus(bool _Focus){m_boFocussed = _Focus;}

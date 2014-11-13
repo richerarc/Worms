@@ -17,3 +17,5 @@ Jeu. 06 nov. 21h44 : Retrait de menuDeclaration.h et ajout de CWorms.h, avec la 
 Dim. 09 nov. 23h37 : Continuation des menu, ajout d'un nouveau controle visuel cSlideshow. j'ai aussi réglé quelque bug et mit l'entièreté de la classe CWorms en statique.
 
 Lun. 10 nov. 23h46 : J'ai réussi à faire marché le slideshow, on peu visualisé les carte, j'ai aussi ajouté les procédures dans boutons du menu NewGame
+
+Mar. 11 nov. (oubli de mettre ˆ jour), et Mer. 12 nov. 22h40 : JÕai ajout les label/buttons pour la slections des quipes, et commenc le menu newteam, jÕai quelque petit rglage ˆ faire avec la textbox mais a sera vite rgl. JÕai aussi faite des test plut™t fructueux pour la strilisation amis je ne sais pas encore si je vais lÕutilisÉ jÕattend demain pour toute dcision ˆ ce sujet.
