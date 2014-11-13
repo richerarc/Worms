@@ -34,19 +34,9 @@ public:
 	@Accesseurs:
 	*/
 	const char* getName(){
-<<<<<<< HEAD
-	}
-=======
 		return m_strName;
 	}
 
-		//	unsigned int m_uiMasse(){
-		//return m_uiMasse;
-		//	}
-<<<<<<< HEAD
->>>>>>> 620d262c90c1eaa43e43336d6e0d57479837c984
-=======
->>>>>>> FETCH_HEAD
 
 	SDL_Rect getPosition(){
 		return m_RectPosition;
