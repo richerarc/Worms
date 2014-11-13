@@ -47,8 +47,8 @@ public:
 	*/
 	void HandleEvent(SDL_Event _Event){
 		m_boFocus = true;
-		ReactToExplosion(m_iRayon);
-
+		if (m_pTimer->IsElapsed())
+			ReactToExplosion(m_iRayon);
 	}
 	
 	/*!
@@ -57,7 +57,7 @@ public:
 	@Permet de calculer les dommages subit par l'explosion
 	*/
 	void ReactToExplosion(int _iRayon){
-		
+		m_boFocus = false;
 	}
 	/*!
 	@Accesseurs:
