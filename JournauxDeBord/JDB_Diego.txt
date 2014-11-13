@@ -14,4 +14,12 @@
 4 novembre 2014
  - J'ai travaillé sur les sprites de mouvement
 
-6 Novembre
+6 Novembre - 11 novembre
+ - J'ai pas pu ttraviller chez moi, problemes de réseau.
+
+12 Novemvre
+ - J'ai traviallé un peu avec Dominique pour compléter les UML des classes de Physique
+
+13 Novembre -- de 15h00 à 17h00
+
+- Dominique et moi avons créé les classes Physics et C2DVector, il y a encore beaucoup de changements a faire.
