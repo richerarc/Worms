@@ -8,7 +8,6 @@
 */
 class CEntity{
 protected:
-	string m_strName;
 	SDL_Rect m_RectPosition;
 	bool m_boFocus;
 public:
@@ -33,11 +32,6 @@ public:
 	/*!
 	@Accesseurs:
 	*/
-	const char* getName(){
-		return m_strName;
-	}
-
-
 	SDL_Rect getPosition(){
 		return m_RectPosition;
 	}

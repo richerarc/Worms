@@ -95,6 +95,8 @@ public:
 		m_iLife = _iLifeActuelle;
 	}
 
+	int getLife(){ return m_iLife; }
+
 	void setName(string _Name){ m_strName = _Name; }
 
 	string getName(){ return m_strName; }
