@@ -11,7 +11,6 @@ protected:
 	string m_strName;
 	SDL_Rect m_RectPosition;
 	bool m_boFocus;
-
 public:
 
 	/*!
@@ -35,7 +34,16 @@ public:
 	@Accesseurs:
 	*/
 	const char* getName(){
+<<<<<<< HEAD
 	}
+=======
+		return m_strName;
+	}
+
+		//	unsigned int m_uiMasse(){
+		//return m_uiMasse;
+		//	}
+>>>>>>> 620d262c90c1eaa43e43336d6e0d57479837c984
 
 	SDL_Rect getPosition(){
 		return m_RectPosition;

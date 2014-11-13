@@ -47,7 +47,11 @@ public:
 	@Permet de calculer les dommages subit par l'explosion
 	*/
 	float ReactToExplosion(CEntity* _pEntity){
+<<<<<<< HEAD
 		//To do
+=======
+		return 0.f;
+>>>>>>> 620d262c90c1eaa43e43336d6e0d57479837c984
 	}
 
 	/*!

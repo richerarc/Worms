@@ -113,16 +113,24 @@ public:
 		m_btnNext->OnClickAction = _func;
 	}
 	
+	string getText(){
+		m_ListText->AllerA(m_uiCurrentSlide);
+		return *m_ListText->ObtenirElement();
+	}
+	
 	/*!
 	 @method Draw
 	 @param _Renderer : Renderer pour rendre le textures du Sprite et du texte du bouton
 	 @return null
 	 */
 	void Draw(SDL_Renderer * _Renderer){
+		SDL_SetRenderDrawColor(_Renderer, 210, 214, 217, 1);
+		SDL_RenderFillRect(_Renderer, new SDL_Rect{m_Rect.x + 42, m_Rect.y, m_Rect.w - 84, m_Rect.h});
 		m_btnNext->Draw(_Renderer);
 		m_btnPrev->Draw(_Renderer);
 		m_Font->setFontColor({0,0,0,255});
 		m_lblContain->Draw(_Renderer);
+		SDL_SetRenderDrawColor(_Renderer, 255, 255, 255, 1);
 	}
 	
 };

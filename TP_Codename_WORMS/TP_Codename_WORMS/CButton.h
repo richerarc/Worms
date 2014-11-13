@@ -46,9 +46,9 @@ public:
 	*/
 	void HandleEvent(SDL_Event _Event){
 		if (_Event.type == SDL_MOUSEBUTTONDOWN){
+			m_boClicked = true;
 			if (OnClickAction != nullptr)
 				OnClickAction();
-			m_boClicked = true;
 		}
 	}
 
