@@ -1,0 +1,10 @@
+Largeur : 35 pixels
+Hauteur : 100 pixels
+
+Saut : Diego FAIT
+Mouv : Diego FAIT
+Mort : Dom
+Bechage : Diego FAIT
+Melee : Dom
+Panique : Dom
+Encaisse : Dom

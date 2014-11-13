@@ -1,2 +1,21 @@
-Ven. 24 oct. 11h00
-J’ai structuré de façon arbitraire le repo pour organisé les fichiers et ajouté les journaux de bords
+Ven. 24 oct. 11h00 :J’ai structuré de façon arbitraire le repo pour organisé les fichiers et ajouté les journaux de bords
+
+Mar. 28 oct. 14h17 : J’ai ajouté les fichier nécéssaire au développement des Éléments visuel (label button etc.) et déclaré les classes sans pour autant les coder. J’ai aussi codé la classe CGUIE (Graphic User Interface Elements) pour que chaque classe dérivées puisse déjà en hériter.
+
+Mar. 28 oct. 21h36 : J’ai enfin fini de coder la textbox, elle est commenté, elle marche Nickel! aussi, j’ai changé par rapport à l’UML, il va falloir le modifié, je m’y met demain!
+
+Mer. 29 oct. 16h12 : J’ai fait une refonte complète de l’UML des Menus, et je l’ai porté sur un repo GenMyModel.
+
+Mer. 29 oct. 22h47 : J’ai Fini de coder les classes CListboxItem, et ses deux dérivé, il manque encore de commentaire. j’ai commencé la listBox mais pas terminer.
+
+Mer. 29 oct. 23h00 : Ajout des commentaire dans CListBox.h
+
+Mar. 03 nov. 17h40 : Retrait de la listBox, modification majeure de la gestion des event dans les controle visuels et dans cMenu, ajout des Map de base pour l'affichage, et ajout du fichier Declarationmenu.h.
+
+Jeu. 06 nov. 21h44 : Retrait de menuDeclaration.h et ajout de CWorms.h, avec la classes CWorms, j’ai aussi terminer la gestion des event en cascade, et établie un bonne base pour l’affichage des menu: Le menu démarrer est fonctionnel, plus que 3!
+
+Dim. 09 nov. 23h37 : Continuation des menu, ajout d'un nouveau controle visuel cSlideshow. j'ai aussi rÈglÈ quelque bug et mit l'entiËretÈ de la classe CWorms en statique.
+
+Lun. 10 nov. 23h46 : J'ai rÈussi ‡ faire marchÈ le slideshow, on peu visualisÈ les carte, j'ai aussi ajoutÈ les procÈdures dans boutons du menu NewGame
+
+Mar. 11 nov. (oublié de mettre à jour), et Mer. 12 nov. 22h40 : J’ai ajouté les label/buttons pour la sélections des équipes, et commencé le menu newteam, j’ai quelque petit réglage à faire avec la textbox mais ça sera vite réglé. J’ai aussi faite des test plutôt fructueux pour la stérilisation amis je ne sais pas encore si je vais l’utilisé… j’attend demain pour toute décision à ce sujet.

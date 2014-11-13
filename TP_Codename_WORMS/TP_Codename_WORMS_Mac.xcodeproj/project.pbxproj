@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CB81A5D319FF1EFF00935BA4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CB81A5D219FF1EFF00935BA4 /* main.cpp */; };
+		CBECA7DB1A004E360030E776 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBECA7D91A004E360030E776 /* SDL2_image.framework */; };
+		CBECA7DC1A004E360030E776 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBECA7DA1A004E360030E776 /* SDL2_mixer.framework */; };
 		F97DCB4519FFBEC7006F17CF /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F97DCB4119FFBEC7006F17CF /* SDL2_image.framework */; };
 		F97DCB4619FFBEC7006F17CF /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F97DCB4219FFBEC7006F17CF /* SDL2_mixer.framework */; };
 		F97DCB4719FFBEC7006F17CF /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F97DCB4319FFBEC7006F17CF /* SDL2_ttf.framework */; };
@@ -30,15 +32,41 @@
 /* Begin PBXFileReference section */
 		CB81A5C619FF1E6800935BA4 /* TP_Codename_WORMS_Mac */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TP_Codename_WORMS_Mac; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB81A5D219FF1EFF00935BA4 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = TP_Codename_WORMS/main.cpp; sourceTree = SOURCE_ROOT; };
-		CB81A5DC19FF230600935BA4 /* CFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFont.h; path = TP_Codename_WORMS/CFont.h; sourceTree = SOURCE_ROOT; };
-		CB81A5DD19FF230600935BA4 /* CMusic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMusic.h; path = TP_Codename_WORMS/CMusic.h; sourceTree = SOURCE_ROOT; };
-		CB81A5DE19FF230600935BA4 /* CSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSprite.h; path = TP_Codename_WORMS/CSprite.h; sourceTree = SOURCE_ROOT; };
 		CB81A5DF19FF230600935BA4 /* CTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTimer.h; path = TP_Codename_WORMS/CTimer.h; sourceTree = SOURCE_ROOT; };
 		CB81A5E019FF230600935BA4 /* CWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWindow.h; path = TP_Codename_WORMS/CWindow.h; sourceTree = SOURCE_ROOT; };
+		CBECA7D91A004E360030E776 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
+		CBECA7DA1A004E360030E776 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
+		F9455D501A1072D60036C9AC /* CSlideShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSlideShow.h; path = TP_Codename_WORMS/CSlideShow.h; sourceTree = SOURCE_ROOT; };
+		F96CFAEA1A0001EB00A114A9 /* CGUIE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUIE.h; path = TP_Codename_WORMS/CGUIE.h; sourceTree = SOURCE_ROOT; };
 		F97DCB4119FFBEC7006F17CF /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
 		F97DCB4219FFBEC7006F17CF /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../../../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
 		F97DCB4319FFBEC7006F17CF /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../../Library/Frameworks/SDL2_ttf.framework; sourceTree = "<group>"; };
 		F97DCB4419FFBEC7006F17CF /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		F985BB411A0BFB3600FFAB23 /* CFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFont.h; path = TP_Codename_WORMS/CFont.h; sourceTree = SOURCE_ROOT; };
+		F985BB421A0BFB3600FFAB23 /* ClabelImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClabelImage.h; path = TP_Codename_WORMS/ClabelImage.h; sourceTree = SOURCE_ROOT; };
+		F985BB431A0BFB3600FFAB23 /* CMusic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMusic.h; path = TP_Codename_WORMS/CMusic.h; sourceTree = SOURCE_ROOT; };
+		F985BB441A0BFB3600FFAB23 /* CSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSprite.h; path = TP_Codename_WORMS/CSprite.h; sourceTree = SOURCE_ROOT; };
+		F985BB451A0BFB3600FFAB23 /* CWorms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWorms.h; path = TP_Codename_WORMS/CWorms.h; sourceTree = SOURCE_ROOT; };
+		F985BB461A0C045900FFAB23 /* CSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSurface.h; path = TP_Codename_WORMS/CSurface.h; sourceTree = SOURCE_ROOT; };
+		F985BB471A0C045900FFAB23 /* CTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTexture.h; path = TP_Codename_WORMS/CTexture.h; sourceTree = SOURCE_ROOT; };
+		F9C1D2C31A12816E00AF2F13 /* CInGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CInGame.h; path = TP_Codename_WORMS/CInGame.h; sourceTree = SOURCE_ROOT; };
+		F9C1D2C41A12816E00AF2F13 /* CMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMap.h; path = TP_Codename_WORMS/CMap.h; sourceTree = SOURCE_ROOT; };
+		F9C1D2C51A12816E00AF2F13 /* CTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTeam.h; path = TP_Codename_WORMS/CTeam.h; sourceTree = SOURCE_ROOT; };
+		F9C1D2C61A12816E00AF2F13 /* CWorm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWorm.h; path = TP_Codename_WORMS/CWorm.h; sourceTree = SOURCE_ROOT; };
+		F9C1D2C71A12901C00AF2F13 /* CCaisses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCaisses.h; path = TP_Codename_WORMS/CCaisses.h; sourceTree = SOURCE_ROOT; };
+		F9C1D2C81A12901C00AF2F13 /* CCaisseSoin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCaisseSoin.h; path = TP_Codename_WORMS/CCaisseSoin.h; sourceTree = SOURCE_ROOT; };
+		F9C1D2C91A12901C00AF2F13 /* CEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CEntity.h; path = TP_Codename_WORMS/CEntity.h; sourceTree = SOURCE_ROOT; };
+		F9C1D2CA1A12901C00AF2F13 /* CGrenades.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGrenades.h; path = TP_Codename_WORMS/CGrenades.h; sourceTree = SOURCE_ROOT; };
+		F9C1D2CB1A12901C00AF2F13 /* CMines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMines.h; path = TP_Codename_WORMS/CMines.h; sourceTree = SOURCE_ROOT; };
+		F9C1D2CC1A12901C00AF2F13 /* CMissiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMissiles.h; path = TP_Codename_WORMS/CMissiles.h; sourceTree = SOURCE_ROOT; };
+		F9C1D2CD1A12901C00AF2F13 /* CObjets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CObjets.h; path = TP_Codename_WORMS/CObjets.h; sourceTree = SOURCE_ROOT; };
+		F9F404731A000D4B0020554C /* CButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CButton.h; path = TP_Codename_WORMS/CButton.h; sourceTree = SOURCE_ROOT; };
+		F9F404741A000D4B0020554C /* CLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLabel.h; path = TP_Codename_WORMS/CLabel.h; sourceTree = SOURCE_ROOT; };
+		F9F404751A000D4B0020554C /* CListeDC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CListeDC.h; path = TP_Codename_WORMS/CListeDC.h; sourceTree = SOURCE_ROOT; };
+		F9F404761A000D4B0020554C /* CMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMenu.h; path = TP_Codename_WORMS/CMenu.h; sourceTree = SOURCE_ROOT; };
+		F9F404781A000F560020554C /* CTextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTextBox.h; path = TP_Codename_WORMS/CTextBox.h; sourceTree = SOURCE_ROOT; };
+		F9FA55FC19FFFFEC004CFAC6 /* CRessource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRessource.h; path = TP_Codename_WORMS/CRessource.h; sourceTree = SOURCE_ROOT; };
+		F9FB50411A0920B800E0FD34 /* CGestionnaireRessources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGestionnaireRessources.h; path = TP_Codename_WORMS/CGestionnaireRessources.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +74,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBECA7DB1A004E360030E776 /* SDL2_image.framework in Frameworks */,
+				CBECA7DC1A004E360030E776 /* SDL2_mixer.framework in Frameworks */,
 				F97DCB4519FFBEC7006F17CF /* SDL2_image.framework in Frameworks */,
 				F97DCB4619FFBEC7006F17CF /* SDL2_mixer.framework in Frameworks */,
 				F97DCB4719FFBEC7006F17CF /* SDL2_ttf.framework in Frameworks */,
@@ -59,7 +89,9 @@
 		CB81A5BD19FF1E6800935BA4 = {
 			isa = PBXGroup;
 			children = (
+				CBECA7D91A004E360030E776 /* SDL2_image.framework */,
 				F97DCB4119FFBEC7006F17CF /* SDL2_image.framework */,
+				CBECA7DA1A004E360030E776 /* SDL2_mixer.framework */,
 				F97DCB4219FFBEC7006F17CF /* SDL2_mixer.framework */,
 				F97DCB4319FFBEC7006F17CF /* SDL2_ttf.framework */,
 				F97DCB4419FFBEC7006F17CF /* SDL2.framework */,
@@ -79,11 +111,35 @@
 		CB81A5C819FF1E6800935BA4 /* TP_Codename_WORMS_Mac */ = {
 			isa = PBXGroup;
 			children = (
-				CB81A5DC19FF230600935BA4 /* CFont.h */,
-				CB81A5DD19FF230600935BA4 /* CMusic.h */,
-				CB81A5DE19FF230600935BA4 /* CSprite.h */,
-				CB81A5DF19FF230600935BA4 /* CTimer.h */,
+				F9C1D2C71A12901C00AF2F13 /* CCaisses.h */,
+				F9C1D2C81A12901C00AF2F13 /* CCaisseSoin.h */,
+				F9C1D2C91A12901C00AF2F13 /* CEntity.h */,
+				F9C1D2CA1A12901C00AF2F13 /* CGrenades.h */,
+				F9C1D2CB1A12901C00AF2F13 /* CMines.h */,
+				F9C1D2CC1A12901C00AF2F13 /* CMissiles.h */,
+				F9C1D2CD1A12901C00AF2F13 /* CObjets.h */,
+				F9C1D2C31A12816E00AF2F13 /* CInGame.h */,
+				F9C1D2C41A12816E00AF2F13 /* CMap.h */,
+				F9C1D2C51A12816E00AF2F13 /* CTeam.h */,
+				F9C1D2C61A12816E00AF2F13 /* CWorm.h */,
+				F9455D501A1072D60036C9AC /* CSlideShow.h */,
+				F985BB461A0C045900FFAB23 /* CSurface.h */,
+				F985BB471A0C045900FFAB23 /* CTexture.h */,
+				F985BB411A0BFB3600FFAB23 /* CFont.h */,
+				F985BB421A0BFB3600FFAB23 /* ClabelImage.h */,
+				F985BB431A0BFB3600FFAB23 /* CMusic.h */,
+				F985BB441A0BFB3600FFAB23 /* CSprite.h */,
+				F9FB50411A0920B800E0FD34 /* CGestionnaireRessources.h */,
+				F9F404781A000F560020554C /* CTextBox.h */,
+				F9F404731A000D4B0020554C /* CButton.h */,
+				F9F404741A000D4B0020554C /* CLabel.h */,
+				F9F404751A000D4B0020554C /* CListeDC.h */,
+				F9F404761A000D4B0020554C /* CMenu.h */,
 				CB81A5E019FF230600935BA4 /* CWindow.h */,
+				CB81A5DF19FF230600935BA4 /* CTimer.h */,
+				F9FA55FC19FFFFEC004CFAC6 /* CRessource.h */,
+				F96CFAEA1A0001EB00A114A9 /* CGUIE.h */,
+				F985BB451A0BFB3600FFAB23 /* CWorms.h */,
 				CB81A5D219FF1EFF00935BA4 /* main.cpp */,
 			);
 			path = TP_Codename_WORMS_Mac;
