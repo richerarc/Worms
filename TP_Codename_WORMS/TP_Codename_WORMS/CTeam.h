@@ -22,6 +22,7 @@ public:
 		{
 			strNom.append(SDL_itoa(i, Buffer, 10));
 			m_pTabWorm[i] = new CWorm(strNom, _Sprite, _Font, _Rect);
+			strNom.pop_back();
 		}
 	}
 
