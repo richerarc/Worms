@@ -18,6 +18,8 @@ private:
 	string m_strName;
 	int m_iLife; //Donnée représentant la vie actuelle du worm
 	CSprite* m_pSprite;//Sprite du worm
+	CLabel* m_lblNom;
+	SDL_Rect m_BarredeVie;
 	
 public:
 	/*!
@@ -28,11 +30,16 @@ public:
 	 @param _RectPos : la position du sprite
 	@Classe héritant de CEntity
 	*/
-	CWorm(string _Name, CSprite* _pSprite, SDL_Rect _RectPos) :CEntity(_RectPos){
+	CWorm(string _Name, CSprite* _pSprite,CFont* _Font,SDL_Rect _RectPos) :CEntity(_RectPos){
 		m_strName = _Name;
 		m_pSprite = _pSprite;
 		m_pSprite->setSpritePos(_RectPos.x, _RectPos.y);
 		m_iLife = 100;
+		m_BarredeVie.h = 10;
+		m_BarredeVie.w = 50;
+		m_BarredeVie.x = _RectPos.x;
+		m_BarredeVie.y = _RectPos.y + 10;
+		m_lblNom = new CLabel("", m_strName.c_str(), _Font, SDL_Rect{_RectPos.x,_RectPos.y + 20,50,10});
 	}
 	/*!
 	@Destructeur:
