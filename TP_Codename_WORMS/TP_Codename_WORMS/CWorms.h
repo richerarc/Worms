@@ -28,7 +28,7 @@
 #include "CWorm.h"
 #include "CTeam.h"
 #include "CMap.h"
-#include "CInGame.h"
+#include "CGame.h"
 
 
 
@@ -122,23 +122,26 @@ public:
 			strFilePath[i].append(FileName[i]);
 		}
 		m_Gestionaire->AjouterFont(new CFont("FontMenu", strFilePath[0].c_str(), 30));
+		m_Gestionaire->AjouterTexture(new CTexture("TextureBtn", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[1].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("TextureBtnL", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[2].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("TextureBtnR", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[3].c_str())));
 			/* Sprite pour le menu principal */
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnNG", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[1].c_str()), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnQ", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnNG", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnQ", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
 			/* Sprite pour le menu New Game */
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnCancelNG", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnCancelNT", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnCancelP", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnPlay", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnNT", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteMapLeft", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[2].c_str()), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteMapRight", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[3].c_str()), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteTeamLeft", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[2].c_str()), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteTeamRight", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[3].c_str()), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnP1", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnP2", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnP3", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnP4", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str()), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnCancelNG", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnCancelNT", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnCancelP", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnPlay", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnNT", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteMapLeft", m_Gestionaire->GetTexture("TextureBtnL")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteMapRight", m_Gestionaire->GetTexture("TextureBtnR")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteTeamLeft", m_Gestionaire->GetTexture("TextureBtnL")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteTeamRight", m_Gestionaire->GetTexture("TextureBtnR")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnP1", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnP2", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnP3", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnP4", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
 			/* Map et leur background */
 		m_Gestionaire->AjouterSurface(new CSurface("map1", IMG_Load(strFilePath[4].c_str())));
 		m_Gestionaire->AjouterSurface(new CSurface("background1", IMG_Load(strFilePath[5].c_str())));
@@ -154,11 +157,12 @@ public:
 	}
 	
 	static void LoadData(){
-		string strReader;
+		string strReader, strParsed;
 		char buf[512];
 		while (!m_SaveFile->eof()) {
 			m_SaveFile->read(buf, sizeof(string));
 			strReader = buf;
+			strParsed = strReader.substr(0,3);
 			
 			
 		}
@@ -176,6 +180,8 @@ public:
 		delete m_MenuPause;
 		delete m_MenuNewTeam;
 		delete m_pEvent;
+		m_SaveFile->close();
+		delete m_SaveFile;
 	}
 	
 	
@@ -322,5 +328,5 @@ CGestionnaireRessources* CWorms::m_Gestionaire = nullptr;
 bool CWorms::m_boRun = true;
 CTeam* CWorms::Team[6];
 CMap* CWorms::Map[4];
-fstream* CWorms::m_SaveFile = nullptr;
+fstream* CWorms::m_SaveFile = new fstream();
 
