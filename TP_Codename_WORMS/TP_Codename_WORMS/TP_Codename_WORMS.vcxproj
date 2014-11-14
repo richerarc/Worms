@@ -70,6 +70,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CBoussole.h" />
     <ClInclude Include="CButton.h" />
     <ClInclude Include="CCaisses.h" />
     <ClInclude Include="CCaisseSoin.h" />
