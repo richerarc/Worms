@@ -15,13 +15,13 @@ private:
 	SDL_Color m_TeamColor;
 
 public:
-	CTeam(string _strTeamName,SDL_Color _Color,CSprite* _Sprite,SDL_Rect _Rect){
+	CTeam(string _strTeamName, SDL_Color _Color, CSprite* _Sprite, SDL_Rect _Rect, CFont* _Font){
 		string strNom = "Worm";
 		char Buffer[255];
 		for (int i = 0; i < MAXWORMS; i++)
 		{
 			strNom.append(SDL_itoa(i, Buffer, 10));
-			m_pTabWorm[i] = new CWorm(strNom, _Sprite, _Rect);
+			m_pTabWorm[i] = new CWorm(strNom, _Sprite, _Font, _Rect);
 		}
 	}
 
