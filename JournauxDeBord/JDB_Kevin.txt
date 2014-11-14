@@ -24,3 +24,5 @@
 
 17:20 2014-11-13: J'ai esseyer de travailler durant le cours, on a été ralenti parce qu'il à eu des conflits quand
 		  on a merge la branche menus et ingame a master. (3h)
+
+15:13 2014-11-14: J'ai continuer Ingame et Créer CBoussole et les images associés (2h30)
