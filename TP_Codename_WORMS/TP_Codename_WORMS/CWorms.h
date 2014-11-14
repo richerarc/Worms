@@ -47,8 +47,8 @@ private:
 	static bool m_boRun;							// Indique si le jeu est en terminé ou non.
 	static bool m_boInMenu;						// Indique si on se trouve dans un menu.
 	static CGestionnaireRessources* m_Gestionaire; // Gestionnaire de Resource pour le Worms
-	static CTeam* Team[6];
-	static CMap* Map[4];
+	static CTeam* TabTeam[4];
+	static CMap* TabMap[4];
 	static fstream* m_SaveFile;
 public:
 	
@@ -157,13 +157,29 @@ public:
 	}
 	
 	static void LoadData(){
-		string strReader, strParsed;
-		char buf[512];
-		while (!m_SaveFile->eof()) {
-			m_SaveFile->read(buf, sizeof(string));
-			strReader = buf;
-			strParsed = strReader.substr(0,3);
-			
+		string strReader, strObj, tabParam[4];
+		char buf[1024];
+		m_SaveFile->read(buf, sizeof(buf));
+		strReader = buf;
+		while (strReader != "") {
+			strObj = strReader.substr(0,4);
+			strReader.erase(0, 4);
+			if (strObj == "MMap"){
+				for (int i = 0; i < 3; i++){
+					size_t posi = strReader.find(":");
+					size_t posf = strReader.find(",");
+					tabParam[i] = strReader.substr(posi + 1, posf);
+					strReader.erase(0, posf);
+				}
+				TabMap[SDL_atoi(&strReader[0])] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background1")->GetTexture(), m_Gestionaire->GetSurface("map1")->getSurface(), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
+			}
+			else if (strObj == "Team"){
+				
+			}
+			else if (strObj == "}"){
+				
+			}
+						
 			
 		}
 	}
@@ -326,7 +342,7 @@ bool CWorms::m_boInMenu = true;
 SDL_Event* CWorms::m_pEvent = nullptr;
 CGestionnaireRessources* CWorms::m_Gestionaire = nullptr;
 bool CWorms::m_boRun = true;
-CTeam* CWorms::Team[6];
-CMap* CWorms::Map[4];
+CTeam* CWorms::TabTeam[4];
+CMap* CWorms::TabMap[4];
 fstream* CWorms::m_SaveFile = new fstream();
 
