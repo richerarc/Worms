@@ -25,7 +25,9 @@ public:
 		}
 	}
 
-	void setTeamName(string _strName){ m_strTeamName = _strName; }
+	void setTeamName(string _strName){
+		m_strTeamName = _strName; 
+	}
 
 	CWorm* getWorm(Uint8 _ui8Pos){
 		return m_pTabWorm[_ui8Pos];

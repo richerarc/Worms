@@ -79,7 +79,7 @@
     <ClInclude Include="CGestionnaireRessources.h" />
     <ClInclude Include="CGrenades.h" />
     <ClInclude Include="CGUIE.h" />
-    <ClInclude Include="CInGame.h" />
+    <ClInclude Include="CGame.h" />
     <ClInclude Include="CLabel.h" />
     <ClInclude Include="ClabelImage.h" />
     <ClInclude Include="CListeDC.h" />
