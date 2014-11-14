@@ -1,8 +1,14 @@
-1)
+﻿1)
 Coder les controlles visuels : fini le 4 nov.
 
 2)
- ->Trouver les sprite, les normaliser.
- ->Déclarer les menus.
- ->Gérer l'affichage.
- ->->->Avant le 11 nov.
+ -Trouver les sprite, les normaliser. (Dominique et Diego et Jessy)
+ -Déclarer les menus.(Richer et kevin)
+ -Gérer l'affichage.(Richer)
+ -Avant le 11 nov.
+
+3)
+ - Finir les menus et load save (Richer)
+ - Coder la classe Ingame, CTeam(Kevin)
+ - Commencer la physique (Diego et Dominique)
+ - Faire les objets affectés par la physique (Jessy)

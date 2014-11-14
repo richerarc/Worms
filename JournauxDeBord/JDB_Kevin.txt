@@ -21,3 +21,6 @@
 
 22:33 2014-11-10: J'ai pas eu beaucoup de temps pour travailler sur le worms ces temps-ci. Ce soir j'ai commenter 
 		  les données membres pour ajouter de la précision sur leur utilité.
+
+17:20 2014-11-13: J'ai esseyer de travailler durant le cours, on a été ralenti parce qu'il à eu des conflits quand
+		  on a merge la branche menus et ingame a master. (3h)
