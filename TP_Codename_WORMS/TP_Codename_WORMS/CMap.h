@@ -11,6 +11,7 @@
  */
 class CMap {
 private:
+	string m_strName;
 	SDL_Texture* m_Background;
 	SDL_Surface* m_Map;
 	SDL_Texture* m_MapConverted;
@@ -29,7 +30,7 @@ public:
 	 @param _NbrMine : Le nombre de mine a display au départ sur la map
 	 @return Aucun
 	 */
-	CMap(SDL_Texture* _Background, SDL_Surface* _Map, unsigned int _Gravity, unsigned int _MaxWind, unsigned int _NbrMine){
+	CMap(string _Name, SDL_Texture* _Background, SDL_Surface* _Map, unsigned int _Gravity, unsigned int _MaxWind, unsigned int _NbrMine){
 		m_Background = _Background;
 		m_Map = _Map;
 		m_uiGravity = _Gravity;

@@ -57,7 +57,7 @@ public:
 	@Permet de déclancher l'explosion
 	*/
 	void Explosed(){
-		m_RectPosition.x = 
+		m_RectPosition.x = 0;
 	}
 	/*!
 	@Méthode:

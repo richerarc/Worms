@@ -83,7 +83,7 @@ public:
 		}
 		else
 			m_Sprite->Render(_Renderer, 0);
-		m_Font->setFontColor(SDL_Color{ 255, 255, 255, 0 });
+		m_Font->setFontColor({ 255, 255, 255, 0 });
 		m_Font->RenderText(_Renderer, m_strText.c_str(), m_RectText.x, m_RectText.y);
 	}
 

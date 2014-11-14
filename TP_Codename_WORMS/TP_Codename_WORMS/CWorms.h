@@ -3,6 +3,8 @@
  * Créé le 06/11/2014 à 13h50 par Richer Archambault
  */
 
+#include <iostream>
+#include <fstream>
 
 #include "CTimer.h"
 #include "CListeDC.h"
@@ -36,15 +38,18 @@
  */
 class CWorms {
 private:
-	static	CWindow* m_pWindow;						// Fenêtre principale de l'application.
-	static	CMenu* m_MenuPrincipal;					// Menu principal du jeu 
-	static	CMenu* m_MenuNewGame;					// Menu Nouvelle partie
-	static	CMenu* m_MenuPause;						// Menu Pause
-	static	CMenu* m_MenuNewTeam;					// Menu Création d'une nouvelle équipe.
-	static	SDL_Event* m_pEvent;					// Event SDL
-	static	bool m_boRun;							// Indique si le jeu est en terminé ou non.
-	static 	bool m_boInMenu;						// Indique si on se trouve dans un menu.
-	static	CGestionnaireRessources* m_Gestionaire; // Gestionnaire de Resource pour le Worms
+	static CWindow* m_pWindow;						// Fenêtre principale de l'application.
+	static CMenu* m_MenuPrincipal;					// Menu principal du jeu
+	static CMenu* m_MenuNewGame;					// Menu Nouvelle partie
+	static CMenu* m_MenuPause;						// Menu Pause
+	static CMenu* m_MenuNewTeam;					// Menu Création d'une nouvelle équipe.
+	static SDL_Event* m_pEvent;					// Event SDL
+	static bool m_boRun;							// Indique si le jeu est en terminé ou non.
+	static bool m_boInMenu;						// Indique si on se trouve dans un menu.
+	static CGestionnaireRessources* m_Gestionaire; // Gestionnaire de Resource pour le Worms
+	static CTeam* Team[6];
+	static CMap* Map[4];
+	static fstream* m_SaveFile;
 public:
 	
 	static void Start(){
@@ -73,8 +78,8 @@ public:
 	
 	static void Render(){
 		SDL_RenderClear(m_pWindow->getRenderer());
-		SDL_SetRenderDrawColor(m_pWindow->getRenderer(), 255, 255, 255, 1);
 		if (m_boInMenu){
+			SDL_SetRenderDrawColor(m_pWindow->getRenderer(), 255, 255, 255, 1);
 			if (m_MenuPrincipal->IsActive())
 				m_MenuPrincipal->Render();
 			else if (m_MenuNewGame->IsActive())
@@ -110,9 +115,9 @@ public:
 #elif defined (_WIN32)
 		strPath.append("\\");
 #endif
-		string FileName[12] = {"Arpegius.ttf", "Btn1.png", "BtnL.png", "BtnR.png", "map1.png", "background1.png", "map2.png", "background2.png", "map3.png", "background3.png", "map4.png", "background4.png"};
-		string strFilePath[12];
-		for (int i = 0; i < 12; i++){
+		string FileName[13] = {"Arpegius.ttf", "Btn1.png", "BtnL.png", "BtnR.png", "map1.png", "background1.png", "map2.png", "background2.png", "map3.png", "background3.png", "map4.png", "background4.png", "SavedData.dat"};
+		string strFilePath[13];
+		for (int i = 0; i < 13; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
@@ -145,8 +150,24 @@ public:
 		m_Gestionaire->AjouterSurface(new CSurface("background4", IMG_Load(strFilePath[11].c_str())));
 		/* The potato is a lie */
 		
+		m_SaveFile->open(strFilePath[12].c_str());
 	}
 	
+	static void LoadData(){
+		string strReader;
+		char buf[512];
+		while (!m_SaveFile->eof()) {
+			m_SaveFile->read(buf, sizeof(string));
+			strReader = buf;
+			
+			
+		}
+	}
+	static void SaveData(){
+		
+		// Banana Banana Banana...
+		
+	}
 	
 	static void Quit(){
 		delete m_pWindow;
@@ -168,6 +189,8 @@ public:
 		m_Gestionaire = new CGestionnaireRessources();
 		
 		LoadResources(_argv);
+		LoadData();
+		
 			//
 			// Initialisation du menu Principal
 			//
@@ -297,4 +320,7 @@ bool CWorms::m_boInMenu = true;
 SDL_Event* CWorms::m_pEvent = nullptr;
 CGestionnaireRessources* CWorms::m_Gestionaire = nullptr;
 bool CWorms::m_boRun = true;
+CTeam* CWorms::Team[6];
+CMap* CWorms::Map[4];
+fstream* CWorms::m_SaveFile = nullptr;
 
