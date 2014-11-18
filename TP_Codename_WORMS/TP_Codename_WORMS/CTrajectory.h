@@ -32,11 +32,19 @@ public:
 	*/
 	C2DVector GetPosition(){
 		double dTimeVariation = (SDL_GetTicks() - m_lTrajectoryStartTime);
-		return C2DVector(m_TrajectoryInitSpeed->getX() * dTimeVariation + m_Wind->getX()
-			/ 2 * dTimeVariation * dTimeVariation + m_StartPos->getX(),
-			m_TrajectoryInitSpeed->getY() * dTimeVariation + (m_Wind->getY() - CPhysics::GetGravity())
-			/ 2 * dTimeVariation * dTimeVariation + m_StartPos->getY()
-			);
+		double dTimeVarExp2 = dTimeVariation * dTimeVariation;
+		return C2DVector(m_TrajectoryInitSpeed->getX() * dTimeVariation + CPhysics::GetWind()->getX()
+			/ 2 * dTimeVarExp2 + m_StartPos->getX(),
+			m_TrajectoryInitSpeed->getY() * dTimeVariation + (CPhysics::GetWind()->getY() + CPhysics::GetGravity())
+			/ 2 * dTimeVarExp2 + m_StartPos->getY());
 	}
 
+	/*
+	Method : Bounce
+	Brief : Procédure qui ajuste la trajectoire suite à un rebond
+	Params : 
+		_Surface : Pointeur vers la surface impliquée dans le rebond
+	*/
+	void Bounce(SDL_Surface* _Surface){
+	}
 };
