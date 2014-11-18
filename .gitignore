@@ -5,9 +5,10 @@
 *.suo
 *.user
 *.sln.docstates
+*.xcuserstate
 
 # Build results
-
+*.log
 [Dd]ebug/
 [Rr]elease/
 x64/
