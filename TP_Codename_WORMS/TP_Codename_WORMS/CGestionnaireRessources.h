@@ -217,7 +217,7 @@ public:
 	CTexture* GetTexture(const char* _Name){
 		m_pListeTexture->AllerDebut();
 		for (int i = 0; i < m_pListeTexture->Count(); i++){
-			if (m_pListeTexture->ObtenirElement()->GetName() == _Name){
+			if ((m_pListeTexture->ObtenirElement()->GetName()) == _Name){
 				return m_pListeTexture->ObtenirElement();
 			}
 			else {

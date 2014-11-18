@@ -158,7 +158,7 @@ public:
 	}
 	
 	static void LoadData(){
-		string strReader, strObj, tabParam[4], strbackg("background"), strmap("map");
+		string strReader, strObj, tabParam[4];
 		Uint8 itterMap(0), itterTeam(0);
 		char buf[255];
 		while (!m_SaveFile->eof()) {
@@ -186,21 +186,37 @@ public:
 						tabParam[3] = strReader;
 					}
 				}
-				strbackg.append(SDL_itoa(itterMap + 1, buf, sizeof(buf)));
-				strmap.append(SDL_itoa(itterMap + 1, buf, sizeof(buf)));
-				TabMap[itterMap] = new CMap(tabParam[0], m_Gestionaire->GetTexture(strbackg.c_str())->GetTexture(), m_Gestionaire->GetSurface(strmap.c_str())->getSurface(), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
-				strbackg.erase(strbackg.length()-1, 1);
-				strmap.erase(strmap.length() -1, 1);
+				switch (itterMap) {
+					case 0:
+						TabMap[itterMap] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background1")->GetTexture(), m_Gestionaire->GetSurface("map1")->getSurface(), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
+						break;
+					case 1:
+						TabMap[itterMap] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background2")->GetTexture(), m_Gestionaire->GetSurface("map2")->getSurface(), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
+						break;
+					case 2:
+						TabMap[itterMap] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background3")->GetTexture(), m_Gestionaire->GetSurface("map3")->getSurface(), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
+						break;
+					case 3:
+						TabMap[itterMap] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background4")->GetTexture(), m_Gestionaire->GetSurface("map4")->getSurface(), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
+						break;
+				}
 				itterMap++;
 			}
-			else if (strObj == "Team"){
-				m_SaveFile->getline(buf, sizeof(buf));
-				strReader = buf;
-				if (strReader.substr(0, 4) == "Name") {
-					TabTeam[itterTeam] = new CTeam();
+			/*else if (strObj == "Team"){
+				for (int i = 0; i < 2; i++){
+					m_SaveFile->getline(buf, sizeof(buf));
+					strReader = buf;
+					if (strReader.substr(0, 4) == "Name") {
+						strReader.erase(0, 5);
+						tabParam[0] = strReader;
+					}
+					else if (strReader.substr(0, 4) == "Colr"){
+						strReader.erase(0, 5);
+						tabParam[1] = strReader;
+					}
 				}
 				itterTeam++;
-			}
+			}*/   // TODO
 		}
 	}
 	static void SaveData(){
@@ -256,8 +272,8 @@ public:
 		SSTemp->setOnClickNext(BtnMapNext);
 		SSTemp->setOnClickPrev(BtnMapPrev);
 		m_MenuNewGame->AddElement(SSTemp, 20, 40, 600, 300);
-		m_MenuNewGame->AddElement(new CLabel("lblMapName", "Map : ", m_Gestionaire->GetFont("FontMenu"), {}), 62, 420, 100, 20);
-		m_MenuNewGame->AddElement(new CLabel("lblMapInfo", "Wind : ", m_Gestionaire->GetFont("FontMenu"), {}), 62, 460, 100, 20);
+		m_MenuNewGame->AddElement(new CLabel("lblMapName", "Map : Arcade", m_Gestionaire->GetFont("FontMenu"), {}), 62, 420, 100, 20);
+		m_MenuNewGame->AddElement(new CLabel("lblMapInfo", "Wind : 200", m_Gestionaire->GetFont("FontMenu"), {}), 62, 460, 100, 20);
 		CSlideShow* SSTemp2 = new CSlideShow("SSTeam", m_Gestionaire->GetFont("FontMenu"), {660, 40, 600, 300}, m_Gestionaire->GetSprite("SpriteTeamLeft"), m_Gestionaire->GetSprite("SpriteTeamRight"));
 		SSTemp2->ajouterText(4, new string("Team Ritch"), new string("Team Kev"), new string("Team Die-Jess"), new string("Team Dom"));
 		m_MenuNewGame->AddElement(SSTemp2, 660, 40, 600, 300);
@@ -305,12 +321,22 @@ public:
 		m_MenuNewTeam->ActivateMenu();
 	}
 	static void BtnMapNext(){
-		m_MenuNewGame->getElement("lblMapName")->setText("Map : Yolo");
-		m_MenuNewGame->getElement("lblMapInfo")->setText("Wind : Evil");
+		string tempName("Map : "), tempWind("Wind : ");
+		int ID = ((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId();
+		tempName.append(TabMap[ID]->getName());
+		char buf[10];
+		tempWind.append(SDL_itoa(TabMap[ID]->getWind(), buf, 10));
+		m_MenuNewGame->getElement("lblMapName")->setText(tempName.c_str());
+		m_MenuNewGame->getElement("lblMapInfo")->setText(tempWind.c_str());
 	}
 	static void BtnMapPrev(){
-		m_MenuNewGame->getElement("lblMapName")->setText("Map : Yolo");
-		m_MenuNewGame->getElement("lblMapInfo")->setText("Wind : Evil");
+		string tempName("Map : "), tempWind("Wind : ");
+		int ID = ((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId();
+		tempName.append(TabMap[ID]->getName());
+		char buf[4];
+		tempWind.append(SDL_itoa(TabMap[ID]->getWind(), buf, sizeof(buf)));
+		m_MenuNewGame->getElement("lblMapName")->setText(tempName.c_str());
+		m_MenuNewGame->getElement("lblMapInfo")->setText(tempWind.c_str());
 	}
 	static void BtnAddRemP1(){
 		string temp = m_MenuNewGame->getElement("lblPlayer1")->getText();

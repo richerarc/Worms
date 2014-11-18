@@ -24,6 +24,7 @@ Mine:7
 }
 Team0{
 Name:Die-Jess
+Colr:22222
 Worm0:Worm0
 Worm1:Worm1
 Worm2:Worm2
@@ -33,6 +34,7 @@ Worm5:Worm5
 }
 Team1{
 Name:Kev
+Colr:33333
 Worm0:Worm0
 Worm1:Worm1
 Worm2:Worm2
@@ -42,6 +44,7 @@ Worm5:Worm5
 }
 Team2{
 Name:Ritch
+Colr:44444
 Worm0:Worm0
 Worm1:Worm1
 Worm2:Worm2
@@ -51,6 +54,7 @@ Worm5:Worm5
 }
 Team3{
 Name:Dom
+Colr:55555
 Worm0:Worm0
 Worm1:Worm1
 Worm2:Worm2

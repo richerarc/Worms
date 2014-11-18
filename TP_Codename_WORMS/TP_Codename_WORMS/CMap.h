@@ -36,6 +36,7 @@ public:
 		m_uiGravity = _Gravity;
 		m_uiMaxWind = _MaxWind;
 		m_uiNbrMine = _NbrMine;
+		m_strName = _Name;
 	}
 
 	void ConvertMap(SDL_Renderer* _Renderer){
@@ -44,13 +45,13 @@ public:
 
 	void ExplodeMap(SDL_Renderer* _Renderer, SDL_Rect _ExplosionPos){
 		int iPosTableau = (_ExplosionPos.y * m_Map->w) + _ExplosionPos.x; // Variable représentant la position du pixel du rect dans un tableau 1D
-		for (int i = 0; i < (_ExplosionPos.w * _ExplosionPos.h); i++){
+		/*for (int i = 0; i < (_ExplosionPos.w * _ExplosionPos.h); i++){
 			if ((unsigned int*)m_ExplosionMask->pixels)[i] != IDTransparence)
 				iPosTableau += 1;
 			else
 				m_Map->pixels[iPosTableau] = IDTransparence;
 		}
-			ConvertMap(_Renderer);
+			ConvertMap(_Renderer); */  // TODO!!!!!!!!!!!!!!
 	}
 
 	void Draw(SDL_Renderer* _Renderer){
@@ -59,6 +60,18 @@ public:
 		SDL_RenderCopy(_Renderer, m_Background, NULL, NULL);
 		SDL_RenderCopy(_Renderer, m_MapConverted, NULL, NULL);
 	}
-
-
+	
+	string getName(){
+		return m_strName;
+	}
+	
+	int getWind(){
+		return m_uiMaxWind;
+	}
+	int getGravity(){
+		return m_uiMaxWind;
+	}
+	int getMine(){
+		return m_uiNbrMine;
+	}
 };

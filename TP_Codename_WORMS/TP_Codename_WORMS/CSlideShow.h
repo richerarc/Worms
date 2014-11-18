@@ -63,15 +63,15 @@ public:
 				(_Event.button.x <= (uiXNext + m_btnNext->getWidth())) &&
 				(_Event.button.y >= uiYNext) &&
 				(_Event.button.y <= (uiYNext + m_btnNext->getHeight()))){
-				m_btnNext->HandleEvent(_Event);
 				m_uiCurrentSlide = (m_uiCurrentSlide + 1) % m_uiCount;
+				m_btnNext->HandleEvent(_Event);
 			}
 			else if ((_Event.button.x >= uiXPrev) &&
 				(_Event.button.x <= (uiXPrev + m_btnPrev->getWidth())) &&
 				(_Event.button.y >= uiYPrev) &&
 				(_Event.button.y <= (uiYPrev + m_btnPrev->getHeight()))){
-				m_btnPrev->HandleEvent(_Event);
 				m_uiCurrentSlide = (m_uiCurrentSlide - 1) % m_uiCount;
+				m_btnPrev->HandleEvent(_Event);
 			}
 			setlblContain();
 		}
@@ -133,6 +133,10 @@ public:
 		m_Font->setFontColor({0,0,0,255});
 		m_lblContain->Draw(_Renderer);
 		SDL_SetRenderDrawColor(_Renderer, 255, 255, 255, 1);
+	}
+	
+	unsigned int getCurrentSlideId(){
+		return m_uiCurrentSlide;
 	}
 	
 };
