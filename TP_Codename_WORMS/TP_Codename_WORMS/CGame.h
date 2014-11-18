@@ -39,17 +39,26 @@ public:
 		if (m_pListeTeam->ObtenirElement()->IsFocussed()) { 
 			m_pListeTeam->ObtenirElement()->setFocus(false);
 		}
-
 		m_pListeTeam->AllerA((uitemp + 1) % m_uiNbOfPlayingTeams);
 		m_pListeTeam->ObtenirElement()->setFocus(true);
 	}
 
 
-	void SendCollision(){
+	void Renderer(){
+		m_pMap->Draw(m_pRenderer);
+		m_pListeTeam->AllerDebut();
 		m_pListeObjets->AllerDebut();
+		for (int i = 0; i < m_uiNbOfPlayingTeams; i++)
+		{
+			m_pListeTeam->ObtenirElement()->draw(m_pRenderer);
+			m_pListeTeam->AllerSuivant();
+		}
 
-
-	
+		for (int i = 0; i < m_pListeObjets->Count(); i++)
+		{
+			m_pListeObjets->ObtenirElement()->Draw(m_pRenderer);
+			m_pListeTeam->AllerSuivant();
+		}
 	}
 
 
