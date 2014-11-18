@@ -13,25 +13,18 @@ private:
 	string m_strTeamName;
 	CWorm* m_pTabWorm[6];
 	SDL_Color m_TeamColor;
+	Uint8 m_pNumberOfWorm;
 	Uint8 m_uiNbOfPlayingWorms;
 	Uint8 m_uiWormTurn;
 	bool m_boFocus;
 
 public:
 
-	CTeam(string _strTeamName, SDL_Color _Color, CSprite* _Sprite, CFont* _Font){
-		string strNom = "Worm";
-		char Buffer[255];
-		for (int i = 0; i < MAXWORMS; i++)
-		{
-			strNom.append(SDL_itoa(i, Buffer, 10));
-			m_pTabWorm[i] = new CWorm(strNom, _Sprite, _Font, {0,0,0,0});
-			strNom.pop_back();
-		}
+	CTeam(string _strTeamName, SDL_Color _Color){
 		m_boFocus = false;
-		m_pTabWorm[0]->setFocus(true);
 		m_uiWormTurn = 0;
-		m_uiNbOfPlayingWorms = 1;
+		m_pNumberOfWorm = 0;
+		m_uiNbOfPlayingWorms = 0;
 	}
 
 	void NextWormTurn(){
@@ -47,6 +40,18 @@ public:
 		for (int i = 0; i < m_uiNbOfPlayingWorms; i++)
 			m_pTabWorm[i]->Draw(_Renderer);
 	}
+
+	void AddWorm(CWorm* _Worm){
+		m_pTabWorm[m_pNumberOfWorm] = _Worm;
+
+		if (!m_pNumberOfWorm)
+			m_pTabWorm[m_pNumberOfWorm]->setFocus(true);
+		else
+			m_pTabWorm[m_pNumberOfWorm]->setFocus(false);
+
+		m_pNumberOfWorm++;
+	}
+
 
 	/*!
 	@Accesseurs

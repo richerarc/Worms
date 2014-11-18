@@ -3,7 +3,7 @@
 //
 //  Created by Kevin Pantelakis on 2014-11-11.
 //
-
+#define IDTransparence 16777215 // Représente le numéro de couleur de la transparence.
 
 /*!
  @class CMap
@@ -15,12 +15,12 @@ private:
 	SDL_Texture* m_Background;
 	SDL_Surface* m_Map;
 	SDL_Texture* m_MapConverted;
-	SDL_Surface* m_ExplosionMask;	// TODO...
+	SDL_Surface* m_ExplosionMask;
 	unsigned int m_uiGravity;
 	unsigned int m_uiMaxWind;
 	unsigned int m_uiNbrMine;
 public:
-	
+
 	/*!
 	 @method Constructeur
 	 @param _Background : Le background de la map
@@ -37,24 +37,28 @@ public:
 		m_uiMaxWind = _MaxWind;
 		m_uiNbrMine = _NbrMine;
 	}
-	
+
 	void ConvertMap(SDL_Renderer* _Renderer){
 		m_MapConverted = SDL_CreateTextureFromSurface(_Renderer, m_Map);
 	}
-	
+
 	void ExplodeMap(SDL_Renderer* _Renderer, SDL_Rect _ExplosionPos){
-			//
-			// TODO...
-			//
-		ConvertMap(_Renderer);
+		int iPosTableau = (_ExplosionPos.y * m_Map->w) + _ExplosionPos.x; // Variable représentant la position du pixel du rect dans un tableau 1D
+		for (int i = 0; i < (_ExplosionPos.w * _ExplosionPos.h); i++){
+			if ((unsigned int*)m_ExplosionMask->pixels)[i] != IDTransparence)
+				iPosTableau += 1;
+			else
+				m_Map->pixels[iPosTableau] = IDTransparence;
+		}
+			ConvertMap(_Renderer);
 	}
-	
+
 	void Draw(SDL_Renderer* _Renderer){
 		if (m_MapConverted == nullptr)
 			ConvertMap(_Renderer);
 		SDL_RenderCopy(_Renderer, m_Background, NULL, NULL);
 		SDL_RenderCopy(_Renderer, m_MapConverted, NULL, NULL);
 	}
-	
-	
+
+
 };
