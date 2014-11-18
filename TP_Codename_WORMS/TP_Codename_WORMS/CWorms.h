@@ -44,6 +44,7 @@ private:
 	static CMenu* m_MenuNewGame;					// Menu Nouvelle partie
 	static CMenu* m_MenuPause;						// Menu Pause
 	static CMenu* m_MenuNewTeam;					// Menu Création d'une nouvelle équipe.
+	static CGame* m_Game;							// Jeux Principal
 	static SDL_Event* m_pEvent;						// Event SDL
 	static bool m_boRun;							// Indique si le jeu est en terminé ou non.
 	static bool m_boInMenu;							// Indique si on se trouve dans un menu.
@@ -116,9 +117,9 @@ public:
 #elif defined (_WIN32)
 		strPath.append("\\");
 #endif
-		string FileName[13] = {"Arpegius.ttf", "Btn1.png", "BtnL.png", "BtnR.png", "map1.png", "background1.jpg", "map2.png", "background2.jpg", "map3.png", "background3.jpg", "map4.png", "background4.jpg", "SavedData.dat"};
-		string strFilePath[13];
-		for (int i = 0; i < 13; i++){
+		string FileName[15] = {"Arpegius.ttf", "Btn1.png", "BtnL.png", "BtnR.png", "map1.png", "background1.jpg", "map2.png", "background2.jpg", "map3.png", "background3.jpg", "map4.png", "background4.jpg", "SavedData.dat", "compass.png", "Fleche.png"};
+		string strFilePath[15];
+		for (int i = 0; i < 15; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
@@ -126,6 +127,8 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("TextureBtn", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[1].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("TextureBtnL", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[2].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("TextureBtnR", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[3].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("compass", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[13].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("fleche", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[14].c_str())));
 			/* Sprite pour le menu principal */
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnNG", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnQ", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
@@ -234,6 +237,8 @@ public:
 		delete m_pEvent;
 		m_SaveFile->close();
 		delete m_SaveFile;
+		for(int i = 0; i < 3; i++)
+			delete TabTeam[i];
 	}
 	
 	
@@ -375,6 +380,11 @@ public:
 			m_MenuNewGame->getElement("lblPlayer4")->setText("Player 4 : ");
 	}
 	
+	static void BtnPlay(){
+		m_Game = new CGame(TabMap[((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId()], new CBoussole(m_Gestionaire->GetTexture("compass")->GetTexture(), m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer());
+		if (m_MenuNewGame->getElement("lblPlayer1")->getText() == TabTeam[]) //Banana Banana Banana
+	}
+	
 };
 
 	// Initialisation des données membre statique
@@ -384,6 +394,7 @@ CMenu* CWorms::m_MenuPrincipal = nullptr;
 CMenu* CWorms::m_MenuNewGame = nullptr;
 CMenu* CWorms::m_MenuPause = nullptr;
 CMenu* CWorms::m_MenuNewTeam = nullptr;
+CGame* CWorms::m_Game = nullptr;
 bool CWorms::m_boInMenu = true;
 SDL_Event* CWorms::m_pEvent = nullptr;
 CGestionnaireRessources* CWorms::m_Gestionaire = nullptr;

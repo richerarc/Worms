@@ -15,9 +15,9 @@ private:
 	bool m_boInPlay;
 public:
 
-	CGame(CListeDC<CTeam*>* _Teams, CListeDC<CObjets*>* _ListeObjets, CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer){
-		m_pListeTeam = _Teams;
-		m_pListeObjets = _ListeObjets;
+	CGame(CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer){
+		m_pListeTeam = new CListeDC<CTeam*>();
+		m_pListeObjets = new CListeDC<CObjets*>();
 		m_pMap = _Map;
 		m_pBoussole = _Boussole;
 		m_pRenderer = _Renderer;
@@ -30,6 +30,7 @@ public:
 		delete m_pListeTeam;
 		delete m_pMap;
 		delete m_pBoussole;
+		delete m_pListeObjets;
 	}
 
 	void NextTurn(){
@@ -59,6 +60,10 @@ public:
 		}
 	}
 
+	void AjouterTeam(CTeam* _team){
+		m_pListeTeam->AjouterFin(_team);
+	}
+	
 	void setNbOfPlayingTeams(Uint8 _NbOfTeams){ m_uiNbOfPlayingTeams = _NbOfTeams; }
 
 	Uint8 getNbOfPlayingTeams(){ return m_uiNbOfPlayingTeams; }
