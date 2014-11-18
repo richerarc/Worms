@@ -12,6 +12,7 @@ private:
 	CMap* m_pMap;
 	CListeDC<CTeam*>* m_pListeTeam;
 	CListeDC<CObjets*>* m_pListeObjets;
+	bool m_boInPlay;
 public:
 
 	CGame(CListeDC<CTeam*>* _Teams, CListeDC<CObjets*>* _ListeObjets, CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer){
@@ -20,8 +21,9 @@ public:
 		m_pMap = _Map;
 		m_pBoussole = _Boussole;
 		m_pRenderer = _Renderer;
-		m_uiNbOfPlayingTeams = 2;
+		m_uiNbOfPlayingTeams = 0;
 		m_uiTeamTurn = 0;
+		m_boInPlay = false;
 	}
 
 	~CGame(){
@@ -57,5 +59,8 @@ public:
 		}
 	}
 
+	void setNbOfPlayingTeams(Uint8 _NbOfTeams){ m_uiNbOfPlayingTeams = _NbOfTeams; }
+
+	Uint8 getNbOfPlayingTeams(){ return m_uiNbOfPlayingTeams; }
 
 };
