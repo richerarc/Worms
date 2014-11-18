@@ -7,6 +7,7 @@ class CGame{
 private:
 
 	CListeDC<CTeam*>* m_pListeTeam;
+	Uint8 m_uiTeamTurn;
 	CListeDC<CObjets*>* m_pListeObjets;
 	CMap* m_pMap;
 	CBoussole* m_pBoussole;
@@ -21,6 +22,7 @@ public:
 		m_pMap = _Map;
 		m_pBoussole = _Boussole;
 		m_pRenderer = _Renderer;
+		m_uiTeamTurn = 0;
 	}
 
 	~CGame(){
@@ -28,5 +30,19 @@ public:
 		delete m_pMap;
 		delete m_pBoussole;
 	}
+
+	void NextTeam(){
+		m_pListeTeam->AllerA(m_uiTeamTurn);
+		m_pListeObjets->ObtenirElement()->setFocus();
+	}
+
+
+	void SendCollision(){
+		m_pListeObjets->AllerDebut();
+
+
+	
+	}
+
 
 };
