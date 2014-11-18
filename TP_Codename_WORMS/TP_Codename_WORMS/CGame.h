@@ -8,6 +8,7 @@ private:
 
 	CListeDC<CTeam*>* m_pListeTeam;
 	Uint8 m_uiTeamTurn;
+	Uint8 m_uiNbOfPlayingTeams;
 	CListeDC<CObjets*>* m_pListeObjets;
 	CMap* m_pMap;
 	CBoussole* m_pBoussole;
@@ -22,6 +23,7 @@ public:
 		m_pMap = _Map;
 		m_pBoussole = _Boussole;
 		m_pRenderer = _Renderer;
+		m_uiNbOfPlayingTeams = 2;
 		m_uiTeamTurn = 0;
 	}
 
@@ -31,9 +33,15 @@ public:
 		delete m_pBoussole;
 	}
 
-	void NextTeam(){
-		m_pListeTeam->AllerA(m_uiTeamTurn);
-		m_pListeObjets->ObtenirElement()->setFocus();
+	void NextTurn(){
+		Uint8 uitemp = m_uiTeamTurn % m_uiNbOfPlayingTeams;
+		m_pListeTeam->AllerA(uitemp);
+		if (m_pListeTeam->ObtenirElement()->IsFocussed()) { 
+			m_pListeTeam->ObtenirElement()->setFocus(false);
+		}
+
+		m_pListeTeam->AllerA((uitemp + 1) % m_uiNbOfPlayingTeams);
+		m_pListeTeam->ObtenirElement()->setFocus(true);
 	}
 
 

@@ -19,40 +19,54 @@ private:
 
 public:
 
-	CTeam(string _strTeamName, SDL_Color _Color, CSprite* _Sprite, SDL_Rect _Rect, CFont* _Font){
+	CTeam(string _strTeamName, SDL_Color _Color, CSprite* _Sprite, CFont* _Font){
 		string strNom = "Worm";
 		char Buffer[255];
 		for (int i = 0; i < MAXWORMS; i++)
 		{
 			strNom.append(SDL_itoa(i, Buffer, 10));
-			m_pTabWorm[i] = new CWorm(strNom, _Sprite, _Font, _Rect);
+			m_pTabWorm[i] = new CWorm(strNom, _Sprite, _Font, {0,0,0,0});
 			strNom.pop_back();
 		}
 		m_boFocus = false;
 		m_pTabWorm[0]->setFocus(true);
 		m_uiWormTurn = 0;
+		m_uiNbOfPlayingWorms = 1;
 	}
 
+	void NextWormTurn(){
+		Uint8 temp = (m_uiWormTurn) % m_uiNbOfPlayingWorms;
+		if (m_pTabWorm[temp]->isFocused()){
+			m_pTabWorm[temp]->setFocus(false);
+		}
+		m_pTabWorm[(temp + 1) % m_uiNbOfPlayingWorms]->setFocus(true);
+		m_uiWormTurn++;
+	}
+
+	void draw(SDL_Renderer* _Renderer){
+		for (int i = 0; i < m_uiNbOfPlayingWorms; i++)
+			m_pTabWorm[i]->Draw(_Renderer);
+	}
+
+	/*!
+	@Accesseurs
+	*/
+	void setNbPlayingWorm(Uint8 _uiNumber){ m_uiNbOfPlayingWorms = _uiNumber; }
 
 	void setFocus(bool _boFocus){ m_boFocus = _boFocus; }
 
+	void setTeamColor(SDL_Color _Color) { m_TeamColor = _Color; }
+
+	void setTeamName(string _strName){ m_strTeamName = _strName; }
+
 	bool IsFocussed(){ return m_boFocus; }
 
-	void NextWormTurn(){
-		if (m_pTabWorm[(m_uiWormTurn - 1) % 6]->isFocused()){
-			m_pTabWorm[(m_uiWormTurn - 1) % 6]->setFocus(false);
-		}
-		m_pTabWorm[m_uiWormTurn % 6]->setFocus(true);
-	}
+	Uint8 getNumberOfPlayingWorms(){ return m_uiNbOfPlayingWorms; }
 
-	void setTeamName(string _strName){
-		m_strTeamName = _strName; 
-	}
+	string getTeamName(){ return m_strTeamName; }
 
-	CWorm* getPlayingWorm(){ return m_pTabWorm[m_uiWormTurn % 6]; }
+	CWorm* getPlayingWorm(){ return m_pTabWorm[m_uiWormTurn % m_uiNbOfPlayingWorms]; }
 
-	void setTeamColor(SDL_Color _Color){
-		m_TeamColor = _Color;
-	}
+
 
 };

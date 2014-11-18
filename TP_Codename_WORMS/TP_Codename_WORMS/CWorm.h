@@ -96,7 +96,6 @@ public:
 		m_pSprite->Render(_Renderer);
 	}
 
-
 	/*!
 	@Accesseurs:
 	*/
