@@ -154,34 +154,48 @@ public:
 		m_Gestionaire->AjouterSurface(new CSurface("background4", IMG_Load(strFilePath[11].c_str())));
 		/* The potato is a lie */
 		
-		//m_SaveFile->open(strFilePath[12].c_str());
+		m_SaveFile->open(strFilePath[12].c_str());
 	}
 	
 	static void LoadData(){
 		string strReader, strObj, tabParam[4];
+		Uint8 itterator;
 		char buf[1024];
-		m_SaveFile->read(buf, sizeof(buf));
-		strReader = buf;
-		while (strReader != "") {
+		while (!m_SaveFile->eof()) {
+			m_SaveFile->getline(buf, sizeof(buf));
+			strReader = buf;
 			strObj = strReader.substr(0,4);
-			strReader.erase(0, 4);
+			itterator = SDL_atoi(&strReader[5]);
 			if (strObj == "MMap"){
-				for (int i = 0; i < 3; i++){
-					size_t posi = strReader.find(":");
-					size_t posf = strReader.find(",");
-					tabParam[i] = strReader.substr(posi + 1, posf);
-					strReader.erase(0, posf);
+				for (int i = 0; i < 4; i++){
+					m_SaveFile->getline(buf, sizeof(buf));
+					strReader = buf;
+					if (strReader.substr(0,4) == "Name"){
+						strReader.erase(0, 5);
+						tabParam[0] = strReader;
+					}
+					else if (strReader.substr(0,4) == "Grvt"){
+						strReader.erase(0, 5);
+						tabParam[1] = strReader;
+					}
+					else if (strReader.substr(0,4) == "Wind"){
+						strReader.erase(0, 5);
+						tabParam[2] = strReader;
+					}
+					else if (strReader.substr(0,4) == "Mine"){
+						strReader.erase(0, 5);
+						tabParam[3] = strReader;
+					}
 				}
-				TabMap[SDL_atoi(&strReader[0])] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background1")->GetTexture(), m_Gestionaire->GetSurface("map1")->getSurface(), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
+				TabMap[itterator] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background1")->GetTexture(), m_Gestionaire->GetSurface("map1")->getSurface(), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
 			}
 			else if (strObj == "Team"){
-				
+				m_SaveFile->getline(buf, sizeof(buf));
+				strReader = buf;
+				strReader.erase(0, 5);
+					//TabTeam[itterator] = new CTeam(, {});
+				}
 			}
-			else if (strObj == "}"){
-				
-			}
-						
-			
 		}
 	}
 	static void SaveData(){
@@ -197,7 +211,7 @@ public:
 		delete m_MenuPause;
 		delete m_MenuNewTeam;
 		delete m_pEvent;
-	//	m_SaveFile->close();
+		m_SaveFile->close();
 		delete m_SaveFile;
 	}
 	
@@ -212,7 +226,7 @@ public:
 		m_Gestionaire = new CGestionnaireRessources();
 		
 		LoadResources(_argv);
-	//	LoadData();
+		LoadData();
 		
 			//
 			// Initialisation du menu Principal
