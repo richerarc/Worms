@@ -22,6 +22,7 @@ private:
 	SDL_Rect m_BarredeVie;
 	
 public:
+
 	/*!
 	@Constructeur
 	@Description: Permet d'initialiser les données membres
@@ -41,6 +42,7 @@ public:
 		m_BarredeVie.y = _RectPos.y + 10;
 		m_lblNom = new CLabel("", m_strName.c_str(), _Font, SDL_Rect{_RectPos.x,_RectPos.y + 20,50,10});
 	}
+
 	/*!
 	@Destructeur:
 	@Permet de détruire les objets créés en mémoire
@@ -48,6 +50,7 @@ public:
 	~CWorm(){
 		delete m_pSprite;
 	}
+
 	/*!
 	@Méthode:
 	@ReactToExplosion
@@ -92,7 +95,6 @@ public:
 	void Draw(SDL_Renderer * _Renderer){
 		m_pSprite->Render(_Renderer);
 	}
-
 
 	/*!
 	@Accesseurs:

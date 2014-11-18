@@ -8,30 +8,19 @@
 */
 class CCaisseSoin : public CCaisses{
 private:
-
-	//Données membres:
-	SDL_Texture* m_pTexture; // Texture de l'image à afficher.
-
 public:
 	/*!
 	@Constructeur
 	@Description: Permet d'initialiser les données membres
 	@Paramètres: Le nom du labelImage afin de l'identifier, le text à l'intérieur, le font et le rect, et la texture contenant l'image.
 	*/
-	CCaisseSoin(int _iRayon, SDL_Rect _RectPos , SDL_Texture* _pTexture) :CCaisses(_iRayon, _RectPos,_pTexture){
-	}
-
 	/*!
 	@Accesseurs:
 	*/
-
 	/*!
 	@Destructeur:
 	@Permet de détruire les objets créés en mémoire
 	*/
-	~CCaisseSoin(){
-	}
-
 };
 
 #endif

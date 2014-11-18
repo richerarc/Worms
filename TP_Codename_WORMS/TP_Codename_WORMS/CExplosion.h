@@ -1,10 +1,36 @@
+#ifndef TP_Codename_WORMS_CExplosion_h
+#define TP_Codename_WORMS_CExplosion_h
+
 class CExplosion{
 private:
-	CSprite* m_pSprite;
-	SDL_Rect m_Rect;
+	CSprite* m_pSprite;//Donnée membre représentant le sprite d'explosion.
+
 public:
-	CExplosion(CSprite* _Sprite, SDL_Rect _Rect){
+	/*!
+	@Constructeur
+	@Description: Permet d'initialiser les données membres
+	@param _Sprite : le sprite de l'objet
+	@param _RectPos : le rect de l'objet
+	*/
+	CExplosion(CSprite* _Sprite){
 		m_pSprite = _Sprite;
-		m_Rect = _Rect;
 	}
+	/*!
+	@method Draw
+	@param _Renderer : Renderer pour rendre la textures du Sprite.
+	@return null
+	*/
+	void Draw(SDL_Renderer* _pRenderer){
+		m_pSprite->Render(_pRenderer);
+	}
+
+	/*!
+	@Destructeur:
+	@Permet de détruire les objets créés en mémoire
+	*/
+	~CExplosion(){
+	}
+
 };
+
+#endif
