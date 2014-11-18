@@ -1,11 +1,22 @@
+#define GROUND 1111
+#define CEILING 2222
+#define LEFT 3333
+#define RIGHT 4444
+#define GROUNDLEFT 5555
+#define GROUNDRIGHT 6666
+#define CEILINGLEFT 7777
+#define CEILINGRIGHT 8888
+#define NOCONTACT 9999
+#define GROUNDCEILING 1337
 
-
+class CTrajectory;
 static class CPhysics{
 private:
 	static C2DVector * m_Wind;
 	static double m_Gravity;
 	static int m_MaxSpeed;
 	static int m_MaxWindSpeed;
+	static SDL_Surface * m_Map;
 
 public:
 	// Constructeur:
@@ -21,7 +32,7 @@ public:
 	//}
 
 	//Méthode: RedefineWind permet de changer aleatoirement la direction du vent.
-	void RedefineWind(){
+	static void RedefineWind(){
 		m_Wind->setX(rand() % (m_MaxWindSpeed) - m_MaxWindSpeed/2);
 		m_Wind->setY(rand() % (m_MaxWindSpeed) - m_MaxWindSpeed/2);
 	}
@@ -29,7 +40,7 @@ public:
 	//Méthode: VerifyCollision permet de vérifier une collision entre deux rectangles
 	//		Paramètres: _Collider - Rectangle qui crée la collision, donc est en mouvement.
 	//					_Collidee - Rectangle qui reçoit la collision, donc est immobile.
-	bool VerifyCollision(SDL_Rect _Collider, SDL_Rect _Collidee){
+	static bool VerifyCollision(SDL_Rect _Collider, SDL_Rect _Collidee){
 		if ((_Collider.x + _Collider.w > _Collidee.x) || (_Collider.x < _Collidee.x + _Collidee.w)){
 			if ((_Collider.y + _Collider.h > _Collidee.y) || (_Collider.y < _Collidee.y + _Collidee.h)){
 				return true;
@@ -38,18 +49,54 @@ public:
 		return false;
 	}
 
-	//Méthode: Fall:	Calcule la trajectoire d'une chute d'une entité.
-	//			Paramètres:	_Vit - Vecteur(vitesse et direction) initiale de la chute.
-	//						_Pos - Position initiale de l'entité.
-	CTrajectory Fall(C2DVector * _Vit, C2DVector * _Pos){
-		CTrajectory Fall = CTrajectory(_Pos,_Vit);
-		return Fall;
+	/*
+	Méthode : VerifyGroundCollision
+	Brief : Fonction qui retourne par un entier l'état d'un rect par rapport au terrain
+	Params : 
+		_Rect : Rectangle dont on vérifie la collision
+	Return : 
+		NOCONTACT : Le rectangle ne touche à rien
+		GROUND : Le rectangle touche au sol
+		LEFT : Le rectangle touche le terrain à gauche
+		RIGHT : Le rectangle touche le terrain à droite
+		CEILING : Le rectangle touche le plafond
+		GROUNDLEFT : Le rectangle touche le sol et la gauche
+		GROUNDRIGHT : Le rectangle touche le sol et la droite
+		CEILINGLEFT : Le rectangle touche le plafond et la gauche
+		CEILINGRIGHT : Le rectangle touche le plafond et la droite
+		GROUNDCEILING : Le rectangle touche au plafond et au sol
+	*/
+	//Valeur de la transparence : 16777215
+
+	//À VÉRIFIER
+	static int VerifyGroundCollision(SDL_Rect _Rect){
+		bool boGround = false;
+		bool boCeiling = false;
+		bool boLeft = false;
+		bool boRight = false;
+		for (int i = 0; i < _Rect.w; i++){
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + _Rect.h) + _Rect.x + i] == 0 && !boGround){
+				boGround = true;
+			}
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1) + _Rect.x + i] == 0 && !boCeiling){
+				boCeiling = true;
+			}
+		}
+		for (int i = 0; i < _Rect.h; i ++){
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y) + _Rect.x + _Rect.w + 1 + i] == 0 && !boRight){
+				boRight = true;
+			}
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1 + i) + _Rect.x -1] == 0 && !boLeft){
+				boLeft = true;
+			}
+		}
+		return 0;
 	}
 
 	//Méthode: Fall:	Calcule la trajectoire d'un glissement d'une entité.
 	//			Paramètres:	_Vector - Vecteur(vitesse et direction) initiale du glissement.
 	//						_X et _Y - Positions en X et en Y intiales de l'entité.
-	CTrajectory * Slide(C2DVector * _Vector, int _X, int _Y){
+	static CTrajectory * Slide(C2DVector * _Vector, int _X, int _Y){
 
 	}
 
@@ -59,8 +106,8 @@ public:
 	_PosInit : Position initiale de la propulsion
 	_Vit : Vitesse initiale de la propulsion
 	*/
-	CTrajectory Propulsion(C2DVector* _PosInit, C2DVector* _Vit){
-		return CTrajectory(_PosInit, _Vit);
+	static CTrajectory* Propulsion(C2DVector* _PosInit, C2DVector* _Vit){
+		//return new CTrajectory(_PosInit, _Vit);
 	}
 
 	//Accesseurs...
@@ -75,3 +122,4 @@ C2DVector * CPhysics::m_Wind = new C2DVector(0.,0.);
 double CPhysics::m_Gravity = 1;
 int CPhysics::m_MaxSpeed = 1;
 int CPhysics::m_MaxWindSpeed =50;
+SDL_Surface * CPhysics::m_Map = nullptr;
