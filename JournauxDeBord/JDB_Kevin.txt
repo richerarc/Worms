@@ -26,3 +26,5 @@
 		  on a merge la branche menus et ingame a master. (3h)
 
 15:13 2014-11-14: J'ai continuer Ingame et Créer CBoussole et les images associés (2h30)
+
+22:49 2014-11-17: J'ai commence a coder CGame et CBoussole, J'ai aussi travailler sur l'image du compas. (1h)
