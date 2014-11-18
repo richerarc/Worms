@@ -1,4 +1,4 @@
-28 oct
+﻿28 oct
 J'ai ajouté des méthodes pour Pauser/DéPauser la minuterie dans CTimer.h et 
 j'y ai ajouté des commentaires pour plus de clarté.
 
@@ -19,3 +19,6 @@ Ajout de sprites de worms manquantes
 13 nov : 14h40 à 17h05
 Ajout des classes liées à la physique, incluant CPhysic, CTrajectory et C2DVector. C2DVector est terminé, 
 CTrajectory est à optimiser ou à partiellement refaire et CPhysic n'est pas terminé. UMLs mis à jour.
+
+18 nov : 8h30 à 12h00
+Modifications dans CPhysic et CTrajectory, la gestion des collisions est la prochaine étape à compléter. UMLs mis à jour.
