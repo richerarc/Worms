@@ -193,8 +193,7 @@ public:
 				m_SaveFile->getline(buf, sizeof(buf));
 				strReader = buf;
 				strReader.erase(0, 5);
-					//TabTeam[itterator] = new CTeam(, {});
-				}
+			
 			}
 		}
 	}

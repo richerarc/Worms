@@ -43,7 +43,7 @@ public:
 	@brief Permet de savoir si l'objet est explosé ou non.
 	@return bool.
 	*/
-	virtual bool IsItExplosed(){};
+	virtual bool IsItExplosed(){return false};
 
 	/*!
 	@Accesseurs:
