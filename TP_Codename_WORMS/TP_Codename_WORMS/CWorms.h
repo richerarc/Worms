@@ -28,6 +28,7 @@
 #include "CWorm.h"
 #include "CTeam.h"
 #include "CMap.h"
+#include "CBoussole.h"
 #include "CGame.h"
 
 
@@ -153,7 +154,7 @@ public:
 		m_Gestionaire->AjouterSurface(new CSurface("background4", IMG_Load(strFilePath[11].c_str())));
 		/* The potato is a lie */
 		
-		m_SaveFile->open(strFilePath[12].c_str());
+		//m_SaveFile->open(strFilePath[12].c_str());
 	}
 	
 	static void LoadData(){
@@ -196,7 +197,7 @@ public:
 		delete m_MenuPause;
 		delete m_MenuNewTeam;
 		delete m_pEvent;
-		m_SaveFile->close();
+	//	m_SaveFile->close();
 		delete m_SaveFile;
 	}
 	
@@ -211,7 +212,7 @@ public:
 		m_Gestionaire = new CGestionnaireRessources();
 		
 		LoadResources(_argv);
-		LoadData();
+	//	LoadData();
 		
 			//
 			// Initialisation du menu Principal
