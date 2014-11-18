@@ -3,7 +3,7 @@
 //
 //  Created by Kevin Pantelakis on 2014-11-11.
 //
-
+#define IDTransparence 16777215 // Représente le numéro de couleur de la transparence.
 
 /*!
  @class CMap
@@ -43,12 +43,13 @@ public:
 	}
 
 	void ExplodeMap(SDL_Renderer* _Renderer, SDL_Rect _ExplosionPos){
-		int iPosTableau = (_ExplosionPos.y * m_Map->w) + _ExplosionPos.x;
-		for (int i = 0; i < (_ExplosionPos.w * _ExplosionPos.h); i++)
-		if (m_ExplosionMask->pixels[iPosTableau] != 0)
-			iPosTableau += 1;
-			
-
+		int iPosTableau = (_ExplosionPos.y * m_Map->w) + _ExplosionPos.x; // Variable représentant la position du pixel du rect dans un tableau 1D
+		for (int i = 0; i < (_ExplosionPos.w * _ExplosionPos.h); i++){
+			if ((unsigned int*)m_ExplosionMask->pixels)[i] != IDTransparence)
+				iPosTableau += 1;
+			else
+				m_Map->pixels[iPosTableau] = IDTransparence;
+		}
 			ConvertMap(_Renderer);
 	}
 
