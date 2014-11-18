@@ -39,9 +39,11 @@ public:
 
 	void Draw(SDL_Renderer* _Renderer){
 		SDL_RenderCopyEx(_Renderer, m_pArrow, NULL, &m_RectArrowPosition, m_dblAngle, NULL, SDL_FLIP_NONE);
-			
 	}
 
+	double getAngle(){ return m_dblAngle; }
+
+	void setAngle(double _Angle){ m_dblAngle = _Angle; }
 
 
 };
