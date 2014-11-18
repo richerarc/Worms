@@ -21,7 +21,7 @@ public:
 		m_MaxSpeed = 1;
 		m_MaxWindSpeed = 50;
 	}
-	
+
 	//Méthode: RedefineWind permet de changer aleatoirement la direction du vent.
 	void RedefineWind(){
 		m_Wind->setX(rand() % (m_MaxWindSpeed / 2) - (MaxWindSpeed / 4));
@@ -32,14 +32,25 @@ public:
 	//		Paramètres: _Collider - Entité qui crée la collision, donc est en mouvement.
 	//					_Collidee - Entité qui reçoit la collision, donc est immobile.
 	bool VerifyCollision(CEntity* _Collider, CEntity* _Collidee){
-
+		for (int x1 = 0; x1 < _Collider->getRect().w; x1++){
+			for (int x2 = 0; x2 < _Collidee->getRect().w; x2++){
+				if (x1 == x2) {
+					for (int y1 = 0; y1 < _Collider->getRect().h; y1++){
+						for (int y2 = 0; y2 < _Collidee->getRect().h; y2++){
+							if (y1 == y2) return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
-	
-	//Méthode: Fall:	Calcule la trajectoire d'une chute d'une entité.
-	//			Paramètres:	_Vector - Vecteur(vitesse et direction) initiale de la chute.
-	//						_X et _Y - Positions en X et en Y intiales de l'entité.
-	CTrajectory * Fall(C2DVector * _Vector, int _X, int _Y){
 
+	//Méthode: Fall:	Calcule la trajectoire d'une chute d'une entité.
+	//			Paramètres:	_Vit - Vecteur(vitesse et direction) initiale de la chute.
+	//						_X et _Y - Positions en X et en Y intiales de l'entité.
+	CTrajectory * Fall(C2DVector * _Vit, int _X, int _Y){
+		return CTrajectory(C2DVector(_X, _Y), _Vit);
 	}
 
 	//Méthode: Fall:	Calcule la trajectoire d'un glissement d'une entité.
@@ -50,7 +61,7 @@ public:
 	}
 
 	/*Méthode : Propulsion
-	Brief : Fonction qui retourne la trajectoire d'une chose propulsée
+	Brief : Fonction qui retourne la trajectoire d'une entité propulsée
 	Params :
 	_PosInit : Position initiale de la propulsion
 	_Vit : Vitesse initiale de la propulsion
@@ -58,7 +69,15 @@ public:
 	CTrajectory * Propulsion(C2DVector* _PosInit, C2DVector* _Vit){
 		return CTrajectory(_PosInit, _Vit);
 	}
+	/*
+	Méthode: Explosion
+	Brief: Fonction qui determine les effets crées par une explosion.
+	Params:
+	_X et _Y : Determinent la position du centre de l'explosion
+	_Rad : Rayon de l'explosion.
+	*/
+	void Explosion(int _X, int _Y, int _Rad){
 
-
+	}
 
 };
