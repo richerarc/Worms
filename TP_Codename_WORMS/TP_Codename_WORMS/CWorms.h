@@ -43,10 +43,10 @@ private:
 	static CMenu* m_MenuNewGame;					// Menu Nouvelle partie
 	static CMenu* m_MenuPause;						// Menu Pause
 	static CMenu* m_MenuNewTeam;					// Menu Création d'une nouvelle équipe.
-	static SDL_Event* m_pEvent;					// Event SDL
+	static SDL_Event* m_pEvent;						// Event SDL
 	static bool m_boRun;							// Indique si le jeu est en terminé ou non.
-	static bool m_boInMenu;						// Indique si on se trouve dans un menu.
-	static CGestionnaireRessources* m_Gestionaire; // Gestionnaire de Resource pour le Worms
+	static bool m_boInMenu;							// Indique si on se trouve dans un menu.
+	static CGestionnaireRessources* m_Gestionaire;	// Gestionnaire de Resource pour le Worms
 	static CTeam* TabTeam[4];
 	static CMap* TabMap[4];
 	static fstream* m_SaveFile;
