@@ -5,16 +5,13 @@
 //
 class CGame{
 private:
-
-	CListeDC<CTeam*>* m_pListeTeam;
 	Uint8 m_uiTeamTurn;
 	Uint8 m_uiNbOfPlayingTeams;
-	CListeDC<CObjets*>* m_pListeObjets;
-	CMap* m_pMap;
-	CBoussole* m_pBoussole;
 	SDL_Renderer* m_pRenderer;
-
-
+	CBoussole* m_pBoussole;
+	CMap* m_pMap;
+	CListeDC<CTeam*>* m_pListeTeam;
+	CListeDC<CObjets*>* m_pListeObjets;
 public:
 
 	CGame(CListeDC<CTeam*>* _Teams, CListeDC<CObjets*>* _ListeObjets, CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer){
@@ -43,9 +40,9 @@ public:
 		m_pListeTeam->ObtenirElement()->setFocus(true);
 	}
 
-
 	void Renderer(){
 		m_pMap->Draw(m_pRenderer);
+		m_pBoussole->Draw(m_pRenderer);
 		m_pListeTeam->AllerDebut();
 		m_pListeObjets->AllerDebut();
 		for (int i = 0; i < m_uiNbOfPlayingTeams; i++)
@@ -53,7 +50,6 @@ public:
 			m_pListeTeam->ObtenirElement()->draw(m_pRenderer);
 			m_pListeTeam->AllerSuivant();
 		}
-
 		for (int i = 0; i < m_pListeObjets->Count(); i++)
 		{
 			m_pListeObjets->ObtenirElement()->Draw(m_pRenderer);
