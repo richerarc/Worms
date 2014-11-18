@@ -23,3 +23,11 @@
 13 Novembre -- de 15h00 à 17h00
 
 - Dominique et moi avons créé les classes Physics et C2DVector, il y a encore beaucoup de changements a faire.
+
+15 et 16 Novembre (Pas d'heures - environ 40-50min total)
+
+- J'ai modifié la classe CPhysic.h. 
+
+18 Novembre -- de 10h00 a 12h10
+
+- Modifications dans la classe CTrajectory et reglages de quelques problemes de sprites.
