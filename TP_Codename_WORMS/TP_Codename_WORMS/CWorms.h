@@ -338,7 +338,7 @@ public:
 		string tempName("Map : "), tempWind("Wind : ");
 		int ID = ((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId();
 		tempName.append(TabMap[ID]->getName());
-		char buf[4];
+		char buf[10];
 		tempWind.append(SDL_itoa(TabMap[ID]->getWind(), buf, sizeof(buf)));
 		m_MenuNewGame->getElement("lblMapName")->setText(tempName.c_str());
 		m_MenuNewGame->getElement("lblMapInfo")->setText(tempWind.c_str());
@@ -382,7 +382,7 @@ public:
 	
 	static void BtnPlay(){
 		m_Game = new CGame(TabMap[((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId()], new CBoussole(m_Gestionaire->GetTexture("compass")->GetTexture(), m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer());
-		if (m_MenuNewGame->getElement("lblPlayer1")->getText() == TabTeam[]) //Banana Banana Banana
+	//	if (m_MenuNewGame->getElement("lblPlayer1")->getText() == TabTeam[]) //Banana Banana Banana
 	}
 	
 };
