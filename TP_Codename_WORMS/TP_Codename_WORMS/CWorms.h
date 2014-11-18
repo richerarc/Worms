@@ -116,7 +116,7 @@ public:
 #elif defined (_WIN32)
 		strPath.append("\\");
 #endif
-		string FileName[13] = {"Arpegius.ttf", "Btn1.png", "BtnL.png", "BtnR.png", "map1.png", "background1.png", "map2.png", "background2.png", "map3.png", "background3.png", "map4.png", "background4.png", "SavedData.dat"};
+		string FileName[13] = {"Arpegius.ttf", "Btn1.png", "BtnL.png", "BtnR.png", "map1.png", "background1.jpg", "map2.png", "background2.jpg", "map3.png", "background3.jpg", "map4.png", "background4.jpg", "SavedData.dat"};
 		string strFilePath[13];
 		for (int i = 0; i < 13; i++){
 			strFilePath[i] = strPath;
@@ -145,27 +145,26 @@ public:
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnP4", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
 			/* Map et leur background */
 		m_Gestionaire->AjouterSurface(new CSurface("map1", IMG_Load(strFilePath[4].c_str())));
-		m_Gestionaire->AjouterSurface(new CSurface("background1", IMG_Load(strFilePath[5].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("background1", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[5].c_str())));
 		m_Gestionaire->AjouterSurface(new CSurface("map2", IMG_Load(strFilePath[6].c_str())));
-		m_Gestionaire->AjouterSurface(new CSurface("background2", IMG_Load(strFilePath[7].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("background2", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[7].c_str())));
 		m_Gestionaire->AjouterSurface(new CSurface("map3", IMG_Load(strFilePath[8].c_str())));
-		m_Gestionaire->AjouterSurface(new CSurface("background3", IMG_Load(strFilePath[9].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("background3", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[9].c_str())));
 		m_Gestionaire->AjouterSurface(new CSurface("map4", IMG_Load(strFilePath[10].c_str())));
-		m_Gestionaire->AjouterSurface(new CSurface("background4", IMG_Load(strFilePath[11].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("background4", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[11].c_str())));
 		/* The potato is a lie */
 		
 		m_SaveFile->open(strFilePath[12].c_str());
 	}
 	
 	static void LoadData(){
-		string strReader, strObj, tabParam[4];
-		Uint8 itterator;
-		char buf[1024];
+		string strReader, strObj, tabParam[4], strbackg("background"), strmap("map");
+		Uint8 itterMap(0), itterTeam(0);
+		char buf[255];
 		while (!m_SaveFile->eof()) {
 			m_SaveFile->getline(buf, sizeof(buf));
 			strReader = buf;
 			strObj = strReader.substr(0,4);
-			itterator = SDL_atoi(&strReader[5]);
 			if (strObj == "MMap"){
 				for (int i = 0; i < 4; i++){
 					m_SaveFile->getline(buf, sizeof(buf));
@@ -187,13 +186,20 @@ public:
 						tabParam[3] = strReader;
 					}
 				}
-				TabMap[itterator] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background1")->GetTexture(), m_Gestionaire->GetSurface("map1")->getSurface(), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
+				strbackg.append(SDL_itoa(itterMap + 1, buf, sizeof(buf)));
+				strmap.append(SDL_itoa(itterMap + 1, buf, sizeof(buf)));
+				TabMap[itterMap] = new CMap(tabParam[0], m_Gestionaire->GetTexture(strbackg.c_str())->GetTexture(), m_Gestionaire->GetSurface(strmap.c_str())->getSurface(), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
+				strbackg.erase(strbackg.length()-1, 1);
+				strmap.erase(strmap.length() -1, 1);
+				itterMap++;
 			}
 			else if (strObj == "Team"){
 				m_SaveFile->getline(buf, sizeof(buf));
 				strReader = buf;
-				strReader.erase(0, 5);
-			
+				if (strReader.substr(0, 4) == "Name") {
+					TabTeam[itterTeam] = new CTeam();
+				}
+				itterTeam++;
 			}
 		}
 	}
