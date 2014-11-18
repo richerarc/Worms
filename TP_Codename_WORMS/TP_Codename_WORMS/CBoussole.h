@@ -34,7 +34,8 @@ public:
 	}
 
 	~CBoussole(){
-	
+		SDL_DestroyTexture(m_pCompass);
+		SDL_DestroyTexture(m_pArrow);
 	}
 
 	void Draw(SDL_Renderer* _Renderer){
