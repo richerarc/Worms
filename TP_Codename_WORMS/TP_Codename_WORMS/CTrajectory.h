@@ -26,8 +26,8 @@ public:
 	/*
 	Method : GetPosition
 	Brief : Fonction qui retourne la variation de la position dans la trajectoire selon le temps
-	Params : 
-	  _time : Temps passé depuis le début de la trajectoire
+	Params :
+	_time : Temps passé depuis le début de la trajectoire
 	Return : Vecteur représentant la position au temps passé en paramètre
 	*/
 	C2DVector GetPosition(){
@@ -42,9 +42,27 @@ public:
 	/*
 	Method : Bounce
 	Brief : Procédure qui ajuste la trajectoire suite à un rebond
-	Params : 
-		_Surface : Pointeur vers la surface impliquée dans le rebond
+	Params :
+	_Surface : Pointeur vers la surface impliquée dans le rebond
 	*/
-	void Bounce(SDL_Surface* _Surface){
+	void Bounce(SDL_Surface* _Surface, C2DVector * _Pos){
+		int ValueTab[9];
+		SDL_Rect BounceRect;
+		BounceRect.h = 9;
+		BounceRect.w = 9;
+		BounceRect.x = _Pos->getX - 5;
+		BounceRect.y = _Pos->getY - 5;
+		if (_Pos->getY() < 0){
+			for (int x = 0; x < BounceRect.w; x++){
+				for (int y = 0; y < BounceRect.h; y++){
+					if (((unsigned int*)_Surface->pixels)[(BounceRect.y + x) + _Surface->w * y] == 0){
+						ValueTab[x] = y + 1;
+					}
+				}
+
+			}
+		}
+
+
 	}
 };
