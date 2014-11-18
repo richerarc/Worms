@@ -10,6 +10,8 @@ class CMissiles : public CObjets{
 private:
 	//Données membres:
 	SDL_Texture* m_pTexture; // Texture de l'image à afficher.
+	bool boIsExplosed; //Donnée représentant si l'objet est explosé (true) ou non (false)
+
 public:
 	/*!
 	@Constructeur
@@ -22,11 +24,12 @@ public:
 	CMissiles(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _pTexture) :CObjets(_iRayon, _RectPos){
 		m_pTexture = _pTexture;
 		m_iRayon = _iRayon;
+		boIsExplosed = false;
 	}
 	
 	/*!
 	@method Draw
-	@param _Renderer : Renderer pour rendre le textures du Sprite et du texte du bouton
+	@param _Renderer : Renderer pour rendre la texture du missile
 	@return null
 	*/
 	void Draw(SDL_Renderer* _pRenderer){
@@ -56,6 +59,14 @@ public:
 	void setPos(int _ix, int _iy){
 		m_RectPosition.x = _ix;
 		m_RectPosition.y = _iy;
+	}
+
+	bool IsItExplosed(){
+		return boIsExplosed;
+	}
+
+	void setExplosion(bool _boSet){
+		boIsExplosed = _boSet;
 	}
 
 	/*!

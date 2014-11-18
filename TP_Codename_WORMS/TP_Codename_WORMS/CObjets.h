@@ -3,22 +3,20 @@
 
 
 /*!
-@CGrenades
-@Classe permettant la création d'une grenade
+@CObjets
+@Classe permettant la création d'un objet.
 */
 class CObjets : public CEntity{
 protected:
 	//Données membres:
-	int m_iRayon; //Donnée représentant la longueur du rayon de l'explosion.
+	int m_iRayon; //Donnée représentant la longueur du rayon du rect(circulaire).
 
 public:
 	/*!
 	@Constructeur
 	@Description: Permet d'initialiser les données membres
 	 @param _iRayon : le rayon d'explosion
-	 @param _Name : le nom de l'entitée
-	 @param _uiMasse : la masse de l'entitée
-	 @param _RectPos : le rect de l'entitée
+	 @param _RectPos : le rect de l'objet
 	@Classe héritant de CEntity, elle prend donc les paramètres de CEntity.
 	*/
 
@@ -38,8 +36,14 @@ public:
 	@param _Renderer : Le renderer sur lequel dessiner
 	@return Aucun
 	*/
-	virtual void Draw(SDL_Renderer) =0;
-	virtual void Explosed() = 0;
+	virtual void Draw(SDL_Renderer) = 0;
+
+	/*!
+	@Accesseur virtuel IsItExplosed
+	@brief Permet de savoir si l'objet est explosé ou non.
+	@return bool.
+	*/
+	virtual bool IsItExplosed(){};
 
 	/*!
 	@Accesseurs:

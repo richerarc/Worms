@@ -11,6 +11,7 @@ private:
 	//Données membres:
 	CTimer* m_pTimer; // Déclaration d'une nouvelle minuterie pour le temps à écouler avant l'explosion.
 	SDL_Texture* m_pTexture; // Texture de l'image à afficher.
+	bool boIsExplosed; //Donnée représentant si l'objet est explosé (true) ou non (false)
 
 public:
 	/*!
@@ -28,11 +29,12 @@ public:
 		m_pTimer->SetTimer(1000);
 		m_pTimer->Start();
 		m_iRayon = _iRayon;
+		boIsExplosed = false;
 	}
 	
 	/*!
 	@method Draw
-	@param _Renderer : Renderer pour rendre le textures du Sprite et du texte du bouton
+	@param _Renderer : Renderer pour rendre la texture de la grenade
 	@return null
 	*/
 	void Draw(SDL_Renderer* _pRenderer){
@@ -48,16 +50,7 @@ public:
 	void HandleEvent(SDL_Event _Event){
 		m_boFocus = true;
 		if (m_pTimer->IsElapsed())
-			Explosed();
-	}
-	
-	/*!
-	@Méthode:
-	@Explosed
-	@Permet de déclancher l'explosion
-	*/
-	void Explosed(){
-		m_RectPosition.x = 0;
+			boIsExplosed = true;
 	}
 	/*!
 	@Méthode:
@@ -65,15 +58,21 @@ public:
 	@Permet de calculer les dommages subit par l'explosion
 	*/
 	void ReactToExplosion(int _iX, int _iY, int _iRayon){}
+
 	/*!
 	@Accesseurs:
 	*/
+	bool IsItExplosed(){
+		return boIsExplosed;
+	}
 
+	void setExplosion(bool _boSet){
+		boIsExplosed = _boSet;
+	}
 	void setPos(int _ix, int _iy){
 		m_RectPosition.x = _ix;
 		m_RectPosition.y = _iy;
 	}
-
 	/*!
 	@Destructeur:
 	@Permet de détruire les objets créés en mémoire

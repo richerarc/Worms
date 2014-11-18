@@ -48,3 +48,16 @@ fait ensemble l'UML du "InGame". J'ai ensuite fait les classes :
 Elles ne sont pas finales, il me reste à faire les méthodes HandleEvent
 et quelques autres éléments. Je dois également discuter avec les gars
 du fonctionnement du déclanchement de l'explosion des armes.
+
+13 novembre 14h40 à 17h15:
+J'ai continué de travailler sur les classes ci-hautes, nous avons modifier un peu la manière
+qu'exploseront les objets. J'ai mis à jour le diagramme de classe.
+
+18 novembre 8h à 10h:
+J'ai terminer les classes:
+-CObjets
+-CMissiles
+-CMines
+-CGrenades
+-CCaisses et CCaisseSoin 
+-CExplosion.
