@@ -1,4 +1,4 @@
-Worms
+﻿Worms
 =====
 
 Tp de Prog
@@ -6,7 +6,7 @@ Tp de Prog
 Pour le git:
 -Chaque commit doit être significatif (description).
 -Les différentes section pourrons se faire sur des branches différente a condition que les conflits soit réglé à mesure.
--Respecté la structure des dossier PAS DE FICHIER QUI TRAINE N’IMPORTE OÙ
+-Respecter la structure des dossier PAS DE FICHIER QUI TRAINE N’IMPORTE OÙ
 
 Normes de programmation
 
@@ -27,7 +27,7 @@ Commentaire:
  
 Données membre:
 -Préfixé (str, i, f, m_pSDL)
--Pas commenté mais les noms doivent être significatifs
+-commentées et les noms doivent être significatifs
  
 Indentation : Normale
  1 tab = 4 espace 

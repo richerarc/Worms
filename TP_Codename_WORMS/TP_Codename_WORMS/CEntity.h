@@ -8,8 +8,9 @@
 */
 class CEntity{
 protected:
-	SDL_Rect m_RectPosition;
-	bool m_boFocus;
+	SDL_Rect m_RectPosition; // Position de l'Entité
+	bool m_boFocus;			 // Indique si l'entité a le Focus
+
 public:
 
 	/*!

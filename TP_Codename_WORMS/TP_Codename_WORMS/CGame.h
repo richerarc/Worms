@@ -3,18 +3,36 @@
 //
 //  Created by Kevin Pantelakis on 2014-11-11.
 //
+// TO DO: PARLER A RICHER POUR LE TABLEAU INT POUR LES INDICES DES ÉQUIPES QUI JOUENT
+//        COMME SA ON EVITRAIS D'UTILISER UNE LISTE ET ON AURAIT SEULEMENT UN TABLEAU
+//		  D'ÉQUIPE POUR TOUT LE PROGRAMME.
+//
+
+/*!
+@class CGame.h
+@discussion Classe qui représente une partie.
+*/
 class CGame{
 private:
-	Uint8 m_uiTeamTurn;
-	Uint8 m_uiNbOfPlayingTeams;
-	SDL_Renderer* m_pRenderer;
-	CBoussole* m_pBoussole;
-	CMap* m_pMap;
-	CListeDC<CTeam*>* m_pListeTeam;
-	CListeDC<CObjets*>* m_pListeObjets;
-	bool m_boInPlay;
+	Uint8 m_uiTeamTurn;					// Indique a quelle équipe de jouer.
+	Uint8 m_uiNbOfPlayingTeams;			// Combien d'équipe participe a la partie.
+	SDL_Renderer* m_pRenderer;			// Rendu de la fenetre du jeu. 
+	CBoussole* m_pBoussole;				// Boussole de vents.
+	CMap* m_pMap;						// Champ de bataille.
+	CListeDC<CTeam*>* m_pListeTeam;		// Liste d'équipe qui participe au jeu.
+	CListeDC<CObjets*>* m_pListeObjets; // Liste d'objets a afficher.
+	bool m_boInPlay;					// Indique si la partie est terminé ou non.
 public:
 
+	/*!
+	@method Constructeur.
+	@brief Initialise les données membres.
+	@param CMap* _Map : Map a jouer.
+	@param CBoussole* _Boussole : La boussole.
+	@param SDL_Renderer* _Renderer: Le rendu de la fenetre.
+	@return Adresse mémoire de l'objet.
+	@discussion Nuff said.
+	*/
 	CGame(CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer){
 		m_pListeTeam = new CListeDC<CTeam*>();
 		m_pListeObjets = new CListeDC<CObjets*>();
@@ -25,7 +43,12 @@ public:
 		m_uiTeamTurn = 0;
 		m_boInPlay = false;
 	}
-
+	
+	/*!
+	@method Destructeur.
+	@brief Destroy.
+	@discussion He dead man... he dead.
+	*/
 	~CGame(){
 		delete m_pListeTeam;
 		delete m_pMap;
@@ -33,17 +56,25 @@ public:
 		delete m_pListeObjets;
 	}
 
+	/*!
+	@method NextTurn
+	@brief Change le focus des équipes pour le changement de tour.
+	*/
 	void NextTurn(){
 		Uint8 uitemp = m_uiTeamTurn % m_uiNbOfPlayingTeams;
 		m_pListeTeam->AllerA(uitemp);
-		if (m_pListeTeam->ObtenirElement()->IsFocussed()) { 
+		if (m_pListeTeam->ObtenirElement()->IsFocused()) { 
 			m_pListeTeam->ObtenirElement()->setFocus(false);
 		}
 		m_pListeTeam->AllerA((uitemp + 1) % m_uiNbOfPlayingTeams);
 		m_pListeTeam->ObtenirElement()->setFocus(true);
 	}
 
-	void Renderer(){
+	/*!
+	@method Render
+	@brief Affiche le jeu sur la fenetre.
+	*/
+	void Render(){
 		m_pMap->Draw(m_pRenderer);
 		m_pBoussole->Draw(m_pRenderer);
 		m_pListeTeam->AllerDebut();
@@ -60,10 +91,16 @@ public:
 		}
 	}
 
+	//Papoi,papoi
 	void AjouterTeam(CTeam* _team){
 		m_pListeTeam->AjouterFin(_team);
 	}
 	
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
+
 	void setNbOfPlayingTeams(Uint8 _NbOfTeams){ m_uiNbOfPlayingTeams = _NbOfTeams; }
 
 	Uint8 getNbOfPlayingTeams(){ return m_uiNbOfPlayingTeams; }

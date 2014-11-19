@@ -4,6 +4,7 @@
 //  Created by Kevin Pantelakis on 2014-11-11.
 //
 #define MAXWORMS 6
+
 /*!
 @class CTeam
 @discussion Classe représentant une équipe.
@@ -19,7 +20,15 @@ private:
 	bool m_boFocus;
 
 public:
-
+	
+	/*!
+	@method Constructeur.
+	@brief Initialise les données membres.
+	@param _strTeamName: Nom de l'équipe
+	@param _Color: Couleur de l'équipe
+	@return Adresse mémoire de l'objet.
+	@discussion Voilà.
+	*/
 	CTeam(string _strTeamName, SDL_Color _Color){
 		m_boFocus = false;
 		m_uiWormTurn = 0;
@@ -27,7 +36,11 @@ public:
 		m_uiNbOfPlayingWorms = 0;
 	}
 
-	void NextWormTurn(){
+	/*!
+	@method NextTurn
+	@brief Change le focus des Worms pour le tour suivant.
+	*/
+	void NextTurn(){
 		Uint8 temp = (m_uiWormTurn) % m_uiNbOfPlayingWorms;
 		if (m_pTabWorm[temp]->isFocused()){
 			m_pTabWorm[temp]->setFocus(false);
@@ -36,11 +49,23 @@ public:
 		m_uiWormTurn++;
 	}
 
+	/*!
+	@method Draw
+	@brief Affiche l'équipe
+	@param SDL_Renderer* _Renderer: Rendu de la fenetre sur laquelle afficher.
+	@return Aucun
+	@discussion 
+	*/
 	void draw(SDL_Renderer* _Renderer){
 		for (int i = 0; i < m_uiNbOfPlayingWorms; i++)
 			m_pTabWorm[i]->Draw(_Renderer);
 	}
 
+	/*!
+	@method AddWorn
+	@brief Ajoute un Worm à l'équipe.
+	@param _Worm : le worm a ajouter.
+	*/
 	void AddWorm(CWorm* _Worm){
 		m_pTabWorm[m_pNumberOfWorm] = _Worm;
 
@@ -51,7 +76,6 @@ public:
 
 		m_pNumberOfWorm++;
 	}
-
 
 	/*!
 	@Accesseurs
@@ -64,7 +88,7 @@ public:
 
 	void setTeamName(string _strName){ m_strTeamName = _strName; }
 
-	bool IsFocussed(){ return m_boFocus; }
+	bool IsFocused(){ return m_boFocus; }
 
 	Uint8 getNumberOfPlayingWorms(){ return m_uiNbOfPlayingWorms; }
 
