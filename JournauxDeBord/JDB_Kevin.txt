@@ -30,4 +30,6 @@
 22:49 2014-11-17: J'ai commence a coder CGame et CBoussole, J'ai aussi travailler sur l'image du compas. (1h)
 
 21:00 2014-11-18: Aujourd'hui, de 8h à 12h30 & 17h30 à 6h, j'ai fait une bonne partie de CGame de CTeam, CWorms, 
-		  CBoussole. J'ai aussi travailler sur quelques sprites(Boussole,Explosion Bazooka). Total(5h)
+		  CBoussole. J'ai aussi travailler sur quelques sprites(Boussole,Explosion Bazooka) Ajout de comemntaires
+		  tard en soiré (15 min) et je doit demander l'avis a richer pour le tableau d'indice d'équipe participantes.
+		  Total d'heures pour la journée (5h15)
