@@ -22,3 +22,8 @@ CTrajectory est à optimiser ou à partiellement refaire et CPhysic n'est pas te
 
 18 nov : 8h30 à 12h00
 Modifications dans CPhysic et CTrajectory, la gestion des collisions est la prochaine étape à compléter. UMLs mis à jour.
+
+19 nov : 20h20 à 21h20
+J'ai complété VerifyGroundCollision dans CPhysic, puis j'ai ajouté une fonction Move pour déplacer un Rect sans accélération.
+Move pourra cependant être fortement modifié suite au necessités du projet. La classe CPhysics est presque complète, il reste
+à la déboguer/l'optimiser et à faire le Slide.
