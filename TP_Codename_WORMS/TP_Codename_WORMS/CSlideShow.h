@@ -16,9 +16,16 @@ private:
 public:
 	CSlideShow(const char* _Name, CFont* _Font, SDL_Rect _Rect, CSprite* _SpritePrev, CSprite* _SpriteNext) :CGUIE(_Name, "", _Font, _Rect){
 		m_Font->setFontColor(SDL_Color{ 0, 0, 0, 255 });
-		m_btnPrev= new CButton("btnPrev", "", _Font, {m_Rect.x, (m_Rect.h / 2), 42, 22}, _SpritePrev);
-		m_lblContain = new CLabelImage("lblContain", "", _Font, {m_Rect.x + 42, m_Rect.y, (m_Rect.w - 84), m_Rect.h}, nullptr);
-		m_btnNext = new CButton("btnNext", "", _Font, {(m_Rect.x + 42 + (m_Rect.w - 84)), (m_Rect.h / 2), 42, 22}, _SpriteNext);
+		if (m_Rect.h <= 22){
+			m_btnPrev= new CButton("btnPrev", "", _Font, {m_Rect.x, m_Rect.y, 42, 22}, _SpritePrev);
+			m_lblContain = new CLabelImage("lblContain", "", _Font, {m_Rect.x + 42 + (m_Rect.w - 110), m_Rect.y - 4, (m_Rect.w - 84), m_Rect.h}, nullptr);
+			m_btnNext = new CButton("btnNext", "", _Font, {(m_Rect.x + 42 + (m_Rect.w - 84)), m_Rect.y, 42, 22}, _SpriteNext);
+		}
+		else{
+			m_btnPrev= new CButton("btnPrev", "", _Font, {m_Rect.x, (m_Rect.h / 2), 42, 22}, _SpritePrev);
+			m_lblContain = new CLabelImage("lblContain", "", _Font, {m_Rect.x + 42, m_Rect.y, (m_Rect.w - 84), m_Rect.h}, nullptr);
+			m_btnNext = new CButton("btnNext", "", _Font, {(m_Rect.x + 42 + (m_Rect.w - 84)), (m_Rect.h / 2), 42, 22}, _SpriteNext);
+		}
 		m_ListText = new CListeDC<string*>();
 		m_ListTexture = new CListeDC<SDL_Texture*>();
 		m_uiCurrentSlide = 0;

@@ -49,7 +49,6 @@ private:
 	static bool m_boRun;							// Indique si le jeu est en terminé ou non.
 	static bool m_boInMenu;							// Indique si on se trouve dans un menu.
 	static CGestionnaireRessources* m_Gestionaire;	// Gestionnaire de Resource pour le Worms
-	static CTeam* TabTeam[4];
 	static CMap* TabMap[4];
 	static fstream* m_SaveFile;
 public:
@@ -134,18 +133,14 @@ public:
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnQ", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
 			/* Sprite pour le menu New Game */
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnCancelNG", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnCancelNT", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnCancelP", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnPlay", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnNT", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteMapLeft", m_Gestionaire->GetTexture("TextureBtnL")->GetTexture(), 2, 1, 0, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteMapRight", m_Gestionaire->GetTexture("TextureBtnR")->GetTexture(), 2, 1, 0, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteTeamLeft", m_Gestionaire->GetTexture("TextureBtnL")->GetTexture(), 2, 1, 0, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteTeamRight", m_Gestionaire->GetTexture("TextureBtnR")->GetTexture(), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnP1", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnP2", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnP3", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnP4", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteWormLeft", m_Gestionaire->GetTexture("TextureBtnL")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteWormRight", m_Gestionaire->GetTexture("TextureBtnR")->GetTexture(), 2, 1, 0, 0));
 			/* Map et leur background */
 		m_Gestionaire->AjouterSurface(new CSurface("map1", IMG_Load(strFilePath[4].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("background1", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[5].c_str())));
@@ -162,7 +157,7 @@ public:
 	
 	static void LoadData(){
 		string strReader, strObj, tabParam[4];
-		Uint8 itterMap(0), itterTeam(0);
+		Uint8 itterMap(0);
 		char buf[255];
 		while (!m_SaveFile->eof()) {
 			m_SaveFile->getline(buf, sizeof(buf));
@@ -205,27 +200,7 @@ public:
 				}
 				itterMap++;
 			}
-			/*else if (strObj == "Team"){
-				for (int i = 0; i < 2; i++){
-					m_SaveFile->getline(buf, sizeof(buf));
-					strReader = buf;
-					if (strReader.substr(0, 4) == "Name") {
-						strReader.erase(0, 5);
-						tabParam[0] = strReader;
-					}
-					else if (strReader.substr(0, 4) == "Colr"){
-						strReader.erase(0, 5);
-						tabParam[1] = strReader;
-					}
-				}
-				itterTeam++;
-			}*/   // TODO
 		}
-	}
-	static void SaveData(){
-		
-		// Banana Banana Banana...
-		
 	}
 	
 	static void Quit(){
@@ -237,8 +212,6 @@ public:
 		delete m_pEvent;
 		m_SaveFile->close();
 		delete m_SaveFile;
-		for(int i = 0; i < 3; i++)
-			delete TabTeam[i];
 	}
 	
 	
@@ -269,38 +242,22 @@ public:
 		m_MenuNewGame->AddElement(new CLabel("lblNewGame", "Create a new game", m_Gestionaire->GetFont("FontMenu"), {}), 0, 0, 100, 20);
 		m_MenuNewGame->AddElement(new CButton("btnCancelNG", "Cancel", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnCancelNG")), 20, (HEIGHT - 66), 162, 33);
 		m_MenuNewGame->getElement("btnCancelNG")->OnClickAction = BtnCancelNG;
-		m_MenuNewGame->AddElement(new CButton("btnPlay", "Play", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnPlay")), ((WIDTH / 2) - 81), (HEIGHT - 66), 162, 33);
-		m_MenuNewGame->AddElement(new CButton("btnNTeam", "New Team", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnNT")), (WIDTH - 182), (HEIGHT - 66), 162, 33);
-		m_MenuNewGame->getElement("btnNTeam")->OnClickAction = BtnNewTeam;
-		CSlideShow* SSTemp = new CSlideShow("SSMap", m_Gestionaire->GetFont("FontMenu"), {20, 40, 600, 300}, m_Gestionaire->GetSprite("SpriteMapLeft"), m_Gestionaire->GetSprite("SpriteMapRight"));
+		m_MenuNewGame->AddElement(new CButton("btnPlay", "Play", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnPlay")), (WIDTH - 182), (HEIGHT - 66), 162, 33);
+		CSlideShow* SSTemp = new CSlideShow("SSMap", m_Gestionaire->GetFont("FontMenu"), {WIDTH / 2 - 400, 40, 800, 400}, m_Gestionaire->GetSprite("SpriteMapLeft"), m_Gestionaire->GetSprite("SpriteMapRight"));
 		SSTemp->ajouterTexture(4, SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map1")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map2")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map3")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map4")->getSurface()));
 		SSTemp->setOnClickNext(BtnMapNext);
 		SSTemp->setOnClickPrev(BtnMapPrev);
-		m_MenuNewGame->AddElement(SSTemp, 20, 40, 600, 300);
-		m_MenuNewGame->AddElement(new CLabel("lblMapName", "Map : Arcade", m_Gestionaire->GetFont("FontMenu"), {}), 62, 420, 100, 20);
-		m_MenuNewGame->AddElement(new CLabel("lblMapInfo", "Wind : 200", m_Gestionaire->GetFont("FontMenu"), {}), 62, 460, 100, 20);
-		CSlideShow* SSTemp2 = new CSlideShow("SSTeam", m_Gestionaire->GetFont("FontMenu"), {660, 40, 600, 300}, m_Gestionaire->GetSprite("SpriteTeamLeft"), m_Gestionaire->GetSprite("SpriteTeamRight"));
-		SSTemp2->ajouterText(4, new string("Team Ritch"), new string("Team Kev"), new string("Team Die-Jess"), new string("Team Dom"));
-		m_MenuNewGame->AddElement(SSTemp2, 660, 40, 600, 300);
-		m_MenuNewGame->AddElement(new CLabel("lblPlayer1", "Player 1 : ", m_Gestionaire->GetFont("FontMenu"), {}), 702, 380, 100, 20);
-		m_MenuNewGame->AddElement(new CButton("btnP1", "Add/Remove", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnP1")), WIDTH - 182, 380, 162, 33);
-		m_MenuNewGame->getElement("btnP1")->OnClickAction = BtnAddRemP1;
-		m_MenuNewGame->AddElement(new CLabel("lblPlayer2", "Player 2 : ", m_Gestionaire->GetFont("FontMenu"), {}), 702, 420, 100, 20);
-		m_MenuNewGame->AddElement(new CButton("btnP2", "Add/Remove", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnP2")), WIDTH - 182, 420, 162, 33);
-		m_MenuNewGame->getElement("btnP2")->OnClickAction = BtnAddRemP2;
-		m_MenuNewGame->AddElement(new CLabel("lblPlayer3", "Player 3 : ", m_Gestionaire->GetFont("FontMenu"), {}), 702, 460, 100, 20);
-		m_MenuNewGame->AddElement(new CButton("btnP3", "Add/Remove", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnP3")), WIDTH - 182, 460, 162, 33);
-		m_MenuNewGame->getElement("btnP3")->OnClickAction = BtnAddRemP3;
-		m_MenuNewGame->AddElement(new CLabel("lblPlayer4", "Player 4 : ", m_Gestionaire->GetFont("FontMenu"), {}), 702, 500, 100, 20);
-		m_MenuNewGame->AddElement(new CButton("btnP4", "Add/Remove", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnP4")), WIDTH - 182, 500, 162, 33);
-		m_MenuNewGame->getElement("btnP4")->OnClickAction = BtnAddRemP4;
-			//
-			// Initialisation du menu NewTeam
-			//
-		m_MenuNewTeam->AddElement(new CButton("btnCancelNT", "Cancel", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnCancelNT")), 20, (HEIGHT - 66), 162, 33);
-		m_MenuNewTeam->getElement("btnCancelNT")->OnClickAction = BtnCancelNT;
-		m_MenuNewTeam->AddElement(new CLabel("lblTxtTName", "Name your team", m_Gestionaire->GetFont("FontMenu"), {}), 20, 20, 100, 20);
-		m_MenuNewTeam->AddElement(new CTextBox("txtTeamName", "", m_Gestionaire->GetFont("FontMenu"), {20, 50, 200, 30}, m_pWindow->getRenderer()), 20, 50, 200, 30);
+		m_MenuNewGame->AddElement(SSTemp, WIDTH / 2 - 400, 40, 800, 400);
+		m_MenuNewGame->AddElement(new CLabel("lblMapName", "Map : Arcade", m_Gestionaire->GetFont("FontMenu"), {}), 62, 460, 100, 20);
+		m_MenuNewGame->AddElement(new CLabel("lblMapInfo", "Wind : 200", m_Gestionaire->GetFont("FontMenu"), {}), 62, 500, 100, 20);
+		m_MenuNewGame->AddElement(new CLabel("lblNbrTeam", "Number of team :", m_Gestionaire->GetFont("FontMenu"), {}), 660, 460, 100, 20);
+		CSlideShow* SSTemp2 = new CSlideShow("SSNbrTeam", m_Gestionaire->GetFont("FontMenu"), {1000, 460, 120, 22}, m_Gestionaire->GetSprite("SpriteTeamLeft"), m_Gestionaire->GetSprite("SpriteTeamRight"));
+		SSTemp2->ajouterText(3, new string("2"), new string("3"), new string("4"));
+		m_MenuNewGame->AddElement(SSTemp2, 1000, 460, 100, 22);
+		m_MenuNewGame->AddElement(new CLabel("lblNbrWorm", "Number of worm per team :", m_Gestionaire->GetFont("FontMenu"), {}), 660, 500, 100, 20);
+		CSlideShow* SSTemp3 = new CSlideShow("SSNbrWorm", m_Gestionaire->GetFont("FontMenu"), {1000, 500, 120, 22}, m_Gestionaire->GetSprite("SpriteWormLeft"), m_Gestionaire->GetSprite("SpriteWormRight"));
+		SSTemp3->ajouterText(6, new string("1"), new string("2"), new string("3"), new string("4"), new string("5"), new string("6"));
+		m_MenuNewGame->AddElement(SSTemp3, 1000, 500, 100, 22);
 	}
 	
 		//
@@ -321,10 +278,6 @@ public:
 		m_MenuNewTeam->DeActivateMenu();
 		m_MenuNewGame->ActivateMenu();
 	}
-	static void BtnNewTeam(){
-		m_MenuNewGame->DeActivateMenu();
-		m_MenuNewTeam->ActivateMenu();
-	}
 	static void BtnMapNext(){
 		string tempName("Map : "), tempWind("Wind : ");
 		int ID = ((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId();
@@ -343,46 +296,9 @@ public:
 		m_MenuNewGame->getElement("lblMapName")->setText(tempName.c_str());
 		m_MenuNewGame->getElement("lblMapInfo")->setText(tempWind.c_str());
 	}
-	static void BtnAddRemP1(){
-		string temp = m_MenuNewGame->getElement("lblPlayer1")->getText();
-		if (temp[temp.length() - 2] == ':'){
-			temp.append(m_MenuNewGame->getElement("SSTeam")->getText());
-			m_MenuNewGame->getElement("lblPlayer1")->setText(temp.c_str());
-		}
-		else
-			m_MenuNewGame->getElement("lblPlayer1")->setText("Player 1 : ");
-	}
-	static void BtnAddRemP2(){
-		string temp = m_MenuNewGame->getElement("lblPlayer2")->getText();
-		if (temp[temp.length() - 2] == ':'){
-			temp.append(m_MenuNewGame->getElement("SSTeam")->getText());
-			m_MenuNewGame->getElement("lblPlayer2")->setText(temp.c_str());
-		}
-		else
-			m_MenuNewGame->getElement("lblPlayer2")->setText("Player 2 : ");
-	}
-	static void BtnAddRemP3(){
-		string temp = m_MenuNewGame->getElement("lblPlayer3")->getText();
-		if (temp[temp.length() - 2] == ':'){
-			temp.append(m_MenuNewGame->getElement("SSTeam")->getText());
-			m_MenuNewGame->getElement("lblPlayer3")->setText(temp.c_str());
-		}
-		else
-			m_MenuNewGame->getElement("lblPlayer3")->setText("Player 3 : ");
-	}
-	static void BtnAddRemP4(){
-		string temp = m_MenuNewGame->getElement("lblPlayer4")->getText();
-		if (temp[temp.length() - 2] == ':'){
-			temp.append(m_MenuNewGame->getElement("SSTeam")->getText());
-			m_MenuNewGame->getElement("lblPlayer4")->setText(temp.c_str());
-		}
-		else
-			m_MenuNewGame->getElement("lblPlayer4")->setText("Player 4 : ");
-	}
 	
 	static void BtnPlay(){
 		m_Game = new CGame(TabMap[((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId()], new CBoussole(m_Gestionaire->GetTexture("compass")->GetTexture(), m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer());
-	//	if (m_MenuNewGame->getElement("lblPlayer1")->getText() == TabTeam[]) //Banana Banana Banana
 	}
 	
 };
@@ -399,7 +315,6 @@ bool CWorms::m_boInMenu = true;
 SDL_Event* CWorms::m_pEvent = nullptr;
 CGestionnaireRessources* CWorms::m_Gestionaire = nullptr;
 bool CWorms::m_boRun = true;
-CTeam* CWorms::TabTeam[4];
 CMap* CWorms::TabMap[4];
 fstream* CWorms::m_SaveFile = new fstream();
 
