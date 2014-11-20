@@ -29,11 +29,17 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Voilà.
 	*/
-	CTeam(string _strTeamName, SDL_Color _Color){
+	CTeam(string _strTeamName, SDL_Color _Color, Uint8 _uiNbWorms, Uint8 _uiNbPlayingWorms){
 		m_boFocus = false;
 		m_uiWormTurn = 0;
-		m_pNumberOfWorm = 0;
-		m_uiNbOfPlayingWorms = 0;
+		m_uiNbOfPlayingWorms = _uiNbPlayingWorms;
+
+		for (int i = 0; i < _uiNbWorms; i++)
+		{
+
+		}
+
+
 	}
 
 	/*!
