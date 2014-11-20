@@ -100,11 +100,14 @@ public:
 		 
 		*/
 		
-		for (int i = 0; i < m_pListeObjets->Count(); i++)
-		{
+		for (int i = 0; i < m_pListeObjets->Count(); i++){
 			m_pListeObjets->ObtenirElement()->Draw(m_pRenderer);
-			m_pListeTeam->AllerSuivant();
+			m_pListeObjets->AllerSuivant();
 		}
+	}
+	
+	void HandleEvent(SDL_Event _Event){
+		
 	}
 
 	//Papoi,papoi
