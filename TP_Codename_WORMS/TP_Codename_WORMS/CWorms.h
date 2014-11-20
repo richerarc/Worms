@@ -140,7 +140,13 @@ public:
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteTeamRight", m_Gestionaire->GetTexture("TextureBtnR")->GetTexture(), 2, 1, 0, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteWormLeft", m_Gestionaire->GetTexture("TextureBtnL")->GetTexture(), 2, 1, 0, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteWormRight", m_Gestionaire->GetTexture("TextureBtnR")->GetTexture(), 2, 1, 0, 0));
-			/* Map et leur background */
+			/* Sprite pour le menu Pause */
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnRestart", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnMainMenu", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnQTDskt", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnResume", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
+
+		/* Map et leur background */
 		m_Gestionaire->AjouterSurface(new CSurface("map1", IMG_Load(strFilePath[4].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("background1", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[5].c_str())));
 		m_Gestionaire->AjouterSurface(new CSurface("map2", IMG_Load(strFilePath[6].c_str())));
@@ -220,7 +226,6 @@ public:
 	
 	
 	static void Init(string _argv){
-		srand(time(NULL));
 		m_pWindow = new CWindow("Worms", WIDTH, HEIGHT);
 		m_MenuPrincipal = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
 		m_MenuNewGame = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
@@ -264,6 +269,19 @@ public:
 		CSlideShow* SSTemp3 = new CSlideShow("SSNbrWorm", m_Gestionaire->GetFont("FontMenu"), {1000, 500, 120, 22}, m_Gestionaire->GetSprite("SpriteWormLeft"), m_Gestionaire->GetSprite("SpriteWormRight"));
 		SSTemp3->ajouterText(6, new string("1"), new string("2"), new string("3"), new string("4"), new string("5"), new string("6"));
 		m_MenuNewGame->AddElement(SSTemp3, 1000, 500, 120, 22);
+
+		//
+		// Initialisation du menu Pause
+		//
+		m_MenuPause->AddElement(new CButton("btnRestart", "Restart", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnRestart")), 20, HEIGHT / 2 - 66, 162, 33);
+		m_MenuPause->AddElement(new CButton("btnMainMenu", "Main Menu", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnMainMenu")), 20, HEIGHT / 2 - 100,WIDTH/2 + 163, 33);
+		m_MenuPause->AddElement(new CButton("btnQuitDskt", "Quit to Desktop", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnQTDskt")), 20, HEIGHT / 2 - 200, WIDTH / 2 + 163, 33);
+		m_MenuPause->AddElement(new CButton("btnResume", "Resume play", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnResume")), 20, HEIGHT / 2 -300, WIDTH / 2 + 163, 33);
+		m_MenuPrincipal->getElement("btnRestart")->OnClickAction = BtnRestat;
+		m_MenuPrincipal->getElement("btnMainMenu")->OnClickAction = BtnPlay;
+		m_MenuPrincipal->getElement("btnQuitDskt")->OnClickAction = BtnQuit;
+		m_MenuPrincipal->getElement("btnResume")->OnClickAction = BtnResume;
+
 	}
 	
 		//
@@ -302,13 +320,25 @@ public:
 		m_MenuNewGame->getElement("lblMapName")->setText(tempName.c_str());
 		m_MenuNewGame->getElement("lblMapInfo")->setText(tempWind.c_str());
 	}
+	static void BtnMainMenu(){
 	
+	}
 	static void BtnPlay(){
 		m_Game = new CGame(TabMap[((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId()], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire);
 		m_MenuNewGame->DeActivateMenu();
 		m_Game->Activate();
 	}
-	
+	static void BtnRestat(){
+		m_Game->DeActivate();
+		delete m_Game;
+		m_Game = new CGame(TabMap[((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId()], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire);
+		m_MenuPause->DeActivateMenu();
+		m_Game->Activate();
+	}
+	static void BtnResume(){
+		m_MenuPause->DeActivateMenu(); 
+	}
+
 };
 
 	// Initialisation des données membre statique
