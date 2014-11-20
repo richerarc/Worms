@@ -31,3 +31,7 @@
 18 Novembre -- de 10h00 a 12h10
 
 - Modifications dans la classe CTrajectory et reglages de quelques problemes de sprites.
+
+20 Novembre -- de 15h00 a 17h00
+
+- Création de la spritesheet finale.
