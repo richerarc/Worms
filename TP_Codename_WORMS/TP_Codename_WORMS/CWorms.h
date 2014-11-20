@@ -327,6 +327,7 @@ public:
 		m_Game = new CGame(TabMap[((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId()], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire);
 		m_MenuNewGame->DeActivateMenu();
 		m_Game->Activate();
+		m_boInMenu = false;
 	}
 	static void BtnRestat(){
 		m_Game->DeActivate();
