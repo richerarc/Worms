@@ -127,24 +127,25 @@ public:
 	Params :
 	_Pos : Position dans la surface où la pente est évaluée
 	_Direction : Direction de laquelle vient l'entité impliquée
+	Discussion : À FAIRE : Évaluer une collision "de coté"
 	*/
 	static double EvaluateSlope (C2DVector* _Pos, int _Direction){
 		double ValueTab[9];
-		SDL_Rect BounceRect;
-		BounceRect.h = 9;
-		BounceRect.w = 9;
-		BounceRect.x = _Pos->getX - 5;
-		BounceRect.y = _Pos->getY - 5;
+		SDL_Rect _Rect;
+		_Rect.h = 9;
+		_Rect.w = 9;
+		_Rect.x = _Pos->getX - 5;
+		_Rect.y = _Pos->getY - 5;
 		for (int x = 0; x < _Rect.w; x++){
 			for (int y = 0; y < _Rect.h; y++){
 				if (_Direction == FROMTOP){
-					if (((unsigned int*)_Surface->pixels)[m_Map->w * (_Rect.y - 1 + y) + _Rect.w] != 0){
+					if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1 + y) + _Rect.w] != 0){
 						ValueTab[x] = y + 1;
 						y = _Rect.h;
 					}
 				}
 				else{
-					if (((unsigned int*)_Surface->pixels)[m_Map->w * (_Rect.y - 1 + y) + _Rect.w] != 0){
+					if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1 + y) + _Rect.w] != 0){
 						ValueTab[x] = y + 1;
 					}
 				}

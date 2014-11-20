@@ -1,3 +1,5 @@
+#include <math.h>
+
 /*
 Nom : CTrajectory
 Discussion : Classe représentant la trajectoire d'un point
@@ -33,36 +35,40 @@ public:
 	C2DVector GetPosition(){
 		double dTimeVariation = (SDL_GetTicks() - m_lTrajectoryStartTime);
 		double dTimeVarExp2 = dTimeVariation * dTimeVariation;
-		return C2DVector(m_TrajectoryInitSpeed->getX() * dTimeVariation + CPhysics::GetWind()->getX()
+		C2DVector Position = C2DVector(m_TrajectoryInitSpeed->getX() * dTimeVariation + CPhysics::GetWind()->getX()
 			/ 2 * dTimeVarExp2 + m_StartPos->getX(),
 			m_TrajectoryInitSpeed->getY() * dTimeVariation + (CPhysics::GetWind()->getY() + CPhysics::GetGravity())
 			/ 2 * dTimeVarExp2 + m_StartPos->getY());
+		return Position;
 	}
 
 	/*
 	Method : Bounce
 	Brief : Procédure qui ajuste la trajectoire suite à un rebond
 	Params :
-	_Surface : Pointeur vers la surface impliquée dans le rebond
+	_Speed : Vitesse à l'impact
+	_Slope : Pente du point d'impact
+	_Pos : Position de l'impact
+	_Direction : Indique si le projectile vient d'en haut ou d'en bas
 	*/
-	void Bounce(SDL_Surface* _Surface, C2DVector * _Pos){
-		int ValueTab[9];
-		SDL_Rect BounceRect;
-		BounceRect.h = 9;
-		BounceRect.w = 9;
-		BounceRect.x = _Pos->getX - 5;
-		BounceRect.y = _Pos->getY - 5;
-		if (_Pos->getY() < 0){
-			for (int x = 0; x < BounceRect.w; x++){
-				for (int y = 0; y < BounceRect.h; y++){
-					if (((unsigned int*)_Surface->pixels)[(BounceRect.y + x) + _Surface->w * y] == 0){
-						ValueTab[x] = y + 1;
-					}
-				}
+	void Bounce(C2DVector _Speed, double _Slope, C2DVector _Pos, int _Direction){
+		//delete m_StartPos;
+		//double Angle = acos(_Slope * _Pos.getX() / sqrt(_Speed.getX()*_Speed.getX() + _Speed.getY()*_Speed.getY()));
+		//_Pos.setX(_Pos.getX() * )
+		//m_StartPos = new C2DVector(_Pos);
+		//m_TrajectoryInitSpeed = _InitSpeed;
+		//m_lTrajectoryStartTime = SDL_GetTicks();
+	}
 
-			}
-		}
-
-
+	/*
+	Method : GetSpeed
+	Brief : Fonction qui retourne la vitesse actuelle
+	Discussion: MRUA : Vf^2 - Vi^2 = 2(xf-xi)*a
+	*/
+	C2DVector GetSpeed(){
+		return C2DVector(
+			sqrt(2 *(GetPosition().getX() - m_StartPos->getX())* CPhysics::GetWind()->getX()),
+			sqrt(2 * (GetPosition().getY() - m_StartPos->getY())* (CPhysics::GetWind()->getY() + CPhysics::GetGravity()))
+			);
 	}
 };
