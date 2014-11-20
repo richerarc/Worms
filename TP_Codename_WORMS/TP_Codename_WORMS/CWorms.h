@@ -115,17 +115,17 @@ public:
 #elif defined (_WIN32)
 		strPath.append("\\");
 #endif
-		string FileName[15] = {"Arpegius.ttf", "Btn1.png", "BtnL.png", "BtnR.png", "map1.png", "background1.jpg", "map2.png", "background2.jpg", "map3.png", "background3.jpg", "map4.png", "background4.jpg", "SavedData.dat", "compass.png", "Fleche.png"};
-		string strFilePath[15];
-		for (int i = 0; i < 15; i++){
+		string FileName[16] = {"Arpegius.ttf", "Btn1.png", "BtnL.png", "BtnR.png", "map1.png", "background1.jpg", "map2.png", "background2.jpg", "map3.png", "background3.jpg", "map4.png", "background4.jpg", "SavedData.dat", "compass.png", "Fleche.png","MenuBackground.jpg"};
+		string strFilePath[16];
+		for (int i = 0; i < 16; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
+		m_Gestionaire->AjouterTexture(new CTexture("MenuBackground", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[16].c_str())));
 		m_Gestionaire->AjouterFont(new CFont("FontMenu", strFilePath[0].c_str(), 30));
 		m_Gestionaire->AjouterTexture(new CTexture("TextureBtn", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[1].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("TextureBtnL", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[2].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("TextureBtnR", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[3].c_str())));
-		m_Gestionaire->AjouterTexture(new CTexture("compass", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[13].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("fleche", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[14].c_str())));
 			/* Sprite pour le menu principal */
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteBtnNG", m_Gestionaire->GetTexture("TextureBtn")->GetTexture(), 2, 1, 0, 0));
@@ -151,6 +151,7 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("background4", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[11].c_str())));
 		/* The potato is a lie */
 		
+
 		m_SaveFile->open(strFilePath[12].c_str());
 	}
 	
@@ -203,12 +204,14 @@ public:
 	}
 	
 	static void Quit(){
+
 		delete m_pWindow;
 		delete m_MenuPrincipal;
 		delete m_MenuNewGame;
 		delete m_MenuPause;
 		delete m_MenuNewTeam;
 		delete m_pEvent;
+		delete m_Gestionaire;
 		m_SaveFile->close();
 		delete m_SaveFile;
 	}
@@ -222,7 +225,7 @@ public:
 		m_MenuNewTeam = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
 		m_pEvent = new SDL_Event();
 		m_Gestionaire = new CGestionnaireRessources();
-		
+		CMenu::m_pBackground = m_Gestionaire->GetTexture("MenuBackground")->GetTexture();
 		LoadResources(_argv);
 		LoadData();
 		

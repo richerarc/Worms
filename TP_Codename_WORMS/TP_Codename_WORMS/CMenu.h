@@ -17,8 +17,10 @@ private:
 	SDL_Renderer* m_pRenderer; // Rendu de la fenêtre sur la quelle afficher le menu.
 	SDL_Rect m_MenuInfo;	   // Position et dimension du menu.
 	bool m_boMenuActif;		   // Indique si le menu est actif ou non
-	static SDL_Texture* m_pBackground;
+
 public:
+
+	static SDL_Texture* m_pBackground;
 
 	/*!
 	@ Constructeur
@@ -125,6 +127,7 @@ public:
 	void Render(){
 		if (m_boMenuActif)
 		{
+			SDL_RenderCopy(m_pRenderer, m_pBackground, NULL, NULL);
 			m_pList->AllerDebut();
 			for (int i = 0; i < m_pList->Count(); i++)
 			{
@@ -208,7 +211,6 @@ public:
 		return m_pRenderer;
 	}
 
-	void setBackground(SDL_Texture* _Texture){ CMenu::m_pBackground = _Texture; }
 
 };
 
