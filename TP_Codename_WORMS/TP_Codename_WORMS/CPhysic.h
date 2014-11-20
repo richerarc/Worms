@@ -68,7 +68,7 @@ public:
 	*/
 	//Valeur de la transparence : 16777215
 
-	//À VÉRIFIER
+	//À VÉRIFIER + optimisations possibles
 	static int VerifyGroundCollision(SDL_Rect _Rect){
 		bool boGround = false;
 		bool boCeiling = false;
@@ -78,19 +78,43 @@ public:
 			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + _Rect.h) + _Rect.x + i] == 0 && !boGround){
 				boGround = true;
 			}
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1) + _Rect.x + i] == 0 && !boCeiling){
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 2) + _Rect.x + i] == 0 && !boCeiling){
 				boCeiling = true;
 			}
 		}
 		for (int i = 0; i < _Rect.h; i ++){
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y) + _Rect.x + _Rect.w + 1 + i] == 0 && !boRight){
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y -1 + i) + _Rect.x + _Rect.w + 1] == 0 && !boRight){
 				boRight = true;
 			}
 			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1 + i) + _Rect.x -1] == 0 && !boLeft){
 				boLeft = true;
 			}
 		}
-		return 0;
+		if (boGround){
+			if (boCeiling) 
+				return GROUNDCEILING;
+			if (boLeft)
+				return GROUNDLEFT;
+			if (boRight)
+				return GROUNDRIGHT;
+			return GROUND;
+		}
+		else {
+			if (boCeiling){
+				if (boLeft)
+					return CEILINGLEFT;
+				if (boRight)
+					return CEILINGRIGHT;
+				return CEILING;
+			}
+			else {
+				if (boRight)
+					return RIGHT;
+				if (boLeft)
+					return LEFT;
+				return NOCONTACT;
+			}
+		}
 	}
 
 	//Méthode: Fall:	Calcule la trajectoire d'un glissement d'une entité.
@@ -107,7 +131,56 @@ public:
 	_Vit : Vitesse initiale de la propulsion
 	*/
 	static CTrajectory* Propulsion(C2DVector* _PosInit, C2DVector* _Vit){
-		//return new CTrajectory(_PosInit, _Vit);
+		return new CTrajectory(_PosInit, _Vit);
+	}
+
+	/*
+	Méthode : Move
+	Brief : Fonction qui ajuste la position suite à un mouvement sans accélération
+	Params:
+		_Rect : Rectangle se déplaçant
+		_Direction : Bool de la direction empruntée 
+					true : gauche
+					false : droite
+	Return : true : déplacement effectué
+			 false : déplacement non effectué
+	Discussion : Ne déplace actuellement que d'un pixel sur l'axe X, à changer si voulu
+				 La hauteur (en pixels) d'une pente "escaladable" en y sera à déterminer (actuellement 3 pixels)
+	*/
+	static bool Move(SDL_Rect _Rect, bool _Direction){
+		if (_Direction){
+			for (int i = 0; i < _Rect.h + 3; i++){
+				if (!(((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.x - 1 + i) + _Rect.x - 1] == 0)){
+					if (i < _Rect.h - 3)
+						return false;
+					else {
+						_Rect.y = _Rect.y + (_Rect.h - i);
+					}
+				}
+				if (i == _Rect.h +2){
+					_Rect.y = _Rect.y + (_Rect.h - i);
+				}
+			}
+			_Rect.x = _Rect.x - 1;
+			return true;
+		}
+		else{
+			for (int i = 0; i < _Rect.h + 3; i++){
+				if (!(((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.x - 1 + i) + _Rect.x + _Rect.w] == 0)){
+					if (i < _Rect.h - 3)
+						return false;
+					else {
+						_Rect.y = _Rect.y + (_Rect.h - i);
+					}
+				}
+				if (i == _Rect.h + 2){
+					_Rect.y = _Rect.y + (_Rect.h - i);
+				}
+			}
+			_Rect.x = _Rect.x + 1;
+			return true;
+			
+		}
 	}
 
 	//Accesseurs...
