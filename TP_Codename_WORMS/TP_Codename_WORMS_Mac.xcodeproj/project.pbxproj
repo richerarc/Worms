@@ -37,6 +37,9 @@
 		CBECA7D91A004E360030E776 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
 		CBECA7DA1A004E360030E776 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
 		F91E82F21A1BD50D0060A222 /* CBoussole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBoussole.h; path = TP_Codename_WORMS/CBoussole.h; sourceTree = SOURCE_ROOT; };
+		F943750E1A1E95550067D9DC /* C2DVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = C2DVector.h; path = TP_Codename_WORMS/C2DVector.h; sourceTree = SOURCE_ROOT; };
+		F943750F1A1E95550067D9DC /* CPhysic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPhysic.h; path = TP_Codename_WORMS/CPhysic.h; sourceTree = SOURCE_ROOT; };
+		F94375101A1E95550067D9DC /* CTrajectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTrajectory.h; path = TP_Codename_WORMS/CTrajectory.h; sourceTree = SOURCE_ROOT; };
 		F9455D501A1072D60036C9AC /* CSlideShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSlideShow.h; path = TP_Codename_WORMS/CSlideShow.h; sourceTree = SOURCE_ROOT; };
 		F96CFAEA1A0001EB00A114A9 /* CGUIE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUIE.h; path = TP_Codename_WORMS/CGUIE.h; sourceTree = SOURCE_ROOT; };
 		F97DCB4119FFBEC7006F17CF /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
@@ -114,6 +117,9 @@
 		CB81A5C819FF1E6800935BA4 /* TP_Codename_WORMS_Mac */ = {
 			isa = PBXGroup;
 			children = (
+				F943750E1A1E95550067D9DC /* C2DVector.h */,
+				F943750F1A1E95550067D9DC /* CPhysic.h */,
+				F94375101A1E95550067D9DC /* CTrajectory.h */,
 				F91E82F21A1BD50D0060A222 /* CBoussole.h */,
 				F9EB8F2C1A16889E00B210DD /* SavedData.dat */,
 				F9EB8F2A1A1685FC00B210DD /* CExplosion.h */,

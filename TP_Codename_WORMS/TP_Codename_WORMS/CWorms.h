@@ -6,6 +6,9 @@
 #include <iostream>
 #include <fstream>
 
+#include "C2DVector.h"
+#include "CPhysic.h"
+#include "CTrajectory.h"
 #include "CTimer.h"
 #include "CListeDC.h"
 #include "CGestionnaireRessources.h"

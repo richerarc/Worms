@@ -134,8 +134,8 @@ public:
 		SDL_Rect _Rect;
 		_Rect.h = 9;
 		_Rect.w = 9;
-		_Rect.x = _Pos->getX - 5;
-		_Rect.y = _Pos->getY - 5;
+		_Rect.x = _Pos->getX() - 5;
+		_Rect.y = _Pos->getY() - 5;
 		for (int x = 0; x < _Rect.w; x++){
 			for (int y = 0; y < _Rect.h; y++){
 				if (_Direction == FROMTOP){
@@ -161,7 +161,7 @@ public:
 	//			Paramètres:	_Vector - Vecteur(vitesse et direction) initiale du glissement.
 	//						_X et _Y - Positions en X et en Y intiales de l'entité.
 	static CTrajectory * Slide(C2DVector * _Vector, int _X, int _Y){
-
+		return nullptr;
 	}
 
 	/*Méthode : Propulsion
