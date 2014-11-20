@@ -46,7 +46,7 @@ public:
 		m_pMap = _Map;
 		m_pListeObjets = new CListeDC<CObjets*>();
 		for(int i = 0; i < m_pMap->getMine(); i++){
-			m_pListeObjets->AjouterFin(new CMines(20, {rand()% WIDTH, 5, 12, 8}, m_Gestionaire->GetTexture("mine")->GetTexture()));
+			m_pListeObjets->AjouterFin(new CMines(20, {((rand()% (WIDTH - 10)) + 5), 5, 12, 8}, m_Gestionaire->GetTexture("mine")->GetTexture()));
 		}
 		m_pBoussole = _Boussole;
 		m_pRenderer = _Renderer;

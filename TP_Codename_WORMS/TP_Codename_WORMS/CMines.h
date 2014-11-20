@@ -25,6 +25,7 @@ public:
 
 	CMines(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _Texture) :CObjets(_iRayon, _RectPos){
 		m_pSprite = new CSprite("", _Texture, 2, 1, 500, 0);
+		m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
 		m_iRayon = _iRayon;
 		boIsExplosed = false;
 	}
