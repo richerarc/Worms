@@ -3,9 +3,6 @@
 //
 //  Created by Kevin Pantelakis on 2014-11-11.
 //
-// TO DO: PARLER A RICHER POUR LE TABLEAU INT POUR LES INDICES DES ÉQUIPES QUI JOUENT
-//        COMME SA ON EVITRAIS D'UTILISER UNE LISTE ET ON AURAIT SEULEMENT UN TABLEAU
-//		  D'ÉQUIPE POUR TOUT LE PROGRAMME.
 //
 
 /*!
@@ -41,7 +38,7 @@ public:
 		char buf[10];
 		for (Uint8 i = 0; i < _NbOfTeam; i++){
 			temp.append(SDL_itoa(i, buf, 10));
-			m_pListeTeam->AjouterFin(new CTeam(temp, {static_cast<Uint8>(i * 200), static_cast<Uint8>(i * 100), static_cast<Uint8>(i * 50), 1}, m_Gestionaire->GetTexture("worm")->GetTexture(), _NbOfWormPerTeam, m_Gestionaire->GetFont("FontMenu"))); /////// changer la texture
+			m_pListeTeam->AjouterFin(new CTeam(temp, {static_cast<Uint8>(i * 200), static_cast<Uint8>(i * 100), static_cast<Uint8>(i * 50), 1}, m_Gestionaire->GetTexture("worm")->GetTexture(), _NbOfWormPerTeam, m_Gestionaire->GetFont("FontMenu")));
 		}
 		m_pMap = _Map;
 		m_pListeObjets = new CListeDC<CObjets*>();
@@ -50,7 +47,6 @@ public:
 		}
 		m_pBoussole = _Boussole;
 		m_pRenderer = _Renderer;
-		m_uiNbOfPlayingTeams = 0;
 		m_uiTeamTurn = 0;
 		m_boInPlay = false;
 	}
@@ -62,7 +58,6 @@ public:
 	*/
 	~CGame(){
 		delete m_pListeTeam;
-		delete m_pMap;
 		delete m_pBoussole;
 		delete m_pListeObjets;
 	}
@@ -91,14 +86,12 @@ public:
 		m_pBoussole->Draw(m_pRenderer);
 		m_pListeTeam->AllerDebut();
 		m_pListeObjets->AllerDebut();
-		/*
+
 		for (int i = 0; i < m_uiNbOfPlayingTeams; i++)
 		{
 			m_pListeTeam->ObtenirElement()->draw(m_pRenderer);
 			m_pListeTeam->AllerSuivant();
 		}
-		 
-		*/
 		
 		for (int i = 0; i < m_pListeObjets->Count(); i++){
 			m_pListeObjets->ObtenirElement()->Draw(m_pRenderer);
