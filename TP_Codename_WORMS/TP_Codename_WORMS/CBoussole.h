@@ -27,7 +27,7 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion No discussion is needed.
 	*/
-	CBoussole(SDL_Texture* _CompassTexture, SDL_Texture* _ArrowTexture ){
+	CBoussole(SDL_Texture* _ArrowTexture ){
 		m_pArrow = _ArrowTexture;
 		SDL_QueryTexture(_ArrowTexture, NULL, NULL, &m_RectArrowPosition.w, &m_RectArrowPosition.h);
 		m_RectArrowPosition.x = WIDTH - m_RectArrowPosition.w;
