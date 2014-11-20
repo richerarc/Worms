@@ -121,7 +121,7 @@ public:
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
-		m_Gestionaire->AjouterTexture(new CTexture("MenuBackground", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[16].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("MenuBackground", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[15].c_str())));
 		m_Gestionaire->AjouterFont(new CFont("FontMenu", strFilePath[0].c_str(), 30));
 		m_Gestionaire->AjouterTexture(new CTexture("TextureBtn", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[1].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("TextureBtnL", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[2].c_str())));
@@ -225,8 +225,8 @@ public:
 		m_MenuNewTeam = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
 		m_pEvent = new SDL_Event();
 		m_Gestionaire = new CGestionnaireRessources();
-		CMenu::m_pBackground = m_Gestionaire->GetTexture("MenuBackground")->GetTexture();
 		LoadResources(_argv);
+		CMenu::m_pBackground = m_Gestionaire->GetTexture("MenuBackground")->GetTexture();
 		LoadData();
 		
 			//
