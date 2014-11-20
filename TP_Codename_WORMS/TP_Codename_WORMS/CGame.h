@@ -33,8 +33,14 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Nuff said.
 	*/
-	CGame(CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer){
+	CGame(CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer, SDL_Texture* _WormTexture, int _NbOfTeam, int _NbOfWormPerTeam){
 		m_pListeTeam = new CListeDC<CTeam*>();
+		string temp("Team");
+		char buf[10];
+		for (int i = 0; i < _NbOfTeam; i++){
+			temp.append(SDL_itoa(i, buf, 10));
+			m_pListeTeam->AjouterFin(new CTeam(temp, {i * 200, i * 100, i * 50, 1}, _WormTexture, _NbOfWormPerTeam));
+		}
 		m_pListeObjets = new CListeDC<CObjets*>();
 		m_pMap = _Map;
 		m_pBoussole = _Boussole;

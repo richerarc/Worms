@@ -253,11 +253,11 @@ public:
 		m_MenuNewGame->AddElement(new CLabel("lblNbrTeam", "Number of team :", m_Gestionaire->GetFont("FontMenu"), {}), 660, 460, 100, 20);
 		CSlideShow* SSTemp2 = new CSlideShow("SSNbrTeam", m_Gestionaire->GetFont("FontMenu"), {1000, 460, 120, 22}, m_Gestionaire->GetSprite("SpriteTeamLeft"), m_Gestionaire->GetSprite("SpriteTeamRight"));
 		SSTemp2->ajouterText(3, new string("2"), new string("3"), new string("4"));
-		m_MenuNewGame->AddElement(SSTemp2, 1000, 460, 100, 22);
+		m_MenuNewGame->AddElement(SSTemp2, 1000, 460, 120, 22);
 		m_MenuNewGame->AddElement(new CLabel("lblNbrWorm", "Number of worm per team :", m_Gestionaire->GetFont("FontMenu"), {}), 660, 500, 100, 20);
 		CSlideShow* SSTemp3 = new CSlideShow("SSNbrWorm", m_Gestionaire->GetFont("FontMenu"), {1000, 500, 120, 22}, m_Gestionaire->GetSprite("SpriteWormLeft"), m_Gestionaire->GetSprite("SpriteWormRight"));
 		SSTemp3->ajouterText(6, new string("1"), new string("2"), new string("3"), new string("4"), new string("5"), new string("6"));
-		m_MenuNewGame->AddElement(SSTemp3, 1000, 500, 100, 22);
+		m_MenuNewGame->AddElement(SSTemp3, 1000, 500, 120, 22);
 	}
 	
 		//
@@ -298,7 +298,7 @@ public:
 	}
 	
 	static void BtnPlay(){
-		m_Game = new CGame(TabMap[((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId()], new CBoussole(m_Gestionaire->GetTexture("compass")->GetTexture(), m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer());
+		m_Game = new CGame(TabMap[((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId()], new CBoussole(m_Gestionaire->GetTexture("compass")->GetTexture(), m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer());//casajoabfiewogberogabhfioehfuiewofbeuiwbfuiobwheulwfw
 	}
 	
 };
