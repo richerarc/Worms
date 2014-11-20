@@ -33,13 +33,13 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Nuff said.
 	*/
-	CGame(CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer, SDL_Texture* _WormTexture, int _NbOfTeam, int _NbOfWormPerTeam){
+	CGame(CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer, SDL_Texture* _WormTexture, int _NbOfTeam, int _NbOfWormPerTeam, CFont* _Font){
 		m_pListeTeam = new CListeDC<CTeam*>();
 		string temp("Team");
 		char buf[10];
 		for (Uint8 i = 0; i < _NbOfTeam; i++){
 			temp.append(SDL_itoa(i, buf, 10));
-			m_pListeTeam->AjouterFin(new CTeam(temp, {static_cast<Uint8>(i * 200), static_cast<Uint8>(i * 100), static_cast<Uint8>(i * 50), 1}, _WormTexture, _NbOfWormPerTeam));
+			m_pListeTeam->AjouterFin(new CTeam(temp, {static_cast<Uint8>(i * 200), static_cast<Uint8>(i * 100), static_cast<Uint8>(i * 50), 1}, _WormTexture, _NbOfWormPerTeam, _Font));
 		}
 		m_pListeObjets = new CListeDC<CObjets*>();
 		m_pMap = _Map;
@@ -86,6 +86,7 @@ public:
 		m_pBoussole->Draw(m_pRenderer);
 		m_pListeTeam->AllerDebut();
 		m_pListeObjets->AllerDebut();
+		/*
 		for (int i = 0; i < m_uiNbOfPlayingTeams; i++)
 		{
 			m_pListeTeam->ObtenirElement()->draw(m_pRenderer);
@@ -96,6 +97,7 @@ public:
 			m_pListeObjets->ObtenirElement()->Draw(m_pRenderer);
 			m_pListeTeam->AllerSuivant();
 		}
+		*/
 	}
 
 	//Papoi,papoi
