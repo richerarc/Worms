@@ -19,6 +19,7 @@ private:
 	unsigned int m_uiGravity;
 	unsigned int m_uiMaxWind;
 	unsigned int m_uiNbrMine;
+	bool m_boModified;
 public:
 
 	/*!
@@ -37,11 +38,12 @@ public:
 		m_uiMaxWind = _MaxWind;
 		m_uiNbrMine = _NbrMine;
 		m_strName = _Name;
+		m_boModified = true;
 	}
 
 	void ConvertMap(SDL_Renderer* _Renderer){
-		SDL_DestroyTexture(m_MapConverted);
 		m_MapConverted = SDL_CreateTextureFromSurface(_Renderer, m_Map);
+		m_boModified = false;
 	}
 
 	void ExplodeMap(SDL_Renderer* _Renderer, SDL_Rect _ExplosionPos){
@@ -56,7 +58,7 @@ public:
 	}
 
 	void Draw(SDL_Renderer* _Renderer){
-		if (m_MapConverted == nullptr)
+		if (m_boModified)
 			ConvertMap(_Renderer);
 		SDL_RenderCopy(_Renderer, m_Background, NULL, NULL);
 		SDL_RenderCopy(_Renderer, m_MapConverted, NULL, NULL);
