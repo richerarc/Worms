@@ -10,7 +10,7 @@ class CGrenades : public CObjets{
 private:
 	//Données membres:
 	CTimer* m_pTimer; // Déclaration d'une nouvelle minuterie pour le temps à écouler avant l'explosion.
-	SDL_Texture* m_pTexture; // Texture de l'image à afficher.
+	CSprite* m_pSprite; //Sprite de la grenade
 	bool boIsExplosed; //Donnée représentant si l'objet est explosé (true) ou non (false)
 
 public:
@@ -24,7 +24,8 @@ public:
 	*/
 
 	CGrenades(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _pTexture) :CObjets(_iRayon,_RectPos){
-		m_pTexture = _pTexture;
+		m_pSprite = new CSprite("", _pTexture, 2, 1, 100, 5);
+		m_pSprite->setSpritePos(_RectPos.x, _RectPos.y);
 		m_pTimer = new CTimer();
 		m_pTimer->SetTimer(1000);
 		m_pTimer->Start();
@@ -34,11 +35,11 @@ public:
 	
 	/*!
 	@method Draw
-	@param _Renderer : Renderer pour rendre la texture de la grenade
+	@param _Renderer : Renderer pour rendre le sprite de la grenade
 	@return null
 	*/
 	void Draw(SDL_Renderer* _pRenderer){
-		SDL_RenderCopy(_pRenderer, m_pTexture, NULL, &m_RectPosition);
+		m_pSprite->Render(_pRenderer);
 	}
 
 
