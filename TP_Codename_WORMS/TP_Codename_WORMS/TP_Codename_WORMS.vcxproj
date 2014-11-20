@@ -69,6 +69,17 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C2DVector.h" />
+    <ClInclude Include="CFont.h" />
+    <ClInclude Include="CMusic.h" />
+    <ClInclude Include="CPhysic.h" />
+    <ClInclude Include="CRessource.h" />
+    <ClInclude Include="CSprite.h" />
+    <ClInclude Include="CTimer.h" />
+    <ClInclude Include="CTrajectory.h" />
+    <ClInclude Include="CWindow.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

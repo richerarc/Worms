@@ -229,6 +229,9 @@ public:
 	static double GetGravity(){
 		return m_Gravity;
 	}
+	static bool FlyLikeAMutherFocker(){
+
+	}
 };
 C2DVector * CPhysics::m_Wind = new C2DVector(0., 0.);
 double CPhysics::m_Gravity = 1;

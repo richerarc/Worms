@@ -10,6 +10,19 @@
 #include <SDL2\SDL_image.h>
 #include <SDL2\SDL_ttf.h>
 #include <SDL2\SDL_mixer.h>
+
+/*Pour tester...
+  Pour testicule....*/
+#include "C2DVector.h"
+#include "CFont.h"
+#include "CMusic.h"
+#include "CPhysic.h"
+#include "CRessource.h"
+#include "CSprite.h"
+#include "CTimer.h"
+#include "CTrajectory.h"
+#include "CWindow.h"
+
 #endif
 
 #define WIDTH 1280
@@ -18,14 +31,14 @@
 
 
 int main(int argc, char** argv) {
-	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);// Initialisation des composantes
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);// Initialisation des composantes
 	TTF_Init();				 // SDL et autres librairies.
 	Mix_Init(0);
-	
-	
+
+
 	SDL_Quit();
 	TTF_Quit();
 	Mix_Quit();
-	
+
 	return 0;
 }
