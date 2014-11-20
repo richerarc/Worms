@@ -22,6 +22,7 @@ private:
 	CListeDC<CTeam*>* m_pListeTeam;		// Liste d'équipe qui participe au jeu.
 	CListeDC<CObjets*>* m_pListeObjets; // Liste d'objets a afficher.
 	bool m_boInPlay;					// Indique si la partie est terminé ou non.
+	CGestionnaireRessources* m_Gestionaire;
 public:
 
 	/*!
@@ -33,16 +34,20 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Nuff said.
 	*/
-	CGame(CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer, SDL_Texture* _WormTexture, int _NbOfTeam, int _NbOfWormPerTeam, CFont* _Font){
+	CGame(CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer, int _NbOfTeam, int _NbOfWormPerTeam, CGestionnaireRessources* _Gestionaire){
+		m_Gestionaire = _Gestionaire;
 		m_pListeTeam = new CListeDC<CTeam*>();
 		string temp("Team");
 		char buf[10];
 		for (Uint8 i = 0; i < _NbOfTeam; i++){
 			temp.append(SDL_itoa(i, buf, 10));
-			m_pListeTeam->AjouterFin(new CTeam(temp, {static_cast<Uint8>(i * 200), static_cast<Uint8>(i * 100), static_cast<Uint8>(i * 50), 1}, _WormTexture, _NbOfWormPerTeam, _Font));
+			m_pListeTeam->AjouterFin(new CTeam(temp, {static_cast<Uint8>(i * 200), static_cast<Uint8>(i * 100), static_cast<Uint8>(i * 50), 1}, m_Gestionaire->GetTexture("worm")->GetTexture(), _NbOfWormPerTeam, m_Gestionaire->GetFont("FontMenu"))); /////// changer la texture
 		}
-		m_pListeObjets = new CListeDC<CObjets*>();
 		m_pMap = _Map;
+		m_pListeObjets = new CListeDC<CObjets*>();
+		for(int i = 0; i < m_pMap->getMine(); i++){
+			m_pListeObjets->AjouterFin(new CMines(20, {rand()% WIDTH, 5, 12, 8}, m_Gestionaire->GetTexture("mine")->GetTexture()));
+		}
 		m_pBoussole = _Boussole;
 		m_pRenderer = _Renderer;
 		m_uiNbOfPlayingTeams = 0;
@@ -92,12 +97,14 @@ public:
 			m_pListeTeam->ObtenirElement()->draw(m_pRenderer);
 			m_pListeTeam->AllerSuivant();
 		}
+		 
+		*/
+		
 		for (int i = 0; i < m_pListeObjets->Count(); i++)
 		{
 			m_pListeObjets->ObtenirElement()->Draw(m_pRenderer);
 			m_pListeTeam->AllerSuivant();
 		}
-		*/
 	}
 
 	//Papoi,papoi

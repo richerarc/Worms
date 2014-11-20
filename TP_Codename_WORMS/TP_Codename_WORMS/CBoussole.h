@@ -30,8 +30,8 @@ public:
 	CBoussole(SDL_Texture* _ArrowTexture ){
 		m_pArrow = _ArrowTexture;
 		SDL_QueryTexture(_ArrowTexture, NULL, NULL, &m_RectArrowPosition.w, &m_RectArrowPosition.h);
-		m_RectArrowPosition.x = WIDTH - m_RectArrowPosition.w;
-		m_RectArrowPosition.y = 0;
+		m_RectArrowPosition.x = WIDTH - m_RectArrowPosition.w - 5;
+		m_RectArrowPosition.y = 5;
 		m_dblAngle = 0;
 	}
 

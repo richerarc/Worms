@@ -115,9 +115,9 @@ public:
 #elif defined (_WIN32)
 		strPath.append("\\");
 #endif
-		string FileName[16] = {"Arpegius.ttf", "Btn1.png", "BtnL.png", "BtnR.png", "map1.png", "background1.jpg", "map2.png", "background2.jpg", "map3.png", "background3.jpg", "map4.png", "background4.jpg", "SavedData.dat", "compass.png", "Fleche.png","MenuBackground.jpg"};
-		string strFilePath[16];
-		for (int i = 0; i < 16; i++){
+		string FileName[18] = {"Arpegius.ttf", "Btn1.png", "BtnL.png", "BtnR.png", "map1.png", "background1.jpg", "map2.png", "background2.jpg", "map3.png", "background3.jpg", "map4.png", "background4.jpg", "SavedData.dat", "compass.png", "Fleche.png","MenuBackground.jpg", "WormMoveLeft.png", "SpriteMine.png"};
+		string strFilePath[18];
+		for (int i = 0; i < 18; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
@@ -150,6 +150,8 @@ public:
 		m_Gestionaire->AjouterSurface(new CSurface("map4", IMG_Load(strFilePath[10].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("background4", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[11].c_str())));
 		/* The potato is a lie */
+		m_Gestionaire->AjouterTexture(new CTexture("worm", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[16].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("mine", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[17].c_str())));
 		
 
 		m_SaveFile->open(strFilePath[12].c_str());
@@ -218,6 +220,7 @@ public:
 	
 	
 	static void Init(string _argv){
+		srand(time(NULL));
 		m_pWindow = new CWindow("Worms", WIDTH, HEIGHT);
 		m_MenuPrincipal = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
 		m_MenuNewGame = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
@@ -301,7 +304,7 @@ public:
 	}
 	
 	static void BtnPlay(){
-		m_Game = new CGame(TabMap[((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId()], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer(), m_Gestionaire->GetTexture("fleche")->GetTexture(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire->GetFont("FontMenu"));
+		m_Game = new CGame(TabMap[((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId()], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire);
 		m_MenuNewGame->DeActivateMenu();
 		m_Game->Activate();
 	}
