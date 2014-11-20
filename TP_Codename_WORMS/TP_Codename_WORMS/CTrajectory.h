@@ -11,12 +11,14 @@ private:
 	long m_lTrajectoryStartTime;
 	C2DVector* m_StartPos;
 	C2DVector* m_TrajectoryInitSpeed;
+	C2Dvector* m_Acceleration;
 public:
 	//Constructeur...
-	CTrajectory(C2DVector* _StartPos, C2DVector* _InitSpeed){
+	CTrajectory(C2DVector* _StartPos, C2DVector* _InitSpeed, C2DVector* _Acc){
 		m_lTrajectoryStartTime = SDL_GetTicks();
 		m_StartPos = _StartPos;
 		m_TrajectoryInitSpeed = _InitSpeed;
+		m_Acceleration = _Acc;
 	}
 
 	//Destructeur...
@@ -29,15 +31,15 @@ public:
 	Method : GetPosition
 	Brief : Fonction qui retourne la variation de la position dans la trajectoire selon le temps
 	Params :
-	_time : Temps passé depuis le début de la trajectoire
+	_Acceleration : Accélération appliquée à la trajectoire
 	Return : Vecteur représentant la position au temps passé en paramètre
 	*/
-	C2DVector GetPosition(){
+	C2DVector GetPosition(C2DVector _Acceleration){
 		double dTimeVariation = (SDL_GetTicks() - m_lTrajectoryStartTime);
 		double dTimeVarExp2 = dTimeVariation * dTimeVariation;
-		C2DVector Position = C2DVector(m_TrajectoryInitSpeed->getX() * dTimeVariation + CPhysics::GetWind()->getX()
+		C2DVector Position = C2DVector(m_TrajectoryInitSpeed->getX() * dTimeVariation + _Acc.getX()
 			/ 2 * dTimeVarExp2 + m_StartPos->getX(),
-			m_TrajectoryInitSpeed->getY() * dTimeVariation + (CPhysics::GetWind()->getY() + CPhysics::GetGravity())
+			m_TrajectoryInitSpeed->getY() * dTimeVariation + _Acc.getY()
 			/ 2 * dTimeVarExp2 + m_StartPos->getY());
 		return Position;
 	}
@@ -67,8 +69,8 @@ public:
 	*/
 	C2DVector GetSpeed(){
 		return C2DVector(
-			sqrt(2 *(GetPosition().getX() - m_StartPos->getX())* CPhysics::GetWind()->getX()),
-			sqrt(2 * (GetPosition().getY() - m_StartPos->getY())* (CPhysics::GetWind()->getY() + CPhysics::GetGravity()))
+			sqrt(2 * (GetPosition().getX() - m_StartPos->getX())* m_Acceleration->getX()),
+			sqrt(2 * (GetPosition().getY() - m_StartPos->getY())* m_Acceleration->getY())
 			);
 	}
 };
