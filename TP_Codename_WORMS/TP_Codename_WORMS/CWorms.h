@@ -282,7 +282,7 @@ public:
 		m_MenuPause->AddElement(new CButton("btnQuitDskt", "Quit to Desktop", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnQTDskt")), 20, HEIGHT / 2 - 200, WIDTH / 2 + 163, 33);
 		m_MenuPause->AddElement(new CButton("btnResume", "Resume play", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnResume")), 20, HEIGHT / 2 -300, WIDTH / 2 + 163, 33);
 		m_MenuPause->getElement("btnRestart")->OnClickAction = BtnRestat;
-		m_MenuPause->getElement("btnMainMenu")->OnClickAction = BtnPlay;
+		m_MenuPause->getElement("btnMainMenu")->OnClickAction = BtnMainMenu;
 		m_MenuPause->getElement("btnQuitDskt")->OnClickAction = BtnQuit;
 		m_MenuPause->getElement("btnResume")->OnClickAction = BtnResume;
 
