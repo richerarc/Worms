@@ -41,6 +41,7 @@ public:
 			m_pTabWorm[i] = new CWorm(strNom, new CSprite("", _Texture, NULL, NULL, 50, 0), nullptr, { 0, 0, 30, 40 });
 			strNom.pop_back();
 		}
+		m_pTabWorm[0]->setFocus(true);
 	}
 
 	/*!
