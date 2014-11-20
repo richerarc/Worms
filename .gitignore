@@ -12,6 +12,8 @@
 
 # Build results
 *.log
+*.tlog
+*.lastbuiltstate
 *.exe
 [Rr]elease/
 x64/
