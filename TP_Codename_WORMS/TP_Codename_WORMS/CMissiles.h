@@ -75,6 +75,10 @@ public:
 	*/
 	~CMissiles(){
 	}
+	
+	void Move(){
+		
+	}
 };
 
 #endif

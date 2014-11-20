@@ -52,6 +52,9 @@ public:
 		return m_iRayon;
 	}
 
+	virtual void Move(){
+		
+	}
 };
 
 #endif

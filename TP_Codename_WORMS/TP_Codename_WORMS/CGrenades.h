@@ -80,7 +80,10 @@ public:
 	*/
 	~CGrenades(){
 	}
-
+	
+	void Move(){
+		
+	}
 
 };
 

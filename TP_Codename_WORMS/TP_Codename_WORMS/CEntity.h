@@ -10,7 +10,7 @@ class CEntity{
 protected:
 	SDL_Rect m_RectPosition; // Position de l'Entité
 	bool m_boFocus;			 // Indique si l'entité a le Focus
-
+	CTrajectory* m_Trajectoire;
 public:
 
 	/*!
@@ -21,6 +21,7 @@ public:
 	CEntity(SDL_Rect _RectPos){
 		m_RectPosition = _RectPos;
 		m_boFocus = false;
+		m_Trajectoire = nullptr;
 	}
 
 	/*!
@@ -47,6 +48,8 @@ public:
 
 	virtual void ReactToExplosion(int,int,int) = 0;
 	virtual void HandleEvent(SDL_Event) = 0;
+	
+	virtual void Move() = 0;
 
 };
 

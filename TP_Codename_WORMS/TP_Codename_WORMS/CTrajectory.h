@@ -11,7 +11,7 @@ private:
 	long m_lTrajectoryStartTime;
 	C2DVector* m_StartPos;
 	C2DVector* m_TrajectoryInitSpeed;
-	C2Dvector* m_Acceleration;
+	C2DVector* m_Acceleration;
 public:
 	//Constructeur...
 	CTrajectory(C2DVector* _StartPos, C2DVector* _InitSpeed, C2DVector* _Acc){
@@ -34,12 +34,12 @@ public:
 	_Acceleration : Accélération appliquée à la trajectoire
 	Return : Vecteur représentant la position au temps passé en paramètre
 	*/
-	C2DVector GetPosition(C2DVector _Acceleration){
+	C2DVector GetPosition(){
 		double dTimeVariation = (SDL_GetTicks() - m_lTrajectoryStartTime);
 		double dTimeVarExp2 = dTimeVariation * dTimeVariation;
-		C2DVector Position = C2DVector(m_TrajectoryInitSpeed->getX() * dTimeVariation + _Acc.getX()
+		C2DVector Position = C2DVector(m_TrajectoryInitSpeed->getX() * dTimeVariation + m_Acceleration->getX()
 			/ 2 * dTimeVarExp2 + m_StartPos->getX(),
-			m_TrajectoryInitSpeed->getY() * dTimeVariation + _Acc.getY()
+			m_TrajectoryInitSpeed->getY() * dTimeVariation + m_Acceleration->getY()
 			/ 2 * dTimeVarExp2 + m_StartPos->getY());
 		return Position;
 	}

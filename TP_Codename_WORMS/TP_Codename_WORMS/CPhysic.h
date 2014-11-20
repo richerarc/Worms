@@ -13,8 +13,8 @@
 #define FROMBOTTOM 12345
 #define FROMTOP 67890
 
-class CTrajectory;
-static class CPhysics{
+
+class CPhysics{
 private:
 	static C2DVector * m_Wind;
 	static double m_Gravity;
@@ -170,8 +170,8 @@ public:
 	_PosInit : Position initiale de la propulsion
 	_Vit : Vitesse initiale de la propulsion
 	*/
-	static CTrajectory* Propulsion(C2DVector* _PosInit, C2DVector* _Vit){
-		return new CTrajectory(_PosInit, _Vit);
+	static CTrajectory* Propulsion(C2DVector* _PosInit, C2DVector* _Vit, C2DVector* _Acc){
+		return new CTrajectory(_PosInit, _Vit, _Acc);
 	}
 
 	/*
@@ -229,6 +229,9 @@ public:
 	}
 	static double GetGravity(){
 		return m_Gravity;
+	}
+	static void setGravity(double _d){
+		m_Gravity = _d;
 	}
 };
 C2DVector * CPhysics::m_Wind = new C2DVector(0., 0.);

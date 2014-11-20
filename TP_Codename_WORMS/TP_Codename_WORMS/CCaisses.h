@@ -74,6 +74,10 @@ public:
 	*/
 	~CCaisses(){
 	}
+	
+	void Move(){
+		
+	}
 };
 
 #endif

@@ -28,6 +28,7 @@ public:
 		m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
 		m_iRayon = _iRayon;
 		boIsExplosed = false;
+		m_Trajectoire = CPhysics::Propulsion(new C2DVector(m_RectPosition.x, m_RectPosition.y), new C2DVector(0, 0), new C2DVector(0, CPhysics::GetGravity()));
 	}
 	/*!
 	@method Draw
@@ -35,6 +36,7 @@ public:
 	@return null
 	*/
 	void Draw(SDL_Renderer* _pRenderer){
+		Move();
 		if (boIsExplosed)
 			m_pSprite->Render(_pRenderer, 1);
 		else
@@ -83,6 +85,12 @@ public:
 	~CMines(){
 	}
 
+	void Move(){
+		if (m_Trajectoire != nullptr){
+			C2DVector Temp = m_Trajectoire->GetPosition();
+			m_RectPosition.y = Temp.getY();
+		}
+	}
 };
 
 #endif

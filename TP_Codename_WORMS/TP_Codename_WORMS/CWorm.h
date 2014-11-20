@@ -110,6 +110,9 @@ public:
 
 	string getName(){ return m_strName; }
 
+	void Move(){
+		
+	}
 };
 
 #endif
