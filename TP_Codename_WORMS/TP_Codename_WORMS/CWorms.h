@@ -69,7 +69,11 @@ public:
 				}
 				
 				// Event In-Game.
-					switch (m_pEvent->type) {
+					switch (m_pEvent->key.keysym.sym) {
+					case SDLK_ESCAPE:
+						m_MenuPause->ActivateMenu();
+						m_boInMenu = true;
+						break;
 						default:
 							break;
 					}
@@ -223,8 +227,7 @@ public:
 		m_SaveFile->close();
 		delete m_SaveFile;
 	}
-	
-	
+		
 	static void Init(string _argv){
 		m_pWindow = new CWindow("Worms", WIDTH, HEIGHT);
 		m_MenuPrincipal = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
@@ -273,14 +276,15 @@ public:
 		//
 		// Initialisation du menu Pause
 		//
-		m_MenuPause->AddElement(new CButton("btnRestart", "Restart", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnRestart")), 20, HEIGHT / 2 - 66, 162, 33);
-		m_MenuPause->AddElement(new CButton("btnMainMenu", "Main Menu", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnMainMenu")), 20, HEIGHT / 2 - 100,WIDTH/2 + 163, 33);
-		m_MenuPause->AddElement(new CButton("btnQuitDskt", "Quit to Desktop", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnQTDskt")), 20, HEIGHT / 2 - 200, WIDTH / 2 + 163, 33);
-		m_MenuPause->AddElement(new CButton("btnResume", "Resume play", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnResume")), 20, HEIGHT / 2 -300, WIDTH / 2 + 163, 33);
-		m_MenuPrincipal->getElement("btnRestart")->OnClickAction = BtnRestat;
-		m_MenuPrincipal->getElement("btnMainMenu")->OnClickAction = BtnPlay;
-		m_MenuPrincipal->getElement("btnQuitDskt")->OnClickAction = BtnQuit;
-		m_MenuPrincipal->getElement("btnResume")->OnClickAction = BtnResume;
+
+		m_MenuPause->AddElement(new CButton("btnRestart", "Restart", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnRestart")), 20, HEIGHT / 2 - 66, 162, 33);
+		m_MenuPause->AddElement(new CButton("btnMainMenu", "Main Menu", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnMainMenu")), 20, HEIGHT / 2 - 100,WIDTH/2 + 163, 33);
+		m_MenuPause->AddElement(new CButton("btnQuitDskt", "Quit to Desktop", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnQTDskt")), 20, HEIGHT / 2 - 200, WIDTH / 2 + 163, 33);
+		m_MenuPause->AddElement(new CButton("btnResume", "Resume play", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnResume")), 20, HEIGHT / 2 -300, WIDTH / 2 + 163, 33);
+		m_MenuPause->getElement("btnRestart")->OnClickAction = BtnRestat;
+		m_MenuPause->getElement("btnMainMenu")->OnClickAction = BtnPlay;
+		m_MenuPause->getElement("btnQuitDskt")->OnClickAction = BtnQuit;
+		m_MenuPause->getElement("btnResume")->OnClickAction = BtnResume;
 
 	}
 	
@@ -321,7 +325,11 @@ public:
 		m_MenuNewGame->getElement("lblMapInfo")->setText(tempWind.c_str());
 	}
 	static void BtnMainMenu(){
-	
+		m_Game->DeActivate();
+		delete m_Game;
+		m_Game = nullptr;
+		m_MenuPrincipal->ActivateMenu();
+		m_boInMenu = true;
 	}
 	static void BtnPlay(){
 		m_Game = new CGame(TabMap[((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId()], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire);
