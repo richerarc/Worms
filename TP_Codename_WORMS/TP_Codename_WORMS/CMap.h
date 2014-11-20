@@ -40,6 +40,7 @@ public:
 	}
 
 	void ConvertMap(SDL_Renderer* _Renderer){
+		SDL_DestroyTexture(m_MapConverted);
 		m_MapConverted = SDL_CreateTextureFromSurface(_Renderer, m_Map);
 	}
 

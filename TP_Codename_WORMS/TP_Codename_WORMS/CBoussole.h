@@ -13,9 +13,7 @@
 */
 class CBoussole{
 private:
-	SDL_Texture* m_pCompass;		// Image du Compas Fixe.
 	SDL_Texture* m_pArrow;			// Image de la flèche (Rotation).
-	SDL_Rect m_RectCompassPosition;	// Position du Compas.
 	SDL_Rect m_RectArrowPosition;	// Position de la fleche.
 	double m_dblAngle;				// Angle de la rotation en degrés.
 
@@ -30,11 +28,7 @@ public:
 	@discussion No discussion is needed.
 	*/
 	CBoussole(SDL_Texture* _CompassTexture, SDL_Texture* _ArrowTexture ){
-		m_pCompass = _CompassTexture;
 		m_pArrow = _ArrowTexture;
-		SDL_QueryTexture(_CompassTexture, NULL, NULL, &m_RectCompassPosition.w, &m_RectCompassPosition.h);
-		m_RectCompassPosition.x = WIDTH - m_RectCompassPosition.w;
-		m_RectCompassPosition.y = 0;
 		SDL_QueryTexture(_ArrowTexture, NULL, NULL, &m_RectArrowPosition.w, &m_RectArrowPosition.h);
 		m_RectArrowPosition.x = WIDTH - m_RectArrowPosition.w;
 		m_RectArrowPosition.y = 0;
@@ -47,7 +41,6 @@ public:
 	@discussion He is dead.
 	*/
 	~CBoussole(){
-		SDL_DestroyTexture(m_pCompass);
 		SDL_DestroyTexture(m_pArrow);
 	}
 
