@@ -58,7 +58,6 @@ public:
 	*/
 	~CGame(){
 		delete m_pListeTeam;
-		delete m_pBoussole;
 		delete m_pListeObjets;
 	}
 

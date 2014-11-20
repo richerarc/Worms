@@ -232,12 +232,12 @@ public:
 		m_pWindow = new CWindow("Worms", WIDTH, HEIGHT);
 		m_MenuPrincipal = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
 		m_MenuNewGame = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
-		m_MenuPause = new CMenu(m_pWindow->getRenderer(), {0, 0, (WIDTH / 2), (HEIGHT / 2)});
+		m_MenuPause = new CMenu(m_pWindow->getRenderer(), { (WIDTH / 4), (HEIGHT / 4), (WIDTH / 2), (HEIGHT / 2) });
 		m_MenuNewTeam = new CMenu(m_pWindow->getRenderer(), {0, 0, WIDTH, HEIGHT});
 		m_pEvent = new SDL_Event();
 		m_Gestionaire = new CGestionnaireRessources();
 		LoadResources(_argv);
-		CMenu::m_pBackground = m_Gestionaire->GetTexture("MenuBackground")->GetTexture();
+		m_MenuPrincipal->setBackground(m_Gestionaire->GetTexture("MenuBackground")->GetTexture());
 		LoadData();
 		
 			//
@@ -279,8 +279,8 @@ public:
 
 		m_MenuPause->AddElement(new CButton("btnRestart", "Restart", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnRestart")), 20, HEIGHT / 2 - 66, 162, 33);
 		m_MenuPause->AddElement(new CButton("btnMainMenu", "Main Menu", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnMainMenu")), 20, HEIGHT / 2 - 100,WIDTH/2 + 163, 33);
-		m_MenuPause->AddElement(new CButton("btnQuitDskt", "Quit to Desktop", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnQTDskt")), 20, HEIGHT / 2 - 200, WIDTH / 2 + 163, 33);
-		m_MenuPause->AddElement(new CButton("btnResume", "Resume play", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnResume")), 20, HEIGHT / 2 -300, WIDTH / 2 + 163, 33);
+		m_MenuPause->AddElement(new CButton("btnQuitDskt", "To Desktop", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnQTDskt")), 20, HEIGHT / 2 - 200, WIDTH / 2 + 163, 33);
+		m_MenuPause->AddElement(new CButton("btnResume", "Resume", m_Gestionaire->GetFont("FontMenu"), {0,0,10,10}, m_Gestionaire->GetSprite("SpriteBtnResume")), 20, HEIGHT / 2 -300, WIDTH / 2 + 163, 33);
 		m_MenuPause->getElement("btnRestart")->OnClickAction = BtnRestat;
 		m_MenuPause->getElement("btnMainMenu")->OnClickAction = BtnMainMenu;
 		m_MenuPause->getElement("btnQuitDskt")->OnClickAction = BtnQuit;

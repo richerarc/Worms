@@ -17,10 +17,10 @@ private:
 	SDL_Renderer* m_pRenderer; // Rendu de la fenêtre sur la quelle afficher le menu.
 	SDL_Rect m_MenuInfo;	   // Position et dimension du menu.
 	bool m_boMenuActif;		   // Indique si le menu est actif ou non
-
+	SDL_Texture* m_pBackground;
 public:
 
-	static SDL_Texture* m_pBackground;
+
 
 	/*!
 	@ Constructeur
@@ -37,6 +37,7 @@ public:
 		m_MenuInfo.w = _PositionDimension.w;
 		m_MenuInfo.h = _PositionDimension.h;
 		m_boMenuActif = false;
+		m_pBackground = nullptr;
 	}
 
 	~CMenu(){
@@ -127,7 +128,14 @@ public:
 	void Render(){
 		if (m_boMenuActif)
 		{
-			SDL_RenderCopy(m_pRenderer, m_pBackground, NULL, NULL);
+			if (m_pBackground != nullptr){
+				SDL_RenderCopy(m_pRenderer, m_pBackground, NULL, &m_MenuInfo);
+			}
+			else{
+				SDL_SetRenderDrawBlendMode(m_pRenderer, SDL_BLENDMODE_BLEND);
+				SDL_SetRenderDrawColor(m_pRenderer, 50, 50, 50, 150);
+				SDL_RenderFillRect(m_pRenderer, &m_MenuInfo);
+			}
 			m_pList->AllerDebut();
 			for (int i = 0; i < m_pList->Count(); i++)
 			{
@@ -211,7 +219,9 @@ public:
 		return m_pRenderer;
 	}
 
+	void setBackground(SDL_Texture* _Texture){
+		m_pBackground = _Texture;
+	}
+
 
 };
-
-SDL_Texture* CMenu::m_pBackground = nullptr;
