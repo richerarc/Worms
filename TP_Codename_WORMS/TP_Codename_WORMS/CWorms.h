@@ -79,6 +79,8 @@ public:
 	
 	static void Render(){
 		SDL_RenderClear(m_pWindow->getRenderer());
+		if ((m_Game != nullptr) && m_Game->inGame())
+			m_Game->Render();
 		if (m_boInMenu){
 			SDL_SetRenderDrawColor(m_pWindow->getRenderer(), 255, 255, 255, 1);
 			if (m_MenuPrincipal->IsActive())
@@ -89,9 +91,6 @@ public:
 				m_MenuNewTeam->Render();
 			else if (m_MenuPause->IsActive())
 				m_MenuPause->Render();
-		}
-		else{		//Affichage in-game.
-			
 		}
 		m_pWindow->Refresh();
 	}
@@ -243,6 +242,7 @@ public:
 		m_MenuNewGame->AddElement(new CButton("btnCancelNG", "Cancel", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnCancelNG")), 20, (HEIGHT - 66), 162, 33);
 		m_MenuNewGame->getElement("btnCancelNG")->OnClickAction = BtnCancelNG;
 		m_MenuNewGame->AddElement(new CButton("btnPlay", "Play", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnPlay")), (WIDTH - 182), (HEIGHT - 66), 162, 33);
+		m_MenuNewGame->getElement("btnPlay")->OnClickAction = BtnPlay;
 		CSlideShow* SSTemp = new CSlideShow("SSMap", m_Gestionaire->GetFont("FontMenu"), {WIDTH / 2 - 400, 40, 800, 400}, m_Gestionaire->GetSprite("SpriteMapLeft"), m_Gestionaire->GetSprite("SpriteMapRight"));
 		SSTemp->ajouterTexture(4, SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map1")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map2")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map3")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map4")->getSurface()));
 		SSTemp->setOnClickNext(BtnMapNext);
@@ -298,7 +298,9 @@ public:
 	}
 	
 	static void BtnPlay(){
-		m_Game = new CGame(TabMap[((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId()], new CBoussole(m_Gestionaire->GetTexture("compass")->GetTexture(), m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer());//casajoabfiewogberogabhfioehfuiewofbeuiwbfuiobwheulwfw
+		m_Game = new CGame(TabMap[((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId()], new CBoussole(m_Gestionaire->GetTexture("compass")->GetTexture(), m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer(), m_Gestionaire->GetTexture("compass")->GetTexture(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()));
+		m_MenuNewGame->DeActivateMenu();
+		m_Game->Activate();
 	}
 	
 };

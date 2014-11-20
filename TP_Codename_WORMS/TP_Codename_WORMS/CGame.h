@@ -37,9 +37,9 @@ public:
 		m_pListeTeam = new CListeDC<CTeam*>();
 		string temp("Team");
 		char buf[10];
-		for (int i = 0; i < _NbOfTeam; i++){
+		for (Uint8 i = 0; i < _NbOfTeam; i++){
 			temp.append(SDL_itoa(i, buf, 10));
-			m_pListeTeam->AjouterFin(new CTeam(temp, {i * 200, i * 100, i * 50, 1}, _WormTexture, _NbOfWormPerTeam));
+			m_pListeTeam->AjouterFin(new CTeam(temp, {static_cast<Uint8>(i * 200), static_cast<Uint8>(i * 100), static_cast<Uint8>(i * 50), 1}, _WormTexture, _NbOfWormPerTeam));
 		}
 		m_pListeObjets = new CListeDC<CObjets*>();
 		m_pMap = _Map;
@@ -69,7 +69,8 @@ public:
 	void NextTurn(){
 		Uint8 uitemp = m_uiTeamTurn % m_uiNbOfPlayingTeams;
 		m_pListeTeam->AllerA(uitemp);
-		if (m_pListeTeam->ObtenirElement()->IsFocused()) { 
+		if (m_pListeTeam->ObtenirElement()->IsFocused()) {
+			m_pListeTeam->ObtenirElement()->NextTurn();
 			m_pListeTeam->ObtenirElement()->setFocus(false);
 		}
 		m_pListeTeam->AllerA((uitemp + 1) % m_uiNbOfPlayingTeams);
@@ -110,5 +111,10 @@ public:
 	void setNbOfPlayingTeams(Uint8 _NbOfTeams){ m_uiNbOfPlayingTeams = _NbOfTeams; }
 
 	Uint8 getNbOfPlayingTeams(){ return m_uiNbOfPlayingTeams; }
+	
+	bool inGame(){return m_boInPlay;}
+	void Activate(){m_boInPlay = true;}
+	void DeActivate(){m_boInPlay = false;}
+	
 
 };
