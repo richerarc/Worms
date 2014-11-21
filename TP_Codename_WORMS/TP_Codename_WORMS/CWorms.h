@@ -277,7 +277,7 @@ public:
 		//
 		// Initialisation du menu NewGame
 		//
-		m_MenuNewGame->setBackground(m_Gestionaire->GetTexture("MenuBackground2")->GetTexture());
+		m_MenuNewGame->setBackground(m_Gestionaire->GetTexture("MenuBackground")->GetTexture());
 		m_MenuNewGame->AddElement(new CLabel("lblNewGame", "Create a new game", m_Gestionaire->GetFont("FontMenu"), {}), 0, 0, 100, 20);
 		m_MenuNewGame->AddElement(new CButton("btnCancelNG", "Cancel", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnCancelNG")), 20, (HEIGHT - 66), 162, 33);
 		m_MenuNewGame->getElement("btnCancelNG")->OnClickAction = BtnCancelNG;

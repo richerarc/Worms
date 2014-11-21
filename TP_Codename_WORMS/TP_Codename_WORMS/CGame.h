@@ -49,7 +49,7 @@ public:
 		m_pRenderer = _Renderer;
 		m_uiTeamTurn = 0;
 		m_boInPlay = false;
-		CPhysics::setGravity(m_pMap->getGravity());
+		CPhysics::Init(m_pMap->getMap(), m_pMap->getGravity(), m_pMap->getWind());
 	}
 	
 	/*!
