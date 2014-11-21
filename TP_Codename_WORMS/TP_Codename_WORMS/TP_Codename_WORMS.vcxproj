@@ -70,6 +70,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="C2DVector.h" />
     <ClInclude Include="CBoussole.h" />
     <ClInclude Include="CButton.h" />
     <ClInclude Include="CCaisses.h" />
@@ -90,6 +91,7 @@
     <ClInclude Include="CMissiles.h" />
     <ClInclude Include="CMusic.h" />
     <ClInclude Include="CObjets.h" />
+    <ClInclude Include="CPhysic.h" />
     <ClInclude Include="CRessource.h" />
     <ClInclude Include="CSlideShow.h" />
     <ClInclude Include="CSprite.h" />
@@ -98,6 +100,7 @@
     <ClInclude Include="CTextBox.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTimer.h" />
+    <ClInclude Include="CTrajectory.h" />
     <ClInclude Include="CWindow.h" />
     <ClInclude Include="CWorm.h" />
     <ClInclude Include="CWorms.h" />
