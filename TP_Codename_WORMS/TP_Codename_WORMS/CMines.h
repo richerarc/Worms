@@ -36,7 +36,8 @@ public:
 	@return null
 	*/
 	void Draw(SDL_Renderer* _pRenderer){
-		Move();
+		if ((CPhysics::VerifyGroundCollision(m_RectPosition) != GROUND ) && (m_Trajectoire != nullptr))
+			Move();
 		if (boIsExplosed)
 			m_pSprite->Render(_pRenderer, 1);
 		else
@@ -86,11 +87,9 @@ public:
 	}
 
 	void Move(){
-		if ((!(CPhysics::VerifyGroundCollision(m_RectPosition) == GROUND )) && (m_Trajectoire != nullptr)){
 			C2DVector Temp = m_Trajectoire->GetPosition();
 			m_RectPosition.y = Temp.getY();
 			m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
-		}
 	}
 };
 

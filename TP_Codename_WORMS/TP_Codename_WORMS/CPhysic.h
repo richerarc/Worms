@@ -89,10 +89,10 @@ public:
 		bool boLeft = false;
 		bool boRight = false;
 		for (int i = 0; i < _Rect.w; i++){
-			if (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect.y + i + _Rect.h)) + _Rect.x] != TRANSPARENCY && !boGround){
+			if (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect.y + 1 + _Rect.h)) + _Rect.x + i] != TRANSPARENCY && !boGround){
 				boGround = true;
 			}
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 2) + _Rect.x + i] != TRANSPARENCY && !boCeiling){
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1) + _Rect.x + i] != TRANSPARENCY && !boCeiling){
 				boCeiling = true;
 			}
 		}
