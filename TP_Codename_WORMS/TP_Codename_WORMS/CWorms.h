@@ -122,13 +122,34 @@ public:
 #elif defined (_WIN32)
 		strPath.append("\\");
 #endif
-		string FileName[18] = { "Arpegius.ttf", "Btn1.png", "BtnL.png", "BtnR.png", "map1.png", "background1.jpg", "map2.png", "background2.jpg", "map3.png", "background3.jpg", "map4.png", "background4.jpg", "SavedData.dat", "compass.png", "Fleche.png", "MenuBackground.jpg", "WormMoveLeft.png", "SpriteMine.png" };
-		string strFilePath[18];
-		for (int i = 0; i < 18; i++){
+		string FileName[19] = { 
+			"Arpegius.ttf",
+			"Btn1.png",
+			"BtnL.png",
+			"BtnR.png",
+			"map1.png",
+			"background1.jpg",
+			"map2.png",
+			"background2.jpg",
+			"map3.png", 
+			"background3.jpg",
+			"map4.png",
+			"background4.jpg",
+			"SavedData.dat",
+			"compass.png", 
+			"Fleche.png", 
+			"MenuBackground.jpg", 
+			"WormMoveLeft.png", 
+			"SpriteMine.png",
+			"MenuBackground2.png"
+		};
+		string strFilePath[19];
+		for (int i = 0; i < 19; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
 		m_Gestionaire->AjouterTexture(new CTexture("MenuBackground", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[15].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("MenuBackground2", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[18].c_str())));
 		m_Gestionaire->AjouterFont(new CFont("FontMenu", strFilePath[0].c_str(), 30));
 		m_Gestionaire->AjouterTexture(new CTexture("TextureBtn", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("TextureBtnL", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[2].c_str())));
@@ -240,12 +261,13 @@ public:
 		m_pEvent = new SDL_Event();
 		m_Gestionaire = new CGestionnaireRessources();
 		LoadResources(_argv);
-		m_MenuPrincipal->setBackground(m_Gestionaire->GetTexture("MenuBackground")->GetTexture());
+		
 		LoadData();
 
 		//
 		// Initialisation du menu Principal
 		//
+		m_MenuPrincipal->setBackground(m_Gestionaire->GetTexture("MenuBackground")->GetTexture());
 		m_MenuPrincipal->AddElement(new CButton("btnNewGame", "New Game", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 10, 10 }, m_Gestionaire->GetSprite("SpriteBtnNG")), 800, 200, 162, 33);
 		m_MenuPrincipal->AddElement(new CButton("btnQuit", "Quit", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 10, 10 }, m_Gestionaire->GetSprite("SpriteBtnQ")), 800, 500, 162, 33);
 		m_MenuPrincipal->AddElement(new CLabel("lblWorms", "Worms", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 10, 10 }), 100, 100, 400, 200);
@@ -255,6 +277,7 @@ public:
 		//
 		// Initialisation du menu NewGame
 		//
+		m_MenuNewGame->setBackground(m_Gestionaire->GetTexture("MenuBackground2")->GetTexture());
 		m_MenuNewGame->AddElement(new CLabel("lblNewGame", "Create a new game", m_Gestionaire->GetFont("FontMenu"), {}), 0, 0, 100, 20);
 		m_MenuNewGame->AddElement(new CButton("btnCancelNG", "Cancel", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnCancelNG")), 20, (HEIGHT - 66), 162, 33);
 		m_MenuNewGame->getElement("btnCancelNG")->OnClickAction = BtnCancelNG;
@@ -275,6 +298,7 @@ public:
 		CSlideShow* SSTemp3 = new CSlideShow("SSNbrWorm", m_Gestionaire->GetFont("FontMenu"), { 1000, 500, 120, 22 }, m_Gestionaire->GetSprite("SpriteWormLeft"), m_Gestionaire->GetSprite("SpriteWormRight"));
 		SSTemp3->ajouterText(6, new string("1"), new string("2"), new string("3"), new string("4"), new string("5"), new string("6"));
 		m_MenuNewGame->AddElement(SSTemp3, 1000, 500, 120, 22);
+
 
 		//
 		// Initialisation du menu Pause
