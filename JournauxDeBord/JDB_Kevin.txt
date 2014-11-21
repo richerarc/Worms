@@ -33,3 +33,7 @@
 		  CBoussole. J'ai aussi travailler sur quelques sprites(Boussole,Explosion Bazooka) Ajout de comemntaires
 		  tard en soiré (15 min) et je doit demander l'avis a richer pour le tableau d'indice d'équipe participantes.
 		  Total d'heures pour la journée (5h15)
+
+23:42 2014-11-20: J'ai créé le menu pause et fait les fonctionalités qui viennent avec, J'ai fais des modification ici et la
+		  Je vais tester plus en pronfondeur demain. Avec la physique presque complété, nous ne sommes pas trop en retard.
+		  Total d'heures pour aujourd'ui (3h)
