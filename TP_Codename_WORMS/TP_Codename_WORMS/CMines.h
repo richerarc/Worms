@@ -89,6 +89,7 @@ public:
 		if (m_Trajectoire != nullptr){
 			C2DVector Temp = m_Trajectoire->GetPosition();
 			m_RectPosition.y = Temp.getY();
+			m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
 		}
 	}
 };
