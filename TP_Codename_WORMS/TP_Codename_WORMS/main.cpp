@@ -15,13 +15,14 @@
 #define WIDTH 1280
 #define HEIGHT 720
 
-
+#include <time.h>
 #include "CWorms.h"
 
 
 
 
 int main(int argc, char** argv) {
+	srand(time(NULL));
 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);// Initialisation des composantes
 	TTF_Init();				 // SDL et autres librairies.
 	Mix_Init(0);

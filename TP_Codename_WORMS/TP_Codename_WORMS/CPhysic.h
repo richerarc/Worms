@@ -1,3 +1,4 @@
+#define TRANSPARENCY 0 //16777215 //268435455
 #define GROUND 1111
 #define CEILING 2222
 #define LEFT 3333
@@ -21,8 +22,17 @@ private:
 	static int m_MaxSpeed;
 	static int m_MaxWindSpeed;
 	static SDL_Surface * m_Map;
+	static unsigned int m_uiPixel[WIDTH * HEIGHT];
 
 public:
+	
+	
+	static void Init(SDL_Surface* _map, double _gravity, int _maxWind){
+		m_Map = _map;
+		m_Gravity = _gravity;
+		m_MaxWindSpeed = _maxWind;
+	}
+	
 	// Constructeur:
 	//	Parametres: _Gravity - affecte la valeur de la gravité (1 fois par jeu).
 	//				_MaxSpeed - affecte la valeur maximale de l'accélération gravitationnelle.
@@ -79,18 +89,18 @@ public:
 		bool boLeft = false;
 		bool boRight = false;
 		for (int i = 0; i < _Rect.w; i++){
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + _Rect.h) + _Rect.x + i] == 0 && !boGround){
+			if (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect.y + 1 + _Rect.h)) + _Rect.x + i] != TRANSPARENCY && !boGround){
 				boGround = true;
 			}
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 2) + _Rect.x + i] == 0 && !boCeiling){
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1) + _Rect.x + i] != TRANSPARENCY && !boCeiling){
 				boCeiling = true;
 			}
 		}
 		for (int i = 0; i < _Rect.h; i++){
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1 + i) + _Rect.x + _Rect.w + 1] == 0 && !boRight){
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1 + i) + _Rect.x + _Rect.w + 1] != TRANSPARENCY && !boRight){
 				boRight = true;
 			}
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1 + i) + _Rect.x - 1] == 0 && !boLeft){
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1 + i) + _Rect.x - 1] != TRANSPARENCY && !boLeft){
 				boLeft = true;
 			}
 		}
@@ -239,3 +249,7 @@ double CPhysics::m_Gravity = 1;
 int CPhysics::m_MaxSpeed = 1;
 int CPhysics::m_MaxWindSpeed = 50;
 SDL_Surface * CPhysics::m_Map = nullptr;
+unsigned int CPhysics::m_uiPixel[WIDTH * HEIGHT];
+
+
+

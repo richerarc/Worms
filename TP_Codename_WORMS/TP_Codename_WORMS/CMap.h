@@ -77,4 +77,8 @@ public:
 	int getMine(){
 		return m_uiNbrMine;
 	}
+	
+	SDL_Surface* getMap(){
+		return m_Map;
+	}
 };

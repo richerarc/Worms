@@ -133,7 +133,8 @@ public:
 	 @return null
 	 */
 	void Draw(SDL_Renderer * _Renderer){
-		SDL_SetRenderDrawColor(_Renderer, 210, 214, 217, 1);
+		SDL_SetRenderDrawBlendMode(_Renderer, SDL_BLENDMODE_BLEND);
+		SDL_SetRenderDrawColor(_Renderer, 255, 255, 255, 150);
 		SDL_RenderFillRect(_Renderer, &m_RectFilled);
 		m_btnNext->Draw(_Renderer);
 		m_btnPrev->Draw(_Renderer);

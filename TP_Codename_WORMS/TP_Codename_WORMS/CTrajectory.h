@@ -25,6 +25,7 @@ public:
 	~CTrajectory(){
 		delete m_StartPos;
 		delete m_TrajectoryInitSpeed;
+		delete m_Acceleration;
 	}
 
 	/*
@@ -36,11 +37,11 @@ public:
 	*/
 	C2DVector GetPosition(){
 		double dTimeVariation = (SDL_GetTicks() - m_lTrajectoryStartTime);
-		double dTimeVarExp2 = dTimeVariation * dTimeVariation;
+		//double dTimeVarExp2 = dTimeVariation * dTimeVariation;
 		C2DVector Position = C2DVector(m_TrajectoryInitSpeed->getX() * dTimeVariation + m_Acceleration->getX()
-			/ 2 * dTimeVarExp2 + m_StartPos->getX(),
+			/ 2 * dTimeVariation + m_StartPos->getX(),
 			m_TrajectoryInitSpeed->getY() * dTimeVariation + m_Acceleration->getY()
-			/ 2 * dTimeVarExp2 + m_StartPos->getY());
+			/ 2 * dTimeVariation + m_StartPos->getY());
 		return Position;
 	}
 

@@ -29,6 +29,8 @@ public:
 	@Permet de détruire les objets créés en mémoire
 	*/
 	~CEntity(){
+		delete m_Trajectoire;
+		m_Trajectoire = nullptr;
 	}
 
 	/*!
