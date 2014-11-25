@@ -88,16 +88,13 @@ public:
 		m_pBoussole->Draw(m_pRenderer);
 		m_pListeTeam->AllerDebut();
 		m_pListeObjets->AllerDebut();
-
-		for (int i = 0; i < m_uiNbOfPlayingTeams; i++)
-		{
-			m_pListeTeam->ObtenirElement()->draw(m_pRenderer);
-			m_pListeTeam->AllerSuivant();
-		}
-		
 		for (int i = 0; i < m_pListeObjets->Count(); i++){
 			m_pListeObjets->ObtenirElement()->Draw(m_pRenderer);
 			m_pListeObjets->AllerSuivant();
+		}
+		for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
+			m_pListeTeam->ObtenirElement()->draw(m_pRenderer);
+			m_pListeTeam->AllerSuivant();
 		}
 	}
 	
