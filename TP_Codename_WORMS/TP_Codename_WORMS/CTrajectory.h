@@ -12,7 +12,6 @@ private:
 	C2DVector* m_StartPos;
 	C2DVector* m_TrajectoryInitSpeed;
 	C2DVector* m_Acceleration;
-	C2DVector* m_LastPos;
 	C2DVector* m_ActualPos;
 public:
 	//Constructeur...
@@ -21,7 +20,6 @@ public:
 		m_StartPos = _StartPos;
 		m_TrajectoryInitSpeed = _InitSpeed;
 		m_Acceleration = _Acc;
-		m_LastPos = nullptr;
 		m_ActualPos = m_StartPos;
 	}
 
@@ -30,7 +28,6 @@ public:
 		delete m_StartPos;
 		delete m_TrajectoryInitSpeed;
 		delete m_Acceleration;
-		delete m_LastPos;
 		delete m_ActualPos;
 	}
 
@@ -42,19 +39,18 @@ public:
 	Return : Vecteur représentant la position au temps passé en paramètre
 	*/
 	C2DVector* GetPosition(){
-		if (m_LastPos == nullptr)
-			m_LastPos = m_StartPos;
-		else{
-			delete m_LastPos;
-			m_LastPos = m_ActualPos;
-		}
+		/*
+		delete m_LastPos;
+		C2DVector Tmp(m_ActualPos->getX(),m_ActualPos->getY());
+
+		m_LastPos = new C2DVector(Tmp);
+		*/
+
 		double dTimeVariation = (SDL_GetTicks() - m_lTrajectoryStartTime);
 		//double dTimeVarExp2 = dTimeVariation * dTimeVariation;
-		if (m_ActualPos != nullptr)
-			delete m_ActualPos;
-		m_ActualPos = new C2DVector(m_TrajectoryInitSpeed->getX() * dTimeVariation + m_Acceleration->getX()
-			/ 2 * dTimeVariation + m_StartPos->getX(),
-			m_TrajectoryInitSpeed->getY() * dTimeVariation + m_Acceleration->getY()
+		m_ActualPos->setX(m_TrajectoryInitSpeed->getX() * dTimeVariation + m_Acceleration->getX()
+			/ 2 * dTimeVariation + m_StartPos->getX());
+		m_ActualPos->setY(m_TrajectoryInitSpeed->getY() * dTimeVariation + m_Acceleration->getY()
 			/ 2 * dTimeVariation + m_StartPos->getY());
 		return m_ActualPos;
 	}
@@ -96,4 +92,11 @@ public:
 		*/
 	}
 
+	/*
+	Method : GetLastPosition
+	Brief : Retourne la position précédente
+	*/
+	C2DVector* GetLastPosition(){
+		return m_ActualPos;
+	}
 };
