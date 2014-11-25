@@ -10,7 +10,6 @@ class CMines : public CObjets{
 private:
 
 	//Données membres:
-	CSprite* m_pSprite; // Texture de l'image à afficher.
 	bool boIsExplosed; //Donnée représentant si l'objet est explosé (true) ou non (false)
 
 public:
@@ -23,9 +22,7 @@ public:
 	@Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
 
-	CMines(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _Texture) :CObjets(_iRayon, _RectPos){
-		m_pSprite = new CSprite("", _Texture, 2, 1, 500, 0);
-		m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
+	CMines(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _Texture) :CObjets(_iRayon, _RectPos, _Texture){
 		m_iRayon = _iRayon;
 		boIsExplosed = false;
 		m_Trajectoire = CPhysics::Propulsion(new C2DVector(m_RectPosition.x, m_RectPosition.y), new C2DVector(0, 0), new C2DVector(0, CPhysics::GetGravity()));
@@ -36,12 +33,7 @@ public:
 	@return null
 	*/
 	void Draw(SDL_Renderer* _pRenderer){
-		if ((CPhysics::VerifyGroundCollision(m_RectPosition) != GROUND ) && (m_Trajectoire != nullptr))
-			Move();
-		if (boIsExplosed)
-			m_pSprite->Render(_pRenderer, 1);
-		else
-			m_pSprite->Render(_pRenderer, 0);
+		SDL_RenderCopy(_pRenderer, m_pTexture, NULL, &m_RectPosition);
 	}
 
 	/*!
@@ -86,11 +78,14 @@ public:
 	~CMines(){
 	}
 
+<<<<<<< Updated upstream
 	void Move(){
 			C2DVector* Temp = m_Trajectoire->GetPosition();
 			m_RectPosition.y = Temp->getY();
 			m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
 	}
+=======
+>>>>>>> Stashed changes
 };
 
 #endif

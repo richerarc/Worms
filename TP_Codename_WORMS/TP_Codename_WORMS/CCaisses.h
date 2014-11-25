@@ -9,7 +9,6 @@
 class CCaisses : public CObjets{
 private:
 	//Données membres:
-	SDL_Texture* m_pTexture; // Texture de l'image à afficher.
 	bool boIsExplosed;//Donnée représentant si l'objet est explosé (true) ou non (false).
 
 public:
@@ -20,8 +19,7 @@ public:
 	@param _pTexture : texture de l'image à afficher
 	@Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
-	CCaisses(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _pTexture) :CObjets(_iRayon, _RectPos){
-		m_pTexture = _pTexture;
+	CCaisses(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _pTexture) :CObjets(_iRayon, _RectPos, m_pTexture){
 		m_iRayon = _iRayon;
 		boIsExplosed = false;
 	}

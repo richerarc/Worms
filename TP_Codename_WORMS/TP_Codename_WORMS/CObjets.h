@@ -20,7 +20,7 @@ public:
 	@Classe héritant de CEntity, elle prend donc les paramètres de CEntity.
 	*/
 
-	CObjets(int _iRayon, SDL_Rect _RectPos) :CEntity(_RectPos){
+	CObjets(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _Texture) :CEntity(_RectPos, _Texture){
 		m_iRayon = _iRayon;
 	}
 	/*!

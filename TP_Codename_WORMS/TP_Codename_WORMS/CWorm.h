@@ -31,7 +31,7 @@ public:
 	 @param _RectPos : la position du sprite
 	@Classe héritant de CEntity
 	*/
-	CWorm(string _Name, CSprite* _pSprite,CFont* _Font,SDL_Rect _RectPos) :CEntity(_RectPos){
+	CWorm(string _Name, SDL_Texture* _Texture, CSprite* _pSprite,CFont* _Font,SDL_Rect _RectPos) :CEntity(_RectPos, _Texture){
 		m_strName = _Name;
 		m_pSprite = _pSprite;
 		m_pSprite->setSpritePos(_RectPos.x, _RectPos.y);
