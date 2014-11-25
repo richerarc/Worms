@@ -15,7 +15,8 @@
 *.tlog
 *.lastbuiltstate
 *.exe
-*.idb
+TP_Codename_WORMS\TP_Codename_WORMS\Debug\*.idb
+TP_Codename_WORMS/TP_Codename_WORMS/Debug/*.idb
 [Rr]elease/
 x64/
 build/
