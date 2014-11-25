@@ -89,18 +89,18 @@ public:
 		bool boLeft = false;
 		bool boRight = false;
 		for (int i = 0; i < _Rect.w; i++){
-			if (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect.y + 1 + _Rect.h)) + _Rect.x + i] != TRANSPARENCY && !boGround){
+			if (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect.y + _Rect.h)) + _Rect.x + i] > TRANSPARENCY && !boGround){
 				boGround = true;
 			}
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1) + _Rect.x + i] != TRANSPARENCY && !boCeiling){
+			if (_Rect.y > 0 && ((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1) + _Rect.x + i] > TRANSPARENCY && !boCeiling){
 				boCeiling = true;
 			}
 		}
 		for (int i = 0; i < _Rect.h; i++){
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1 + i) + _Rect.x + _Rect.w + 1] != TRANSPARENCY && !boRight){
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x + _Rect.w] > TRANSPARENCY && !boRight){
 				boRight = true;
 			}
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1 + i) + _Rect.x - 1] != TRANSPARENCY && !boLeft){
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x - 1] > TRANSPARENCY && !boLeft){
 				boLeft = true;
 			}
 		}
