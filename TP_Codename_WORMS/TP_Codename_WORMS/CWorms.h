@@ -250,6 +250,8 @@ public:
 		delete m_Gestionaire;
 		m_SaveFile->close();
 		delete m_SaveFile;
+		for (int i = 0; i < 4; i++)
+			delete TabMap[i];
 	}
 
 	static void Init(string _argv){
@@ -369,6 +371,7 @@ public:
 		delete m_Game;
 		m_Game = new CGame(TabMap[((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId()], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire);
 		m_MenuPause->DeActivateMenu();
+		m_boInMenu = false;
 		m_Game->Activate();
 	}
 	static void BtnResume(){
