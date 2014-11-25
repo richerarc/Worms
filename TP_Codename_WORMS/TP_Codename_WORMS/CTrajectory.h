@@ -93,7 +93,7 @@ public:
 	Discussion: MRUA : Vf^2 - Vi^2 = 2(xf-xi)*a
 	*/
 	C2DVector GetSpeed(){
-		C2DVector* TmpPos = GetPosition();
+		C2DVector* TmpPos = UpdatePosition();
 		return C2DVector(
 			sqrt(2 * (TmpPos->getX() - m_StartPos->getX())* m_Acceleration->getX()),
 			sqrt(2 * (TmpPos->getY() - m_StartPos->getY())* m_Acceleration->getY())

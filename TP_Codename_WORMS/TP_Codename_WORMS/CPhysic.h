@@ -94,7 +94,7 @@ public:
 
 	//À VÉRIFIER + optimisations possibles
 	//static int VerifyGroundCollision(SDL_Rect _Rect,CTrajectory* _Traj){
-	static int VerifyGroundCollision(SDL_Rect _Rect){
+	static int VerifyGroundCollision(SDL_Rect _Rect, CTrajectory* _Traj){
 		C2DVector TmpInitPos();
 		C2DVector TmpFinalPos();
 		bool boGround = false;
