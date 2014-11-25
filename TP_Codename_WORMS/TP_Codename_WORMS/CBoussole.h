@@ -41,7 +41,6 @@ public:
 	@discussion He is dead.
 	*/
 	~CBoussole(){
-		SDL_DestroyTexture(m_pArrow);
 	}
 
 	/*!

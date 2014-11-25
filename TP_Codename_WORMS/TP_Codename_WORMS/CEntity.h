@@ -41,9 +41,12 @@ public:
 	}
 	
 	virtual void Move(){
+		int iTemp = CPhysics::VerifyGroundCollision(m_RectPosition, m_Trajectoire);
+		if ((iTemp == GROUND) || (iTemp == GROUNDLEFT) || (iTemp == GROUNDRIGHT))
+			m_EntityState = Immobile;
 		switch (m_EntityState) {
 			case Chute:
-				m_pForce = m_Trajectoire->GetPosition();
+				m_pForce = m_Trajectoire->UpdatePosition();
 				m_RectPosition.y = m_pForce->getY();
 				m_RectPosition.x = m_pForce->getX();
     			break;
