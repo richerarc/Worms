@@ -61,6 +61,7 @@ public:
 		delete m_pListeTeam;
 		delete m_pListeObjets;
 		delete m_pBoussole;
+		CPhysics::Annihilate();
 	}
 
 	/*!

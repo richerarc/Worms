@@ -28,6 +28,7 @@ public:
 	
 	
 	static void Init(SDL_Surface* _map, double _gravity, int _maxWind){
+		m_Wind = new C2DVector(0., 0.);
 		m_Map = _map;
 		m_Gravity = _gravity;
 		m_MaxWindSpeed = _maxWind;
