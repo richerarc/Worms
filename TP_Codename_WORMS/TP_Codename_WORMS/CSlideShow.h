@@ -77,7 +77,10 @@ public:
 				(_Event.button.x <= (uiXPrev + m_btnPrev->getWidth())) &&
 				(_Event.button.y >= uiYPrev) &&
 				(_Event.button.y <= (uiYPrev + m_btnPrev->getHeight()))){
-				m_uiCurrentSlide = (m_uiCurrentSlide - 1) % m_uiCount;
+				if (m_uiCurrentSlide == 0)
+					m_uiCurrentSlide = m_uiCount - 1;
+				else
+					m_uiCurrentSlide = m_uiCurrentSlide - 1;
 				m_btnPrev->HandleEvent(_Event);
 			}
 			setlblContain();
