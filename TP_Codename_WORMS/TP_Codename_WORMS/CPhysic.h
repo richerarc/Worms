@@ -93,7 +93,10 @@ public:
 	//Valeur de la transparence : 16777215
 
 	//À VÉRIFIER + optimisations possibles
+	//static int VerifyGroundCollision(SDL_Rect _Rect,CTrajectory* _Traj){
 	static int VerifyGroundCollision(SDL_Rect _Rect){
+		C2DVector TmpInitPos();
+		C2DVector TmpFinalPos();
 		bool boGround = false;
 		bool boCeiling = false;
 		bool boLeft = false;

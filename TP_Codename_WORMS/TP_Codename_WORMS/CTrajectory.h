@@ -13,6 +13,7 @@ private:
 	C2DVector* m_TrajectoryInitSpeed;
 	C2DVector* m_Acceleration;
 	C2DVector* m_ActualPos;
+	C2DVector* m_LastPos;
 public:
 	//Constructeur...
 	CTrajectory(C2DVector* _StartPos, C2DVector* _InitSpeed, C2DVector* _Acc){
@@ -21,6 +22,7 @@ public:
 		m_TrajectoryInitSpeed = _InitSpeed;
 		m_Acceleration = _Acc;
 		m_ActualPos = m_StartPos;
+		m_LastPos = new C2DVector(m_ActualPos->getX(), m_ActualPos->getY());
 	}
 
 	//Destructeur...
@@ -29,6 +31,7 @@ public:
 		delete m_TrajectoryInitSpeed;
 		delete m_Acceleration;
 		delete m_ActualPos;
+		delete m_LastPos;
 	}
 
 	/*
@@ -45,7 +48,8 @@ public:
 
 		m_LastPos = new C2DVector(Tmp);
 		*/
-
+		m_LastPos->setX(m_ActualPos->getX());
+		m_LastPos->setY(m_ActualPos->getY());
 		double dTimeVariation = (SDL_GetTicks() - m_lTrajectoryStartTime);
 		//double dTimeVarExp2 = dTimeVariation * dTimeVariation;
 		m_ActualPos->setX(m_TrajectoryInitSpeed->getX() * dTimeVariation + m_Acceleration->getX()
@@ -54,6 +58,34 @@ public:
 			/ 2 * dTimeVariation + m_StartPos->getY());
 		return m_ActualPos;
 	}
+	/*
+	C2DVector* GetPosition(){
+		if (m_LastPos != nullptr)
+			delete m_LastPos;
+		m_LastPos = m_ActualPos;
+		
+		delete m_LastPos;
+		C2DVector Tmp(m_ActualPos->getX(),m_ActualPos->getY());
+
+		m_LastPos = new C2DVector(Tmp);
+		
+
+	double dTimeVariation = (SDL_GetTicks() - m_lTrajectoryStartTime);
+
+	C2DVector Tmp(m_TrajectoryInitSpeed->getX() * dTimeVariation + m_Acceleration->getX()
+		/ 2 * dTimeVariation + m_StartPos->getX(), m_TrajectoryInitSpeed->getY() * dTimeVariation + m_Acceleration->getY()
+		/ 2 * dTimeVariation + m_StartPos->getY());
+
+	//double dTimeVarExp2 = dTimeVariation * dTimeVariation;
+	m_ActualPos = new C2DVector(Tmp);
+	return Tmp;
+}
+	*/
+
+
+
+
+
 
 	/*
 	Method : GetSpeed
@@ -97,6 +129,14 @@ public:
 	Brief : Retourne la position précédente
 	*/
 	C2DVector* GetLastPosition(){
+		return m_LastPos;
+	}
+
+	/*
+	Method : GetActualPosition
+	Brief : Retourne la position actuelle (sans bouger)
+	*/
+	C2DVector* GetActualPosition(){
 		return m_ActualPos;
 	}
 };
