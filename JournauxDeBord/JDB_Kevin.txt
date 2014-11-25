@@ -37,3 +37,7 @@
 23:42 2014-11-20: J'ai créé le menu pause et fait les fonctionalités qui viennent avec, J'ai fais des modification ici et la
 		  Je vais tester plus en pronfondeur demain. Avec la physique presque complété, nous ne sommes pas trop en retard.
 		  Total d'heures pour aujourd'ui (3h)
+
+17:39 2014-11-25: J'ai fait des changement dans les sprites, des optimisations pour le menu pause, moi et richer on a changer la physique.
+		  On a ajouter des vecteurs 2D et renommé la classe deja existante en CPosition. J'ai aussi aider Jessy pour la barre de
+		  Force du bazooka (3h et des poussieres)
