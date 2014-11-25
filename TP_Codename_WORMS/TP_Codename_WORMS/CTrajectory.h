@@ -41,7 +41,7 @@ public:
 	_Acceleration : Accélération appliquée à la trajectoire
 	Return : Vecteur représentant la position au temps passé en paramètre
 	*/
-	C2DVector* GetPosition(){
+	C2DVector* UpdatePosition(){
 		/*
 		delete m_LastPos;
 		C2DVector Tmp(m_ActualPos->getX(),m_ActualPos->getY());
