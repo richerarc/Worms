@@ -46,24 +46,6 @@ public:
 	}
 
 	/*
-	Method : Bounce
-	Brief : Procédure qui ajuste la trajectoire suite à un rebond
-	Params :
-	_Speed : Vitesse à l'impact
-	_Slope : Pente du point d'impact
-	_Pos : Position de l'impact
-	_Direction : Indique si le projectile vient d'en haut ou d'en bas
-	*/
-	void Bounce(C2DVector _Speed, double _Slope, C2DVector _Pos, int _Direction){
-		//delete m_StartPos;
-		//double Angle = acos(_Slope * _Pos.getX() / sqrt(_Speed.getX()*_Speed.getX() + _Speed.getY()*_Speed.getY()));
-		//_Pos.setX(_Pos.getX() * )
-		//m_StartPos = new C2DVector(_Pos);
-		//m_TrajectoryInitSpeed = _InitSpeed;
-		//m_lTrajectoryStartTime = SDL_GetTicks();
-	}
-
-	/*
 	Method : GetSpeed
 	Brief : Fonction qui retourne la vitesse actuelle
 	Discussion: MRUA : Vf^2 - Vi^2 = 2(xf-xi)*a
@@ -74,4 +56,29 @@ public:
 			sqrt(2 * (GetPosition().getY() - m_StartPos->getY())* m_Acceleration->getY())
 			);
 	}
+
+	/*
+	Method : Bounce
+	Brief : Procédure qui ajuste la trajectoire suite à un rebond
+	Params :
+	_Speed : Vitesse à l'impact
+	_Slope : Pente du point d'impact
+	_Pos : Position de l'impact
+	_Direction : Indique si le projectile vient d'en haut ou d'en bas
+	*/
+	void Bounce(double _Slope, C2DVector _Pos, int _Direction){
+		//double Angle = acos(_Slope * _Pos.getX() / sqrt(_Speed.getX()*_Speed.getX() + _Speed.getY()*_Speed.getY()));
+		//_Pos.setX(_Pos.getX() * )
+		/*
+		double AngleA = atan(_Slope);
+		C2DVector ImpactSpeed = GetSpeed();
+		double TrajSlope = sqrt(ImpactSpeed.getX()*ImpactSpeed.getX() + ImpactSpeed.getY()*ImpactSpeed.getY());
+		double AngleB = 
+		delete m_StartPos;
+		m_StartPos = new C2DVector(_Pos);
+		//m_TrajectoryInitSpeed = _InitSpeed;
+		m_lTrajectoryStartTime = SDL_GetTicks();
+		*/
+	}
+
 };
