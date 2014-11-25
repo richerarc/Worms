@@ -61,3 +61,15 @@ J'ai terminer les classes:
 -CGrenades
 -CCaisses et CCaisseSoin 
 -CExplosion.
+
+22 novembre 19h à 20h30:
+J'ai commencé à construire la classe bazouka qui permettera l'affichage du bazouka , de sa rotation et de son utilisation.
+
+23 novembre 17h à 18h:
+Continuation + test dans un fichier appart afin de ne rien briser :
+le bazouka apparait lors de la touche b (changer cela pour la selection) apparait à une position définie (changer cela pour la pos du worms) et rotate
+
+24 novembre 18h à 19h:
+Affichage du sprite de la barre de lancement au dessus du bazouka lorsqu'on actionne la touche space. Plusieurs problèmes à regler.
+
+
