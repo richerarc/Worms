@@ -95,28 +95,48 @@ public:
 	//À VÉRIFIER + optimisations possibles
 	//static int VerifyGroundCollision(SDL_Rect _Rect,CTrajectory* _Traj){
 	static int VerifyGroundCollision(SDL_Rect _Rect, CTrajectory* _Traj){
-		C2DVector TmpInitPos();
-		C2DVector TmpFinalPos();
+		C2DVector TmpInitPos(_Traj->GetLastPosition()->getX(), _Traj->GetLastPosition()->getY());
+		C2DVector TmpFinalPos(_Traj->GetActualPosition()->getX(), _Traj->GetActualPosition()->getY());
+		int VarX = TmpFinalPos.getX() - TmpInitPos.getX();
+		int VarY = TmpFinalPos.getY() - TmpInitPos.getY();
 		bool boGround = false;
 		bool boCeiling = false;
 		bool boLeft = false;
 		bool boRight = false;
-		for (int i = 0; i < _Rect.w; i++){
-			if (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect.y + _Rect.h)) + _Rect.x + i] > TRANSPARENCY && !boGround){
-				boGround = true;
+		//for (int h = 0; h <= VarX || h <= VarY; h++){
+			//if (VarX == VarY){
+				//_Rect.x++;
+				//_Rect.y++;
+			//}
+			//else{
+				//if (VarX > VarY){
+					//_Rect.x++;
+					//_Rect.y = _Rect.y + (h)*VarX/VarY;
+				//}
+				//else {
+					//_Rect.y++;
+				//	_Rect.x = _Rect.x + (h)*VarX/VarY;
+				//}
+			//}
+			//_Rect.x = _Rect.x + h * VarY / VarX;
+			//_Rect.y = _Rect.y + h * VarX / VarY;
+			for (int i = 0; i < _Rect.w; i++){
+				if (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect.y + _Rect.h)) + _Rect.x + i] > TRANSPARENCY && !boGround){
+					boGround = true;
+				}
+				if (_Rect.y > 0 && ((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1) + _Rect.x + i] > TRANSPARENCY && !boCeiling){
+					boCeiling = true;
+				}
 			}
-			if (_Rect.y > 0 && ((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1) + _Rect.x + i] > TRANSPARENCY && !boCeiling){
-				boCeiling = true;
+			for (int i = 0; i < _Rect.h; i++){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x + _Rect.w] > TRANSPARENCY && !boRight){
+					boRight = true;
+				}
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x - 1] > TRANSPARENCY && !boLeft){
+					boLeft = true;
+				}
 			}
-		}
-		for (int i = 0; i < _Rect.h; i++){
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x + _Rect.w] > TRANSPARENCY && !boRight){
-				boRight = true;
-			}
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x - 1] > TRANSPARENCY && !boLeft){
-				boLeft = true;
-			}
-		}
+		//}
 		if (boGround){
 			if (boCeiling)
 				return GROUNDCEILING;
