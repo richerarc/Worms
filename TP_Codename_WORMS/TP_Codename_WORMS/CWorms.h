@@ -6,7 +6,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "C2DVector.h"
+#include "CPosition.h"
 #include "CTrajectory.h"
 #include "CPhysic.h"
 #include "CTimer.h"

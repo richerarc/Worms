@@ -25,7 +25,7 @@ public:
 	CMines(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _Texture) :CObjets(_iRayon, _RectPos, _Texture){
 		m_iRayon = _iRayon;
 		boIsExplosed = false;
-		m_Trajectoire = CPhysics::Propulsion(new C2DVector(m_RectPosition.x, m_RectPosition.y), new C2DVector(0, 0), new C2DVector(0, CPhysics::GetGravity()));
+		
 	}
 	/*!
 	@method Draw

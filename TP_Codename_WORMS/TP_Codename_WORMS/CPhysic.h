@@ -17,7 +17,7 @@
 
 class CPhysics{
 private:
-	static C2DVector * m_Wind;
+	static CPosition * m_Wind;
 	static double m_Gravity;
 	static int m_MaxSpeed;
 	static int m_MaxWindSpeed;
@@ -28,7 +28,7 @@ public:
 	
 	
 	static void Init(SDL_Surface* _map, double _gravity, int _maxWind){
-		m_Wind = new C2DVector(0., 0.);
+		m_Wind = new CPosition(0., 0.);
 		m_Map = _map;
 		m_Gravity = _gravity;
 		m_MaxWindSpeed = _maxWind;
@@ -95,8 +95,8 @@ public:
 	//À VÉRIFIER + optimisations possibles
 	//static int VerifyGroundCollision(SDL_Rect _Rect,CTrajectory* _Traj){
 	static int VerifyGroundCollision(SDL_Rect _Rect, CTrajectory* _Traj){
-		C2DVector TmpInitPos(_Traj->GetLastPosition()->getX(), _Traj->GetLastPosition()->getY());
-		C2DVector TmpFinalPos(_Traj->GetActualPosition()->getX(), _Traj->GetActualPosition()->getY());
+		CPosition TmpInitPos(_Traj->GetLastPosition()->getX(), _Traj->GetLastPosition()->getY());
+		CPosition TmpFinalPos(_Traj->GetActualPosition()->getX(), _Traj->GetActualPosition()->getY());
 		int VarX = TmpFinalPos.getX() - TmpInitPos.getX();
 		int VarY = TmpFinalPos.getY() - TmpInitPos.getY();
 		bool boGround = false;
@@ -172,7 +172,7 @@ public:
 	_Direction : Direction de laquelle vient l'entité impliquée
 	Discussion : À FAIRE : Évaluer une collision "de coté"
 	*/
-	static double EvaluateSlope (C2DVector* _Pos, int _Direction){
+	static double EvaluateSlope (CPosition* _Pos, int _Direction){
 		double ValueTab[9];
 		SDL_Rect _Rect;
 		_Rect.h = 9;
@@ -203,7 +203,7 @@ public:
 	//Méthode: Fall:	Calcule la trajectoire d'un glissement d'une entité.
 	//			Paramètres:	_Vector - Vecteur(vitesse et direction) initiale du glissement.
 	//						_X et _Y - Positions en X et en Y intiales de l'entité.
-	static CTrajectory * Slide(C2DVector * _Vector, int _X, int _Y){
+	static CTrajectory * Slide(CPosition * _Vector, int _X, int _Y){
 		return nullptr;
 	}
 
@@ -213,7 +213,7 @@ public:
 	_PosInit : Position initiale de la propulsion
 	_Vit : Vitesse initiale de la propulsion
 	*/
-	static CTrajectory* Propulsion(C2DVector* _PosInit, C2DVector* _Vit, C2DVector* _Acc){
+	static CTrajectory* Propulsion(CPosition* _PosInit, CPosition* _Vit, CPosition* _Acc){
 		return new CTrajectory(_PosInit, _Vit, _Acc);
 	}
 
@@ -267,7 +267,7 @@ public:
 	}
 
 	//Accesseurs...
-	static C2DVector* GetWind(){
+	static CPosition* GetWind(){
 		return m_Wind;
 	}
 	static double GetGravity(){
@@ -277,7 +277,7 @@ public:
 		m_Gravity = _d;
 	}
 };
-C2DVector * CPhysics::m_Wind = new C2DVector(0., 0.);
+CPosition * CPhysics::m_Wind = new CPosition(0., 0.);
 double CPhysics::m_Gravity = 1;
 int CPhysics::m_MaxSpeed = 1;
 int CPhysics::m_MaxWindSpeed = 50;

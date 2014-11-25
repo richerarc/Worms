@@ -15,7 +15,7 @@ protected:
 	CTrajectory* m_Trajectoire;
 	unsigned int m_EntityState;
 	SDL_Texture* m_pTexture;
-	C2DVector* m_pForce;
+	CPosition* m_pForce;
 public:
 
 	/*!
@@ -29,6 +29,7 @@ public:
 		m_Trajectoire = nullptr;
 		m_EntityState = 0;
 		m_pTexture = _Texture;
+		m_Trajectoire = CPhysics::Propulsion(new CPosition(m_RectPosition.x, m_RectPosition.y), new CPosition(0, 0), new CPosition(0, CPhysics::GetGravity()));
 	}
 
 	/*!

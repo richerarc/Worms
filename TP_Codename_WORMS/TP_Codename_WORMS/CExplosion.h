@@ -4,7 +4,7 @@
 class CExplosion{
 private:
 	CSprite* m_pSprite;//Donnée membre représentant le sprite d'explosion.
-	C2DVector* m_pPosition; //Donnée membre représentant la position de l'explosion.
+	CPosition* m_pPosition; //Donnée membre représentant la position de l'explosion.
 
 public:
 	/*!

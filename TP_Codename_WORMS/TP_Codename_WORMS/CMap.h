@@ -72,7 +72,7 @@ public:
 		return m_uiMaxWind;
 	}
 	int getGravity(){
-		return m_uiMaxWind;
+		return m_uiGravity;
 	}
 	int getMine(){
 		return m_uiNbrMine;
