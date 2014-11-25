@@ -68,24 +68,12 @@ public:
 		m_RectPosition.y = _iy;
 	}
 
-
-
-
 	/*!
 	@Destructeur:
 	@Permet de détruire les objets créés en mémoire
 	*/
 	~CMines(){
 	}
-
-<<<<<<< Updated upstream
-	void Move(){
-			C2DVector* Temp = m_Trajectoire->GetPosition();
-			m_RectPosition.y = Temp->getY();
-			m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
-	}
-=======
->>>>>>> Stashed changes
 };
 
 #endif
