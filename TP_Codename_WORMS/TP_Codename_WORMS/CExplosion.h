@@ -4,6 +4,7 @@
 class CExplosion{
 private:
 	CSprite* m_pSprite;//Donnée membre représentant le sprite d'explosion.
+	C2DVector* m_pPosition; //Donnée membre représentant la position de l'explosion.
 
 public:
 	/*!
@@ -14,6 +15,7 @@ public:
 	*/
 	CExplosion(CSprite* _Sprite){
 		m_pSprite = _Sprite;
+		m_pSprite->setSpritePos(m_pPosition->getX(), m_pPosition->getY());
 	}
 	/*!
 	@method Draw
