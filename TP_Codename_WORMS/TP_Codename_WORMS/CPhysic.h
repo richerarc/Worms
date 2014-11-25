@@ -31,6 +31,15 @@ public:
 		m_Map = _map;
 		m_Gravity = _gravity;
 		m_MaxWindSpeed = _maxWind;
+		RedefineWind();
+	}
+	
+	static void Annihilate(){
+		m_Map = nullptr;
+		m_Gravity = 0;
+		m_MaxWindSpeed = 0;
+		delete m_Wind;
+		m_Wind = nullptr;
 	}
 	
 	// Constructeur:
