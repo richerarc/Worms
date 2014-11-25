@@ -51,7 +51,6 @@ private:
 	static SDL_Event* m_pEvent;						// Event SDL
 	static bool m_boRun;							// Indique si le jeu est en terminé ou non.
 	static bool m_boInMenu;							// Indique si on se trouve dans un menu.
-	static bool m_boPause;							// Indique si le jeu est en pause.
 	static CGestionnaireRessources* m_Gestionaire;	// Gestionnaire de Resource pour le Worms
 	static CMap* TabMap[5];
 	static fstream* m_SaveFile;
@@ -73,23 +72,21 @@ public:
 				}
 
 				// Event In-Game.
-				switch (m_pEvent->key.keysym.sym) {
-				case SDLK_ESCAPE:
-					m_MenuPause->ActivateMenu();
-					m_boInMenu = true;
-					m_boPause = true;
-					break;
+				if ((m_Game != nullptr) && m_Game->inGame()){
+					m_Game->HandleEvent(*m_pEvent);
+					if (m_pEvent->key.keysym.sym == SDLK_ESCAPE){
+						m_MenuPause->ActivateMenu();
+						m_boInMenu = true;
+					}
 				}
 			}
 		}
 	}
 
 	static void Render(){
-		if (!m_boPause){
 		SDL_RenderClear(m_pWindow->getRenderer());
 			if ((m_Game != nullptr) && m_Game->inGame())
 				m_Game->Render();
-		}
 		if (m_boInMenu){
 			SDL_SetRenderDrawColor(m_pWindow->getRenderer(), 255, 255, 255, 1);
 			if (m_MenuPrincipal->IsActive())
@@ -366,7 +363,7 @@ public:
 	static void BtnMainMenu(){
 		m_Game->DeActivate();
 		delete m_Game;
-		m_boPause = false;
+
 		m_Game = nullptr;
 		m_MenuPrincipal->ActivateMenu();
 		m_boInMenu = true;
@@ -383,12 +380,11 @@ public:
 		m_Game = new CGame(TabMap[((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId()], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire);
 		m_MenuPause->DeActivateMenu();
 		m_boInMenu = false;
-		m_boPause = false;
 		m_Game->Activate();
 	}
 	static void BtnResume(){
-		m_boPause = false;
 		m_MenuPause->DeActivateMenu();
+		m_Game->ResumeGame();
 	}
 
 };
@@ -402,7 +398,6 @@ CMenu* CWorms::m_MenuPause = nullptr;
 CMenu* CWorms::m_MenuNewTeam = nullptr;
 CGame* CWorms::m_Game = nullptr;
 bool CWorms::m_boInMenu = true;
-bool CWorms::m_boPause = false;
 SDL_Event* CWorms::m_pEvent = nullptr;
 CGestionnaireRessources* CWorms::m_Gestionaire = nullptr;
 bool CWorms::m_boRun = true;

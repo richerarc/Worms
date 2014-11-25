@@ -20,6 +20,7 @@ private:
 	CListeDC<CObjets*>* m_pListeObjets; // Liste d'objets a afficher.
 	bool m_boInPlay;					// Indique si la partie est terminé ou non.
 	CGestionnaireRessources* m_Gestionaire;
+	bool m_boPause;
 public:
 
 	/*!
@@ -49,6 +50,7 @@ public:
 		m_pRenderer = _Renderer;
 		m_uiTeamTurn = 0;
 		m_boInPlay = false;
+		m_boPause = false;
 		CPhysics::Init(m_pMap->getMap(), m_pMap->getGravity(), m_pMap->getWind());
 	}
 	
@@ -89,7 +91,8 @@ public:
 		m_pListeTeam->AllerDebut();
 		m_pListeObjets->AllerDebut();
 		for (int i = 0; i < m_pListeObjets->Count(); i++){
-			m_pListeObjets->ObtenirElement()->Move();
+			if (!m_boPause)
+				m_pListeObjets->ObtenirElement()->Move();
 			m_pListeObjets->ObtenirElement()->Draw(m_pRenderer);
 			m_pListeObjets->AllerSuivant();
 		}
@@ -100,7 +103,13 @@ public:
 	}
 	
 	void HandleEvent(SDL_Event _Event){
-		
+		if (!m_boPause){
+			switch (_Event.key.keysym.sym) {
+			case SDLK_ESCAPE:
+				PauseGame();
+				break;
+			}
+		}
 	}
 
 	//Papoi,papoi
@@ -120,6 +129,7 @@ public:
 	bool inGame(){return m_boInPlay;}
 	void Activate(){m_boInPlay = true;}
 	void DeActivate(){m_boInPlay = false;}
-	
+	void PauseGame(){ m_boPause = true; }
+	void ResumeGame(){ m_boPause = false; }
 
 };
