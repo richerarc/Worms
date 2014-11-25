@@ -21,3 +21,5 @@ Lun. 10 nov. 23h46 : J'ai réussi à faire marché le slideshow, on peu visualis
 Mar. 11 nov. (oubliŽ de mettre ˆ jour), et Mer. 12 nov. 22h40 : JÕai ajoutŽ les label/buttons pour la sŽlections des Žquipes, et commencŽ le menu newteam, jÕai quelque petit rŽglage ˆ faire avec la textbox mais a sera vite rŽglŽ. JÕai aussi faite des test plut™t fructueux pour la stŽrilisation amis je ne sais pas encore si je vais lÕutilisŽÉ jÕattend demain pour toute dŽcision ˆ ce sujet. (2 hrs)
 
 Mar. 18 nov (oublié de mettre à jour), et jeu. 20 nov. 23h26 j'ai travaillé sur l'affichage de la map séléctionné, avec le système d'équipe, l'affichage des mine, et de la boussole pour le vent. j'ai aussi merge la branch physics avec Ingame, et commencé à travailler sur l'intégration de la physique en jeux (5 hrs de travail)
+
+Mar. 25 nov. 13h20 : Changement dans le mode d'affichage des entitées. Moi et Kev on change la physics. 4 hrs de fait plus au moins 2-3h a venir.
