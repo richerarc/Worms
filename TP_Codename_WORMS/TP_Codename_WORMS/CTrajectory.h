@@ -8,21 +8,22 @@ Discussion : Classe représentant la trajectoire d'un point
 
 class CTrajectory{
 private:
-	long m_lTrajectoryStartTime;
+	CTimer* m_TrajectoryTime;
 	CPosition* m_StartPos;
-	CPosition* m_TrajectoryInitSpeed;
-	CPosition* m_Acceleration;
+	C2DVector* m_Speed;
+	C2DVector* m_Acceleration;
 	CPosition* m_ActualPos;
-	CPosition* m_LastPos;
+	CPosition* m_NextPos;
 public:
 	//Constructeur...
-	CTrajectory(CPosition* _StartPos, CPosition* _InitSpeed, CPosition* _Acc){
-		m_lTrajectoryStartTime = SDL_GetTicks();
+	CTrajectory(CPosition* _StartPos, C2DVector* _Speed, C2DVector* _Acc){
+		m_TrajectoryTime = new CTimer();
 		m_StartPos = _StartPos;
-		m_TrajectoryInitSpeed = _InitSpeed;
+		m_Speed = _Speed;
 		m_Acceleration = _Acc;
 		m_ActualPos = m_StartPos;
-		m_LastPos = new CPosition(m_ActualPos->getX(), m_ActualPos->getY());
+		m_NextPos = new CPosition(m_ActualPos->getX(), m_ActualPos->getY());
+		m_TrajectoryTime->Start();
 	}
 
 	//Destructeur...
@@ -35,15 +36,16 @@ public:
 			delete m_StartPos;
 		}
 		m_StartPos = nullptr;
-		if (m_TrajectoryInitSpeed)
-			delete m_TrajectoryInitSpeed;
-		m_TrajectoryInitSpeed = nullptr;
+		if (m_Speed)
+			delete m_Speed;
+		m_Speed = nullptr;
 		if (m_Acceleration)
 			delete m_Acceleration;
 		m_Acceleration = nullptr;
-		if (m_LastPos)
-			delete m_LastPos;
-		m_LastPos = nullptr;
+		if (m_NextPos)
+			delete m_NextPos;
+		m_NextPos = nullptr;
+		delete m_TrajectoryTime;
 	}
 	
 	/*
@@ -54,49 +56,14 @@ public:
 	Return : Vecteur représentant la position au temps passé en paramètre
 	*/
 	CPosition* UpdatePosition(){
-		/*
-		delete m_LastPos;
-		CPosition Tmp(m_ActualPos->getX(),m_ActualPos->getY());
-
-		m_LastPos = new CPosition(Tmp);
-		*/
-		m_LastPos->setX(m_ActualPos->getX());
-		m_LastPos->setY(m_ActualPos->getY());
-		double dTimeVariation = (SDL_GetTicks() - m_lTrajectoryStartTime);
-		//double dTimeVarExp2 = dTimeVariation * dTimeVariation;
-		m_ActualPos->setX(m_TrajectoryInitSpeed->getX() * dTimeVariation + m_Acceleration->getX()
-			/ 2 * dTimeVariation + m_StartPos->getX());
-		m_ActualPos->setY(m_TrajectoryInitSpeed->getY() * dTimeVariation + m_Acceleration->getY()
-			/ 2 * dTimeVariation + m_StartPos->getY());
-		return m_ActualPos;
+		m_Speed = (*m_Speed)+(m_Acceleration);
+		m_ActualPos->setX(m_NextPos->getX());
+		m_ActualPos->setY(m_NextPos->getY());
+		unsigned int dTimeVariation = m_TrajectoryTime->getElapsedTime();
+		m_NextPos->setX((m_Speed->getXfin() - m_Speed->getXDebut())/ dTimeVariation + m_StartPos->getX());
+		m_NextPos->setY((m_Speed->getYfin() - m_Speed->getYDebut())/ dTimeVariation + m_StartPos->getY());
+		return m_NextPos;
 	}
-	/*
-	CPosition* GetPosition(){
-		if (m_LastPos != nullptr)
-			delete m_LastPos;
-		m_LastPos = m_ActualPos;
-		
-		delete m_LastPos;
-		CPosition Tmp(m_ActualPos->getX(),m_ActualPos->getY());
-
-		m_LastPos = new CPosition(Tmp);
-		
-
-	double dTimeVariation = (SDL_GetTicks() - m_lTrajectoryStartTime);
-
-	CPosition Tmp(m_TrajectoryInitSpeed->getX() * dTimeVariation + m_Acceleration->getX()
-		/ 2 * dTimeVariation + m_StartPos->getX(), m_TrajectoryInitSpeed->getY() * dTimeVariation + m_Acceleration->getY()
-		/ 2 * dTimeVariation + m_StartPos->getY());
-
-	//double dTimeVarExp2 = dTimeVariation * dTimeVariation;
-	m_ActualPos = new CPosition(Tmp);
-	return Tmp;
-}
-	*/
-
-
-
-
 
 
 	/*
@@ -104,12 +71,8 @@ public:
 	Brief : Fonction qui retourne la vitesse actuelle
 	Discussion: MRUA : Vf^2 - Vi^2 = 2(xf-xi)*a
 	*/
-	CPosition GetSpeed(){
-		CPosition* TmpPos = UpdatePosition();
-		return CPosition(
-			sqrt(2 * (TmpPos->getX() - m_StartPos->getX())* m_Acceleration->getX()),
-			sqrt(2 * (TmpPos->getY() - m_StartPos->getY())* m_Acceleration->getY())
-			);
+	C2DVector* GetSpeed(){
+		return m_Speed;
 	}
 
 	/*
@@ -135,15 +98,7 @@ public:
 		m_lTrajectoryStartTime = SDL_GetTicks();
 		*/
 	}
-
-	/*
-	Method : GetLastPosition
-	Brief : Retourne la position précédente
-	*/
-	CPosition* GetLastPosition(){
-		return m_LastPos;
-	}
-
+	
 	/*
 	Method : GetActualPosition
 	Brief : Retourne la position actuelle (sans bouger)

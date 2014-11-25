@@ -15,7 +15,7 @@ protected:
 	CTrajectory* m_Trajectoire;
 	unsigned int m_EntityState;
 	SDL_Texture* m_pTexture;
-	CPosition* m_pForce;
+	C2DVector* m_pForce;
 public:
 
 	/*!
@@ -47,9 +47,9 @@ public:
 			m_EntityState = Immobile;
 		switch (m_EntityState) {
 			case Chute:
-				m_pForce = m_Trajectoire->UpdatePosition();
-				m_RectPosition.y = m_pForce->getY();
-				m_RectPosition.x = m_pForce->getX();
+				CPosition temp =  *m_Trajectoire->UpdatePosition();
+				m_RectPosition.y = temp.getY();
+				m_RectPosition.x = temp.getX();
     			break;
 		}
 	}

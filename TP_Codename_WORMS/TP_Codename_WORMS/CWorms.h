@@ -6,9 +6,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "CPosition.h"
-#include "CTrajectory.h"
-#include "CPhysic.h"
+
 #include "CTimer.h"
 #include "CListeDC.h"
 #include "CGestionnaireRessources.h"
@@ -20,6 +18,9 @@
 #include "CTextBox.h"
 #include "CSlideShow.h"
 #include "CMenu.h"
+#include "CPosition.h"
+#include "CTrajectory.h"
+#include "CPhysic.h"
 #include "CEntity.h"
 #include "CObjets.h"
 #include "CMines.h"

@@ -71,6 +71,10 @@ public:
 	void UnPause(){
 		Start();
 	}
+	
+	unsigned int getElapsedTime(){
+		return SDL_GetTicks() - m_uiTicks;
+	}
 };
 
 #endif
