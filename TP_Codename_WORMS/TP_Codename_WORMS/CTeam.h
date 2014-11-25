@@ -28,7 +28,7 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Voilà.
 	*/
-	CTeam(string _strTeamName, SDL_Color _Color,SDL_Texture* _Texture, Uint8 _uiNbWorms, CFont* _Font){
+	CTeam(string _strTeamName, SDL_Color _Color,SDL_Texture* _TexSprite, SDL_Texture* _WormRepo, Uint8 _uiNbWorms, CFont* _Font){
 		m_boFocus = false;
 		m_uiWormTurn = 0;
 		m_uiNbOfWorm = _uiNbWorms;
@@ -38,7 +38,7 @@ public:
 		{
 			strNom.append(SDL_itoa(i, Buffer, 10));
 			//Il manque des données pour créer l'équipes.
-			m_pTabWorm[i] = new CWorm(strNom, new CSprite("", _Texture, 1, 1, 50, 0), _Font, { 0, 0, 30, 40 });
+			m_pTabWorm[i] = new CWorm(strNom, _WormRepo, new CSprite("", _TexSprite, 1, 1, 50, 0), _Font, { 0, 0, 30, 40 });
 			strNom.pop_back();
 		}
 		m_pTabWorm[0]->setFocus(true);
@@ -83,6 +83,7 @@ public:
 	string getTeamName(){ return m_strTeamName; }
 
 	CWorm* getPlayingWorm(){ return m_pTabWorm[m_uiWormTurn %  m_uiNbOfWorm]; }
+
 
 
 

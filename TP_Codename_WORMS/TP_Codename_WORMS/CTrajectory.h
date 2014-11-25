@@ -27,13 +27,25 @@ public:
 
 	//Destructeur...
 	~CTrajectory(){
-		delete m_StartPos;
-		delete m_TrajectoryInitSpeed;
-		delete m_Acceleration;
-		delete m_ActualPos;
-		delete m_LastPos;
+		if (m_StartPos){
+			if (m_ActualPos == m_StartPos)
+				m_ActualPos = nullptr;
+			else
+				delete m_ActualPos;
+			delete m_StartPos;
+		}
+		m_StartPos = nullptr;
+		if (m_TrajectoryInitSpeed)
+			delete m_TrajectoryInitSpeed;
+		m_TrajectoryInitSpeed = nullptr;
+		if (m_Acceleration)
+			delete m_Acceleration;
+		m_Acceleration = nullptr;
+		if (m_LastPos)
+			delete m_LastPos;
+		m_LastPos = nullptr;
 	}
-
+	
 	/*
 	Method : GetPosition
 	Brief : Fonction qui retourne la variation de la position dans la trajectoire selon le temps

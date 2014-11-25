@@ -38,7 +38,7 @@ public:
 		char buf[10];
 		for (Uint8 i = 0; i < _NbOfTeam; i++){
 			temp.append(SDL_itoa(i, buf, 10));
-			m_pListeTeam->AjouterFin(new CTeam(temp, {static_cast<Uint8>(i * 200), static_cast<Uint8>(i * 100), static_cast<Uint8>(i * 50), 1}, m_Gestionaire->GetTexture("worm")->GetTexture(), _NbOfWormPerTeam, m_Gestionaire->GetFont("FontMenu")));
+			m_pListeTeam->AjouterFin(new CTeam(temp, {static_cast<Uint8>(i * 200), static_cast<Uint8>(i * 100), static_cast<Uint8>(i * 50), 1},m_Gestionaire->GetTexture("worm")->GetTexture(), m_Gestionaire->GetTexture("worm")->GetTexture(), _NbOfWormPerTeam, m_Gestionaire->GetFont("FontMenu")));
 		}
 		m_pMap = _Map;
 		m_pListeObjets = new CListeDC<CObjets*>();
@@ -89,6 +89,7 @@ public:
 		m_pListeTeam->AllerDebut();
 		m_pListeObjets->AllerDebut();
 		for (int i = 0; i < m_pListeObjets->Count(); i++){
+			m_pListeObjets->ObtenirElement()->Move();
 			m_pListeObjets->ObtenirElement()->Draw(m_pRenderer);
 			m_pListeObjets->AllerSuivant();
 		}

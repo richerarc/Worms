@@ -28,6 +28,7 @@ public:
 		m_boFocus = false;
 		m_Trajectoire = nullptr;
 		m_EntityState = 0;
+		m_pTexture = _Texture;
 	}
 
 	/*!
@@ -37,13 +38,12 @@ public:
 	~CEntity(){
 		delete m_Trajectoire;
 		m_Trajectoire = nullptr;
-		delete m_pForce;
 	}
 	
 	virtual void Move(){
 		switch (m_EntityState) {
 			case Chute:
-					//m_pForce = m_Trajectoire->GetPosition();
+				m_pForce = m_Trajectoire->GetPosition();
 				m_RectPosition.y = m_pForce->getY();
 				m_RectPosition.x = m_pForce->getX();
     			break;

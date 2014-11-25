@@ -51,10 +51,6 @@ public:
 	int getRayon(){
 		return m_iRayon;
 	}
-
-	virtual void Move(){
-		
-	}
 };
 
 #endif
