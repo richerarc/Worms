@@ -35,3 +35,7 @@
 20 Novembre -- de 15h00 a 17h00
 
 - Création de la spritesheet finale.
+
+25 Novembre -- de 9h00 a 12h00
+
+- J'ai modifié la classe CExplosion et la classe CWormms pour essayer de faire fonctionner les explosions. Je nai pas commit les cahngements, je vais travailler la-dessus de mon bord pour éviter de creer des conflits.
