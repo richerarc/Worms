@@ -45,26 +45,27 @@ public:
 class C2DVector{
 
 private:
-	int	m_XOrigine,  // m_iY et m_iX:  Positions en X et en Y du vecteur 2D
+	int	m_XOrigine,
 		m_YOrigine,
 		m_XFin,
 		m_YFin;
 
 	double	m_Norme,
-		m_Orientation;
+		m_Orientation,
+		m_ComposanteX,
+		m_ComposanteY;
 
 public:
 
-	//Contructeur:
-	//	Parametres:
-	//			_iX, _iY: Les valeurs de position(force) en X et en Y du vecteur 2D
 	C2DVector(int _XDepart, int _YDepart, double _Norme, double _AngleRad){
 		m_XOrigine = _XDepart;
 		m_YOrigine = _YDepart;
 		m_Norme = _Norme;
 		m_Orientation = _AngleRad;
-		m_XFin = _XDepart + (_Norme * cos(_AngleRad));
-		m_YFin = _YDepart + (_Norme * sin(_AngleRad));
+		m_ComposanteX = _Norme * cos(_AngleRad);
+		m_ComposanteY = _Norme * sin(_AngleRad);
+		m_XFin = _XDepart + (m_ComposanteX);
+		m_YFin = _YDepart + (m_ComposanteY);
 	}
 
 	C2DVector(int _XDepart, int _YDepart, int _Xfin, int _Yfin){
@@ -85,7 +86,7 @@ public:
 	//Redefinition de l'opérateur +:
 	//
 	C2DVector * operator+ (C2DVector * _Vector){
-		return new C2DVector(m_XOrigine, m_YOrigine, (_Vector->getXfin() + m_XFin), (_Vector->getYfin() + m_YFin) );
+		return new C2DVector(m_XOrigine, m_YOrigine, m_ComposanteX + _Vector->getComposanteX(), m_ComposanteY + _Vector->getComposanteY());
 	}
 
 	//Accesseurs...
@@ -94,10 +95,16 @@ public:
 	int getYfin(){ return m_YFin; }
 	int getXDebut(){ return m_XOrigine; }
 	int getYDebut(){ return m_YOrigine; }
+	double getNorme(){ return m_Norme; }
+	double getOrientation(){ return m_Orientation; }
+	double getComposanteX(){ return (double)(m_Norme*cos(m_Orientation)); }
+	double getComposanteY(){ return (double)(m_Norme*sin(m_Orientation)); }
 
 	void setXfin(int _x){ m_XFin = _x; }
 	void setYfin(int _y){ m_YFin = _y; }
 	void setXDebut(int _x){ m_XOrigine = _x; }
 	void setYDebut(int _y){ m_YOrigine = _y; }
+	void setNorme(double _Norme){ m_Norme = _Norme; }
+	void setOrientation(double _AngleRadian){ m_Orientation = _AngleRadian; }
 
 };
