@@ -22,3 +22,9 @@ Grvt:6
 Wind:300 
 Mine:7 
 }
+MMap4{
+Name:FlatLand 
+Grvt:2 
+Wind:100 
+Mine:30 
+}

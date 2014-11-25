@@ -52,7 +52,7 @@ private:
 	static bool m_boRun;							// Indique si le jeu est en terminé ou non.
 	static bool m_boInMenu;							// Indique si on se trouve dans un menu.
 	static CGestionnaireRessources* m_Gestionaire;	// Gestionnaire de Resource pour le Worms
-	static CMap* TabMap[4];
+	static CMap* TabMap[5];
 	static fstream* m_SaveFile;
 public:
 
@@ -122,7 +122,7 @@ public:
 #elif defined (_WIN32)
 		strPath.append("\\");
 #endif
-		string FileName[19] = { 
+		string FileName[21] = {
 			"Arpegius.ttf",
 			"Btn1.png",
 			"BtnL.png",
@@ -141,10 +141,12 @@ public:
 			"MenuBackground.jpg", 
 			"WormMoveLeft.png", 
 			"SpriteMine.png",
-			"MenuBackground2.png"
+			"MenuBackground2.png",
+			"map5.png",
+			"background5.jpg"
 		};
-		string strFilePath[19];
-		for (int i = 0; i < 19; i++){
+		string strFilePath[21];
+		for (int i = 0; i < 21; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
@@ -183,6 +185,8 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("background3", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[9].c_str())));
 		m_Gestionaire->AjouterSurface(new CSurface("map4", IMG_Load(strFilePath[10].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("background4", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[11].c_str())));
+		m_Gestionaire->AjouterSurface(new CSurface("map5", IMG_Load(strFilePath[19].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("background5", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[20].c_str())));
 		/* The potato is a lie */
 		m_Gestionaire->AjouterTexture(new CTexture("worm", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[16].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("mine", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[17].c_str())));
@@ -233,6 +237,9 @@ public:
 				case 3:
 					TabMap[itterMap] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background4")->GetTexture(), m_Gestionaire->GetSurface("map4")->getSurface(), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
 					break;
+				case 4:
+					TabMap[itterMap] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background5")->GetTexture(), m_Gestionaire->GetSurface("map5")->getSurface(), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
+					break;
 				}
 				itterMap++;
 			}
@@ -250,7 +257,7 @@ public:
 		delete m_Gestionaire;
 		m_SaveFile->close();
 		delete m_SaveFile;
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 5; i++)
 			delete TabMap[i];
 	}
 
@@ -286,7 +293,7 @@ public:
 		m_MenuNewGame->AddElement(new CButton("btnPlay", "Play", m_Gestionaire->GetFont("FontMenu"), {}, m_Gestionaire->GetSprite("SpriteBtnPlay")), (WIDTH - 182), (HEIGHT - 66), 162, 33);
 		m_MenuNewGame->getElement("btnPlay")->OnClickAction = BtnPlay;
 		CSlideShow* SSTemp = new CSlideShow("SSMap", m_Gestionaire->GetFont("FontMenu"), { WIDTH / 2 - 400, 40, 800, 400 }, m_Gestionaire->GetSprite("SpriteMapLeft"), m_Gestionaire->GetSprite("SpriteMapRight"));
-		SSTemp->ajouterTexture(4, SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map1")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map2")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map3")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map4")->getSurface()));
+		SSTemp->ajouterTexture(5, SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map1")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map2")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map3")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map4")->getSurface()), SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), m_Gestionaire->GetSurface("map5")->getSurface()));
 		SSTemp->setOnClickNext(BtnMapNext);
 		SSTemp->setOnClickPrev(BtnMapPrev);
 		m_MenuNewGame->AddElement(SSTemp, WIDTH / 2 - 400, 40, 800, 400);
@@ -392,6 +399,6 @@ bool CWorms::m_boInMenu = true;
 SDL_Event* CWorms::m_pEvent = nullptr;
 CGestionnaireRessources* CWorms::m_Gestionaire = nullptr;
 bool CWorms::m_boRun = true;
-CMap* CWorms::TabMap[4];
+CMap* CWorms::TabMap[5];
 fstream* CWorms::m_SaveFile = new fstream();
 
