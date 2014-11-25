@@ -12,6 +12,7 @@ protected:
 	int m_iRayon; //Donnée représentant la longueur du rayon du rect(circulaire).
 
 public:
+
 	/*!
 	@Constructeur
 	@Description: Permet d'initialiser les données membres
@@ -19,10 +20,10 @@ public:
 	 @param _RectPos : le rect de l'objet
 	@Classe héritant de CEntity, elle prend donc les paramètres de CEntity.
 	*/
-
 	CObjets(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _Texture) :CEntity(_RectPos, _Texture){
 		m_iRayon = _iRayon;
 	}
+
 	/*!
 	@Destructeur:
 	@Permet de détruire les objets créés en mémoire

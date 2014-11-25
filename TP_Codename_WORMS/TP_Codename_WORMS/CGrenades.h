@@ -13,6 +13,7 @@ private:
 	bool boIsExplosed; //Donnée représentant si l'objet est explosé (true) ou non (false)
 
 public:
+
 	/*!
 	@Constructeur
 	@Description: Permet d'initialiser les données membres
@@ -21,7 +22,6 @@ public:
 	 @param _pTexture : texture de l'image à afficher
 	@Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
-
 	CGrenades(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _pTexture) :CObjets(_iRayon,_RectPos, _pTexture){
 		m_pTimer = new CTimer();
 		m_pTimer->SetTimer(1000);
@@ -29,7 +29,14 @@ public:
 		m_iRayon = _iRayon;
 		boIsExplosed = false;
 	}
-	
+
+	/*!
+	@Destructeur:
+	@Permet de détruire les objets créés en mémoire
+	*/
+	~CGrenades(){
+	}
+
 	/*!
 	@method Draw
 	@param _Renderer : Renderer pour rendre le sprite de la grenade
@@ -38,7 +45,6 @@ public:
 	void Draw(SDL_Renderer* _pRenderer){
 		SDL_RenderCopy(_pRenderer, m_pTexture, NULL, &m_RectPosition);
 	}
-
 
 	/*!
 	@method HandleEvent
@@ -50,6 +56,7 @@ public:
 		if (m_pTimer->IsElapsed())
 			boIsExplosed = true;
 	}
+
 	/*!
 	@Méthode:
 	@ReactToExplosion
@@ -67,16 +74,13 @@ public:
 	void setExplosion(bool _boSet){
 		boIsExplosed = _boSet;
 	}
+
 	void setPos(int _ix, int _iy){
 		m_RectPosition.x = _ix;
 		m_RectPosition.y = _iy;
 	}
-	/*!
-	@Destructeur:
-	@Permet de détruire les objets créés en mémoire
-	*/
-	~CGrenades(){
-	}
+
+
 	
 	void Move(){
 		

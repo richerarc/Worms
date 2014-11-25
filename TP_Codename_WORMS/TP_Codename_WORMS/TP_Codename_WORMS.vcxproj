@@ -93,6 +93,7 @@
     <ClInclude Include="CMusic.h" />
     <ClInclude Include="CObjets.h" />
     <ClInclude Include="CPhysic.h" />
+    <ClInclude Include="CPowerBar.h" />
     <ClInclude Include="CRessource.h" />
     <ClInclude Include="CSlideShow.h" />
     <ClInclude Include="CSprite.h" />

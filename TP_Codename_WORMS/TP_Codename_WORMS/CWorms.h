@@ -25,6 +25,7 @@
 #include "CObjets.h"
 #include "CMines.h"
 #include "CMissiles.h"
+#include "CBazouka.h"
 #include "CGrenades.h"
 #include "CCaisses.h"
 #include "CCaisseSoin.h"

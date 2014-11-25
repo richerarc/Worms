@@ -13,10 +13,9 @@ private:
 	SDL_Rect m_RectSurface; //La pos du rectangle de l'objet
 	double iAngle; // L'angle de rotation
 	SDL_Texture* m_pTexture; // Texture de l'image à afficher.
-	SDL_Surface* m_pSurfaceBarreLancement; // Surface de la barre de lancement.
 	bool boIsLaunch; // Booléen pour vérifier si le bazouka va lancer un missile
 	bool boIsRotated; // Booléen pour vérifier si le bazouka sera en rotation
-	bool boBarreLancement; // Booléen pour vérifier si la barre de lancement sera afficher
+	bool m_boReversePowerBar; // Booléen pour vérifier si la barre de lancement ira dans le sense contraire.
 	unsigned int iPower; // Représente le power du missile.
 
 public:
@@ -30,15 +29,21 @@ public:
 	CBazouka(int _ix, int _iy, SDL_Texture* _pTexture){ // La position du bazouka devra être remplacer par la position du worms qui s'apprete  a attaquer.
 		m_Rect.x = _ix;
 		m_Rect.y = _iy;
-		m_Rect.w = 52; // Dimension du bazouka
-		m_Rect.h = 28; // Dimension du bazouka
+		SDL_QueryTexture(_pTexture, NULL, NULL, &m_Rect.w, &m_Rect.h);//Dimension du bazooka
 		m_pTexture = _pTexture;
-		m_pSurfaceBarreLancement = SDL_CreateRGBSurface(0, m_RectSurface.x, 10, 32, 0, 0, 0, 0);
 		boIsLaunch = false;
 		boIsRotated = false;
-		boBarreLancement = false;
+		m_boReversePowerBar = false;
 		iAngle = 0;
 		iPower = 0;
+	}
+
+	/*!
+	@Destructeur:
+	@Permet de détruire les objets créés en mémoire
+	*/
+	~CBazouka(){
+
 	}
 
 	/*!
@@ -57,6 +62,7 @@ public:
 			IsLaunch(_pRenderer);
 		}
 	}
+
 	/*!
 	@method IsLaunch
 	@description: permet de faire afficher la barre de lancement.
@@ -73,11 +79,11 @@ public:
 		if (iPower > 34)
 			SDL_SetRenderDrawColor(_pRenderer, 200 + iPower + 8, 100 + iPower, 0, 0);
 
-
 		SDL_RenderFillRect(_pRenderer, &m_RectSurface);
 
 
 	}
+
 	/*!
 	@method HandleEvent
 	@param _Event : Un SDL_Event pour traiter les evenement
@@ -107,26 +113,26 @@ public:
 
 		case SDLK_SPACE:
 			boIsLaunch = true;
-			if (iPower <= 50 && !boBarreLancement){
+			if (iPower <= 50 && !m_boReversePowerBar){
 				if (iPower == 50)
-					boBarreLancement = true;
-				iPower = (iPower + 1);
+					m_boReversePowerBar = true;
+				iPower++;
 			}
 			else
-			if (boBarreLancement){
-				iPower--;
+			if (m_boReversePowerBar){
 				if (iPower == 0)
-					boBarreLancement = false;
+					m_boReversePowerBar = false;
+				iPower--;
 			}
 			break;
 		}
 	}
+
 	/*!
 	@method SetRectSurface
 	@description: permet de set la position et la dimension du rect de la barre de lancement.
 	@param: _iWidth: la largeur du rect
 	*/
-
 	void SetRectSurface(int _iWidth){
 		m_RectSurface.x = m_Rect.x;
 		m_RectSurface.y = m_Rect.y - 15;
@@ -135,14 +141,6 @@ public:
 
 	}
 
-
-	/*!
-	@Destructeur:
-	@Permet de détruire les objets créés en mémoire
-	*/
-	~CBazouka(){
-
-	}
 };
 
 #endif
