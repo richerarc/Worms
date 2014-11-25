@@ -80,6 +80,13 @@ public:
 				default:
 					break;
 				}
+				switch (m_pEvent->button.clicks){
+				case 2:
+					cout << 123;
+					break;
+				default:
+					break;
+				}
 			}
 		}
 	}
