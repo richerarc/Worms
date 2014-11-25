@@ -15,7 +15,7 @@
 *.tlog
 *.lastbuiltstate
 *.exe
-*.ibd
+*.idb
 [Rr]elease/
 x64/
 build/
