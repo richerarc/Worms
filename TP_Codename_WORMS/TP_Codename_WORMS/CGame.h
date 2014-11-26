@@ -13,6 +13,7 @@ class CGame{
 private:
 	Uint8 m_uiTeamTurn;					// Indique a quelle équipe de jouer.
 	Uint8 m_uiNbOfPlayingTeams;			// Combien d'équipe participe a la partie.
+	Uint8 m_uiNbOfWormPerTeam;
 	SDL_Renderer* m_pRenderer;			// Rendu de la fenetre du jeu. 
 	CBoussole* m_pBoussole;				// Boussole de vents.
 	CMap* m_pMap;						// Champ de bataille.
@@ -21,6 +22,8 @@ private:
 	bool m_boInPlay;					// Indique si la partie est terminé ou non.
 	CGestionnaireRessources* m_Gestionaire;
 	bool m_boPause;
+	CTimer* TurnTimer;
+	CTimer* DropperTimer;
 public:
 
 	/*!
@@ -33,6 +36,10 @@ public:
 	@discussion Nuff said.
 	*/
 	CGame(CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer, int _NbOfTeam, int _NbOfWormPerTeam, CGestionnaireRessources* _Gestionaire){
+		TurnTimer = new CTimer();
+		DropperTimer = new CTimer();
+		m_uiNbOfPlayingTeams = _NbOfTeam;
+		m_uiNbOfWormPerTeam = _NbOfWormPerTeam;
 		m_Gestionaire = _Gestionaire;
 		m_pBoussole = _Boussole;
 		m_pRenderer = _Renderer;
@@ -41,18 +48,13 @@ public:
 		m_boPause = false;
 		m_pMap = _Map;
 		CPhysics::Init(m_pMap->getMap(), m_pMap->getGravity(), m_pMap->getWind());
-		m_pListeTeam = new CListeDC<CTeam*>();
-		string temp("Team");
-		char buf[10];
-		for (int i = 0; i < _NbOfTeam; i++){
-			temp.append(SDL_itoa(i, buf, 10));
-			m_pListeTeam->AjouterFin(new CTeam(temp, {static_cast<Uint8>(i * 200), static_cast<Uint8>(i * 100), static_cast<Uint8>(i * 50), 1},m_Gestionaire->GetTexture("worm")->GetTexture(), m_Gestionaire->GetTexture("worm")->GetTexture(), _NbOfWormPerTeam, m_Gestionaire->GetFont("FontMenu")));
-			temp.pop_back();
-		}
+		m_pListeTeam = nullptr;
 		m_pListeObjets = new CListeDC<CObjets*>();
 		for(int i = 0; i < m_pMap->getMine(); i++){
 			m_pListeObjets->AjouterFin(new CMines(20, {((rand()% (WIDTH - 10)) + 5), 5, 12, 8}, m_Gestionaire->GetTexture("mine")->GetTexture()));
 		}
+		DropperTimer->SetTimer(2000);
+		DropperTimer->Start();
 	}
 	
 	/*!
@@ -89,7 +91,7 @@ public:
 	void Render(){
 		m_pMap->Draw(m_pRenderer);
 		m_pBoussole->Draw(m_pRenderer);
-		m_pListeTeam->AllerDebut();
+		
 		m_pListeObjets->AllerDebut();
 		for (int i = 0; i < m_pListeObjets->Count(); i++){
 			if (!m_boPause)
@@ -97,9 +99,13 @@ public:
 			m_pListeObjets->ObtenirElement()->Draw(m_pRenderer);
 			m_pListeObjets->AllerSuivant();
 		}
-		for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
-			m_pListeTeam->ObtenirElement()->draw(m_pRenderer);
-			m_pListeTeam->AllerSuivant();
+		if (m_pListeTeam != nullptr){
+			m_pListeTeam->AllerDebut();
+			
+			for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
+				m_pListeTeam->ObtenirElement()->draw(m_pRenderer);
+				m_pListeTeam->AllerSuivant();
+			}
 		}
 	}
 	
@@ -123,6 +129,22 @@ public:
 	@brief Servent a acceder/modifier aux données membres.
 	*/
 
+	void CreateTeam(){
+		m_pListeTeam = new CListeDC<CTeam*>();
+		string temp("Team");
+		char buf[10];
+		for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
+			temp.append(SDL_itoa(i, buf, 10));
+			m_pListeTeam->AjouterFin(new CTeam(temp, {static_cast<Uint8>(i * 200), static_cast<Uint8>(i * 100), static_cast<Uint8>(i * 50), 1},m_Gestionaire->GetTexture("worm")->GetTexture(), m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontMenu")));
+			temp.pop_back();
+		}
+	}
+	
+	void MainGame(){
+		if (DropperTimer->IsElapsed() && (m_pListeTeam == nullptr))
+			CreateTeam();
+	}
+	
 	void setNbOfPlayingTeams(Uint8 _NbOfTeams){ m_uiNbOfPlayingTeams = _NbOfTeams; }
 
 	Uint8 getNbOfPlayingTeams(){ return m_uiNbOfPlayingTeams; }

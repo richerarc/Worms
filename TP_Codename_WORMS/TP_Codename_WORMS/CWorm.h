@@ -8,6 +8,8 @@
 #ifndef TP_Codename_WORMS_CWorm_h
 #define TP_Codename_WORMS_CWorm_h
 
+// Un worm possde dŽjˆ l'Žtat en chute, immobile, ou en dŽplacement, qu'il tient d'entity
+enum WormState {MarcheG = 101, MarcheD = 201, SautG = 102, SautD = 202, UtilisationOutil = 103, Damaged = 104, Largage = 100};
 
 /*!
 @CWorm
@@ -20,7 +22,6 @@ private:
 	CSprite* m_pSprite;//Sprite du worm
 	CLabel* m_lblNom;
 	SDL_Rect m_BarredeVie;
-	
 public:
 
 	/*!
@@ -41,6 +42,7 @@ public:
 		m_BarredeVie.x = _RectPos.x;
 		m_BarredeVie.y = _RectPos.y + 10;
 		m_lblNom = new CLabel("", m_strName.c_str(), _Font, SDL_Rect{_RectPos.x,_RectPos.y + 20,50,10});
+		m_EntityState = Largage;
 	}
 
 	/*!
@@ -93,7 +95,15 @@ public:
 	@return null
 	*/
 	void Draw(SDL_Renderer * _Renderer){
-		m_pSprite->Render(_Renderer);
+		if (m_EntityState == Immobile) {
+			SDL_RenderCopy(_Renderer, m_pTexture, NULL, &m_RectPosition);
+		}
+		else if (m_EntityState == Largage){
+			Move();
+			m_pSprite->setCurrentAnimation(8);
+			m_pSprite->Render(_Renderer, 2);
+		}
+		
 	}
 
 	/*!
@@ -111,7 +121,18 @@ public:
 	string getName(){ return m_strName; }
 
 	void Move(){
-		
+		int iTemp = CPhysics::VerifyGroundCollision(m_RectPosition);
+		if (iTemp != NOCONTACT)
+			m_EntityState = Immobile;
+		switch (m_EntityState) {
+			case Largage:
+				CPosition temp =  *m_Trajectoire->UpdatePosition();
+				CPhysics::VerifyNextPosition(m_Trajectoire->GetActualPosition(), m_Trajectoire->getNextPos(), m_RectPosition);
+				m_RectPosition.y = temp.getY();
+				m_RectPosition.x = temp.getX();
+				m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
+				break;
+		}
 	}
 };
 

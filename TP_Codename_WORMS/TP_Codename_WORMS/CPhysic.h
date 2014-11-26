@@ -184,6 +184,13 @@ public:
 			_NextPos->setX(_ActualPos->getX() + XContact - _EntityRect.w);
 		if (YContact > 8)
 			_NextPos->setY(_ActualPos->getY() + YContact - _EntityRect.h);
+		while (YContact) {
+			if ((((unsigned int*)m_Map->pixels)[ m_Map->w * ((int)_NextPos->getY()) + ((int)_NextPos->getX() + _EntityRect.w/2)] > TRANSPARENCY) &&
+				(((unsigned int*)m_Map->pixels)[ m_Map->w * ((int)_NextPos->getY() - 1) + (int)_NextPos->getX()] > TRANSPARENCY))
+				_NextPos->setY(_NextPos->getY() - 1);
+			else
+				break;
+		}
 	}
 
 	/*

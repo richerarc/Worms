@@ -83,6 +83,8 @@ public:
 					}
 				}
 			}
+			if (m_Game != nullptr)
+				m_Game->MainGame();
 		}
 	}
 

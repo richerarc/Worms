@@ -22,6 +22,17 @@ private:
 				m_uiCurrentLoop++;
 		}
 	}
+	
+	void setRectSource(int _NbOfFrameIgnored){
+		m_currentFrame = _NbOfFrameIgnored;
+		if (m_pTimer->IsElapsed() && m_boActif && (m_uiCurrentLoop < m_uinbLoop)){
+			m_pTimer->Start();
+			m_currentFrame = (++m_currentFrame) % (m_NbrFrame + _NbOfFrameIgnored);
+			m_rSource.x = (m_rSource.w * m_currentFrame);
+			if (m_currentFrame == m_NbrFrame - 1)
+				m_uiCurrentLoop++;
+		}
+	}
 public:
 	CSprite(const char* _Name, SDL_Texture* _Texture, int _nbrFrame, int _nbrAnimation, int _delai, int _loop) : CRessource(_Name){
 		m_pTexture = _Texture;
@@ -94,6 +105,11 @@ public:
 	*/
 	void Render(SDL_Renderer* _Renderer){
 		setRectSource();
+		SDL_RenderCopy(_Renderer, m_pTexture, &m_rSource, &m_rDest);
+	}
+	
+	void Render(unsigned int _NbOfFrameIgnored, SDL_Renderer* _Renderer){
+		setRectSource(_NbOfFrameIgnored);
 		SDL_RenderCopy(_Renderer, m_pTexture, &m_rSource, &m_rDest);
 	}
 	
