@@ -42,7 +42,7 @@ public:
 	@Permet de détruire les objets créés en mémoire
 	*/
 	~CBazouka(){
-
+		delete m_PowerBar;
 	}
 
 	/*!

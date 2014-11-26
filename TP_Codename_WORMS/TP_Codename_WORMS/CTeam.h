@@ -31,6 +31,8 @@ public:
 	CTeam(string _strTeamName, SDL_Color _Color,SDL_Texture* _TexSprite, SDL_Texture* _WormRepo, Uint8 _uiNbWorms, CFont* _Font){
 		m_boFocus = false;
 		m_uiWormTurn = 0;
+		m_TeamColor = _Color;
+		m_strTeamName = _strTeamName;
 		m_uiNbOfWorm = _uiNbWorms;
 		string strNom = "Worm";
 		char Buffer[255];

@@ -258,6 +258,7 @@ public:
 		delete m_MenuNewGame;
 		delete m_MenuPause;
 		delete m_MenuNewTeam;
+		delete m_Game;
 		delete m_pEvent;
 		delete m_Gestionaire;
 		m_SaveFile->close();

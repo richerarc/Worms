@@ -44,9 +44,10 @@ public:
 		m_pListeTeam = new CListeDC<CTeam*>();
 		string temp("Team");
 		char buf[10];
-		for (Uint8 i = 0; i < _NbOfTeam; i++){
+		for (int i = 0; i < _NbOfTeam; i++){
 			temp.append(SDL_itoa(i, buf, 10));
 			m_pListeTeam->AjouterFin(new CTeam(temp, {static_cast<Uint8>(i * 200), static_cast<Uint8>(i * 100), static_cast<Uint8>(i * 50), 1},m_Gestionaire->GetTexture("worm")->GetTexture(), m_Gestionaire->GetTexture("worm")->GetTexture(), _NbOfWormPerTeam, m_Gestionaire->GetFont("FontMenu")));
+			temp.pop_back();
 		}
 		m_pListeObjets = new CListeDC<CObjets*>();
 		for(int i = 0; i < m_pMap->getMine(); i++){
