@@ -27,3 +27,7 @@ Modifications dans CPhysic et CTrajectory, la gestion des collisions est la proc
 J'ai complété VerifyGroundCollision dans CPhysic, puis j'ai ajouté une fonction Move pour déplacer un Rect sans accélération.
 Move pourra cependant être fortement modifié suite au necessités du projet. La classe CPhysics est presque complète, il reste
 à la déboguer/l'optimiser et à faire le Slide.
+
+25 nov : 8h30 à 11h55
+J'ai apporté des modifications dans CPhysic et CTrajectory au niveau des collisions et des rebonds. Les collisions s'améliorent
+mais ne marche pas parfaitement, les rebonds seront bientot testables
