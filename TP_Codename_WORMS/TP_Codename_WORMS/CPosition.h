@@ -1,5 +1,14 @@
 #include <math.h>
 
+//Change les degrées en radians.
+double DegToRad(double _Degre){
+	return _Degre * M_PI / 180;
+}
+
+//Change les Radians en Degrés.
+double RadToDeg(double _Radian){
+	return _Radian * 180 / M_PI;
+}
 
 class CPosition{
 private:
