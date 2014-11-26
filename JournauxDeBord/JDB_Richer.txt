@@ -23,3 +23,7 @@ Mar. 11 nov. (oubliŽ de mettre ˆ jour), et Mer. 12 nov. 22h40 : JÕai ajoutŽ 
 Mar. 18 nov (oublié de mettre à jour), et jeu. 20 nov. 23h26 j'ai travaillé sur l'affichage de la map séléctionné, avec le système d'équipe, l'affichage des mine, et de la boussole pour le vent. j'ai aussi merge la branch physics avec Ingame, et commencé à travailler sur l'intégration de la physique en jeux (5 hrs de travail)
 
 Mar. 25 nov. 13h20 : Changement dans le mode d'affichage des entitées. Moi et Kev on change la physics. 4 hrs de fait plus au moins 2-3h a venir.
+
+Mar. 25 nov. 23h20 : Je confirme le trois heures de travail sur la physics.
+
+Mer. 26 nov. 09h24 : Je continue sur les collision avec le sol pour s'assurer que rien ne rentre [dans] la map.
