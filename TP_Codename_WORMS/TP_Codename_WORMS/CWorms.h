@@ -302,8 +302,8 @@ public:
 		SSTemp->setOnClickNext(BtnMapNext);
 		SSTemp->setOnClickPrev(BtnMapPrev);
 		m_MenuNewGame->AddElement(SSTemp, WIDTH / 2 - 400, 40, 800, 400);
-		m_MenuNewGame->AddElement(new CLabel("lblMapName", "Map : Arcade", m_Gestionaire->GetFont("FontMenu"), {}), 62, 460, 100, 20);
-		m_MenuNewGame->AddElement(new CLabel("lblMapInfo", "Wind : 200", m_Gestionaire->GetFont("FontMenu"), {}), 62, 500, 100, 20);
+		m_MenuNewGame->AddElement(new CLabel("lblMapName", "Map :", m_Gestionaire->GetFont("FontMenu"), {}), 62, 460, 100, 20);
+		m_MenuNewGame->AddElement(new CLabel("lblMapInfo", "Wind :", m_Gestionaire->GetFont("FontMenu"), {}), 62, 500, 100, 20);
 		m_MenuNewGame->AddElement(new CLabel("lblNbrTeam", "Number of teams :", m_Gestionaire->GetFont("FontMenu"), {}), 660, 460, 100, 20);
 		CSlideShow* SSTemp2 = new CSlideShow("SSNbrTeam", m_Gestionaire->GetFont("FontMenu"), { 1010, 460, 120, 22 }, m_Gestionaire->GetSprite("SpriteTeamLeft"), m_Gestionaire->GetSprite("SpriteTeamRight"));
 		SSTemp2->ajouterText(3, new string("2"), new string("3"), new string("4"));
