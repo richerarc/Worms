@@ -69,7 +69,7 @@ public:
 		}
 		else m_TrajectoryTime->Pause();
 		
-		return m_NextPos;
+		return m_ActualPos;
 	}
 	
 	CPosition* getNextPos(){

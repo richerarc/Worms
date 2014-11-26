@@ -144,6 +144,45 @@ public:
 			}
 		}
 	}
+	
+	static void VerifyNextPosition(CPosition* _ActualPos, CPosition* _NextPos){
+		bool boYContact(false), boXContact(false);
+		int YContact, XContact;
+		int DeltaY = _NextPos->getY() - _ActualPos->getY();
+		int DeltaX = _NextPos->getX() - _ActualPos->getX();
+		if (_NextPos->getY() > _ActualPos->getY()){
+			for (int i = 0; i < DeltaY; i++){
+				if (((unsigned int*)m_Map->pixels)[ m_Map->w * ((int)_ActualPos->getY() + i) + (int)_ActualPos->getX()] > TRANSPARENCY && !boYContact){
+					boYContact = true;
+					YContact = i;
+				}
+			}
+		}
+		else{
+			for (int i = DeltaY; i < 0; i++){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * ((int)_ActualPos->getY() + i) + (int)_ActualPos->getX()] > TRANSPARENCY && !boYContact){
+					boYContact = true;
+					YContact = i;
+				}
+			}
+		}
+		if (_NextPos->getX() > _ActualPos->getX()){
+			for (int i = 0; i < DeltaX; i++){
+				if (((unsigned int*)m_Map->pixels)[(m_Map->w * (int)_ActualPos->getY()) + (int)_ActualPos->getX() + i] > TRANSPARENCY && !boXContact){
+					boXContact = true;
+					XContact = i;
+				}
+			}
+		}
+		else{
+			for (int i = DeltaX; i < 0; i++) {
+				if (((unsigned int*)m_Map->pixels)[(m_Map->w * (int)_ActualPos->getY()) + (int)_ActualPos->getX() + i] > TRANSPARENCY && !boXContact){
+					boXContact = true;
+					XContact = i;
+				}
+			}
+		}
+	}
 
 	/*
 	Méthode : EvaluateSlope
