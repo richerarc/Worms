@@ -40,4 +40,6 @@
 
 17:39 2014-11-25: J'ai fait des changement dans les sprites, des optimisations pour le menu pause, moi et richer
 	          on a changer la physique. On a ajouter des vecteurs 2D et renommé la classe deja existante en
-                  CPosition. J'ai aussi aider Jessy pour la barre de Force du bazooka (3h et des poussieres)
+                  CPosition. J'ai aussi aider Jessy pour la barre de Force du bazooka. J'ai créé et implémenté
+		  une Classe CPowerbar j'ai aussi optimiser CBazooka(Handle Event en particulier).
+		  Total d'heures: 5h et des poussieres
