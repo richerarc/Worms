@@ -145,30 +145,45 @@ public:
 	
 	static void VerifyNextPosition(CPosition* _ActualPos, CPosition* _NextPos, SDL_Rect _EntityRect){
 		bool boYContact(false), boXContact(false);
-		double DeltaY = _NextPos->getY() - _ActualPos->getY();
-		double DeltaX = _NextPos->getX() - _ActualPos->getX();
-		C2DVector Destination(_EntityRect.x, _EntityRect.y, DeltaX, DeltaY);
-		int i = 0, Norme = Destination.getNorme();
-		Destination.Normalize();
-		while (i < Norme){
-			if (((unsigned int*)m_Map->pixels)[ m_Map->w * ((int)_ActualPos->getY() + i) + (int)_ActualPos->getX()] > TRANSPARENCY && !boYContact){
-				boYContact = true;
+		int YContact(0), XContact(0);
+		int DeltaY = _NextPos->getY() - _ActualPos->getY();
+		int DeltaX = _NextPos->getX() - _ActualPos->getX();
+		if (_NextPos->getY() > _ActualPos->getY()){
+			for (int i = 0; i < DeltaY; i++){
+				if (((unsigned int*)m_Map->pixels)[ m_Map->w * ((int)_ActualPos->getY() + i) + (int)_ActualPos->getX()] > TRANSPARENCY && !boYContact){
+					boYContact = true;
+					YContact = i;
+				}
 			}
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * ((int)_ActualPos->getY() + i) + (int)_ActualPos->getX()] > TRANSPARENCY && !boYContact){
-				boYContact = true;
-			}
-			if (((unsigned int*)m_Map->pixels)[(m_Map->w * (int)_ActualPos->getY()) + (int)_ActualPos->getX() + i] > TRANSPARENCY && !boXContact){
-				boXContact = true;
-			}
-			if (((unsigned int*)m_Map->pixels)[(m_Map->w * (int)_ActualPos->getY()) + (int)_ActualPos->getX() + i] > TRANSPARENCY && !boXContact){
-				boXContact = true;
-			}
-			i++;
 		}
-		if (boXContact)
-			_NextPos->setX((_ActualPos->getX() + (i * Destination.getComposanteX())) - _EntityRect.w);
-		if (boYContact)
-			_NextPos->setY(_ActualPos->getY() + ((i * Destination.getComposanteY())) - _EntityRect.h);
+		else{
+			for (int i = DeltaY; i < 0; i++){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * ((int)_ActualPos->getY() + i) + (int)_ActualPos->getX()] > TRANSPARENCY && !boYContact){
+					boYContact = true;
+					YContact = i;
+				}
+			}
+		}
+		if (_NextPos->getX() > _ActualPos->getX()){
+			for (int i = 0; i < DeltaX; i++){
+				if (((unsigned int*)m_Map->pixels)[(m_Map->w * (int)_ActualPos->getY()) + (int)_ActualPos->getX() + i] > TRANSPARENCY && !boXContact){
+					boXContact = true;
+					XContact = i;
+				}
+			}
+		}
+		else{
+			for (int i = DeltaX; i < 0; i++) {
+				if (((unsigned int*)m_Map->pixels)[(m_Map->w * (int)_ActualPos->getY()) + (int)_ActualPos->getX() + i] > TRANSPARENCY && !boXContact){
+					boXContact = true;
+					XContact = i;
+				}
+			}
+		}
+		if (XContact > 8)
+			_NextPos->setX(_ActualPos->getX() + XContact - _EntityRect.w);
+		if (YContact > 8)
+			_NextPos->setY(_ActualPos->getY() + YContact - _EntityRect.h);
 	}
 
 	/*
