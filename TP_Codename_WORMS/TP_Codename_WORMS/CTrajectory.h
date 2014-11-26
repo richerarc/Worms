@@ -62,8 +62,8 @@ public:
 			m_ActualPos->setX(m_NextPos->getX());
 			m_ActualPos->setY(m_NextPos->getY());
 			unsigned int dTimeVariation = m_TrajectoryTime->getElapsedTime();
-			double DeltaX = ((m_Speed->getComposanteX() * dTimeVariation) + (0.5 * dTimeVariation * dTimeVariation * m_Acceleration->getComposanteX())) / 1000000;
-			double DeltaY = ((m_Speed->getComposanteY() * dTimeVariation) + (0.5 * dTimeVariation * dTimeVariation * m_Acceleration->getComposanteY())) / 1000000;
+			double DeltaX = ((m_Speed->getComposanteX() * dTimeVariation) + (0.5 * dTimeVariation * dTimeVariation * m_Acceleration->getComposanteX())) / 100000;
+			double DeltaY = ((m_Speed->getComposanteY() * dTimeVariation) + (0.5 * dTimeVariation * dTimeVariation * m_Acceleration->getComposanteY())) / 100000;
 			m_NextPos->setX(m_ActualPos->getX() + DeltaX);
 			m_NextPos->setY(m_ActualPos->getY() + DeltaY);
 			
