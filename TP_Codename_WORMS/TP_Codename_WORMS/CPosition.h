@@ -76,6 +76,8 @@ public:
 		m_XFin = _Xfin;
 		m_YFin = _Yfin;
 		m_Norme = sqrt(pow(_Xfin - _XDepart, 2) + pow(_Yfin - _YDepart, 2));
+		m_ComposanteX = _Xfin - _XDepart;
+		m_ComposanteY = _Yfin - _YDepart;
 		if((m_ComposanteX == 0) && (m_ComposanteY > 0))
 			m_Orientation = M_PI / 2;
 		else if((m_ComposanteX == 0) && (m_ComposanteY < 0))
@@ -91,8 +93,6 @@ public:
 			else if (m_ComposanteY < 0)
 				m_Orientation = (2 * M_PI) + m_Orientation;
 		}
-		m_ComposanteX = m_Norme * cos(m_Orientation);
-		m_ComposanteY = m_Norme * sin(m_Orientation);
 	}
 	
 	C2DVector(int _XDepart, int _YDepart, double _CompX, double _CompY){
@@ -171,6 +171,22 @@ public:
 			m_ComposanteX = 0;
 		m_XFin = m_XOrigine + (m_ComposanteX);
 		m_YFin = m_YOrigine + (m_ComposanteY);
+		m_Norme = sqrt(pow(m_XFin - m_XOrigine, 2) + pow(m_YFin - m_YOrigine, 2));
+		if((m_ComposanteX == 0) && (m_ComposanteY > 0))
+			m_Orientation = M_PI / 2;
+		else if((m_ComposanteX == 0) && (m_ComposanteY < 0))
+			m_Orientation = 1.5 * M_PI;
+		else if((m_ComposanteX > 0) && (m_ComposanteY == 0))
+			m_Orientation = 0;
+		else if((m_ComposanteX < 0) && (m_ComposanteY == 0))
+			m_Orientation = M_PI;
+		else{
+			m_Orientation = atan(m_ComposanteY / m_ComposanteX);
+			if ((m_ComposanteX < 0) || ((m_ComposanteX < 0) && (m_ComposanteY < 0)))
+				m_Orientation = M_PI + m_Orientation;
+			else if (m_ComposanteY < 0)
+				m_Orientation = (2 * M_PI) + m_Orientation;
+		}
 	}
 	void setNorme(double _Norme){
 		m_Norme = _Norme;
@@ -181,6 +197,17 @@ public:
 		m_XFin = m_XOrigine + (m_ComposanteX);
 		m_YFin = m_YOrigine + (m_ComposanteY);
 	}
+	
+	void Normalize(){
+		if (m_Norme)
+			m_Norme /= m_Norme;
+		m_ComposanteX = cos(m_Orientation);
+		m_ComposanteY = sin(m_Orientation);
+		m_XFin = m_XOrigine + m_ComposanteX;
+		m_YFin = m_YOrigine + m_ComposanteY;
+		
+	}
+	
 	void setOrientation(double _AngleRadian){
 		m_Orientation = _AngleRadian;
 		m_ComposanteX = m_Norme * cos(m_Orientation);

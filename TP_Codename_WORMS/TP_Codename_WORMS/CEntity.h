@@ -48,7 +48,7 @@ public:
 		switch (m_EntityState) {
 			case Chute:
 				CPosition temp =  *m_Trajectoire->UpdatePosition();
-				CPhysics::VerifyNextPosition(m_Trajectoire->GetActualPosition(), m_Trajectoire->getNextPos());
+				CPhysics::VerifyNextPosition(m_Trajectoire->GetActualPosition(), m_Trajectoire->getNextPos(), m_RectPosition);
 				m_RectPosition.y = temp.getY();
 				m_RectPosition.x = temp.getX();
     			break;

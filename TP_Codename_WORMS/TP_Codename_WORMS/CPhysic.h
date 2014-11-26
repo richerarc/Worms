@@ -143,11 +143,13 @@ public:
 		}
 	}
 	
-	static void VerifyNextPosition(CPosition* _ActualPos, CPosition* _NextPos){
+	static void VerifyNextPosition(CPosition* _ActualPos, CPosition* _NextPos, SDL_Rect _EntityRect){
 		bool boYContact(false), boXContact(false);
 		int YContact(0), XContact(0);
-		int DeltaY = _NextPos->getY() - _ActualPos->getY();
-		int DeltaX = _NextPos->getX() - _ActualPos->getX();
+		double DeltaY = _NextPos->getY() - _ActualPos->getY();
+		double DeltaX = _NextPos->getX() - _ActualPos->getX();
+		C2DVector Destination(_EntityRect.x, _EntityRect.y, DeltaX, DeltaY);
+		Destination.Normalize();
 		if (_NextPos->getY() > _ActualPos->getY()){
 			for (int i = 0; i < DeltaY; i++){
 				if (((unsigned int*)m_Map->pixels)[ m_Map->w * ((int)_ActualPos->getY() + i) + (int)_ActualPos->getX()] > TRANSPARENCY && !boYContact){
@@ -180,10 +182,10 @@ public:
 				}
 			}
 		}
-		if (XContact > 8)
-			_NextPos->setX(_ActualPos->getX() + XContact - 8);
-		if (YContact > 8)
-			_NextPos->setY(_ActualPos->getY() + YContact - 8);
+		if (XContact)
+			_NextPos->setX(_ActualPos->getX() + XContact);
+		if (YContact)
+			_NextPos->setY(_ActualPos->getY() + YContact);
 	}
 
 	/*
