@@ -73,7 +73,3 @@ le bazouka apparait lors de la touche b (changer cela pour la selection) apparai
 Affichage du sprite de la barre de lancement au dessus du bazouka lorsqu'on actionne la touche space. Plusieurs problèmes à regler.
 
 
-26 Novembre de 9h20 a 9h23:
-Q: What's the difference between a ginger and a vampire?
-A: One is a pale, bloodsucking creature that avoids the sun. The other is a vampire. 
-
