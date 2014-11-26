@@ -13,11 +13,10 @@ private:
 	SDL_Rect m_RectSurface; //La pos du rectangle de l'objet
 	double iAngle; // L'angle de rotation
 	SDL_Texture* m_pTexture; // Texture de l'image à afficher.
-	bool boIsLaunch; // Booléen pour vérifier si le bazouka va lancer un missile
+	bool m_boCharging; // Booléen pour vérifier si le bazouka va lancer un missile
 	bool boIsRotated; // Booléen pour vérifier si le bazouka sera en rotation
-	bool m_boReversePowerBar; // Booléen pour vérifier si la barre de lancement ira dans le sense contraire.
-	unsigned int iPower; // Représente le power du missile.
-
+	unsigned int m_uiPower; // Représente le power du missile.
+	CPowerBar* m_PowerBar;
 public:
 	/*!
 	@Constructeur
@@ -31,11 +30,11 @@ public:
 		m_Rect.y = _iy;
 		SDL_QueryTexture(_pTexture, NULL, NULL, &m_Rect.w, &m_Rect.h);//Dimension du bazooka
 		m_pTexture = _pTexture;
-		boIsLaunch = false;
+		m_boCharging = false;
 		boIsRotated = false;
-		m_boReversePowerBar = false;
 		iAngle = 0;
-		iPower = 0;
+		m_uiPower = 0;
+		m_PowerBar = new CPowerBar(m_Rect);
 	}
 
 	/*!
@@ -58,30 +57,9 @@ public:
 		else
 			SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_Rect, iAngle, NULL, SDL_FLIP_NONE);
 
-		if (boIsLaunch){
-			IsLaunch(_pRenderer);
+		if (m_boCharging){
+			m_PowerBar->Draw(_pRenderer);
 		}
-	}
-
-	/*!
-	@method IsLaunch
-	@description: permet de faire afficher la barre de lancement.
-	@param _pRenderer: Renderer pour rendre la texture du bazouka
-	@return null
-	*/
-	void IsLaunch(SDL_Renderer* _pRenderer){
-		SetRectSurface(iPower);
-
-		if (iPower <= 16)
-			SDL_SetRenderDrawColor(_pRenderer, 150 + iPower, (200 + iPower + 4), 0, 0);
-		if (iPower > 17 && iPower <= 34)
-			SDL_SetRenderDrawColor(_pRenderer, (200 + iPower + 4), (200 + iPower + 4), 0, 0);
-		if (iPower > 34)
-			SDL_SetRenderDrawColor(_pRenderer, 200 + iPower + 8, 100 + iPower, 0, 0);
-
-		SDL_RenderFillRect(_pRenderer, &m_RectSurface);
-
-
 	}
 
 	/*!
@@ -90,57 +68,56 @@ public:
 	@return null
 	*/
 	void HandleEvent(SDL_Event* _Event){
+		switch (_Event->type)
+		{
+		case SDL_KEYDOWN:
+			switch (_Event->key.keysym.sym)
+			{
+			case SDLK_UP:
+				if (iAngle > -360)
+					iAngle--;
+				else{
+					iAngle = 0;
+					iAngle--;
+				}
+				boIsRotated = true;
+				break;
 
-		switch (_Event->key.keysym.sym){
+			case SDLK_DOWN:
+				iAngle++;
+				if (iAngle > 360)
+					iAngle = 0;
+				boIsRotated = true;
+				break;
 
-		case SDLK_UP:
-
-			if (iAngle > -360)
-				iAngle--;
-			else{
-				iAngle = 0;
-				iAngle--;
+			case SDLK_SPACE:
+				m_PowerBar->SetPosition(m_Rect.x, m_Rect.y);
+				m_boCharging = true;
+				m_PowerBar->PowerUp();
+				break;
 			}
-			boIsRotated = true;
 			break;
 
-		case SDLK_DOWN:
-			iAngle++;
-			if (iAngle > 360)
-				iAngle = 0;
-			boIsRotated = true;
-			break;
+		case SDL_KEYUP:
+			switch (_Event->key.keysym.sym)
+			{
+			case SDLK_UP:
+				break;
 
-		case SDLK_SPACE:
-			boIsLaunch = true;
-			if (iPower <= 50 && !m_boReversePowerBar){
-				if (iPower == 50)
-					m_boReversePowerBar = true;
-				iPower++;
+			case SDLK_DOWN:
+				break;
+
+			case SDLK_SPACE:
+				m_uiPower = m_PowerBar->getPowerLevel();
+				m_PowerBar->setPowerLevel(0);
+				break;
 			}
-			else
-			if (m_boReversePowerBar){
-				if (iPower == 0)
-					m_boReversePowerBar = false;
-				iPower--;
-			}
+			break;
+			
+		default:
 			break;
 		}
 	}
-
-	/*!
-	@method SetRectSurface
-	@description: permet de set la position et la dimension du rect de la barre de lancement.
-	@param: _iWidth: la largeur du rect
-	*/
-	void SetRectSurface(int _iWidth){
-		m_RectSurface.x = m_Rect.x;
-		m_RectSurface.y = m_Rect.y - 15;
-		m_RectSurface.w = _iWidth;
-		m_RectSurface.h = 10;
-
-	}
-
 };
 
 #endif
