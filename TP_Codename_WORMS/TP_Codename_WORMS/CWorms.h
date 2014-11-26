@@ -125,7 +125,7 @@ public:
 #elif defined (_WIN32)
 		strPath.append("\\");
 #endif
-		string FileName[21] = {
+		string FileName[22] = {
 			"Arpegius.ttf",
 			"Btn1.png",
 			"BtnL.png",
@@ -142,14 +142,15 @@ public:
 			"compass.png",
 			"Fleche.png",
 			"MenuBackground.jpg",
-			"WormMoveLeft.png",
+			"WormImmobile.png",
 			"SpriteMine.png",
 			"MenuBackground2.png",
 			"map5.png",
-			"background5.jpg"
+			"background5.jpg",
+			"SpriteSheetFinal.png"
 		};
-		string strFilePath[21];
-		for (int i = 0; i < 21; i++){
+		string strFilePath[22];
+		for (int i = 0; i < 22; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
@@ -192,6 +193,7 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("background5", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[20].c_str())));
 		/* The potato is a lie */
 		m_Gestionaire->AjouterTexture(new CTexture("worm", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[16].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("wormSprite", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[21].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("mine", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[17].c_str())));
 
 

@@ -109,7 +109,6 @@ public:
 
 			case SDLK_SPACE:
 				m_uiPower = m_PowerBar->getPowerLevel();
-				m_PowerBar->setPowerLevel(0);
 				break;
 			}
 			break;

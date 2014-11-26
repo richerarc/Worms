@@ -52,6 +52,10 @@ public:
 		}
 	}
 
-	unsigned int getPowerLevel(){ return (m_uiPower * 2); }
+	unsigned int getPowerLevel(){
+		unsigned int temp = m_uiPower * 2;
+		m_uiPower = 0;
+		return temp;
+	}
 	void setPowerLevel(unsigned int _ipower){ m_uiPower = _ipower; }
 };

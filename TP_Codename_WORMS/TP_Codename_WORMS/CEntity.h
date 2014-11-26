@@ -29,9 +29,9 @@ public:
 		m_Trajectoire = nullptr;
 		m_EntityState = 0;
 		m_pTexture = _Texture;
-		m_Trajectoire = CPhysics::Propulsion(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.f, 0.f), new C2DVector(m_RectPosition.x, m_RectPosition.y, double(0), double(CPhysics::GetGravity())));
+		m_Trajectoire = CPhysics::Propulsion(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.f, 2.f), new C2DVector(m_RectPosition.x, m_RectPosition.y, double(0), double(CPhysics::GetGravity())));
 	}
-
+	
 	/*!
 	@Destructeur:
 	@Permet de détruire les objets créés en mémoire
@@ -42,12 +42,13 @@ public:
 	}
 	
 	virtual void Move(){
-		int iTemp = CPhysics::VerifyGroundCollision(m_RectPosition, m_Trajectoire);
+		int iTemp = CPhysics::VerifyGroundCollision(m_RectPosition);
 		if (iTemp != NOCONTACT)
 			m_EntityState = Immobile;
 		switch (m_EntityState) {
 			case Chute:
 				CPosition temp =  *m_Trajectoire->UpdatePosition();
+				CPhysics::VerifyNextPosition(m_Trajectoire->GetActualPosition(), m_Trajectoire->getNextPos());
 				m_RectPosition.y = temp.getY();
 				m_RectPosition.x = temp.getX();
     			break;

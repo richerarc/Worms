@@ -38,6 +38,9 @@
 		CBECA7DA1A004E360030E776 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
 		F91E82F21A1BD50D0060A222 /* CBoussole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBoussole.h; path = TP_Codename_WORMS/CBoussole.h; sourceTree = SOURCE_ROOT; };
 		F93E3BEB1A25013400015363 /* CPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPosition.h; path = TP_Codename_WORMS/CPosition.h; sourceTree = SOURCE_ROOT; };
+		F93E3BEC1A260B3F00015363 /* CBazouka.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBazouka.h; path = TP_Codename_WORMS/CBazouka.h; sourceTree = SOURCE_ROOT; };
+		F93E3BED1A260B3F00015363 /* CJetPack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CJetPack.h; path = TP_Codename_WORMS/CJetPack.h; sourceTree = SOURCE_ROOT; };
+		F93E3BEE1A260B3F00015363 /* CPowerBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPowerBar.h; path = TP_Codename_WORMS/CPowerBar.h; sourceTree = SOURCE_ROOT; };
 		F943750F1A1E95550067D9DC /* CPhysic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPhysic.h; path = TP_Codename_WORMS/CPhysic.h; sourceTree = SOURCE_ROOT; };
 		F94375101A1E95550067D9DC /* CTrajectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTrajectory.h; path = TP_Codename_WORMS/CTrajectory.h; sourceTree = SOURCE_ROOT; };
 		F9455D501A1072D60036C9AC /* CSlideShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSlideShow.h; path = TP_Codename_WORMS/CSlideShow.h; sourceTree = SOURCE_ROOT; };
@@ -117,6 +120,9 @@
 		CB81A5C819FF1E6800935BA4 /* TP_Codename_WORMS_Mac */ = {
 			isa = PBXGroup;
 			children = (
+				F93E3BEC1A260B3F00015363 /* CBazouka.h */,
+				F93E3BED1A260B3F00015363 /* CJetPack.h */,
+				F93E3BEE1A260B3F00015363 /* CPowerBar.h */,
 				F93E3BEB1A25013400015363 /* CPosition.h */,
 				F943750F1A1E95550067D9DC /* CPhysic.h */,
 				F94375101A1E95550067D9DC /* CTrajectory.h */,

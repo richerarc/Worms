@@ -94,13 +94,11 @@ public:
 	//Valeur de la transparence : 16777215
 
 	//À VÉRIFIER + optimisations possibles
-	static int VerifyGroundCollision(SDL_Rect _Rect, CTrajectory* _Traj){
+	static int VerifyGroundCollision(SDL_Rect _Rect){
 		bool boGround = false;
 		bool boCeiling = false;
 		bool boLeft = false;
 		bool boRight = false;
-		CPosition TempActual = *_Traj->GetActualPosition();
-		CPosition TempNext = *_Traj->getNextPos();
 		for (int i = 0; i < _Rect.w; i++){
 			if (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect.y + _Rect.h)) + _Rect.x + i] > TRANSPARENCY && !boGround){
 				boGround = true;
@@ -147,7 +145,7 @@ public:
 	
 	static void VerifyNextPosition(CPosition* _ActualPos, CPosition* _NextPos){
 		bool boYContact(false), boXContact(false);
-		int YContact, XContact;
+		int YContact(0), XContact(0);
 		int DeltaY = _NextPos->getY() - _ActualPos->getY();
 		int DeltaX = _NextPos->getX() - _ActualPos->getX();
 		if (_NextPos->getY() > _ActualPos->getY()){
@@ -182,6 +180,10 @@ public:
 				}
 			}
 		}
+		if (XContact > 8)
+			_NextPos->setX(_ActualPos->getX() + XContact - 8);
+		if (YContact > 8)
+			_NextPos->setY(_ActualPos->getY() + YContact - 8);
 	}
 
 	/*
