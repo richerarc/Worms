@@ -17,6 +17,7 @@ public:
 		m_pSprite = _Sprite;
 		m_pSprite->setSpritePos(m_pPosition->getX(), m_pPosition->getY());
 	}
+
 	/*!
 	@method Draw
 	@param _Renderer : Renderer pour rendre la textures du Sprite.

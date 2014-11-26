@@ -35,6 +35,7 @@ public:
 	@Permet de détruire les objets créés en mémoire
 	*/
 	~CGrenades(){
+		delete m_pTimer;
 	}
 
 	/*!

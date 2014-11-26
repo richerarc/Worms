@@ -13,6 +13,7 @@ private:
 	bool boIsExplosed; //Donnée représentant si l'objet est explosé (true) ou non (false)
 
 public:
+
 	/*!
 	@Constructeur
 	@Description: Permet d'initialiser les données membres
@@ -21,12 +22,18 @@ public:
 	 @param _pTexture : texture de l'image à afficher
 	@Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
-
 	CMines(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _Texture) :CObjets(_iRayon, _RectPos, _Texture){
 		m_iRayon = _iRayon;
 		boIsExplosed = false;
-		
 	}
+
+	/*!
+	@Destructeur:
+	@Permet de détruire les objets créés en mémoire
+	*/
+	~CMines(){
+	}
+
 	/*!
 	@method Draw
 	@param _Renderer : Renderer pour rendre la texture de la mine
@@ -53,12 +60,15 @@ public:
 	void ReactToExplosion(int _iX, int _iY, int _iRayon){
 		boIsExplosed = true;
 	}
+
 	/*!
 	@Accesseurs:
 	*/
+
 	bool IsItExplosed(){
 		return boIsExplosed;
 	}
+
 	void setExplosion(bool _boSet){
 		boIsExplosed = _boSet;
 	}
@@ -68,12 +78,7 @@ public:
 		m_RectPosition.y = _iy;
 	}
 
-	/*!
-	@Destructeur:
-	@Permet de détruire les objets créés en mémoire
-	*/
-	~CMines(){
-	}
+
 };
 
 #endif

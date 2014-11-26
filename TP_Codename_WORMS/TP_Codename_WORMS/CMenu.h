@@ -20,8 +20,6 @@ private:
 	SDL_Texture* m_pBackground;
 public:
 
-
-
 	/*!
 	@ Constructeur
 	@brief Initialise les données membres.

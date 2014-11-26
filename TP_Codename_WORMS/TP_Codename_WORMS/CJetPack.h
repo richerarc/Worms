@@ -26,6 +26,7 @@ private:
 	unsigned int iGaz; // Représente le gaz restant au jet pack
 
 public:
+
 	/*!
 	@Constructeur
 	@Description: Permet d'initialiser les données membres
@@ -44,6 +45,13 @@ public:
 	}
 
 	/*!
+	@Destructeur:
+	@Permet de détruire les objets créés en mémoire
+	*/
+	~CJetPack(){
+	}
+
+	/*!
 	@methodRender
 	@param _pRenderer : Renderer pour rendre la texture du jet Pack
 	@return null
@@ -54,6 +62,7 @@ public:
 		IsLaunch(_pRenderer);
 
 	}
+
 	/*!
 	@method IsLaunch
 	@description: permet de faire afficher la barre de lancement.
@@ -68,6 +77,7 @@ public:
 
 
 	}
+
 	/*!
 	@method HandleEvent
 	@param _Event : Un SDL_Event pour traiter les evenement
@@ -86,12 +96,12 @@ public:
 
 		}
 	}
+
 	/*!
 	@method SetRectSurface
 	@description: permet de set la position et la dimension du rect de la barre de gaz
 	@param: _iWidth: la largeur du rect
 	*/
-
 	void SetRectSurface(int _iWidth){
 		m_RectSurface.x = m_Rect.x;
 		m_RectSurface.y = m_Rect.y - 15;
@@ -99,13 +109,6 @@ public:
 
 	}
 
-
-	/*!
-	@Destructeur:
-	@Permet de détruire les objets créés en mémoire
-	*/
-	~CJetPack(){
-	}
 };
 
 #endif

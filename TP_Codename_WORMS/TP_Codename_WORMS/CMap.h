@@ -41,6 +41,8 @@ public:
 		m_boModified = true;
 	}
 
+	~CMap(){}
+
 	void ConvertMap(SDL_Renderer* _Renderer){
 		m_MapConverted = SDL_CreateTextureFromSurface(_Renderer, m_Map);
 		m_boModified = false;

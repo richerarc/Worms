@@ -12,6 +12,7 @@ private:
 	bool boIsExplosed; //Donnée représentant si l'objet est explosé (true) ou non (false)
 
 public:
+
 	/*!
 	@Constructeur
 	@Description: Permet d'initialiser les données membres
@@ -21,11 +22,21 @@ public:
 	@Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
 	CMissiles(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _pTexture) :CObjets(_iRayon, _RectPos, _pTexture){
-
 		m_iRayon = _iRayon;
 		boIsExplosed = false;
 	}
 	
+	/*!
+	@Destructeur:
+	@Permet de détruire les objets créés en mémoire
+	*/
+	~CMissiles(){
+	}
+
+	void Move(){
+		
+	}
+
 	/*!
 	@method Draw
 	@param _Renderer : Renderer pour rendre la texture du missile
@@ -51,10 +62,10 @@ public:
 	*/
 	void ReactToExplosion(int _iX, int _iY, int _iRayon){}
 
-
 	/*!
 	@Accesseurs:
 	*/
+
 	void setPos(int _ix, int _iy){
 		m_RectPosition.x = _ix;
 		m_RectPosition.y = _iy;
@@ -67,17 +78,8 @@ public:
 	void setExplosion(bool _boSet){
 		boIsExplosed = _boSet;
 	}
-
-	/*!
-	@Destructeur:
-	@Permet de détruire les objets créés en mémoire
-	*/
-	~CMissiles(){
-	}
 	
-	void Move(){
-		
-	}
+
 };
 
 #endif

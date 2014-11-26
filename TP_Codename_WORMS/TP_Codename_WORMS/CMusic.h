@@ -4,6 +4,7 @@ private:
 	Mix_Music* m_pSound; // Musique à afficher
 	static bool m_boInitialized; // Indique si la musique à été initialisé.
 public:
+
 	CSound(const char* _Name, const char* _Path) : CRessource(_Name){
 		if (!m_boInitialized){
 			Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, BUFFER);
@@ -12,6 +13,7 @@ public:
 		}
 		m_pSound = Mix_LoadMUS(_Path);
 	}
+
 	~CSound(){
 		Mix_FreeMusic(m_pSound);
 	}
