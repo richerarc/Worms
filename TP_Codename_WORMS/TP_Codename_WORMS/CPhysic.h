@@ -1,14 +1,15 @@
 #define TRANSPARENCY 0 //16777215 //268435455
-#define GROUND 1111
-#define CEILING 2222
-#define LEFT 3333
-#define RIGHT 4444
-#define GROUNDLEFT 5555
-#define GROUNDRIGHT 6666
-#define CEILINGLEFT 7777
-#define CEILINGRIGHT 8888
-#define NOCONTACT 9999
-#define GROUNDCEILING 1337
+#define GROUND 0x00000001
+#define CEILING 0x00000010
+#define LEFT 0x00000100
+#define RIGHT 0x00001000
+#define GROUNDLEFT (GROUND|LEFT)
+#define GROUNDRIGHT (GROUND|RIGHT)
+#define CEILINGLEFT (CEILING|LEFT)
+#define CEILINGRIGHT (CEILING|RIGHT)
+#define NOCONTACT 0x00000000
+#define UNDERGROUND (GROUND|CEILING|LEFT|RIGHT)
+#define GROUNDCEILING (GROUND|CEILING)
 #define MOVING 420
 #define BLOCKED 666
 #define FROMBOTTOM 12345
@@ -93,50 +94,30 @@ public:
 	//Valeur de la transparence : 16777215
 
 	//À VÉRIFIER + optimisations possibles
-	//static int VerifyGroundCollision(SDL_Rect _Rect,CTrajectory* _Traj){
 	static int VerifyGroundCollision(SDL_Rect _Rect, CTrajectory* _Traj){
-		CPosition TmpInitPos(_Traj->GetLastPosition()->getX(), _Traj->GetLastPosition()->getY());
-		CPosition TmpFinalPos(_Traj->GetActualPosition()->getX(), _Traj->GetActualPosition()->getY());
-		int VarX = TmpFinalPos.getX() - TmpInitPos.getX();
-		int VarY = TmpFinalPos.getY() - TmpInitPos.getY();
 		bool boGround = false;
 		bool boCeiling = false;
 		bool boLeft = false;
 		bool boRight = false;
-		//for (int h = 0; h <= VarX || h <= VarY; h++){
-			//if (VarX == VarY){
-				//_Rect.x++;
-				//_Rect.y++;
-			//}
-			//else{
-				//if (VarX > VarY){
-					//_Rect.x++;
-					//_Rect.y = _Rect.y + (h)*VarX/VarY;
-				//}
-				//else {
-					//_Rect.y++;
-				//	_Rect.x = _Rect.x + (h)*VarX/VarY;
-				//}
-			//}
-			//_Rect.x = _Rect.x + h * VarY / VarX;
-			//_Rect.y = _Rect.y + h * VarX / VarY;
-			for (int i = 0; i < _Rect.w; i++){
-				if (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect.y + _Rect.h)) + _Rect.x + i] > TRANSPARENCY && !boGround){
-					boGround = true;
-				}
-				if (_Rect.y > 0 && ((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1) + _Rect.x + i] > TRANSPARENCY && !boCeiling){
-					boCeiling = true;
-				}
+		CPosition TempActual = *_Traj->GetActualPosition();
+		CPosition TempNext = *_Traj->getNextPos();
+		for (int i = 0; i < _Rect.w; i++){
+			if (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect.y + _Rect.h)) + _Rect.x + i] > TRANSPARENCY && !boGround){
+				boGround = true;
 			}
-			for (int i = 0; i < _Rect.h; i++){
-				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x + _Rect.w] > TRANSPARENCY && !boRight){
-					boRight = true;
-				}
-				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x - 1] > TRANSPARENCY && !boLeft){
-					boLeft = true;
-				}
+			if (_Rect.y > 0 && ((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1) + _Rect.x + i] > TRANSPARENCY && !boCeiling){
+				boCeiling = true;
 			}
-		//}
+		}
+		for (int i = 0; i < _Rect.h; i++){
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x + _Rect.w] > TRANSPARENCY && !boRight){
+				boRight = true;
+			}
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x - 1] > TRANSPARENCY && !boLeft){
+				boLeft = true;
+			}
+		}
+		
 		if (boGround){
 			if (boCeiling)
 				return GROUNDCEILING;
@@ -213,7 +194,7 @@ public:
 	_PosInit : Position initiale de la propulsion
 	_Vit : Vitesse initiale de la propulsion
 	*/
-	static CTrajectory* Propulsion(CPosition* _PosInit, CPosition* _Vit, CPosition* _Acc){
+	static CTrajectory* Propulsion(CPosition* _PosInit, C2DVector* _Vit, C2DVector* _Acc){
 		return new CTrajectory(_PosInit, _Vit, _Acc);
 	}
 

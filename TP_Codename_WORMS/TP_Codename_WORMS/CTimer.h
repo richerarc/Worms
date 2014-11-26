@@ -18,6 +18,7 @@ class CTimer {
 private:
 	unsigned int m_uiTicks,			// Nombre de ticks du départ du timer (miliSecondes).
 				 m_uiTimeToElapse;	// Combien de ticks avant le déclenchement(miliSecondes).
+	bool m_boPause;
 public:
 
 	/*!
@@ -26,6 +27,7 @@ public:
 	CTimer(){
 		m_uiTicks = 0;
 		m_uiTimeToElapse = 0;
+		m_boPause = false;
 	}
 	
 	/*!
@@ -61,6 +63,7 @@ public:
 	 */
 	void Pause(){
 		m_uiTimeToElapse = m_uiTimeToElapse - (SDL_GetTicks() - m_uiTicks);
+		m_boPause = true;
 	}
 
 	/*!
@@ -69,7 +72,10 @@ public:
 	 @discussion Assez superflu, mais pratique pour ne pas oublier de redémarrer la minuterie après une pause
 	 */
 	void UnPause(){
-		Start();
+		if (m_boPause){
+			Start();
+			m_boPause = false;
+		}
 	}
 	
 	unsigned int getElapsedTime(){

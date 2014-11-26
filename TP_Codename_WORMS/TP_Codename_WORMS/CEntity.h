@@ -29,7 +29,7 @@ public:
 		m_Trajectoire = nullptr;
 		m_EntityState = 0;
 		m_pTexture = _Texture;
-		m_Trajectoire = CPhysics::Propulsion(new CPosition(m_RectPosition.x, m_RectPosition.y), new CPosition(0, 0), new CPosition(0, CPhysics::GetGravity()));
+		m_Trajectoire = CPhysics::Propulsion(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.f, 0.f), new C2DVector(m_RectPosition.x, m_RectPosition.y, double(0), double(CPhysics::GetGravity())));
 	}
 
 	/*!

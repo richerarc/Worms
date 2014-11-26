@@ -34,6 +34,13 @@ public:
 	*/
 	CGame(CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer, int _NbOfTeam, int _NbOfWormPerTeam, CGestionnaireRessources* _Gestionaire){
 		m_Gestionaire = _Gestionaire;
+		m_pBoussole = _Boussole;
+		m_pRenderer = _Renderer;
+		m_uiTeamTurn = 0;
+		m_boInPlay = false;
+		m_boPause = false;
+		m_pMap = _Map;
+		CPhysics::Init(m_pMap->getMap(), m_pMap->getGravity(), m_pMap->getWind());
 		m_pListeTeam = new CListeDC<CTeam*>();
 		string temp("Team");
 		char buf[10];
@@ -41,17 +48,10 @@ public:
 			temp.append(SDL_itoa(i, buf, 10));
 			m_pListeTeam->AjouterFin(new CTeam(temp, {static_cast<Uint8>(i * 200), static_cast<Uint8>(i * 100), static_cast<Uint8>(i * 50), 1},m_Gestionaire->GetTexture("worm")->GetTexture(), m_Gestionaire->GetTexture("worm")->GetTexture(), _NbOfWormPerTeam, m_Gestionaire->GetFont("FontMenu")));
 		}
-		m_pMap = _Map;
 		m_pListeObjets = new CListeDC<CObjets*>();
 		for(int i = 0; i < m_pMap->getMine(); i++){
 			m_pListeObjets->AjouterFin(new CMines(20, {((rand()% (WIDTH - 10)) + 5), 5, 12, 8}, m_Gestionaire->GetTexture("mine")->GetTexture()));
 		}
-		m_pBoussole = _Boussole;
-		m_pRenderer = _Renderer;
-		m_uiTeamTurn = 0;
-		m_boInPlay = false;
-		m_boPause = false;
-		CPhysics::Init(m_pMap->getMap(), m_pMap->getGravity(), m_pMap->getWind());
 	}
 	
 	/*!
