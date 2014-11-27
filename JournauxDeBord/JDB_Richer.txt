@@ -26,4 +26,6 @@ Mar. 25 nov. 13h20 : Changement dans le mode d'affichage des entitées. Moi et K
 
 Mar. 25 nov. 23h20 : Je confirme le trois heures de travail sur la physics.
 
-Mer. 26 nov. 09h24 : Je continue sur les collision avec le sol pour s'assurer que rien ne rentre [dans] la map.
+Mer. 26 nov. 09h24 : Je continue sur les collision avec le sol pour s'assurer que rien ne rentre [dans] la map. (1h30)
+
+Mer. 26 nov. 18h58 : J'ai continuer sur la physics, puis j'ai ajouté que les worms tombent maintenant une fois que les mines sont dropé. J'ai aussi vue que l'utilisation de mémoire dans les menu est [bizarre]... TODO (2-3hrs)
