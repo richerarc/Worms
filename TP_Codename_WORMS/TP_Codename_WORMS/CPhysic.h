@@ -26,8 +26,8 @@ private:
 	static unsigned int m_uiPixel[WIDTH * HEIGHT];
 
 public:
-	
-	
+
+
 	static void Init(SDL_Surface* _map, double _gravity, int _maxWind){
 		m_Wind = new CPosition(0., 0.);
 		m_Map = _map;
@@ -35,7 +35,7 @@ public:
 		m_MaxWindSpeed = _maxWind;
 		RedefineWind();
 	}
-	
+
 	static void Annihilate(){
 		m_Map = nullptr;
 		m_Gravity = 0;
@@ -43,7 +43,7 @@ public:
 		delete m_Wind;
 		m_Wind = nullptr;
 	}
-	
+
 	// Constructeur:
 	//	Parametres: _Gravity - affecte la valeur de la gravité (1 fois par jeu).
 	//				_MaxSpeed - affecte la valeur maximale de l'accélération gravitationnelle.
@@ -115,7 +115,7 @@ public:
 				boLeft = true;
 			}
 		}
-		
+
 		if (boGround){
 			if (boCeiling)
 				return GROUNDCEILING;
@@ -142,7 +142,7 @@ public:
 			}
 		}
 	}
-	
+
 	static void VerifyNextPosition(CPosition* _ActualPos, CPosition* _NextPos, SDL_Rect _EntityRect){
 		bool boYContact(false), boXContact(false);
 		int YContact(0), XContact(0);
@@ -150,7 +150,7 @@ public:
 		int DeltaX = _NextPos->getX() - _ActualPos->getX();
 		if (_NextPos->getY() > _ActualPos->getY()){
 			for (int i = 0; i < DeltaY; i++){
-				if (((unsigned int*)m_Map->pixels)[ m_Map->w * ((int)_ActualPos->getY() + i) + (int)_ActualPos->getX()] > TRANSPARENCY && !boYContact){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * ((int)_ActualPos->getY() + i) + (int)_ActualPos->getX()] > TRANSPARENCY && !boYContact){
 					boYContact = true;
 					YContact = i;
 				}
@@ -188,37 +188,36 @@ public:
 
 	/*
 	Méthode : EvaluateSlope
-	Brief : Fonction qui retourne la pente à partir d'une section de la map
+	Brief : Fonction qui retourne la pente (en degrés) à partir d'une section de la map
 	Params :
 	_Pos : Position dans la surface où la pente est évaluée
 	_Direction : Direction de laquelle vient l'entité impliquée
 	Discussion : À FAIRE : Évaluer une collision "de coté"
 	*/
-	static double EvaluateSlope (CPosition* _Pos, int _Direction){
-		double ValueTab[9];
-		SDL_Rect _Rect;
-		_Rect.h = 9;
-		_Rect.w = 9;
-		_Rect.x = _Pos->getX() - 5;
-		_Rect.y = _Pos->getY() - 5;
-		for (int x = 0; x < _Rect.w; x++){
-			for (int y = 0; y < _Rect.h; y++){
-				if (_Direction == FROMTOP){
-					if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1 + y) + _Rect.w] != 0){
-						ValueTab[x] = y + 1;
-						y = _Rect.h;
-					}
-				}
-				else{
-					if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1 + y) + _Rect.w] != 0){
-						ValueTab[x] = y + 1;
+	static double EvaluateSlope(SDL_Rect* _Rect){
+		double Slope = 0;
+		bool first = false;
+		int PreviousY;
+		double PointsSignificatifs = 0;
+		for (int x = _Rect->x; x < _Rect->x + _Rect->w; x++){
+			for (int y = _Rect->y; y < _Rect->y + _Rect->h; y++){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (y) + x] >TRANSPARENCY){
+					if (((unsigned int*)m_Map->pixels)[m_Map->w * (y + 1) + x] == 0
+						|| ((unsigned int*)m_Map->pixels)[m_Map->w * (y - 1) + x] == 0){
+						double TmpY = y;
+						if (first)
+							Slope = Slope + (TmpY - PreviousY);
+						else
+							first = true;
+						PreviousY = TmpY;
+						PointsSignificatifs++;
+						y = _Rect->y + _Rect->h;
 					}
 				}
 			}
 		}
-		double Med1Y = (ValueTab[0] + ValueTab[1] + ValueTab[2] + ValueTab[3]) / 4;
-		double Med2Y = (ValueTab[5] + ValueTab[6] + ValueTab[7] + ValueTab[8]) / 4;
-		return (Med2Y - Med1Y)/5;
+		return RadToDeg(atan(Slope/(PointsSignificatifs-1)));
+
 	}
 
 
