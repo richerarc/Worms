@@ -50,6 +50,7 @@
 		F97DCB4219FFBEC7006F17CF /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../../../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
 		F97DCB4319FFBEC7006F17CF /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../../Library/Frameworks/SDL2_ttf.framework; sourceTree = "<group>"; };
 		F97DCB4419FFBEC7006F17CF /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		F98148681A27D76100C4161A /* C2DVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = C2DVector.h; path = TP_Codename_WORMS/C2DVector.h; sourceTree = SOURCE_ROOT; };
 		F985BB411A0BFB3600FFAB23 /* CFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFont.h; path = TP_Codename_WORMS/CFont.h; sourceTree = SOURCE_ROOT; };
 		F985BB421A0BFB3600FFAB23 /* ClabelImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClabelImage.h; path = TP_Codename_WORMS/ClabelImage.h; sourceTree = SOURCE_ROOT; };
 		F985BB431A0BFB3600FFAB23 /* CMusic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMusic.h; path = TP_Codename_WORMS/CMusic.h; sourceTree = SOURCE_ROOT; };
@@ -121,6 +122,7 @@
 		CB81A5C819FF1E6800935BA4 /* TP_Codename_WORMS_Mac */ = {
 			isa = PBXGroup;
 			children = (
+				F98148681A27D76100C4161A /* C2DVector.h */,
 				CBC529791A268A76000C4FA6 /* SpriteSheetFinal.png */,
 				F93E3BEC1A260B3F00015363 /* CBazouka.h */,
 				F93E3BED1A260B3F00015363 /* CJetPack.h */,

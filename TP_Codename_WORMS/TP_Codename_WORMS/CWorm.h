@@ -153,10 +153,16 @@ public:
 		switch (m_EntityState) {
 			case Largage:
 				if ((iTemp != GROUND) && (iTemp != GROUNDLEFT) && (iTemp != GROUNDRIGHT) && (iTemp != GROUNDCEILING)){
-					CPosition temp =  *m_Trajectoire->UpdatePosition();
-					CPhysics::VerifyNextPosition(m_Trajectoire->GetActualPosition(), m_Trajectoire->getNextPos(), m_RectPosition);
-					m_RectPosition.y = temp.getY();
-					m_RectPosition.x = temp.getX();
+					m_Trajectoire->UpdatePosition();
+					CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+					if (temp != nullptr){
+						m_RectPosition.y = temp->getY();
+						m_RectPosition.x = temp->getX();
+					}
+					else{
+						m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
+						m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+					}
 					m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
 				}
 				else

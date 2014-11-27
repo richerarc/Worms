@@ -59,7 +59,7 @@ public:
 	_Acceleration : Accélération appliquée à la trajectoire
 	 Return : Vecteur représentant la position au temps passé en paramètre
 	 */
-	CPosition* UpdatePosition(){
+	void UpdatePosition(){
 		if (!m_boPause){
 			m_TrajectoryTime->UnPause();
 			m_ActualPos->setX(m_NextPos->getX());
@@ -79,7 +79,6 @@ public:
 		}
 		else
 			m_TrajectoryTime->Pause();
-		return m_ActualPos;
 	}
 	
 	CPosition* getNextPos(){
