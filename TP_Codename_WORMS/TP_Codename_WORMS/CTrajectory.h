@@ -10,7 +10,8 @@ class CTrajectory{
 private:
 	CTimer* m_TrajectoryTime;
 	CPosition* m_StartPos;
-	C2DVector* m_Speed;
+	C2DVector* m_InitSpeed;
+	C2DVector* m_ActualSpeed;
 	C2DVector* m_Acceleration;
 	CPosition* m_ActualPos;
 	CPosition* m_NextPos;
@@ -20,7 +21,8 @@ public:
 	CTrajectory(CPosition* _StartPos, C2DVector* _Speed, C2DVector* _Acc){
 		m_TrajectoryTime = new CTimer();
 		m_StartPos = _StartPos;
-		m_Speed = _Speed;
+		m_InitSpeed = _Speed;
+		m_ActualSpeed = _Speed;
 		m_Acceleration = _Acc;
 		m_ActualPos = m_StartPos;
 		m_NextPos = new CPosition(m_ActualPos->getX(), m_ActualPos->getY());
@@ -38,9 +40,9 @@ public:
 			delete m_StartPos;
 		}
 		m_StartPos = nullptr;
-		if (m_Speed)
-			delete m_Speed;
-		m_Speed = nullptr;
+		if (m_InitSpeed)
+			delete m_InitSpeed;
+		m_InitSpeed = nullptr;
 		if (m_Acceleration)
 			delete m_Acceleration;
 		m_Acceleration = nullptr;
@@ -64,10 +66,15 @@ public:
 			m_ActualPos->setY(m_NextPos->getY());
 			unsigned int dTimeVariation = m_TrajectoryTime->getElapsedTime();
 			double DeltaT = 0.5 * dTimeVariation * dTimeVariation;
-			double DeltaX = ((m_Speed->getComposanteX() * dTimeVariation) + (DeltaT * m_Acceleration->getComposanteX())) /100000;
-			double DeltaY = ((m_Speed->getComposanteY() * dTimeVariation) + (DeltaT * m_Acceleration->getComposanteY())) /100000;
+			double DeltaX = ((m_InitSpeed->getComposanteX() * dTimeVariation) + (DeltaT * m_Acceleration->getComposanteX())) /100000;
+			double DeltaY = ((m_InitSpeed->getComposanteY() * dTimeVariation) + (DeltaT * m_Acceleration->getComposanteY())) /100000;
 			m_NextPos->setX(m_ActualPos->getX() + DeltaX);
 			m_NextPos->setY(m_ActualPos->getY() + DeltaY);
+
+
+			//Le code ci-dessous est pour la vitesse actuelle
+			m_ActualSpeed->setComposanteXY((DeltaX + DeltaT * m_Acceleration->getComposanteX())/dTimeVariation,
+				(DeltaY + DeltaT * m_Acceleration->getComposanteY()) / dTimeVariation);
 			
 		}
 		else
@@ -88,12 +95,11 @@ public:
 	}
 
 	/*
-	Method : GetSpeed
-	Brief : Fonction qui retourne la vitesse actuelle
-	Discussion: MRUA : Vf^2 - Vi^2 = 2(xf-xi)*a
+	Method : GetInitSpeed
+	Brief : Fonction qui retourne la vitesse initiale
 	*/
-	C2DVector* GetSpeed(){
-		return m_Speed;
+	C2DVector* GetInitSpeed(){
+		return m_InitSpeed;
 	}
 
 	/*
@@ -101,23 +107,13 @@ public:
 	Brief : Procédure qui ajuste la trajectoire suite à un rebond
 	Params :
 	_Speed : Vitesse à l'impact
-	_Slope : Pente du point d'impact
-	_Pos : Position de l'impact
-	_Direction : Indique si le projectile vient d'en haut ou d'en bas
+	_SlopeAngle : Angle de la pente du point d'impact (en degrés)
 	*/
-	void Bounce(double _Slope, CPosition _Pos, int _Direction){
-		//double Angle = acos(_Slope * _Pos.getX() / sqrt(_Speed.getX()*_Speed.getX() + _Speed.getY()*_Speed.getY()));
-		//_Pos.setX(_Pos.getX() * )
-		/*
-		double AngleA = atan(_Slope);
-		CPosition ImpactSpeed = GetSpeed();
-		double TrajSlope = sqrt(ImpactSpeed.getX()*ImpactSpeed.getX() + ImpactSpeed.getY()*ImpactSpeed.getY());
-		double AngleB = 
-		delete m_StartPos;
-		m_StartPos = new CPosition(_Pos);
-		//m_TrajectoryInitSpeed = _InitSpeed;
-		m_lTrajectoryStartTime = SDL_GetTicks();
-		*/
+	void Bounce(double _Slope){
+		double SlopeAngle = DegToRad(_Slope);
+		if (SlopeAngle - M_PI / 2 == m_ActualSpeed->getOrientation() || SlopeAngle + M_PI / 2 == m_ActualSpeed->getOrientation()){
+			m_ActualSpeed->setOrientation(m_ActualSpeed->getOrientation() + M_PI);
+		}
 	}
 	
 	/*
@@ -135,7 +131,7 @@ public:
 	static void UnPause(){
 		m_boPause = false;
 	}
-	
+
 	void WipeOut(){
 		m_Acceleration->setNorme(0);
 		m_Speed->setNorme(0);
