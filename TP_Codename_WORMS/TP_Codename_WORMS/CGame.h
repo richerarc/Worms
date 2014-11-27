@@ -94,8 +94,7 @@ public:
 		
 		m_pListeObjets->AllerDebut();
 		for (int i = 0; i < m_pListeObjets->Count(); i++){
-			if (!m_boPause)
-				m_pListeObjets->ObtenirElement()->Move();
+			m_pListeObjets->ObtenirElement()->Move();
 			m_pListeObjets->ObtenirElement()->Draw(m_pRenderer);
 			m_pListeObjets->AllerSuivant();
 		}
@@ -152,7 +151,7 @@ public:
 	bool inGame(){return m_boInPlay;}
 	void Activate(){m_boInPlay = true;}
 	void DeActivate(){m_boInPlay = false;}
-	void PauseGame(){ m_boPause = true; }
-	void ResumeGame(){ m_boPause = false; }
+	void PauseGame(){ m_boPause = true; CTrajectory::Pause();}
+	void ResumeGame(){ m_boPause = false; CTrajectory::UnPause();}
 
 };
