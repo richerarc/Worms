@@ -274,6 +274,9 @@ public:
 					}
 				}
 			}
+
+			pVector->setXYDebut(iX, iY);
+
 		}
 		delete pVector;
 		return nullptr;
