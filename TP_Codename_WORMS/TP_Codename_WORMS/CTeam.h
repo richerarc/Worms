@@ -40,7 +40,7 @@ public:
 		{
 			strNom.append(SDL_itoa(i, Buffer, 10));
 			//Il manque des données pour créer l'équipes.
-			m_pTabWorm[i] = new CWorm(strNom, _WormRepo, new CSprite("", _TexSprite, 10, 15, 100, 1), _Font, { rand() % WIDTH, 0, 30, 40 });
+			m_pTabWorm[i] = new CWorm(strNom, _WormRepo, new CSprite("", _TexSprite, 10, 17, 100, 1), _Font, { rand() % WIDTH, 0, 30, 40 });
 			strNom.pop_back();
 		}
 		m_pTabWorm[0]->setFocus(true);
@@ -69,6 +69,15 @@ public:
 	void draw(SDL_Renderer* _Renderer){
 		for (int i = 0; i < m_uiNbOfWorm; i++)
 			m_pTabWorm[i]->Draw(_Renderer);
+	}
+	
+	
+	void HandleEvent(SDL_Event _Event){
+		for (int i(0); i < m_uiNbOfWorm; i++)
+			if(m_pTabWorm[i]->isFocused()){
+				m_pTabWorm[i]->HandleEvent(_Event);
+				break;
+			}
 	}
 
 	/*!

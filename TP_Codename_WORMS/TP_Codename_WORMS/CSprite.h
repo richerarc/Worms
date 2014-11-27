@@ -28,7 +28,7 @@ private:
 			m_pTimer->Start();
 			m_currentFrame = ((++m_currentFrame) % (_NbFrameUsed)) + _StartFrame;
 			m_rSource.x = (m_rSource.w * m_currentFrame);
-			if (m_currentFrame == m_NbrFrame - 1)
+			if (m_currentFrame == _NbFrameUsed - 1)
 				m_uiCurrentLoop++;
 		}
 	}

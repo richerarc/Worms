@@ -9,7 +9,7 @@
 #define TP_Codename_WORMS_CWorm_h
 
 // Un worm possde dŽjˆ l'Žtat en chute, immobile, ou en dŽplacement, qu'il tient d'entity
-enum WormState {MotionLeft = 101, MotionRight = 201, JumpLeft = 102, JumpRight = 202, UtilisationOutil = 103, Damaged = 104, Largage = 100, NoMotionLeft = 301, NoMotionRight = 302};
+enum WormState {NoMotionLeft, NoMotionRight, MotionLeft, MotionRight, JumpLeft, JumpRight, UtilisationOutil, Damaged, Largage};
 
 /*!
 @CWorm
@@ -94,11 +94,10 @@ public:
 				}
 				break;
 			case SDL_KEYUP:
-				if ((m_EntityState == NoMotionLeft) || (m_EntityState == MotionLeft))
-					m_EntityState = JumpLeft;
+				if (m_EntityState == MotionLeft)
+					m_EntityState = NoMotionLeft;
 				else
-					m_EntityState = JumpRight;
-
+					m_EntityState = NoMotionRight;
 				break;
 		}
 	}
@@ -112,18 +111,25 @@ public:
 		Move();
 		switch (m_EntityState) {
 			case NoMotionLeft:
-				
-    break;
-				
-			default:
-    break;
-		}
-		if (m_EntityState == Immobile) {
-			SDL_RenderCopy(_Renderer, m_pTexture, NULL, &m_RectPosition);
-		}
-		else if (m_EntityState == Largage){
-			m_pSprite->setCurrentAnimation(8);
-			m_pSprite->Render(1, 4, _Renderer);
+				m_pSprite->setCurrentAnimation(1);
+				m_pSprite->Render(_Renderer, 0);
+    			break;
+			case NoMotionRight:
+				m_pSprite->setCurrentAnimation(0);
+				m_pSprite->Render(_Renderer, 0);
+				break;
+			case Largage:
+				m_pSprite->setCurrentAnimation(10);
+				m_pSprite->Render(1, 4, _Renderer);
+				break;
+			case MotionLeft:
+				m_pSprite->setCurrentAnimation(3);
+				m_pSprite->Render(_Renderer);
+				break;
+			case MotionRight:
+				m_pSprite->setCurrentAnimation(2);
+				m_pSprite->Render(_Renderer);
+				break;
 		}
 		
 	}
@@ -144,15 +150,17 @@ public:
 
 	void Move(){
 		int iTemp = CPhysics::VerifyGroundCollision(m_RectPosition);
-		if (iTemp != NOCONTACT)
-			m_EntityState = Immobile;
 		switch (m_EntityState) {
 			case Largage:
-				CPosition temp =  *m_Trajectoire->UpdatePosition();
-				CPhysics::VerifyNextPosition(m_Trajectoire->GetActualPosition(), m_Trajectoire->getNextPos(), m_RectPosition);
-				m_RectPosition.y = temp.getY();
-				m_RectPosition.x = temp.getX();
-				m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
+				if ((iTemp != GROUND) && (iTemp != GROUNDLEFT) && (iTemp != GROUNDRIGHT) && (iTemp != GROUNDCEILING)){
+					CPosition temp =  *m_Trajectoire->UpdatePosition();
+					CPhysics::VerifyNextPosition(m_Trajectoire->GetActualPosition(), m_Trajectoire->getNextPos(), m_RectPosition);
+					m_RectPosition.y = temp.getY();
+					m_RectPosition.x = temp.getX();
+					m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
+				}
+				else
+					m_EntityState = NoMotionRight;
 				break;
 		}
 	}

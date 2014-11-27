@@ -1,7 +1,7 @@
 #ifndef TP_Codename_WORMS_CEntity_h
 #define TP_Codename_WORMS_CEntity_h
 
-enum EntityStates {Chute, Immobile, Deplacement};
+enum EntityStates {Chute = 100, Immobile = 101, Deplacement = 102};
 
 
 /*!
@@ -27,7 +27,7 @@ public:
 		m_RectPosition = _RectPos;
 		m_boFocus = false;
 		m_Trajectoire = nullptr;
-		m_EntityState = 0;
+		m_EntityState = Chute;
 		m_pTexture = _Texture;
 		m_Trajectoire = CPhysics::Propulsion(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.f, 2.f), new C2DVector(m_RectPosition.x, m_RectPosition.y, double(0), double(CPhysics::GetGravity())));
 	}
@@ -37,7 +37,8 @@ public:
 	@Permet de détruire les objets créés en mémoire
 	*/
 	~CEntity(){
-		delete m_Trajectoire;
+		if (m_Trajectoire)
+			delete m_Trajectoire;
 		m_Trajectoire = nullptr;
 	}
 	
@@ -46,6 +47,10 @@ public:
 		if (iTemp != NOCONTACT)
 			m_EntityState = Immobile;
 		switch (m_EntityState) {
+			case Immobile:
+				if (m_Trajectoire->GetSpeed())
+					m_Trajectoire->WipeOut();
+				break;
 			case Chute:
 				CPosition temp =  *m_Trajectoire->UpdatePosition();
 				CPhysics::VerifyNextPosition(m_Trajectoire->GetActualPosition(), m_Trajectoire->getNextPos(), m_RectPosition);

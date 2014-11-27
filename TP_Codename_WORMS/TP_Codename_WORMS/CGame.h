@@ -111,9 +111,20 @@ public:
 	void HandleEvent(SDL_Event _Event){
 		if (!m_boPause){
 			switch (_Event.key.keysym.sym) {
-			case SDLK_ESCAPE:
-				PauseGame();
-				break;
+				case SDLK_ESCAPE:
+					PauseGame();
+					break;
+			}
+			if (m_pListeTeam != nullptr){
+				m_pListeTeam->AllerDebut();
+				for (int i(0); i < m_pListeTeam->Count(); i++){
+					if(m_pListeTeam->ObtenirElement()->IsFocused()){
+						m_pListeTeam->ObtenirElement()->HandleEvent(_Event);
+						break;
+					}
+					else
+						m_pListeTeam->AllerSuivant();
+				}
 			}
 		}
 	}
@@ -134,9 +145,11 @@ public:
 		char buf[10];
 		for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
 			temp.append(SDL_itoa(i, buf, 10));
-			m_pListeTeam->AjouterFin(new CTeam(temp, {static_cast<Uint8>(i * 200), static_cast<Uint8>(i * 100), static_cast<Uint8>(i * 50), 1},m_Gestionaire->GetTexture("worm")->GetTexture(), m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontMenu")));
+			m_pListeTeam->AjouterFin(new CTeam(temp, {static_cast<Uint8>(i * 200), static_cast<Uint8>(i * 100), static_cast<Uint8>(i * 50), 1}, nullptr, m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontMenu")));
 			temp.pop_back();
 		}
+		m_pListeTeam->AllerDebut();
+		m_pListeTeam->ObtenirElement()->setFocus(true);
 	}
 	
 	void MainGame(){

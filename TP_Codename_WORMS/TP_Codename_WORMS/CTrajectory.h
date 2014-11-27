@@ -135,6 +135,11 @@ public:
 	static void UnPause(){
 		m_boPause = false;
 	}
+	
+	void WipeOut(){
+		m_Acceleration->setNorme(0);
+		m_Speed->setNorme(0);
+	}
 };
 
 
