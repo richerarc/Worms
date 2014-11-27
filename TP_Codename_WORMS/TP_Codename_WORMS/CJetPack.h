@@ -24,6 +24,7 @@ private:
 	SDL_Surface* m_pSurfaceBarreLancement; // Surface de la barre de lancement.
 	bool boBarreGaz; // Booléen pour vérifier si la barre de lancement sera afficher
 	unsigned int iGaz; // Représente le gaz restant au jet pack
+	C2DVecteur
 
 public:
 
