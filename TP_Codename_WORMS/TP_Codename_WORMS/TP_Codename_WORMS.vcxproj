@@ -70,6 +70,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="C2DVector.h" />
     <ClInclude Include="CJetPack.h" />
     <ClInclude Include="CPosition.h" />
     <ClInclude Include="CBazouka.h" />
