@@ -27,6 +27,7 @@
 #include "CMissiles.h"
 #include "CPowerBar.h"
 #include "CBazouka.h"
+#include "CJetPack.h"
 #include "CGrenades.h"
 #include "CCaisses.h"
 #include "CCaisseSoin.h"

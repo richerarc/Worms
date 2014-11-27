@@ -72,4 +72,6 @@ le bazouka apparait lors de la touche b (changer cela pour la selection) apparai
 24 novembre 18h à 19h:
 Affichage du sprite de la barre de lancement au dessus du bazouka lorsqu'on actionne la touche space. Plusieurs problèmes à regler.
 
-
+27 novembre 14h à 18h:
+TRAVAIL FAIT AVEC DIEGO:
+Nous avons avancé la classe CJetPack, il reste à faire apparaitre la barre de gaz + les commentaires.

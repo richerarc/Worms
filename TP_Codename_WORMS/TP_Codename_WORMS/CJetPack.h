@@ -2,14 +2,7 @@
 #define TP_Codename_WORMS_CJetPack_h
 
 /* Liste de chose TOO DOOO :
-  - Vérifier avec les nazi si le jetpack sera une texture en vole et un sprite au sol ou whatever
-  - Incorporer la physique à tout sa pour le deplacement (HandleEvent)
-  - La position x et y dans le constructeur devra être remplacer par possiblement un rectPos du worms.
-  - La barre de gaz fait sa saloppe je sais pas pk mais la changer par une CPowerBarre de Kev.
-  - Peut-etre ben aussi vérifier la position ou je vais mettre la CPowerBarre (avec le jet pack ou dans un coin obscure)
-  - Me faire du popcorn
-*/
-
+-Afficher la barre de gaz
 
 /*!
 @CJetPack
@@ -18,13 +11,16 @@
 class CJetPack{
 private:
 	//Données membres:
-	SDL_Rect m_Rect; //La pos du rectangle de l'objet
+	SDL_Rect m_RectWorm;
 	SDL_Rect m_RectSurface; //La pos du rectangle de la surface de la barre de gaz
 	SDL_Texture* m_pTexture; // Texture de l'image à afficher.
-	SDL_Surface* m_pSurfaceBarreLancement; // Surface de la barre de lancement.
+	CPowerBar* m_pBarreGaz; // Surface de la barre de lancement.
 	bool boBarreGaz; // Booléen pour vérifier si la barre de lancement sera afficher
-	unsigned int iGaz; // Représente le gaz restant au jet pack
-	C2DVecteur
+	double m_iAngle;
+	double m_iNorme;
+	C2DVector* m_pVecteur;
+	CTimer* m_pTimer;
+
 
 public:
 
@@ -34,15 +30,18 @@ public:
 	@param _ix _iy : la pos du jet pack (à modifier pour la pos du worms)
 	@param _pTexture : texture de l'image à afficher.
 	*/
-	CJetPack(int _ix, int _iy, SDL_Texture* _pTexture){ // La position du jet pack devra être remplacer par la position du worms
-		m_Rect.x = _ix;
-		m_Rect.y = _iy;
-		m_Rect.w = 52; // Dimension du jet pack
-		m_Rect.h = 28;
-		m_pTexture = _pTexture;
-		m_pSurfaceBarreLancement = SDL_CreateRGBSurface(0, 0, 0, 10, 2500, 0, 0, 0);
+	CJetPack(int _ix, int _iy, SDL_Rect _RectWorm){ // La position du jet pack devra être remplacer par la position du worms
+		m_RectSurface = _RectWorm;
+		m_RectWorm = _RectWorm;
+		m_pBarreGaz = new CPowerBar(m_RectSurface);
+		m_pBarreGaz->setPowerLevel(100);
+		m_iAngle = 0;
+		m_iNorme = 20;
+		m_pVecteur = new C2DVector(m_iNorme, m_iAngle, _ix, _iy);
 		boBarreGaz = false;
-		iGaz = 50;
+		m_pTimer = new CTimer();
+		m_pTimer->SetTimer(100);
+
 	}
 
 	/*!
@@ -58,57 +57,68 @@ public:
 	@return null
 	*/
 	void Render(SDL_Renderer* _pRenderer){
-		//Ceci est temporaire, devra probablement être modifier par un sprite de worms + jetpack
-		SDL_RenderCopy(_pRenderer, m_pTexture, NULL, &m_Rect);
-		IsLaunch(_pRenderer);
-
+		m_pBarreGaz->Draw(_pRenderer);
 	}
 
-	/*!
-	@method IsLaunch
-	@description: permet de faire afficher la barre de lancement.
-	@param _pRenderer: Renderer pour rendre la surface de la barre de gaz
-	@return null
-	*/
-	void IsLaunch(SDL_Renderer* _pRenderer){
 
-		SetRectSurface(iGaz);
-		SDL_SetRenderDrawColor(_pRenderer, 255, 0, 0, 0);
-		SDL_RenderFillRect(_pRenderer, &m_RectSurface);
-
-
+	void Deplacer(SDL_Rect _RectPosInitiale, double _Angle){
+		_RectPosInitiale.x += m_iNorme * cos(_Angle);
+		_RectPosInitiale.y += m_iNorme * sin(_Angle);
+		m_RectWorm = _RectPosInitiale;
 	}
-
 	/*!
 	@method HandleEvent
 	@param _Event : Un SDL_Event pour traiter les evenement
 	@return null
 	*/
 	void HandleEvent(SDL_Event* _Event){
-
-		//TO DOOO
 		switch (_Event->key.keysym.sym){
 		case SDLK_LEFT:
+			if (!m_pTimer->hasStarted()){
+				m_pTimer->Start();
+			}
+			Deplacer(m_RectWorm, (M_PI));
+			if (m_pTimer->IsElapsed()){
+				if (m_pBarreGaz->getPower() != 0){
+					m_pBarreGaz->PowerDown();
+					m_pTimer->Start();
+				}
+			}
+			cout << "mouvement gauche " << m_pBarreGaz->getPower() << " " << m_RectWorm.x << " " << m_RectWorm.y << endl;
+
 			break;
 
-		case SDLK_SPACE:
-			iGaz--;
+		case SDLK_UP:
+			if (!m_pTimer->hasStarted()){
+				m_pTimer->Start();
+			}
+
+			Deplacer(m_RectWorm, (M_PI / 2));
+			if (m_pTimer->IsElapsed()){
+				if (m_pBarreGaz->getPower() != 0){
+					m_pBarreGaz->PowerDown();
+					m_pTimer->Start();
+				}
+			}
+			cout << "mouvement haut " << m_pBarreGaz->getPower() << " " << m_RectWorm.x << " " << m_RectWorm.y << endl;
+			break;
+		case SDLK_RIGHT:
+			if (!m_pTimer->hasStarted()){
+				m_pTimer->Start();
+			}
+			Deplacer(m_RectWorm, 0);
+			if (m_pTimer->IsElapsed()){
+				if (m_pBarreGaz->getPower() != 0){
+					m_pBarreGaz->PowerDown();
+					m_pTimer->Start();
+				}
+			}
+			cout << "mouvement droite " << m_pBarreGaz->getPower() << " " << m_RectWorm.x << " " << m_RectWorm.y << endl;
 			break;
 
 		}
 	}
 
-	/*!
-	@method SetRectSurface
-	@description: permet de set la position et la dimension du rect de la barre de gaz
-	@param: _iWidth: la largeur du rect
-	*/
-	void SetRectSurface(int _iWidth){
-		m_RectSurface.x = m_Rect.x;
-		m_RectSurface.y = m_Rect.y - 15;
-		m_RectSurface.w = _iWidth;
-
-	}
 
 };
 
