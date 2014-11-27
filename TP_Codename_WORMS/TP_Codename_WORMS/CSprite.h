@@ -97,6 +97,7 @@ public:
 		m_currentAnimation = _currentAni;
 		m_rSource.y = m_rSource.h * m_currentAnimation;
 	}
+
 	/*!
 	@method Render
 	@brief Methode pour render le sprite à l'écran
