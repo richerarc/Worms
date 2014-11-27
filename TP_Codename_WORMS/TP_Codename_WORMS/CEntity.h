@@ -48,7 +48,7 @@ public:
 			m_EntityState = Immobile;
 		switch (m_EntityState) {
 			case Immobile:
-				if (m_Trajectoire->GetSpeed())
+				if (m_Trajectoire->GetInitSpeed())
 					m_Trajectoire->WipeOut();
 				break;
 			case Chute:

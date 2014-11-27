@@ -133,7 +133,8 @@ public:
 
 	void WipeOut(){
 		m_Acceleration->setNorme(0);
-		m_Speed->setNorme(0);
+		m_InitSpeed->setNorme(0);
+		m_ActualSpeed->setNorme(0);
 	}
 };
 
