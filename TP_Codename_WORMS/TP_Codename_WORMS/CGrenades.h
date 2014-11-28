@@ -9,18 +9,18 @@
 class CGrenades : public CObjets{
 private:
 	//Données membres:
-	CTimer* m_pTimer; // Déclaration d'une nouvelle minuterie pour le temps à écouler avant l'explosion.
-	bool boIsExplosed; //Donnée représentant si l'objet est explosé (true) ou non (false)
+	CTimer* m_pTimer;	// Déclaration d'une nouvelle minuterie pour le temps à écouler avant l'explosion.
+	bool boIsExplosed;	// Donnée représentant si l'objet est explosé (true) ou non (false)
 
 public:
 
 	/*!
-	@Constructeur
-	@Description: Permet d'initialiser les données membres
-	 @param _iRayon: le rayond d'explosion de l'objet
-	 @param _RectPos: la pos du rectangle de l'objet
-	 @param _pTexture : texture de l'image à afficher
-	@Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
+	@method Constructeur.
+	@brief Initialise les données membres.
+	@param _iRayon: le rayond d'explosion de l'objetole.
+	@param _RectPos: la pos du rectangle de l'objet
+	@param _pTexture : texture de l'image à afficher	@return Adresse mémoire de l'objet.
+	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets.
 	*/
 	CGrenades(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _pTexture) :CObjets(_iRayon,_RectPos, _pTexture){
 		m_pTimer = new CTimer();
@@ -31,8 +31,9 @@ public:
 	}
 
 	/*!
-	@Destructeur:
-	@Permet de détruire les objets créés en mémoire
+	@method Destructeur.
+	@brief Destroy.
+	@discussion He is dead.
 	*/
 	~CGrenades(){
 		delete m_pTimer;

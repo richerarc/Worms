@@ -11,27 +11,30 @@
 */
 class CGame{
 private:
-	Uint8 m_uiTeamTurn;					// Indique a quelle équipe de jouer.
-	Uint8 m_uiNbOfPlayingTeams;			// Combien d'équipe participe a la partie.
-	Uint8 m_uiNbOfWormPerTeam;
-	SDL_Renderer* m_pRenderer;			// Rendu de la fenetre du jeu. 
-	CBoussole* m_pBoussole;				// Boussole de vents.
-	CMap* m_pMap;						// Champ de bataille.
-	CListeDC<CTeam*>* m_pListeTeam;		// Liste d'équipe qui participe au jeu.
-	CListeDC<CObjets*>* m_pListeObjets; // Liste d'objets a afficher.
-	bool m_boInPlay;					// Indique si la partie est terminé ou non.
-	CGestionnaireRessources* m_Gestionaire;
-	bool m_boPause;
-	CTimer* TurnTimer;
-	CTimer* DropperTimer;
+	Uint8 m_uiTeamTurn;						// Indique a quelle équipe de jouer.
+	Uint8 m_uiNbOfPlayingTeams;				// Combien d'équipe participe a la partie.
+	Uint8 m_uiNbOfWormPerTeam;				// Combien de Worm par équipe participent a la partie.
+	SDL_Renderer* m_pRenderer;				// Rendu de la fenetre du jeu. 
+	CBoussole* m_pBoussole;					// Boussole de vents.
+	CMap* m_pMap;							// Champ de bataille.
+	CListeDC<CTeam*>* m_pListeTeam;			// Liste d'équipe qui participe au jeu.
+	CListeDC<CObjets*>* m_pListeObjets;		// Liste d'objets a afficher.
+	bool m_boInPlay;						// Indique si la partie est terminé ou non.
+	CGestionnaireRessources* m_Gestionaire;	// Gestionnaire de ressources.
+	bool m_boPause;							// Indique si le jeu est en pause.
+	CTimer* TurnTimer;						// Indique le temps d'un tour.
+	CTimer* DropperTimer;					// Indique le Temps avant de faire tomber les worms.
 public:
 
 	/*!
 	@method Constructeur.
 	@brief Initialise les données membres.
-	@param CMap* _Map : Map a jouer.
-	@param CBoussole* _Boussole : La boussole.
-	@param SDL_Renderer* _Renderer: Le rendu de la fenetre.
+	@param _Map : Le champ de battaile à jouer.
+	@param _Boussole : La boussole.
+	@param _Renderer: Le rendu de la fenetre.
+	@param _NbOfTeam : Combien d'équipe pour un partie. 
+	@param _NbOfWormPerTeam : Combien de Worm par équipe
+	@param  _Gestionaire : Gestionnaire de ressource
 	@return Adresse mémoire de l'objet.
 	@discussion Nuff said.
 	*/
@@ -108,6 +111,13 @@ public:
 		}
 	}
 	
+	/*!
+	@method HandleEvent
+	@brief Gère les events SDL
+	@param _Event: Event SDL.
+	@return Aucun
+	@discussion None.
+	*/
 	void HandleEvent(SDL_Event _Event){
 		if (!m_boPause){
 			switch (_Event.key.keysym.sym) {
@@ -129,34 +139,44 @@ public:
 		}
 	}
 
-	//Papoi,papoi
-	void AjouterTeam(CTeam* _team){
-		m_pListeTeam->AjouterFin(_team);
-	}
-	
 	/*!
-	@method Acesseurs
-	@brief Servent a acceder/modifier aux données membres.
+	@method Create Team
+	@brief Crée les équipes qui vont combattre
+	@param Aucun.
+	@return Aucun.
+	@discussion None.
 	*/
-
 	void CreateTeam(){
 		m_pListeTeam = new CListeDC<CTeam*>();
 		string temp("Team");
 		char buf[10];
 		for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
 			temp.append(SDL_itoa(i, buf, 10));
-			m_pListeTeam->AjouterFin(new CTeam(temp, {static_cast<Uint8>(i * 200), static_cast<Uint8>(i * 100), static_cast<Uint8>(i * 50), 1}, nullptr, m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontMenu")));
+			m_pListeTeam->AjouterFin(new CTeam(temp, { static_cast<Uint8>(i * 200), static_cast<Uint8>(i * 100), static_cast<Uint8>(i * 50), 1 }, nullptr, m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontMenu")));
 			temp.pop_back();
 		}
 		m_pListeTeam->AllerDebut();
 		m_pListeTeam->ObtenirElement()->setFocus(true);
 	}
-	
+
+	/*!
+	@method MainGame
+	@brief ????PapoiPapoi???
+	@param Aucun.
+	@return Aucun.
+	@discussion None.
+	*/
 	void MainGame(){
 		if (DropperTimer->IsElapsed() && (m_pListeTeam == nullptr))
 			CreateTeam();
 	}
-	
+
+
+	/*!
+	@method Acesseurs
+	@brief Servent à acceder/modifier aux données membres.
+	*/
+
 	void setNbOfPlayingTeams(Uint8 _NbOfTeams){ m_uiNbOfPlayingTeams = _NbOfTeams; }
 
 	Uint8 getNbOfPlayingTeams(){ return m_uiNbOfPlayingTeams; }

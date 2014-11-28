@@ -11,19 +11,20 @@
  */
 class CMap {
 private:
-	string m_strName;
-	SDL_Texture* m_Background;
-	SDL_Surface* m_Map;
-	SDL_Texture* m_MapConverted;
-	SDL_Surface* m_ExplosionMask;
-	unsigned int m_uiGravity;
-	unsigned int m_uiMaxWind;
-	unsigned int m_uiNbrMine;
-	bool m_boModified;
+	string m_strName;				// Nom du champ de battaile.
+	SDL_Texture* m_Background;		// Background du champ de battaileé
+	SDL_Surface* m_Map;				// Champ de battaile.
+	SDL_Texture* m_MapConverted;	// Champ de battaile convertié
+	SDL_Surface* m_ExplosionMask;	// Masque d'explosion.
+	unsigned int m_uiGravity;		// Gravité du Champ de battaile.
+	unsigned int m_uiMaxWind;		// Vent maximum du Champ de battaile.
+	unsigned int m_uiNbrMine;		// Nombre de mines maximum du Champ de battaile
+	bool m_boModified;				// Indique si le Champ de battaile a été converti ou pas.
 public:
 
 	/*!
 	 @method Constructeur
+	 @param _Name: Nom du Champ de battaile
 	 @param _Background : Le background de la map
 	 @param _Map : Le foreground de la map
 	 @param _Gravity : La gravité en jeux sur la map
@@ -59,6 +60,12 @@ public:
 			ConvertMap(_Renderer); */  // TODO!!!!!!!!!!!!!!
 	}
 
+	/*!
+	@method Draw
+	@brief Imprime le Champ de battaile sur le rendu du la fênetre
+	@param  _Renderer: Rendu de la fênetre.
+	@return Aucun.
+	*/
 	void Draw(SDL_Renderer* _Renderer){
 		if (m_boModified)
 			ConvertMap(_Renderer);
@@ -66,6 +73,10 @@ public:
 		SDL_RenderCopy(_Renderer, m_MapConverted, NULL, NULL);
 	}
 	
+	/*!
+	@method Acesseurs
+	*/
+
 	string getName(){
 		return m_strName;
 	}

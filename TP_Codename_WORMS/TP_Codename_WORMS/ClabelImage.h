@@ -12,6 +12,7 @@ private:
 	SDL_Texture* m_pTexture; // Texture de l'image à afficher.
 
 public:
+
 	/*!
 	@Constructeur
 	@Description: Permet d'initialiser les données membres
@@ -23,12 +24,14 @@ public:
 		m_Font->setFontColor(SDL_Color{ 0, 0, 0, 0 });
 
 	}
+
 	/*!
 	@Destructeur:
 	@Permet de détruire les objets créés en mémoire
 	*/
 	~CLabelImage(){
 	}
+
 	/*!
 	@Méthode Draw:
 	@Fonction permettant de dessiner le LabelImage sur le renderer.
@@ -47,9 +50,11 @@ public:
 		m_Rect.w = m_strText.length() * (m_Font->getFontSize());
 		m_Rect.h = m_Font->getFontSize();
 	}
+
 	/*!
 	@Accesseurs:
 	*/
+
 	void DefinirFontColor(Uint8 _iR, Uint8 _iB, Uint8 _iG, Uint8 _iA){
 		m_Font->setFontColor(SDL_Color{ _iR, _iB, _iG, _iA });
 	}

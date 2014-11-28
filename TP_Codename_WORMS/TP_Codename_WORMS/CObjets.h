@@ -14,11 +14,12 @@ protected:
 public:
 
 	/*!
-	@Constructeur
-	@Description: Permet d'initialiser les données membres
-	 @param _iRayon : le rayon d'explosion
-	 @param _RectPos : le rect de l'objet
-	@Classe héritant de CEntity, elle prend donc les paramètres de CEntity.
+	@method Constructeur.
+	@brief Initialise les données membres.
+	@param _iRayon : le rayon d'explosion
+	@param _RectPos : le rect de l'objet
+	@return Adresse mémoire de l'objet.
+	@discussion Classe héritant de CEntity, elle prend donc les paramètres de CEntity.
 	*/
 	CObjets(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _Texture) :CEntity(_RectPos, _Texture){
 		m_iRayon = _iRayon;

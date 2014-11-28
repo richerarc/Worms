@@ -1,10 +1,18 @@
 #define BUFFER 1024
 class CSound : public CRessource{
 private:
-	Mix_Music* m_pSound; // Musique à afficher
+	Mix_Music* m_pSound;		 // Musique à jouer
 	static bool m_boInitialized; // Indique si la musique à été initialisé.
 public:
 
+	/*!
+	@method Constructeur.
+	@brief Initialise les données membres.
+	@param _Name Texture du son.
+	@param _Path emplacement de la musique.
+	@return Adresse mémoire de l'objet.
+	@discussion Classe héritant de Ressource, elle prend donc les paramètres de CRessource.
+	*/
 	CSound(const char* _Name, const char* _Path) : CRessource(_Name){
 		if (!m_boInitialized){
 			Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, BUFFER);
@@ -42,6 +50,4 @@ public:
 			Mix_PauseMusic();
 	}
 };
-
-
 bool CSound::m_boInitialized = false;

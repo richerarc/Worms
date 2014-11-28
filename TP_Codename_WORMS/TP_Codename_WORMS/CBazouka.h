@@ -9,15 +9,16 @@
 class CBazouka{
 private:
 	//Données membres:
-	SDL_Rect m_Rect; //La pos du rectangle de l'objet
-	SDL_Rect m_RectSurface; //La pos du rectangle de l'objet
-	double iAngle; // L'angle de rotation
-	SDL_Texture* m_pTexture; // Texture de l'image à afficher.
-	bool m_boCharging; // Booléen pour vérifier si le bazouka va lancer un missile
-	bool boIsRotated; // Booléen pour vérifier si le bazouka sera en rotation
-	unsigned int m_uiPower; // Représente le power du missile.
-	CPowerBar* m_PowerBar;
+	SDL_Rect m_Rect;			// La pos du rectangle de l'objet
+	SDL_Rect m_RectSurface;		// La pos du rectangle de l'objet
+	double iAngle;				// L'angle de rotation
+	SDL_Texture* m_pTexture;	// Texture de l'image à afficher.
+	bool m_boCharging;			// Booléen pour vérifier si le bazouka va lancer un missile
+	bool boIsRotated;			// Booléen pour vérifier si le bazouka sera en rotation
+	unsigned int m_uiPower;		// Représente le power du missile.
+	CPowerBar* m_PowerBar;		// Barre de puissance.
 public:
+
 	/*!
 	@Constructeur
 	@Description: Permet d'initialiser les données membres

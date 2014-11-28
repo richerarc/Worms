@@ -10,18 +10,20 @@ enum EntityStates { Chute = 100, Immobile = 101, Deplacement = 102 };
 */
 class CEntity{
 protected:
-	SDL_Rect m_RectPosition; // Position de l'Entité
-	bool m_boFocus;			 // Indique si l'entité a le Focus
-	CTrajectory* m_Trajectoire;
-	unsigned int m_EntityState;
-	SDL_Texture* m_pTexture;
-	C2DVector* m_pForce;
+	SDL_Rect m_RectPosition;	// Position de l'Entité
+	bool m_boFocus;				// Indique si l'entité a le Focus
+	CTrajectory* m_Trajectoire;	// Trajectoire de l'objet
+	unsigned int m_EntityState;	// État actuel de l'objet
+	SDL_Texture* m_pTexture;	// Texture de l'entité
 public:
 
 	/*!
-	@Constructeur
-	@Description: Permet d'initialiser les données membres
-	@Paramètres:
+	@method Constructeur.
+	@brief Initialise les données membres.
+	@param _Rectpos: Position de l'entité
+	@param _ArrowTexture: Texture de l'entité.
+	@return Adresse mémoire de l'objet.
+	@discussion Intialise un objet qui subbit les forces gravitationnelles.
 	*/
 	CEntity(SDL_Rect _RectPos, SDL_Texture* _Texture){
 		m_RectPosition = _RectPos;
@@ -42,6 +44,14 @@ public:
 		m_Trajectoire = nullptr;
 	}
 
+	/*!
+	@method Move
+	@brief déplace l'objet selon sa trajectoire
+	@param Aucun
+	@return Aucun
+	@discussion I HAVE NO IDEA WHY MY CODE WORKS. j'ai laisser l'encien code au cas ou.
+	@discussion On as plus besoin de Vrtify ground collision.
+	*/
 	virtual void Move(){
 
 		if (m_EntityState == Chute)

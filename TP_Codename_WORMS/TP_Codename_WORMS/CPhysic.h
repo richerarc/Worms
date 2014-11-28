@@ -18,16 +18,24 @@
 
 class CPhysics{
 private:
-	static CPosition * m_Wind;
-	static double m_Gravity;
-	static int m_MaxSpeed;
-	static int m_MaxWindSpeed;
-	static SDL_Surface * m_Map;
-	static unsigned int m_uiPixel[WIDTH * HEIGHT];
+	static CPosition * m_Wind;						// Le vent A CHANGER
+	static double m_Gravity;						// La gravité
+	static int m_MaxSpeed;							// La vitesse maximum
+	static int m_MaxWindSpeed;						// Le vent maximum
+	static SDL_Surface * m_Map;						// Le Cham de battaile ou la physique aura son effet.
+	static unsigned int m_uiPixel[WIDTH * HEIGHT];	// ?????
 
 public:
 
-
+	/*!
+	@method Init.
+	@brief Initialise les données membres.
+	@param _map: Champ de battaile
+	@param _gravity: Gravité qui influra sur les entitées
+	@param _maxWind: Vent maximum.
+	@return Adresse mémoire de l'objet.
+	@discussion Comme tous les données membres sont statiques, Le init agit comme un constructeur.
+	*/
 	static void Init(SDL_Surface* _map, double _gravity, int _maxWind){
 		m_Wind = new CPosition(0., 0.);
 		m_Map = _map;
@@ -56,15 +64,27 @@ public:
 	//m_MaxWindSpeed = 50;
 	//}
 
-	//Méthode: RedefineWind permet de changer aleatoirement la direction du vent.
+	/*!
+	@method RedefineWind
+	@brief  Permet de changer aleatoirement la direction du vent.
+	@param Aucun.
+	@return Aucun
+	@discussion Aucune.
+	*/
 	static void RedefineWind(){
 		m_Wind->setX(rand() % (m_MaxWindSpeed)-m_MaxWindSpeed / 2);
 		m_Wind->setY(rand() % (m_MaxWindSpeed)-m_MaxWindSpeed / 2);
 	}
 
-	//Méthode: VerifyCollision permet de vérifier une collision entre deux rectangles
-	//		Paramètres: _Collider - Rectangle qui crée la collision, donc est en mouvement.
-	//					_Collidee - Rectangle qui reçoit la collision, donc est immobile.
+	/*!
+	@method Verify collision
+	@brief Vérifie si deux rect se touche
+	@param _Collider: Le rect en mouvement
+	@param _Collidee: Le rect immobile .
+	@return true si il y a un collision?
+	@return false si il n'en a pas
+	@discussion Aucune.
+	*/
 	static bool VerifyCollision(SDL_Rect _Collider, SDL_Rect _Collidee){
 		if ((_Collider.x + _Collider.w > _Collidee.x) || (_Collider.x < _Collidee.x + _Collidee.w)){
 			if ((_Collider.y + _Collider.h > _Collidee.y) || (_Collider.y < _Collidee.y + _Collidee.h)){

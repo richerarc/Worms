@@ -27,10 +27,10 @@ public:
 	@Paramètres: Le nom du labelImage afin de l'identifier, le text à l'intérieur, le font et le rect.
 	@Classe héritant de CGUIE, donc elle passe les paramètres nécessaires au constructeur de CGUIE
 	*/
-
 	CLabel(const char* _Name, const char* _strText, CFont* _Font, SDL_Rect _Rect) :CGUIE(_Name, _strText, _Font, _Rect){
 		m_Font->setFontColor(SDL_Color{ 0, 0, 0, 255 });
 	}
+
 	/*!
 	@Destructeur:
 	@Permet de détruire les objets créés en mémoire
