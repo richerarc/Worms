@@ -51,6 +51,10 @@ public:
 				m_uiPower--;
 		}
 	}
+	
+	void PowerDown(){
+			//todo
+	}
 
 	unsigned int getPowerLevel(){
 		unsigned int temp = m_uiPower * 2;

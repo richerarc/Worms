@@ -3,11 +3,11 @@
 
 /* Liste de chose TOO DOOO :
 -Afficher la barre de gaz
-
-/*!
-@CJetPack
-@Classe permettant l'affichage et l'utilisation du JetPack
 */
+/*!
+ @class CJetPack
+ @discussion Classe permettant l'affichage et l'utilisation du JetPack
+ */
 class CJetPack{
 private:
 	//Données membres:
@@ -85,46 +85,43 @@ public:
 	void HandleEvent(SDL_Event* _Event){
 		switch (_Event->key.keysym.sym){
 		case SDLK_LEFT:
-			if (!m_pTimer->hasStarted()){
+			if (!m_pTimer->IsElapsed()){
 				m_pTimer->Start();
 			}
 			Deplacer(m_RectWorm, (M_PI));
 			if (m_pTimer->IsElapsed()){
-				if (m_pBarreGaz->getPower() != 0){
+				if (m_pBarreGaz->getPowerLevel() != 0){
 					m_pBarreGaz->PowerDown();
 					m_pTimer->Start();
 				}
 			}
-			cout << "mouvement gauche " << m_pBarreGaz->getPower() << " " << m_RectWorm.x << " " << m_RectWorm.y << endl;
 
 			break;
 
 		case SDLK_UP:
-			if (!m_pTimer->hasStarted()){
+			if (!m_pTimer->IsElapsed()){
 				m_pTimer->Start();
 			}
 
 			Deplacer(m_RectWorm, (M_PI / 2));
 			if (m_pTimer->IsElapsed()){
-				if (m_pBarreGaz->getPower() != 0){
+				if (m_pBarreGaz->getPowerLevel() != 0){
 					m_pBarreGaz->PowerDown();
 					m_pTimer->Start();
 				}
 			}
-			cout << "mouvement haut " << m_pBarreGaz->getPower() << " " << m_RectWorm.x << " " << m_RectWorm.y << endl;
 			break;
 		case SDLK_RIGHT:
-			if (!m_pTimer->hasStarted()){
+			if (!m_pTimer->IsElapsed()){
 				m_pTimer->Start();
 			}
 			Deplacer(m_RectWorm, 0);
 			if (m_pTimer->IsElapsed()){
-				if (m_pBarreGaz->getPower() != 0){
+				if (m_pBarreGaz->getPowerLevel() != 0){
 					m_pBarreGaz->PowerDown();
 					m_pTimer->Start();
 				}
 			}
-			cout << "mouvement droite " << m_pBarreGaz->getPower() << " " << m_RectWorm.x << " " << m_RectWorm.y << endl;
 			break;
 
 		}
