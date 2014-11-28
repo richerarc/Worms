@@ -1,16 +1,39 @@
+//
+//  C2DVector.h
+//  TP_Codename_WORMS
+//
+//  Créé par Kevin Pantelakis.
+//  Mise à jour par Kevin Pantelakis le 2014-11-27
+//  
+//
+
+/*!
+@class C2DVector
+@discussion Classe qui un Vecteur à 2 coordonées
+*/
 class C2DVector{
 private:
-	int	m_XOrigine,
-		m_YOrigine,
-		m_XFin,
-		m_YFin;
-	double	m_Norme,
-		m_Orientation,
-		m_ComposanteX,
-		m_ComposanteY;
+	int	m_XOrigine,		// Cordonnée X de départ
+		m_YOrigine,		// Cordonnée Y de départ
+		m_XFin,			// Cordonnée X de Fin
+		m_YFin;			// Cordonnée Y de Fin
+	double	m_Norme,	// Norme du vecteur.
+		m_Orientation,	// Orientation.
+		m_ComposanteX,	// Composante X.
+		m_ComposanteY;	// Composante Y.
 
 public:
 
+	/*!
+	@method Constructeur.
+	@brief Initialise les données membres.
+	@param _Norme: Norme du vecteur
+	@param _AngleRad: Angle du vecteur
+	@param _XDepart: Position X de départ du vecteur
+	@param _YDepart: Position Y de Départ du vecteur
+	@return Adresse mémoire de l'objet.
+	@discussion Initialise un vecteur avec sa norme son orientation et sa position de départ.
+	*/
 	C2DVector(double _Norme, double _AngleRad, int _XDepart, int _YDepart){
 		m_XOrigine = _XDepart;
 		m_YOrigine = _YDepart;
@@ -24,6 +47,16 @@ public:
 		m_YFin = _YDepart + (m_ComposanteY);
 	}
 
+	/*!
+	@method Constructeur.
+	@brief Initialise les données membres.
+	@param _XDepart: Position X de départ du vecteur
+	@param _YDepart: Position Y de Départ du vecteur
+	@param _Xfin: Position X de fin du vecteur
+	@param _Yfin: Position Y de fin du vecteur
+	@return Adresse mémoire de l'objet.
+	@discussion Initialise un vecteur avec sa position de départ et sa position de fin.
+	*/
 	C2DVector(int _XDepart, int _YDepart, int _Xfin, int _Yfin){
 		m_XOrigine = _XDepart;
 		m_YOrigine = _YDepart;
@@ -49,6 +82,16 @@ public:
 		}
 	}
 
+	/*!
+	@method Constructeur.
+	@brief Initialise les données membres.
+	@param _XDepart: Position X de départ du vecteur.
+	@param _YDepart: Position Y de Départ du vecteur.
+	@param _Compx: Composante X du vecteur.
+	@param _CompY: Composante y du vecteur.
+	@return Adresse mémoire de l'objet.
+	@discussion Initialise un vecteur avec sa position de départ et ses composantes.
+	*/
 	C2DVector(int _XDepart, int _YDepart, double _CompX, double _CompY){
 		m_XOrigine = _XDepart;
 		m_YOrigine = _YDepart;
@@ -87,7 +130,6 @@ public:
 	int getYfin(){ return m_YFin; }
 	int getXDebut(){ return m_XOrigine; }
 	int getYDebut(){ return m_YOrigine; }
-
 	double getNorme(){ return m_Norme; }
 	double getOrientation(){ return m_Orientation; }
 	double getComposanteX(){ return m_ComposanteX; }
@@ -150,14 +192,6 @@ public:
 		m_XFin = m_XOrigine + (m_ComposanteX);
 		m_YFin = m_YOrigine + (m_ComposanteY);
 	}
-
-	void Normalize(){
-		if (m_Norme)
-			m_Norme /= (m_Norme / 2);
-		m_ComposanteX = cos(m_Orientation);
-		m_ComposanteY = sin(m_Orientation);
-	}
-
 	void setOrientation(double _AngleRadian){
 		m_Orientation = _AngleRadian;
 		m_ComposanteX = m_Norme * cos(m_Orientation);
@@ -167,5 +201,19 @@ public:
 		m_XFin = m_XOrigine + (m_ComposanteX);
 		m_YFin = m_YOrigine + (m_ComposanteY);
 	}
+
+	/*!
+	@method Normalize
+	@brief Normalise un vecteur.
+	@discussion Donne un vecteur de norme 1 mais avec la même orientation.
+	*/
+	void Normalize(){
+		if (m_Norme)
+			m_Norme /= (m_Norme / 2);
+		m_ComposanteX = cos(m_Orientation);
+		m_ComposanteY = sin(m_Orientation);
+	}
+
+
 
 };
