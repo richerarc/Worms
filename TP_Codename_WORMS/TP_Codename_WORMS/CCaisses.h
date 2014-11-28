@@ -12,16 +12,26 @@ private:
 	bool boIsExplosed;//Donnée représentant si l'objet est explosé (true) ou non (false).
 
 public:
+
 	/*!
-	@Constructeur
-	@Description: Permet d'initialiser les données membres
-	@param _RectPos: la pos du rectangle de l'objet
-	@param _pTexture : texture de l'image à afficher
-	@Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
+	@method Constructeur
+	@brief Permet d'initialiser les données membres.
+	@param _TextureExplosion image de l'explosion.
+	@param _RectPos: la pos du rectangle de l'objet.
+	@param _pTexture : texture de l'image à afficher.
+	@return Adresse mémoire de l'objet.
+	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets.
 	*/
-	CCaisses(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _pTexture) :CObjets(_iRayon, _RectPos, m_pTexture){
-		m_iRayon = _iRayon;
+	CCaisses(SDL_Texture* _TextureExplosion, SDL_Rect _RectPos, SDL_Texture* _pTexture) :CObjets(_TextureExplosion, _RectPos, _pTexture){
 		boIsExplosed = false;
+	}
+
+	/*!
+	@method Destructeur.
+	@brief Destroy.
+	@discussion He is dead.
+	*/
+	~CCaisses(){
 	}
 
 	/*!
@@ -42,18 +52,29 @@ public:
 		m_boFocus = true;
 	
 	}
+
 	/*!
-	@Méthode:
-	@ReactToExplosion
-	@Permet de calculer les dommages subit par l'explosion
+	@method ReactToExplosion
+	@brief réagit a une explosion.
+	@param _iX: Position en x de l'explosion.
+	@param _iY: Position en y de l'explosion.
+	@param _iRayon: Rayon de l'explosion.
+	@return Adresse mémoire de l'objet.
+	@discussion Aucune.
 	*/
 	void ReactToExplosion(int _iX, int _iY, int _iRayon){
 		boIsExplosed = true;
 	}
 
+	void Move(){
+		
+	}
+
 	/*!
-	@Accesseurs:
+	@method Accesseurs
+	@brief Permet d'acceder aux données membres.
 	*/
+
 	bool IsItExplosed(){
 		return boIsExplosed;
 	}
@@ -66,16 +87,10 @@ public:
 		m_RectPosition.x = _ix;
 		m_RectPosition.y = _iy;
 	}
-	/*!
-	@Destructeur:
-	@Permet de détruire les objets créés en mémoire
-	*/
-	~CCaisses(){
-	}
+
 	
-	void Move(){
-		
-	}
+
+
 };
 
 #endif
