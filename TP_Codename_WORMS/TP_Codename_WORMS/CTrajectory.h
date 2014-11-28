@@ -28,7 +28,7 @@ public:
 		m_NextPos = new CPosition(m_ActualPos->getX(), m_ActualPos->getY());
 		m_TrajectoryTime->Start();
 	}
-	
+
 	//Destructeur...
 	~CTrajectory(){
 		CTrajectory::UnPause();
@@ -51,14 +51,14 @@ public:
 		m_NextPos = nullptr;
 		delete m_TrajectoryTime;
 	}
-	
+
 	/*
 	Method : GetPosition
 	Brief : Fonction qui retourne la variation de la position dans la trajectoire selon le temps
 	Params :
 	_Acceleration : Accélération appliquée à la trajectoire
-	 Return : Vecteur représentant la position au temps passé en paramètre
-	 */
+	Return : Vecteur représentant la position au temps passé en paramètre
+	*/
 	void UpdatePosition(){
 		if (!m_boPause){
 			m_TrajectoryTime->UnPause();
@@ -66,21 +66,21 @@ public:
 			m_ActualPos->setY(m_NextPos->getY());
 			unsigned int dTimeVariation = m_TrajectoryTime->getElapsedTime();
 			double DeltaT = 0.5 * dTimeVariation * dTimeVariation;
-			double DeltaX = ((m_InitSpeed->getComposanteX() * dTimeVariation) + (DeltaT * m_Acceleration->getComposanteX())) /100000;
-			double DeltaY = ((m_InitSpeed->getComposanteY() * dTimeVariation) + (DeltaT * m_Acceleration->getComposanteY())) /100000;
+			double DeltaX = ((m_InitSpeed->getComposanteX() * dTimeVariation) + (DeltaT * m_Acceleration->getComposanteX())) / 100000;
+			double DeltaY = ((m_InitSpeed->getComposanteY() * dTimeVariation) + (DeltaT * m_Acceleration->getComposanteY())) / 100000;
 			m_NextPos->setX(m_ActualPos->getX() + DeltaX);
 			m_NextPos->setY(m_ActualPos->getY() + DeltaY);
 
 
 			//Le code ci-dessous est pour la vitesse actuelle
-			m_ActualSpeed->setComposanteXY((DeltaX + DeltaT * m_Acceleration->getComposanteX())/dTimeVariation,
+			m_ActualSpeed->setComposanteXY((DeltaX + DeltaT * m_Acceleration->getComposanteX()) / dTimeVariation,
 				(DeltaY + DeltaT * m_Acceleration->getComposanteY()) / dTimeVariation);
-			
+
 		}
 		else
 			m_TrajectoryTime->Pause();
 	}
-	
+
 	CPosition* getNextPos(){
 		return m_NextPos;
 	}
@@ -88,7 +88,7 @@ public:
 	void UpdateAcceleration(double _CompX, double _CompY){
 		m_Acceleration->setComposanteXY(_CompX, _CompY);
 	}
-	
+
 	void AddAcceleration(C2DVector* _Accel){
 		m_Acceleration = m_Acceleration->operator+(_Accel);
 	}
@@ -114,7 +114,7 @@ public:
 			m_ActualSpeed->setOrientation(m_ActualSpeed->getOrientation() + M_PI);
 		}
 	}
-	
+
 	/*
 	Method : GetActualPosition
 	Brief : Retourne la position actuelle (sans bouger)
@@ -122,11 +122,11 @@ public:
 	CPosition* GetActualPosition(){
 		return m_ActualPos;
 	}
-	
-    static void Pause(){
+
+	static void Pause(){
 		m_boPause = true;
 	}
-	
+
 	static void UnPause(){
 		m_boPause = false;
 	}

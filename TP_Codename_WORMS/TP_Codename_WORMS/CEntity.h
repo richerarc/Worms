@@ -1,7 +1,7 @@
 #ifndef TP_Codename_WORMS_CEntity_h
 #define TP_Codename_WORMS_CEntity_h
 
-enum EntityStates {Chute = 100, Immobile = 101, Deplacement = 102};
+enum EntityStates { Chute = 100, Immobile = 101, Deplacement = 102 };
 
 
 /*!
@@ -31,7 +31,7 @@ public:
 		m_pTexture = _Texture;
 		m_Trajectoire = CPhysics::Propulsion(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.f, 2.f), new C2DVector(m_RectPosition.x, m_RectPosition.y, double(0), double(CPhysics::GetGravity())));
 	}
-	
+
 	/*!
 	@Destructeur:
 	@Permet de détruire les objets créés en mémoire
@@ -41,30 +41,61 @@ public:
 			delete m_Trajectoire;
 		m_Trajectoire = nullptr;
 	}
-	
+
 	virtual void Move(){
+
+		if (m_EntityState == Chute)
+			m_Trajectoire->UpdatePosition();
+
+		CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+		if (temp != nullptr)
+		{
+			if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY()))
+				m_EntityState = Immobile;
+			else
+				m_EntityState = Chute;
+
+			m_RectPosition.y = temp->getY();
+			m_RectPosition.x = temp->getX();
+			delete temp;
+		}
+		else{
+			m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
+			m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+		}
+		switch (m_EntityState) {
+		case Immobile:
+			if (m_Trajectoire->GetInitSpeed())
+				m_Trajectoire->WipeOut();
+			break;
+		case Chute:
+			break;
+		}
+
+		/*
 		int iTemp = CPhysics::VerifyGroundCollision(m_RectPosition);
 		if (iTemp != NOCONTACT)
-			m_EntityState = Immobile;
+		m_EntityState = Immobile;
 		switch (m_EntityState) {
-			case Immobile:
-				if (m_Trajectoire->GetInitSpeed())
-					m_Trajectoire->WipeOut();
-				break;
-			case Chute:
-				m_Trajectoire->UpdatePosition();
-				CPosition* temp =  CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
-				if (temp != nullptr){
-					m_RectPosition.y = temp->getY();
-					m_RectPosition.x = temp->getX();
-				}
-				else{
-					m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
-					m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
-				}
-				delete temp;
-    			break;
+		case Immobile:
+		if (m_Trajectoire->GetInitSpeed())
+		m_Trajectoire->WipeOut();
+		break;
+		case Chute:
+		m_Trajectoire->UpdatePosition();
+		CPosition* temp =  CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+		if (temp != nullptr){
+		m_RectPosition.y = temp->getY();
+		m_RectPosition.x = temp->getX();
 		}
+		else{
+		m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
+		m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+		}
+		delete temp;
+		break;
+		}
+		*/
 	}
 
 	/*!
@@ -82,7 +113,7 @@ public:
 		m_boFocus = _Focus;
 	}
 
-	virtual void ReactToExplosion(int,int,int) = 0;
+	virtual void ReactToExplosion(int, int, int) = 0;
 	virtual void HandleEvent(SDL_Event) = 0;
 
 };

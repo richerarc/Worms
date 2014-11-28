@@ -147,138 +147,142 @@ public:
 
 	static CPosition* VerifyNextPosition(CTrajectory* _Trajectoire, SDL_Rect _EntityRect){
 		C2DVector* pVector = new C2DVector((int)_Trajectoire->GetActualPosition()->getX(), (int)_Trajectoire->GetActualPosition()->getY(), (int)_Trajectoire->getNextPos()->getX(), (int)_Trajectoire->getNextPos()->getY());
-		CPosition* CollisionPosition = new CPosition(0.f, 0.f);
-		pVector->Normalize();
-		bool boCollide = false;
-		int iX, iY;
-		while ((pVector->getXfin() != pVector->getXDebut()) &&
-			(pVector->getYfin() != pVector->getYDebut()))
-		{
+		if (pVector->getNorme()){
+			CPosition* CollisionPosition = new CPosition(0.f, 0.f);
+			pVector->Normalize();
+			bool boCollide = false;
+			int iX, iY;
 			iX = pVector->getComposanteX() + pVector->getXDebut();
 			iY = pVector->getComposanteY() + pVector->getYDebut();
+			while ((pVector->getXfin() >= pVector->getXDebut()) &&
+				(pVector->getYfin() >= pVector->getYDebut()))
+			{
+				//x>0 y>0
+				if (((pVector->getComposanteX()) > 0) && (pVector->getComposanteY() > 0)){
+					for (int i = 0; i < _EntityRect.w; i++)
+					{
+						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + _EntityRect.h)) + (iX + i)] > TRANSPARENCY){
+							CollisionPosition->setXY(iX, iY);
+							return CollisionPosition;
+						}
+					}
+					for (int i = 0; i < _EntityRect.h; i++)
+					{
+						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + i)) + (iX + _EntityRect.w)] > TRANSPARENCY){
+							CollisionPosition->setXY(iX, iY);
+							return CollisionPosition;
+						}
+					}
+				}
 
-			//x>0 y>0
-			if (((pVector->getComposanteX()) > 0) && (pVector->getComposanteY() > 0)){
-				for (int i = 0; i < _EntityRect.w; i++)
-				{
-					if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + _EntityRect.h)) + (iX + i)] > TRANSPARENCY){
-						CollisionPosition->setXY(iX, iY);
-						return CollisionPosition;
+				//x>0 y<0
+				if (((pVector->getComposanteX()) > 0) && (pVector->getComposanteY() < 0)){
+					for (int i = 0; i < _EntityRect.w; i++)
+					{
+						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY)) + (iX + i)] > TRANSPARENCY){
+							CollisionPosition->setXY(iX, iY);
+							return CollisionPosition;
+						}
+					}
+
+
+					for (int i = 0; i < _EntityRect.h; i++)
+					{
+						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + i)) + (iX + _EntityRect.w)] > TRANSPARENCY){
+							CollisionPosition->setXY(iX, iY);
+							return CollisionPosition;
+						}
 					}
 				}
-				for (int i = 0; i < _EntityRect.h; i++)
-				{
-					if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + i)) + (iX + _EntityRect.w)] > TRANSPARENCY){
-						CollisionPosition->setXY(iX, iY);
-						return CollisionPosition;
+
+				//x<0 y>0
+				if (((pVector->getComposanteX()) < 0) && (pVector->getComposanteY() > 0)){
+					for (int i = 0; i < _EntityRect.w; i++)
+					{
+						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + _EntityRect.h)) + (iX + i)] > TRANSPARENCY){
+							CollisionPosition->setXY(iX, iY);
+							return CollisionPosition;
+						}
+					}
+					for (int i = 0; i < _EntityRect.h; i++)
+					{
+						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + i)) + (iX)] > TRANSPARENCY){
+							CollisionPosition->setXY(iX, iY);
+							return CollisionPosition;
+						}
 					}
 				}
+
+				//x<0 y<0
+				if (((pVector->getComposanteX()) < 0) && (pVector->getComposanteY() < 0)){
+					for (int i = 0; i < _EntityRect.w; i++)
+					{
+						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY)) + (iX + i)] > TRANSPARENCY){
+							CollisionPosition->setXY(iX, iY);
+							return CollisionPosition;
+						}
+					}
+					for (int i = 0; i < _EntityRect.h; i++)
+					{
+						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + 1)) + (iX)] > TRANSPARENCY){
+							CollisionPosition->setXY(iX, iY);
+							return CollisionPosition;
+						}
+					}
+				}
+
+				//x=0 y>0
+				if (((pVector->getComposanteX()) == 0) && (pVector->getComposanteY() > 0)){
+					for (int i = 0; i < _EntityRect.w; i++)
+					{
+						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + _EntityRect.h)) + (iX + i)] > TRANSPARENCY){
+							CollisionPosition->setXY(iX, iY);
+							return CollisionPosition;
+						}
+					}
+				}
+
+				//x=0 y<0
+				if (((pVector->getComposanteX()) == 0) && (pVector->getComposanteY() < 0)){
+					for (int i = 0; i < _EntityRect.w; i++)
+					{
+						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY)) + (iX + i)] > TRANSPARENCY){
+							CollisionPosition->setXY(iX, iY);
+							return CollisionPosition;
+						}
+					}
+				}
+
+				//x>0 y=0
+				if (((pVector->getComposanteX()) > 0) && (pVector->getComposanteY() == 0)){
+					for (int i = 0; i < _EntityRect.h; i++)
+					{
+						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + i)) + (iX + _EntityRect.w)] > TRANSPARENCY){
+							CollisionPosition->setXY(iX, iY);
+							return CollisionPosition;
+						}
+					}
+				}
+
+				//x<0 y=0
+				if (((pVector->getComposanteX()) < 0) && (pVector->getComposanteY() == 0)){
+					for (int i = 0; i < _EntityRect.h; i++)
+					{
+						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + 1)) + (iX)] > TRANSPARENCY){
+							CollisionPosition->setXY(iX, iY);
+							return CollisionPosition;
+						}
+					}
+				}
+				iX = pVector->getComposanteX() + pVector->getXDebut();
+				iY = pVector->getComposanteY() + pVector->getYDebut();
+				pVector->setXYDebut(iX, iY);
+
 			}
-
-			//x>0 y<0
-			if (((pVector->getComposanteX()) > 0) && (pVector->getComposanteY() < 0)){
-				for (int i = 0; i < _EntityRect.w; i++)
-				{
-					if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY)) + (iX + i)] > TRANSPARENCY){
-						CollisionPosition->setXY(iX, iY);
-						return CollisionPosition;
-					}
-				}
-
-
-				for (int i = 0; i < _EntityRect.h; i++)
-				{
-					if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + i)) + (iX + _EntityRect.w)] > TRANSPARENCY){
-						CollisionPosition->setXY(iX, iY);
-						return CollisionPosition;
-					}
-				}
-			}
-
-			//x<0 y>0
-			if (((pVector->getComposanteX()) < 0) && (pVector->getComposanteY() > 0)){
-				for (int i = 0; i < _EntityRect.w; i++)
-				{
-					if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + _EntityRect.h)) + (iX + i)] > TRANSPARENCY){
-						CollisionPosition->setXY(iX, iY);
-						return CollisionPosition;
-					}
-				}
-				for (int i = 0; i < _EntityRect.h; i++)
-				{
-					if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + i)) + (iX)] > TRANSPARENCY){
-						CollisionPosition->setXY(iX, iY);
-						return CollisionPosition;
-					}
-				}
-			}
-
-			//x<0 y<0
-			if (((pVector->getComposanteX()) < 0) && (pVector->getComposanteY() < 0)){
-				for (int i = 0; i < _EntityRect.w; i++)
-				{
-					if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY)) + (iX + i)] > TRANSPARENCY){
-						CollisionPosition->setXY(iX, iY);
-						return CollisionPosition;
-					}
-				}
-				for (int i = 0; i < _EntityRect.h; i++)
-				{
-					if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + 1)) + (iX)] > TRANSPARENCY){
-						CollisionPosition->setXY(iX, iY);
-						return CollisionPosition;
-					}
-				}
-			}
-
-			//x=0 y>0
-			if (((pVector->getComposanteX()) == 0) && (pVector->getComposanteY() > 0)){
-				for (int i = 0; i < _EntityRect.w; i++)
-				{
-					if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + _EntityRect.h)) + (iX + i)] > TRANSPARENCY){
-						CollisionPosition->setXY(iX, iY);
-						return CollisionPosition;
-					}
-				}
-			}
-
-			//x=0 y<0
-			if (((pVector->getComposanteX()) == 0) && (pVector->getComposanteY() < 0)){
-				for (int i = 0; i < _EntityRect.w; i++)
-				{
-					if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY)) + (iX + i)] > TRANSPARENCY){
-						CollisionPosition->setXY(iX, iY);
-						return CollisionPosition;
-					}
-				}
-			}
-
-			//x>0 y=0
-			if (((pVector->getComposanteX()) > 0) && (pVector->getComposanteY() == 0)){
-				for (int i = 0; i < _EntityRect.h; i++)
-				{
-					if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + i)) + (iX + _EntityRect.w)] > TRANSPARENCY){
-						CollisionPosition->setXY(iX, iY);
-						return CollisionPosition;
-					}
-				}
-			}
-
-			//x<0 y=0
-			if (((pVector->getComposanteX()) < 0) && (pVector->getComposanteY() == 0)){
-				for (int i = 0; i < _EntityRect.h; i++)
-				{
-					if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + 1)) + (iX)] > TRANSPARENCY){
-						CollisionPosition->setXY(iX, iY);
-						return CollisionPosition;
-					}
-				}
-			}
-
-			pVector->setXYDebut(iX, iY);
-
+			CollisionPosition->setXY(pVector->getXfin(), pVector->getYfin());
+			delete pVector;
+			return CollisionPosition;
 		}
-		delete pVector;
 		return nullptr;
 	}
 
@@ -343,7 +347,7 @@ public:
 		double PointsSignificatifs = 0;
 		for (int x = _Rect->x; x < _Rect->x + _Rect->w; x++){
 			for (int y = _Rect->y; y < _Rect->y + _Rect->h; y++){
-				if (((unsigned int*)m_Map->pixels)[m_Map->w * (y) + x] >TRANSPARENCY){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (y)+x] >TRANSPARENCY){
 					if (((unsigned int*)m_Map->pixels)[m_Map->w * (y + 1) + x] == 0
 						|| ((unsigned int*)m_Map->pixels)[m_Map->w * (y - 1) + x] == 0){
 						double TmpY = y;
@@ -358,7 +362,7 @@ public:
 				}
 			}
 		}
-		return RadToDeg(atan(Slope/(PointsSignificatifs-1)));
+		return RadToDeg(atan(Slope / (PointsSignificatifs - 1)));
 
 	}
 
@@ -446,6 +450,3 @@ int CPhysics::m_MaxSpeed = 1;
 int CPhysics::m_MaxWindSpeed = 50;
 SDL_Surface * CPhysics::m_Map = nullptr;
 unsigned int CPhysics::m_uiPixel[WIDTH * HEIGHT];
-
-
-

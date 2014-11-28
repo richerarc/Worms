@@ -1,5 +1,5 @@
 #include <math.h>
-#include "C2DVector.h"
+
 //Change les degrées en radians.
 double DegToRad(double _Degre){
 	return _Degre * M_PI / 180;
@@ -9,6 +9,9 @@ double DegToRad(double _Degre){
 double RadToDeg(double _Radian){
 	return _Radian * 180 / M_PI;
 }
+
+#include "C2DVector.h"
+
 
 class CPosition{
 private:
