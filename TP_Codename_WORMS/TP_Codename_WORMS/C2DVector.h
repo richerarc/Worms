@@ -5,7 +5,7 @@
 //  Créé par Kevin Pantelakis.
 //  Mise à jour par Kevin Pantelakis le 2014-11-27
 //  
-//
+// S'arranger que le vecteur prennne (avec trois n) les angles en degrs.
 
 /*!
 @class C2DVector

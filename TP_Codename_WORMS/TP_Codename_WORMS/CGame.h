@@ -54,7 +54,7 @@ public:
 		m_pListeTeam = nullptr;
 		m_pListeObjets = new CListeDC<CObjets*>();
 		for(int i = 0; i < m_pMap->getMine(); i++){
-			m_pListeObjets->AjouterFin(new CMines(20, {((rand()% (WIDTH - 10)) + 5), 5, 12, 8}, m_Gestionaire->GetTexture("mine")->GetTexture()));
+			m_pListeObjets->AjouterFin(new CMines(m_Gestionaire->GetTexture("explosion1")->GetTexture(), {((rand()% (WIDTH - 10)) + 5), 5, 12, 8}, m_Gestionaire->GetTexture("mine")->GetTexture()));
 		}
 		DropperTimer->SetTimer(2000);
 		DropperTimer->Start();
@@ -70,6 +70,8 @@ public:
 		delete m_pListeObjets;
 		delete m_pBoussole;
 		CPhysics::Annihilate();
+		delete DropperTimer;
+		delete TurnTimer;
 	}
 
 	/*!
@@ -161,7 +163,7 @@ public:
 
 	/*!
 	@method MainGame
-	@brief ????PapoiPapoi???
+	@brief Fonction des appels qui ne sont pas du titre du render, du tigger d'event et tout et tout.
 	@param Aucun.
 	@return Aucun.
 	@discussion None.
@@ -184,7 +186,7 @@ public:
 	bool inGame(){return m_boInPlay;}
 	void Activate(){m_boInPlay = true;}
 	void DeActivate(){m_boInPlay = false;}
-	void PauseGame(){ m_boPause = true; CTrajectory::Pause();}
-	void ResumeGame(){ m_boPause = false; CTrajectory::UnPause();}
+	void PauseGame(){ m_boPause = true;}
+	void ResumeGame(){ m_boPause = false;}
 
 };

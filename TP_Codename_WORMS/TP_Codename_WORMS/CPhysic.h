@@ -18,12 +18,11 @@
 
 class CPhysics{
 private:
-	static CPosition * m_Wind;						// Le vent A CHANGER
+	static C2DVector * m_Wind;						// Le vent A CHANGER
 	static double m_Gravity;						// La gravité
 	static int m_MaxSpeed;							// La vitesse maximum
 	static int m_MaxWindSpeed;						// Le vent maximum
 	static SDL_Surface * m_Map;						// Le Cham de battaile ou la physique aura son effet.
-	static unsigned int m_uiPixel[WIDTH * HEIGHT];	// ?????
 
 public:
 
@@ -37,7 +36,7 @@ public:
 	@discussion Comme tous les données membres sont statiques, Le init agit comme un constructeur.
 	*/
 	static void Init(SDL_Surface* _map, double _gravity, int _maxWind){
-		m_Wind = new CPosition(0., 0.);
+		m_Wind = new C2DVector(0,0,0,0);
 		m_Map = _map;
 		m_Gravity = _gravity;
 		m_MaxWindSpeed = _maxWind;
@@ -52,18 +51,6 @@ public:
 		m_Wind = nullptr;
 	}
 
-	// Constructeur:
-	//	Parametres: _Gravity - affecte la valeur de la gravité (1 fois par jeu).
-	//				_MaxSpeed - affecte la valeur maximale de l'accélération gravitationnelle.
-	//				_MaxWindSpeed - affecte la valeur maximale de la force du vent sur un axe (donc maximum: MaxWindSpeed sur X + MaxWindSpeed sur Y).
-	//CPhysics(){
-	//m_Wind->setX(0);
-	//m_Wind->setY(0);
-	//m_Gravity = 1;
-	//m_MaxSpeed = 1;
-	//m_MaxWindSpeed = 50;
-	//}
-
 	/*!
 	@method RedefineWind
 	@brief  Permet de changer aleatoirement la direction du vent.
@@ -72,8 +59,8 @@ public:
 	@discussion Aucune.
 	*/
 	static void RedefineWind(){
-		m_Wind->setX(rand() % (m_MaxWindSpeed)-m_MaxWindSpeed / 2);
-		m_Wind->setY(rand() % (m_MaxWindSpeed)-m_MaxWindSpeed / 2);
+		m_Wind->setNorme(rand() % m_MaxWindSpeed);
+		m_Wind->setOrientation(rand() % 360);
 	}
 
 	/*!
@@ -94,77 +81,7 @@ public:
 		return false;
 	}
 
-	/*
-	Méthode : VerifyGroundCollision
-	Brief : Fonction qui retourne par un entier l'état d'un rect par rapport au terrain
-	Params :
-	_Rect : Rectangle dont on vérifie la collision
-	Return :
-	NOCONTACT : Le rectangle ne touche à rien
-	GROUND : Le rectangle touche au sol
-	LEFT : Le rectangle touche le terrain à gauche
-	RIGHT : Le rectangle touche le terrain à droite
-	CEILING : Le rectangle touche le plafond
-	GROUNDLEFT : Le rectangle touche le sol et la gauche
-	GROUNDRIGHT : Le rectangle touche le sol et la droite
-	CEILINGLEFT : Le rectangle touche le plafond et la gauche
-	CEILINGRIGHT : Le rectangle touche le plafond et la droite
-	GROUNDCEILING : Le rectangle touche au plafond et au sol
-	*/
-	//Valeur de la transparence : 16777215
-
-	//À VÉRIFIER + optimisations possibles
-	static int VerifyGroundCollision(SDL_Rect _Rect){
-		bool boGround = false;
-		bool boCeiling = false;
-		bool boLeft = false;
-		bool boRight = false;
-		for (int i = 0; i < _Rect.w; i++){
-			if (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect.y + _Rect.h)) + _Rect.x + i] > TRANSPARENCY && !boGround){
-				boGround = true;
-			}
-			if (_Rect.y > 0 && ((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1) + _Rect.x + i] > TRANSPARENCY && !boCeiling){
-				boCeiling = true;
-			}
-		}
-		for (int i = 0; i < _Rect.h; i++){
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x + _Rect.w] > TRANSPARENCY && !boRight){
-				boRight = true;
-			}
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x - 1] > TRANSPARENCY && !boLeft){
-				boLeft = true;
-			}
-		}
-
-		if (boGround){
-			if (boCeiling)
-				return GROUNDCEILING;
-			if (boLeft)
-				return GROUNDLEFT;
-			if (boRight)
-				return GROUNDRIGHT;
-			return GROUND;
-		}
-		else {
-			if (boCeiling){
-				if (boLeft)
-					return CEILINGLEFT;
-				if (boRight)
-					return CEILINGRIGHT;
-				return CEILING;
-			}
-			else {
-				if (boRight)
-					return RIGHT;
-				if (boLeft)
-					return LEFT;
-				return NOCONTACT;
-			}
-		}
-	}
-
-
-
+	
 	static CPosition* VerifyNextPosition(CTrajectory* _Trajectoire, SDL_Rect _EntityRect){
 		C2DVector* pVector = new C2DVector((int)_Trajectoire->GetActualPosition()->getX(), (int)_Trajectoire->GetActualPosition()->getY(), (int)_Trajectoire->getNextPos()->getX(), (int)_Trajectoire->getNextPos()->getY());
 		if (pVector->getNorme()){
@@ -182,6 +99,7 @@ public:
 					{
 						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + _EntityRect.h)) + (iX + i)] > TRANSPARENCY){
 							CollisionPosition->setXY(iX, iY);
+							delete pVector;
 							return CollisionPosition;
 						}
 					}
@@ -189,6 +107,7 @@ public:
 					{
 						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + i)) + (iX + _EntityRect.w)] > TRANSPARENCY){
 							CollisionPosition->setXY(iX, iY);
+							delete pVector;
 							return CollisionPosition;
 						}
 					}
@@ -200,6 +119,7 @@ public:
 					{
 						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY)) + (iX + i)] > TRANSPARENCY){
 							CollisionPosition->setXY(iX, iY);
+							delete pVector;
 							return CollisionPosition;
 						}
 					}
@@ -209,6 +129,7 @@ public:
 					{
 						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + i)) + (iX + _EntityRect.w)] > TRANSPARENCY){
 							CollisionPosition->setXY(iX, iY);
+							delete pVector;
 							return CollisionPosition;
 						}
 					}
@@ -220,6 +141,7 @@ public:
 					{
 						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + _EntityRect.h)) + (iX + i)] > TRANSPARENCY){
 							CollisionPosition->setXY(iX, iY);
+							delete pVector;
 							return CollisionPosition;
 						}
 					}
@@ -227,6 +149,7 @@ public:
 					{
 						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + i)) + (iX)] > TRANSPARENCY){
 							CollisionPosition->setXY(iX, iY);
+							delete pVector;
 							return CollisionPosition;
 						}
 					}
@@ -238,6 +161,7 @@ public:
 					{
 						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY)) + (iX + i)] > TRANSPARENCY){
 							CollisionPosition->setXY(iX, iY);
+							delete pVector;
 							return CollisionPosition;
 						}
 					}
@@ -245,6 +169,7 @@ public:
 					{
 						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + 1)) + (iX)] > TRANSPARENCY){
 							CollisionPosition->setXY(iX, iY);
+							delete pVector;
 							return CollisionPosition;
 						}
 					}
@@ -256,6 +181,7 @@ public:
 					{
 						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + _EntityRect.h)) + (iX + i)] > TRANSPARENCY){
 							CollisionPosition->setXY(iX, iY);
+							delete pVector;
 							return CollisionPosition;
 						}
 					}
@@ -267,6 +193,7 @@ public:
 					{
 						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY)) + (iX + i)] > TRANSPARENCY){
 							CollisionPosition->setXY(iX, iY);
+							delete pVector;
 							return CollisionPosition;
 						}
 					}
@@ -278,6 +205,7 @@ public:
 					{
 						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + i)) + (iX + _EntityRect.w)] > TRANSPARENCY){
 							CollisionPosition->setXY(iX, iY);
+							delete pVector;
 							return CollisionPosition;
 						}
 					}
@@ -289,6 +217,7 @@ public:
 					{
 						if (((unsigned int*)m_Map->pixels)[(m_Map->w * (iY + 1)) + (iX)] > TRANSPARENCY){
 							CollisionPosition->setXY(iX, iY);
+							delete pVector;
 							return CollisionPosition;
 						}
 					}
@@ -302,53 +231,8 @@ public:
 			delete pVector;
 			return CollisionPosition;
 		}
+		delete pVector;
 		return nullptr;
-	}
-
-
-
-
-	static void VerifyNextPosition(CPosition* _ActualPos, CPosition* _NextPos, SDL_Rect _EntityRect){
-		bool boYContact(false), boXContact(false);
-		int YContact(0), XContact(0);
-		int DeltaY = _NextPos->getY() - _ActualPos->getY();
-		int DeltaX = _NextPos->getX() - _ActualPos->getX();
-		if (_NextPos->getY() > _ActualPos->getY()){
-			for (int i = 0; i < DeltaY; i++){
-				if (((unsigned int*)m_Map->pixels)[m_Map->w * ((int)_ActualPos->getY() + i) + (int)_ActualPos->getX()] > TRANSPARENCY && !boYContact){
-					boYContact = true;
-					YContact = i;
-				}
-			}
-		}
-		else{
-			for (int i = DeltaY; i < 0; i++){
-				if (((unsigned int*)m_Map->pixels)[m_Map->w * ((int)_ActualPos->getY() + i) + (int)_ActualPos->getX()] > TRANSPARENCY && !boYContact){
-					boYContact = true;
-					YContact = i;
-				}
-			}
-		}
-		if (_NextPos->getX() > _ActualPos->getX()){
-			for (int i = 0; i < DeltaX; i++){
-				if (((unsigned int*)m_Map->pixels)[(m_Map->w * (int)_ActualPos->getY()) + (int)_ActualPos->getX() + i] > TRANSPARENCY && !boXContact){
-					boXContact = true;
-					XContact = i;
-				}
-			}
-		}
-		else{
-			for (int i = DeltaX; i < 0; i++) {
-				if (((unsigned int*)m_Map->pixels)[(m_Map->w * (int)_ActualPos->getY()) + (int)_ActualPos->getX() + i] > TRANSPARENCY && !boXContact){
-					boXContact = true;
-					XContact = i;
-				}
-			}
-		}
-		if (XContact)
-			_NextPos->setX(_ActualPos->getX() + XContact - _EntityRect.w);
-		if (YContact)
-			_NextPos->setY(_ActualPos->getY() + YContact - _EntityRect.h);
 	}
 
 	/*
@@ -453,7 +337,7 @@ public:
 	}
 
 	//Accesseurs...
-	static CPosition* GetWind(){
+	static C2DVector* GetWind(){
 		return m_Wind;
 	}
 	static double GetGravity(){
@@ -463,9 +347,8 @@ public:
 		m_Gravity = _d;
 	}
 };
-CPosition * CPhysics::m_Wind = new CPosition(0., 0.);
+C2DVector * CPhysics::m_Wind = nullptr;
 double CPhysics::m_Gravity = 1;
 int CPhysics::m_MaxSpeed = 1;
 int CPhysics::m_MaxWindSpeed = 50;
 SDL_Surface * CPhysics::m_Map = nullptr;
-unsigned int CPhysics::m_uiPixel[WIDTH * HEIGHT];

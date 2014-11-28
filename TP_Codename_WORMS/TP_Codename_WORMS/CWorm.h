@@ -171,7 +171,7 @@ public:
 				else{
 					setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
 				}
-				break;
+				 break;
 		}
 	}
 	

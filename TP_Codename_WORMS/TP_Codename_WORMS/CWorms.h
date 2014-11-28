@@ -20,6 +20,7 @@
 #include "CMenu.h"
 #include "CPosition.h"
 #include "CTrajectory.h"
+#include "CExplosion.h"
 #include "CPhysic.h"
 #include "CEntity.h"
 #include "CObjets.h"
@@ -31,7 +32,6 @@
 #include "CGrenades.h"
 #include "CCaisses.h"
 #include "CCaisseSoin.h"
-#include "CExplosion.h"
 #include "CWorm.h"
 #include "CTeam.h"
 #include "CMap.h"
@@ -128,7 +128,7 @@ public:
 #elif defined (_WIN32)
 		strPath.append("\\");
 #endif
-		string FileName[22] = {
+		string FileName[24] = {
 			"Arpegius.ttf",
 			"Btn1.png",
 			"BtnL.png",
@@ -150,10 +150,12 @@ public:
 			"MenuBackground2.png",
 			"map5.png",
 			"background5.jpg",
-			"SpriteSheetFinal.png"
+			"SpriteSheetFinal.png",
+			"Eplosionmask.png",
+			"explosion1.png"
 		};
-		string strFilePath[22];
-		for (int i = 0; i < 22; i++){
+		string strFilePath[24];
+		for (int i = 0; i < 24; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
@@ -198,9 +200,12 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("worm", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[16].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("wormSprite", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[21].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("mine", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[17].c_str())));
-
+		m_Gestionaire->AjouterSurface(new CSurface("explosionmask", IMG_Load(strFilePath[22].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("explosion1", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[23].c_str())));
 
 		m_SaveFile->open(strFilePath[12].c_str());
+		
+		CExplosion::setExplosionMask(m_Gestionaire->GetSurface("explosionmask")->getSurface());
 }
 
 	static void LoadData(){
@@ -255,7 +260,7 @@ public:
 	}
 
 	static void Quit(){
-
+		CExplosion::deleteMask();
 		delete m_pWindow;
 		delete m_MenuPrincipal;
 		delete m_MenuNewGame;

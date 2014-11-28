@@ -9,8 +9,7 @@
 class CObjets : public CEntity{
 protected:
 	//Données membres:
-	int m_iRayon; //Donnée représentant la longueur du rayon du rect(circulaire).
-
+	CExplosion* m_Explosif;  // Nuclear DATA
 public:
 
 	/*!
@@ -21,8 +20,8 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Classe héritant de CEntity, elle prend donc les paramètres de CEntity.
 	*/
-	CObjets(int _iRayon, SDL_Rect _RectPos, SDL_Texture* _Texture) :CEntity(_RectPos, _Texture){
-		m_iRayon = _iRayon;
+	CObjets(SDL_Texture* _textureExplosion, SDL_Rect _RectPos, SDL_Texture* _Texture) :CEntity(_RectPos, _Texture){
+		m_Explosif = new CExplosion(new CSprite("", _Texture, 12, 1, 30, 0), new CPosition(_RectPos.x, _RectPos.y));
 	}
 
 	/*!
@@ -45,14 +44,9 @@ public:
 	@brief Permet de savoir si l'objet est explosé ou non.
 	@return bool.
 	*/
-	virtual bool IsItExplosed(){return false;};
-
-	/*!
-	@Accesseurs:
-	*/
-	int getRayon(){
-		return m_iRayon;
-	}
+	virtual bool IsExplosed(){return false;};
+	
+	virtual void Detonate(){}
 };
 
 #endif

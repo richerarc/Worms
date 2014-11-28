@@ -15,7 +15,6 @@ private:
 	C2DVector* m_Acceleration;
 	CPosition* m_ActualPos;
 	CPosition* m_NextPos;
-	static bool m_boPause;
 public:
 	//Constructeur...
 	CTrajectory(CPosition* _StartPos, C2DVector* _Speed, C2DVector* _Acc){
@@ -31,7 +30,6 @@ public:
 
 	//Destructeur...
 	~CTrajectory(){
-		CTrajectory::UnPause();
 		if (m_StartPos){
 			if (m_ActualPos == m_StartPos)
 				m_ActualPos = nullptr;
@@ -60,8 +58,6 @@ public:
 	Return : Vecteur représentant la position au temps passé en paramètre
 	*/
 	void UpdatePosition(){
-		if (!m_boPause){
-			m_TrajectoryTime->UnPause();
 			m_ActualPos->setX(m_NextPos->getX());
 			m_ActualPos->setY(m_NextPos->getY());
 			unsigned int dTimeVariation = m_TrajectoryTime->getElapsedTime();
@@ -75,10 +71,6 @@ public:
 			//Le code ci-dessous est pour la vitesse actuelle
 			m_ActualSpeed->setComposanteXY((DeltaX + DeltaT * m_Acceleration->getComposanteX()) / dTimeVariation,
 				(DeltaY + DeltaT * m_Acceleration->getComposanteY()) / dTimeVariation);
-
-		}
-		else
-			m_TrajectoryTime->Pause();
 	}
 
 	CPosition* getNextPos(){
@@ -122,21 +114,10 @@ public:
 	CPosition* GetActualPosition(){
 		return m_ActualPos;
 	}
-
-	static void Pause(){
-		m_boPause = true;
-	}
-
-	static void UnPause(){
-		m_boPause = false;
-	}
-
+	
 	void WipeOut(){
 		m_Acceleration->setNorme(0);
 		m_InitSpeed->setNorme(0);
 		m_ActualSpeed->setNorme(0);
 	}
 };
-
-
-bool CTrajectory::m_boPause = false;
