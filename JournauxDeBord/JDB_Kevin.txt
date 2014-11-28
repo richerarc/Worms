@@ -51,3 +51,12 @@
 22:09 2014-11-26: J.ai faits quelques ajustement divers sur les maps et jai tenter de résoudre le probleme des collisions
 		  des mines dans un projet à part. J'ai réussi sur la map flat mais pas sur les autres je le montrerai aux
 		  autres demain. Total d'heures pour aujourdhui: environ 2h.
+
+23:16 2014-11-27: Ajuourdhui j'ai repenser notre maniere de vérifier les collisions a marche pour le mines il reste a adapter
+	          le code pour les worms. J'ai garder l'ancienne fonction au cas ou... Avec la nouvelle façon de vérifier
+		  les collision, VerifiyGroundCollision n'est plus nécéssaire. En faisant les commentaires je me suis rendu 
+		  compte qu'on devra redéfinir le vent dans CPhysic pour qu'il deviennent un vecteur.
+		  Dans cPhysic il y a une donnée membre qui semble innutile(static unsigned int m_uiPixel[WIDTH * HEIGHT];)
+		  et aussi un constructeur en commantaire il semble inutile on pourrait peut être les supprimer.
+		  J'ai fait beauconp de commentaires, je suis rendu dans CPhysic.h.
+		  Total d'heures pour aujourdhui (9h)
