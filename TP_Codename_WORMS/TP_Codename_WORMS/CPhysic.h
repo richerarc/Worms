@@ -170,7 +170,6 @@ public:
 		if (pVector->getNorme()){
 			CPosition* CollisionPosition = new CPosition(0.f, 0.f);
 			pVector->Normalize();
-			bool boCollide = false;
 			int iX, iY;
 			iX = pVector->getComposanteX() + pVector->getXDebut();
 			iY = pVector->getComposanteY() + pVector->getYDebut();

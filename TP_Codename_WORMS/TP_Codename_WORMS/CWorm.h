@@ -149,26 +149,36 @@ public:
 	string getName(){ return m_strName; }
 
 	void Move(){
-		int iTemp = CPhysics::VerifyGroundCollision(m_RectPosition);
 		switch (m_EntityState) {
+			case MotionRight:
+				break;
+			case MotionLeft:
+				break;
 			case Largage:
-				if ((iTemp != GROUND) && (iTemp != GROUNDLEFT) && (iTemp != GROUNDRIGHT) && (iTemp != GROUNDCEILING)){
-					m_Trajectoire->UpdatePosition();
-					CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
-					if (temp != nullptr){
-						m_RectPosition.y = temp->getY();
-						m_RectPosition.x = temp->getX();
-					}
-					else{
-						m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
-						m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
-					}
-					m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
+				m_Trajectoire->UpdatePosition();
+				
+				CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+				if (temp != nullptr)
+				{
+					if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY()))
+						m_EntityState = NoMotionRight;
+					else
+						m_EntityState = Largage;
+					
+					setPosXY(temp->getX(), temp->getY());
+					delete temp;
 				}
-				else
-					m_EntityState = NoMotionRight;
+				else{
+					setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
+				}
 				break;
 		}
+	}
+	
+	void setPosXY(int _X, int _Y){
+		m_RectPosition.y = _Y;
+		m_RectPosition.x = _X;
+		m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
 	}
 };
 

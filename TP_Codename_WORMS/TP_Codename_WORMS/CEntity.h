@@ -53,32 +53,30 @@ public:
 	@discussion On as plus besoin de Vrtify ground collision.
 	*/
 	virtual void Move(){
-
-		if (m_EntityState == Chute)
-			m_Trajectoire->UpdatePosition();
-
-		CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
-		if (temp != nullptr)
-		{
-			if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY()))
-				m_EntityState = Immobile;
-			else
-				m_EntityState = Chute;
-
-			m_RectPosition.y = temp->getY();
-			m_RectPosition.x = temp->getX();
-			delete temp;
-		}
-		else{
-			m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
-			m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
-		}
 		switch (m_EntityState) {
 		case Immobile:
 			if (m_Trajectoire->GetInitSpeed())
 				m_Trajectoire->WipeOut();
 			break;
 		case Chute:
+				m_Trajectoire->UpdatePosition();
+				
+				CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+				if (temp != nullptr)
+				{
+					if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY()))
+						m_EntityState = Immobile;
+					else
+						m_EntityState = Chute;
+					
+					m_RectPosition.y = temp->getY();
+					m_RectPosition.x = temp->getX();
+					delete temp;
+				}
+				else{
+					m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
+					m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+				}
 			break;
 		}
 
