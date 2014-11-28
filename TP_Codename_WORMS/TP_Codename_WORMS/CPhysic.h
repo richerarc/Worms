@@ -18,11 +18,11 @@
 
 class CPhysics{
 private:
-	static C2DVector * m_Wind;						// Le vent A CHANGER
-	static double m_Gravity;						// La gravité
-	static int m_MaxSpeed;							// La vitesse maximum
-	static int m_MaxWindSpeed;						// Le vent maximum
-	static SDL_Surface * m_Map;						// Le Cham de battaile ou la physique aura son effet.
+	static C2DVector * m_Wind;			// Le vent
+	static double m_Gravity;			// La gravité
+	static int m_MaxSpeed;				// La vitesse maximum
+	static int m_MaxWindSpeed;			// Le vent maximum
+	static SDL_Surface * m_Map;			// Le Cham de battaile ou la physique aura son effet.
 
 public:
 
@@ -43,6 +43,12 @@ public:
 		RedefineWind();
 	}
 
+	/*!
+	@method Annihilate.
+	@brief Agit comme un destructeur, met tout a nullptr
+	@return Aucun
+	@discussion Aucune
+	*/
 	static void Annihilate(){
 		m_Map = nullptr;
 		m_Gravity = 0;
@@ -81,7 +87,16 @@ public:
 		return false;
 	}
 
-	
+	/*!
+	@method VerifyNextPosition
+	@brief Vérifie la position prochaine pour les collisions.
+	@param _Trajectoire: Trajectoire a parcourir par l'objet.
+	@param _EntityRect: Rect de l'objet qui tombe
+	@return La position de la collision si il y en a une.
+	@return La position finale si la trajectoire c'est fait sans collisions.
+	@return nullptr si le déplacement n'est pas significatif.
+	@discussion Aucune.
+	*/
 	static CPosition* VerifyNextPosition(CTrajectory* _Trajectoire, SDL_Rect _EntityRect){
 		C2DVector* pVector = new C2DVector((int)_Trajectoire->GetActualPosition()->getX(), (int)_Trajectoire->GetActualPosition()->getY(), (int)_Trajectoire->getNextPos()->getX(), (int)_Trajectoire->getNextPos()->getY());
 		if (pVector->getNorme()){
@@ -235,13 +250,13 @@ public:
 		return nullptr;
 	}
 
-	/*
-	Méthode : EvaluateSlope
-	Brief : Fonction qui retourne la pente (en degrés) à partir d'une section de la map
-	Params :
-	_Pos : Position dans la surface où la pente est évaluée
-	_Direction : Direction de laquelle vient l'entité impliquée
-	Discussion : À FAIRE : Évaluer une collision "de coté"
+	/*!
+	@method Evaluate Slope
+	@brief  Fonction qui retourne la pente (en degrés) à partir d'une section de la map
+	@param _Pos : Position dans la surface où la pente est évaluée
+	@param _Direction : Direction de laquelle vient l'entité impliquée
+	@return L'angle de la pennte en degré;
+	@discussion À FAIRE : Évaluer une collision "de coté"
 	*/
 	static double EvaluateSlope(SDL_Rect* _Rect){
 		double Slope = 0;
@@ -266,39 +281,41 @@ public:
 			}
 		}
 		return RadToDeg(atan(Slope / (PointsSignificatifs - 1)));
-
 	}
 
-
-	//Méthode: Fall:	Calcule la trajectoire d'un glissement d'une entité.
-	//			Paramètres:	_Vector - Vecteur(vitesse et direction) initiale du glissement.
-	//						_X et _Y - Positions en X et en Y intiales de l'entité.
+	/*!
+	@method Slide
+	@brief  Fonction qui donne la trajectoire d'un glissement
+	@param _Vector: Vitesse et direction initial du glissement
+	@param _X : Position initial de l'entité
+	@return La trajectoire du glissement
+	@discussion À FAIRE
+	*/
 	static CTrajectory * Slide(CPosition * _Vector, int _X, int _Y){
 		return nullptr;
 	}
 
-	/*Méthode : Propulsion
-	Brief : Fonction qui retourne la trajectoire d'une entité propulsée
-	Params :
-	_PosInit : Position initiale de la propulsion
-	_Vit : Vitesse initiale de la propulsion
+	/*!
+	@method Propulsion
+	@brief  Retourne une trajectoire selon un vitesse de départ et un accélération
+	@param _PosInit: Position initiale de l'objet subbisant la propulsion
+	@param _Vit: Vitesse et direction initial du glissement
+	@param _Acc: Position initial de l'entité
+	@return La trajectoire de ala propuslion
+	@discussion Aucune.
 	*/
 	static CTrajectory* Propulsion(CPosition* _PosInit, C2DVector* _Vit, C2DVector* _Acc){
 		return new CTrajectory(_PosInit, _Vit, _Acc);
 	}
 
-	/*
-	Méthode : Move
-	Brief : Fonction qui ajuste la position suite à un mouvement sans accélération
-	Params:
-	_Rect : Rectangle se déplaçant
-	_Direction : Bool de la direction empruntée
-	true : gauche
-	false : droite
-	Return : true : déplacement effectué
-	false : déplacement non effectué
-	Discussion : Ne déplace actuellement que d'un pixel sur l'axe X, à changer si voulu
-	La hauteur (en pixels) d'une pente "escaladable" en y sera à déterminer (actuellement 3 pixels)
+	/*!
+	@method Move
+	@brief  Fonction qui ajuste la position suite à un mouvement sans accélération
+	@param _Rect : Rectangle se déplaçant
+	@param _Direction : Bool de la direction empruntée (true = gauche, false = droite))
+	@return BLOCKED: Si l'entité est pognée
+	@return MOVING: Si l'entité peut continuer
+	@discussion Ne déplace actuellement que d'un pixel sur l'axe X, à changer si voulu La hauteur (en pixels) d'une pente "escaladable" en y sera à déterminer (actuellement 3 pixels)
 	*/
 	static bool Move(SDL_Rect _Rect, bool _Direction){
 		if (_Direction){
@@ -332,7 +349,6 @@ public:
 			}
 			_Rect.x = _Rect.x + 1;
 			return MOVING;
-
 		}
 	}
 
