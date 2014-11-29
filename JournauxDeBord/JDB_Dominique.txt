@@ -31,3 +31,6 @@ Move pourra cependant être fortement modifié suite au necessités du projet. L
 25 nov : 8h30 à 11h55
 J'ai apporté des modifications dans CPhysic et CTrajectory au niveau des collisions et des rebonds. Les collisions s'améliorent
 mais ne marche pas parfaitement, les rebonds seront bientot testables
+
+27 nov : 12h40 à 5h15
+Ajout de la fonction qui retourne une pente à partir d'un Rect et continuation du bounce. Slide sera aussi bientot faisable.
