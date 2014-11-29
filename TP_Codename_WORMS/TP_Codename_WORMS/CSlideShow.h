@@ -14,6 +14,18 @@ private:
 	unsigned int m_uiCount;				   // Nombre d'élément dans le slideshow
 	SDL_Rect m_RectFilled;
 public:
+
+	/*!
+	@method Constructeur.
+	@brief Initialise les données membres.
+	@param _Name : Nom du slideshow
+	@param _Font : Font a afficher dans le slideshow
+	@param _Rect : Position du controle
+	@param _SpritePrev: Sprite du bouton back
+	@param _SpriteNext: Sprite du bouton suivant
+	@return Adresse mémoire de l'objet.
+	@discussion Aucune.
+	*/
 	CSlideShow(const char* _Name, CFont* _Font, SDL_Rect _Rect, CSprite* _SpritePrev, CSprite* _SpriteNext) :CGUIE(_Name, "", _Font, _Rect){
 		m_Font->setFontColor(SDL_Color{ 0, 0, 0, 255 });
 		if (m_Rect.h <= 22){
@@ -32,7 +44,14 @@ public:
 		m_uiCount = 0;
 		m_RectFilled = {m_Rect.x + 42, m_Rect.y, m_Rect.w - 84, m_Rect.h};
 	}
-	
+
+	/*!
+	@method ajouterTexture
+	@brief <#Short description#>
+	@param <#Paremeter#>
+	@return <#Return value#>
+	@discussion <#Other code info#>
+	*/
 	void ajouterTexture(int _argc, ...){										//
 		va_list argv;															//
 		va_start(argv, _argc);													// Attention, Une slide, est
@@ -42,17 +61,24 @@ public:
 		m_uiCount = m_ListTexture->Count();										//
 		setlblContain();														//
 	}																			//
-																				//
+
+	/*!
+	@method ajouterText
+	@brief <#Short description#>
+	@param <#Paremeter#>
+	@return <#Return value#>
+	@discussion <#Other code info#>
+	*/
 	void ajouterText(int _argc, ...){											//
 		va_list argv;															//
-		va_start(argv, _argc);													//
-		for (int i = 0; i < _argc; i++)											//
-			m_ListText->AjouterFin(va_arg(argv, string*));						//
-		va_end(argv);
-		if (!m_ListTexture->Count())
-			m_uiCount = m_ListText->Count();
-		setlblContain();
-	}
+		va_start(argv, _argc);													// Attention, Une slide, est
+		for (int i = 0; i < _argc; i++)											// une texture sur laquelle
+			m_ListText->AjouterFin(va_arg(argv, string*));						// on affiche du texte, pour m'avoir
+		va_end(argv);															// que du texte, ne pas mettre de texture.
+		if (!m_ListTexture->Count())											//
+			m_uiCount = m_ListText->Count();									//
+		setlblContain();														//
+	}																			//
 	
 	/*!
 	 @method HandleEvent
@@ -125,11 +151,6 @@ public:
 		m_btnNext->OnClickAction = _func;
 	}
 	
-	string getText(){
-		m_ListText->AllerA(m_uiCurrentSlide);
-		return *m_ListText->ObtenirElement();
-	}
-	
 	/*!
 	 @method Draw
 	 @param _Renderer : Renderer pour rendre le textures du Sprite et du texte du bouton
@@ -146,6 +167,15 @@ public:
 		SDL_SetRenderDrawColor(_Renderer, 255, 255, 255, 1);
 	}
 	
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
+
+	string getText(){
+		m_ListText->AllerA(m_uiCurrentSlide);
+		return *m_ListText->ObtenirElement();
+	}
 	unsigned int getCurrentSlideId(){
 		return m_uiCurrentSlide;
 	}

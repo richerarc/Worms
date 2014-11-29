@@ -64,7 +64,8 @@ public:
 	}
 
 	/*!
-	@Accesseurs:
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
 	*/
 
 	bool IsItExplosed(){

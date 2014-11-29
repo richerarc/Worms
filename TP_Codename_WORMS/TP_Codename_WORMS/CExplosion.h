@@ -37,6 +37,14 @@ public:
 	~CExplosion(){
 	}
 
+
+
+
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
+
 	static void setExplosionMask(SDL_Surface* _ExplosionMask){
 		m_ExplosionMask = _ExplosionMask;
 	}

@@ -33,6 +33,7 @@ private:
 		}
 	}
 public:
+
 	CSprite(const char* _Name, SDL_Texture* _Texture, int _nbrFrame, int _nbrAnimation, int _delai, int _loop) : CRessource(_Name){
 		m_pTexture = _Texture;
 		m_NbrFrame = _nbrFrame;

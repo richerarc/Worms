@@ -213,6 +213,11 @@ public:
 		return nullptr;
 	}
 
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
+
 	SDL_Renderer* getRenderer(){
 		return m_pRenderer;
 	}

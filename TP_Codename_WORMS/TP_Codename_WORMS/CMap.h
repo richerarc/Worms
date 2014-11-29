@@ -73,6 +73,7 @@ public:
 	
 	/*!
 	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
 	*/
 
 	string getName(){

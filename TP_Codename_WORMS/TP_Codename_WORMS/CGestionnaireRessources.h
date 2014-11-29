@@ -42,8 +42,6 @@ public:
 		delete m_pListeSurface;
 	}
 
-	//Méthodes...
-
 	/*
 	Méthode : AjouterSprite
 	Brief : Procédure qui ajoute un sprite à la liste appropriée

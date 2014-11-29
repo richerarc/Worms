@@ -1,11 +1,19 @@
 #include <math.h>
 
-//Change les degrées en radians.
+/*!
+@method DegToRad.
+@brief Change les Degrés en Radian.
+@discussion Utile.
+*/
 double DegToRad(double _Degre){
 	return _Degre * M_PI / 180;
 }
 
-//Change les Radians en Degrés.
+/*!
+@method RadToDeg.
+@brief Change les Radians en Degrés.
+@discussion Utile.
+*/
 double RadToDeg(double _Radian){
 	return _Radian * 180 / M_PI;
 }
@@ -19,26 +27,35 @@ private:
 		m_iY;
 public:
 
-	//Contructeur:
-	//	Parametres:
-	//			_iX, _iY: Les valeurs de position(force) en X et en Y du vecteur 2D
+	/*!
+	@method Constructeur.
+	@brief Initialise les données membres.
+	@param _iX: Position en x
+	@param _iY: Position en y
+	@return Adresse mémoire de l'objet.
+	@discussion None.
+	*/
 	CPosition(double _iX, double _iY){
 		m_iX = _iX;
 		m_iY = _iY;
 	}
 
-	//Redefinition de l'opérateur +:
-	//
+	/*!
+	@method operator+
+	@brief redéfinition de l'opérateur +
+	@param _YDepart: Position Y de Départ du vecteur
+	@return Adresse mémoire de l'objet.
+	@discussion pour additioner des positions
+	*/
 	CPosition * operator+ (CPosition * _Vector){
 		return new CPosition(m_iX + _Vector->getX(), m_iY + _Vector->getY());
 	}
 
-	//Accesseurs...
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
 
-	//	getX(), getY() :
-	//			permettent de retourner les valeurs des positions en x et en y.
-	//	setX(int), setY(int) :
-	//			permettent de  modifier les valeurs des positions en X et en Y avec les valeurs passées en paramètre.
 	double getX(){
 		return m_iX;
 	}

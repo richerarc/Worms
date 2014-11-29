@@ -52,7 +52,8 @@ public:
 	}
 
 	/*!
-	@Accesseurs:
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
 	*/
 
 	void DefinirFontColor(Uint8 _iR, Uint8 _iB, Uint8 _iG, Uint8 _iA){

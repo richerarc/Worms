@@ -7,6 +7,13 @@ private:
 	unsigned int m_uiPower; // Représente la longueuer du Fill Rect.
 public:
 
+	/*!
+	@method Constructeur.
+	@brief Initialise les données membres.
+	@param _Rect rect de l'objet qui a une powerbar
+	@return Adresse mémoire de l'objet.
+	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
+	*/
 	CPowerBar(SDL_Rect _Rect){
 		m_boActive = false;
 		m_boReversePowerBar = false;
@@ -15,9 +22,20 @@ public:
 		m_RectPower.w = 0;
 		m_RectPower.h = 10;
 	}
+
+	/*!
+	@method Destructeur:
+	@brief Permet  de détruire les objets créés en mémoire
+	*/
 	~CPowerBar(){}
 
-
+	/*!
+	@method <#name#>
+	@brief <#Short description#>
+	@param <#Paremeter#>
+	@return <#Return value#>
+	@discussion <#Other code info#>
+	*/
 	void Draw(SDL_Renderer* _pRenderer){
 		if (m_uiPower <= 16)
 			SDL_SetRenderDrawColor(_pRenderer, (150 + m_uiPower), (204 + m_uiPower), 0, 0);
@@ -28,15 +46,13 @@ public:
 		SDL_RenderFillRect(_pRenderer, &m_RectPower);
 	}
 
-	void SetDimension(){
-		m_RectPower.w = m_uiPower;
-	}
-
-	void SetPosition(int _ix, int _iy){
-		m_RectPower.x = _ix;
-		m_RectPower.y = _iy - 15;
-	}
-
+	/*!
+	@method <#name#>
+	@brief <#Short description#>
+	@param <#Paremeter#>
+	@return <#Return value#>
+	@discussion <#Other code info#>
+	*/
 	void PowerUp(){
 		if (m_uiPower <= 50 && !m_boReversePowerBar){
 			if (m_uiPower == 50)
@@ -51,11 +67,30 @@ public:
 				m_uiPower--;
 		}
 	}
-	
+
+	/*!
+	@method <#name#>
+	@brief <#Short description#>
+	@param <#Paremeter#>
+	@return <#Return value#>
+	@discussion <#Other code info#>
+	*/
 	void PowerDown(){
-			//todo
+		//todo
 	}
 
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
+
+	void SetDimension(){
+		m_RectPower.w = m_uiPower;
+	}
+	void SetPosition(int _ix, int _iy){
+		m_RectPower.x = _ix;
+		m_RectPower.y = _iy - 15;
+	}
 	unsigned int getPowerLevel(){
 		unsigned int temp = m_uiPower * 2;
 		m_uiPower = 0;

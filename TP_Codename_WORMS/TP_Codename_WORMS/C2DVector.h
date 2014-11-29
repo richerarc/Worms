@@ -124,7 +124,10 @@ public:
 	}
 
 
-	//Accesseurs...
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
 
 	int getXfin(){ return m_XFin; }
 	int getYfin(){ return m_YFin; }

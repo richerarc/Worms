@@ -66,7 +66,10 @@ public:
 	 */
 	virtual void HandleEvent(SDL_Event _Event){};
 	
-		//Accesseurs...
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
 
 	string getName(){
 		return m_strName;

@@ -67,8 +67,10 @@ public:
 	void ReactToExplosion(int _iX, int _iY, int _iRayon){}
 
 	/*!
-	@Accesseurs:
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
 	*/
+
 	bool IsItExplosed(){
 		return boIsExplosed;
 	}

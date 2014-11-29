@@ -52,7 +52,10 @@ public:
 		}
 	}
 
-	//Acesseurs.
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
 
 	void setPos(int _ix, int _iy){
 		m_Rect.x = _ix;

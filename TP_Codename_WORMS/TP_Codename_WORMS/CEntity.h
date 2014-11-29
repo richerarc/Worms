@@ -35,8 +35,8 @@ public:
 	}
 
 	/*!
-	@Destructeur:
-	@Permet de détruire les objets créés en mémoire
+	@method Destructeur:
+	@brief Permet de détruire les objets créés en mémoire
 	*/
 	~CEntity(){
 		if (m_Trajectoire)
@@ -49,8 +49,7 @@ public:
 	@brief déplace l'objet selon sa trajectoire
 	@param Aucun
 	@return Aucun
-	@discussion I HAVE NO IDEA WHY MY CODE WORKS. j'ai laisser l'encien code au cas ou.
-	@discussion On as plus besoin de Vrtify ground collision.
+	@discussion I HAVE NO IDEA WHY MY CODE WORKS.
 	*/
 	virtual void Move(){
 		switch (m_EntityState) {
@@ -107,7 +106,8 @@ public:
 	}
 
 	/*!
-	@Accesseurs:
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
 	*/
 	SDL_Rect getPosition(){
 		return m_RectPosition;

@@ -352,7 +352,11 @@ public:
 		}
 	}
 
-	//Accesseurs...
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
+
 	static C2DVector* GetWind(){
 		return m_Wind;
 	}

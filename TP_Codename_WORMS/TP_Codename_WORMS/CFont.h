@@ -21,20 +21,15 @@ public:
 		m_pFont = TTF_OpenFont(_FontPath, _iSize);
 		m_Color = { 1, 1, 1, 255 };
 	}
-	//Destructeur
+
+	/*!
+	@method Destructeur:
+	@brief Permet de détruire les objets créés en mémoire
+	*/
 	~CFont(){
 		TTF_CloseFont(m_pFont);
 		SDL_DestroyTexture(m_pTexture);
 		SDL_FreeSurface(m_pSurface);
-	}
-
-	//Accesseur
-	void setFontColor(SDL_Color _Color){
-		m_Color = _Color;
-	}
-
-	int getFontSize(){
-		return iSize;
 	}
 
 	/*!
@@ -54,4 +49,19 @@ public:
 		m_Rect.y = _iy;
 		SDL_RenderCopy(_Renderer, m_pTexture, NULL, &m_Rect);
 	}
+
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
+
+	void setFontColor(SDL_Color _Color){
+		m_Color = _Color;
+	}
+
+	int getFontSize(){
+		return iSize;
+	}
+
+
 };
