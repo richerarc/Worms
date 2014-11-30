@@ -19,6 +19,8 @@ private:
 	unsigned int m_uiTicks,			// Nombre de ticks du départ du timer (miliSecondes).
 				 m_uiTimeToElapse;	// Combien de ticks avant le déclenchement(miliSecondes).
 	bool m_boPause;
+	bool m_boIsStart;
+
 public:
 
 	/*!
@@ -57,6 +59,15 @@ public:
 		return ((SDL_GetTicks() - m_uiTicks) >= m_uiTimeToElapse);
 	}
 
+	/*!
+	@method HasStarted
+	@brief Fonction qui retourne par un bool si la minuterie est commencée ou non
+	@return true : la minuterie est start
+	@return false : la minuterie n'est pas start
+	*/
+	bool HasStarted(){
+		return m_boIsStart;
+	}
 	/*!
 	 @method Pause
 	 @brief Méthode qui redéfinie le temps de la minuterie pour la mettre en pause

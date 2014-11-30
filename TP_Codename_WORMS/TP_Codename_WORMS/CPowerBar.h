@@ -69,18 +69,15 @@ public:
 	}
 
 	/*!
-	@method <#name#>
-	@brief <#Short description#>
-	@param <#Paremeter#>
-	@return <#Return value#>
-	@discussion <#Other code info#>
+	@method PowerDown
+	@brief permet de décrémenter le power.
 	*/
 	void PowerDown(){
-		//todo
+		m_uiPower--;
 	}
 
 	/*!
-	@method Acesseurs
+	@method Accesseurs
 	@brief Servent a acceder/modifier aux données membres.
 	*/
 
@@ -91,10 +88,16 @@ public:
 		m_RectPower.x = _ix;
 		m_RectPower.y = _iy - 15;
 	}
+
+	//Power en pourcentage
 	unsigned int getPowerLevel(){
 		unsigned int temp = m_uiPower * 2;
 		m_uiPower = 0;
 		return temp;
+	}
+	//Power en entier
+	unsigned int getPower(){
+		return m_uiPower;
 	}
 	void setPowerLevel(unsigned int _ipower){ m_uiPower = _ipower; }
 };

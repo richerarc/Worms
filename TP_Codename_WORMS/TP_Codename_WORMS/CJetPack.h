@@ -16,10 +16,10 @@ private:
 	SDL_Texture* m_pTexture;	// Texture de l'image à afficher.
 	CPowerBar* m_pBarreGaz;		// Surface de la barre de lancement.
 	bool boBarreGaz;			// Booléen pour vérifier si la barre de lancement sera afficher
-	double m_iAngle;			// 
-	double m_iNorme;			// 
-	C2DVector* m_pVecteur;		// 
-	CTimer* m_pTimer;			// 
+	double m_iAngle;			// L'angle d'orientation du vecteur de déplacement
+	double m_iNorme;			// La norme du vecteur de déplacement
+	C2DVector* m_pVecteur;		// Le pointeur de vecteur de déplacement
+	CTimer* m_pTimer;			// Une minuterie pour décrémenter le power à tous les "x" secondes
 
 
 public:
@@ -28,19 +28,18 @@ public:
 	/*!
 	@method Constructeur.
 	@brief Initialise les données membres.
-	@param _ix _iy : la pos du jet pack (à modifier pour la pos du worms)
-	@param _pTexture : texture de l'image à afficher.
+	@param _RectWorm: le rect position du worm qui s'apprete à s'envoler
 	@return Adresse mémoire de l'objet.
 	@discussion No discussion is needed.
 	*/
-	CJetPack(int _ix, int _iy, SDL_Rect _RectWorm){ // La position du jet pack devra être remplacer par la position du worms
+	CJetPack(SDL_Rect _RectWorm){
 		m_RectSurface = _RectWorm;
 		m_RectWorm = _RectWorm;
 		m_pBarreGaz = new CPowerBar(m_RectSurface);
 		m_pBarreGaz->setPowerLevel(100);
 		m_iAngle = 0;
 		m_iNorme = 20;
-		m_pVecteur = new C2DVector(m_iNorme, m_iAngle, _ix, _iy);
+		m_pVecteur = new C2DVector(m_iNorme, m_iAngle, _RectWorm.x, _RectWorm.y);
 		boBarreGaz = false;
 		m_pTimer = new CTimer();
 		m_pTimer->SetTimer(100);
@@ -50,14 +49,14 @@ public:
 	/*!
 	@method Destructeur.
 	@brief Destroy.
-	@discussion He is dead.
+	@discussion He is dead. spotted
 	*/
 	~CJetPack(){
 	}
 
 	/*!
 	@methodRender
-	@param _pRenderer : Renderer pour rendre la texture du jet Pack
+	@param _pRenderer : Renderer pour render la barre de gaz
 	@return null
 	*/
 	void Render(SDL_Renderer* _pRenderer){
@@ -68,7 +67,7 @@ public:
 	@method Deplacer
 	@brief Deplace le jetpack
 	@param _RectPosInitiale: position initiale du worm
-	@param _Angle : angle du vecteur depolacement j'imagine.
+	@param _Angle : angle du vecteur deplacement.
 	@return Aucun
 	@discussion none.
 	*/
@@ -77,6 +76,7 @@ public:
 		_RectPosInitiale.y += m_iNorme * sin(_Angle);
 		m_RectWorm = _RectPosInitiale;
 	}
+
 	/*!
 	@method HandleEvent
 	@param _Event : Un SDL_Event pour traiter les evenement
@@ -84,40 +84,45 @@ public:
 	*/
 	void HandleEvent(SDL_Event* _Event){
 		switch (_Event->key.keysym.sym){
+
+
 		case SDLK_LEFT:
-			if (!m_pTimer->IsElapsed()){
+		//Vérifier si le timer à été partie, sinon, le partir
+			if (!m_pTimer->HasStarted()){
 				m_pTimer->Start();
 			}
+		//Déplacer la position du rect selon un angle de 180degree ou pi radian
 			Deplacer(m_RectWorm, (M_PI));
+
+		//Vérifier si le timer est déclancher, si oui, décrémenter le power et repartir le timer
 			if (m_pTimer->IsElapsed()){
-				if (m_pBarreGaz->getPowerLevel() != 0){
+				if (m_pBarreGaz->getPower() != 0){
 					m_pBarreGaz->PowerDown();
 					m_pTimer->Start();
 				}
 			}
-
 			break;
 
 		case SDLK_UP:
-			if (!m_pTimer->IsElapsed()){
+			if (!m_pTimer->HasStarted()){
 				m_pTimer->Start();
 			}
-
 			Deplacer(m_RectWorm, (M_PI / 2));
 			if (m_pTimer->IsElapsed()){
-				if (m_pBarreGaz->getPowerLevel() != 0){
+				if (m_pBarreGaz->getPower() != 0){
 					m_pBarreGaz->PowerDown();
 					m_pTimer->Start();
 				}
 			}
 			break;
+
 		case SDLK_RIGHT:
-			if (!m_pTimer->IsElapsed()){
+			if (!m_pTimer->HasStarted()){
 				m_pTimer->Start();
 			}
 			Deplacer(m_RectWorm, 0);
 			if (m_pTimer->IsElapsed()){
-				if (m_pBarreGaz->getPowerLevel() != 0){
+				if (m_pBarreGaz->getPower() != 0){
 					m_pBarreGaz->PowerDown();
 					m_pTimer->Start();
 				}

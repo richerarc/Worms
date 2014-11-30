@@ -1,6 +1,11 @@
 #ifndef TP_Codename_WORMS_CBazouka_h
 #define TP_Codename_WORMS_CBazouka_h
 
+/* Liste de chose TOO DOOO :
+-Afficher la barre de gaz
+-Vérifier les conditions dans le HandleEvent
+*/
+/*!
 
 /*!
 @CBazouka
