@@ -30,6 +30,7 @@ public:
 		m_uiTicks = 0;
 		m_uiTimeToElapse = 0;
 		m_boPause = false;
+		m_boIsStart = true;
 	}
 	
 	/*!
@@ -38,6 +39,7 @@ public:
 	 */
 	void Start(){
 		m_uiTicks = SDL_GetTicks();
+		m_boIsStart = true;
 	}
 	
 	/*!
