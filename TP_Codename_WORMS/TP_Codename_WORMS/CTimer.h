@@ -30,7 +30,7 @@ public:
 		m_uiTicks = 0;
 		m_uiTimeToElapse = 0;
 		m_boPause = false;
-		m_boIsStart = true;
+		m_boIsStart = false;
 	}
 	
 	/*!
