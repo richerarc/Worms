@@ -280,7 +280,12 @@ public:
 				}
 			}
 		}
-		return RadToDeg(atan(Slope / (PointsSignificatifs - 1)));
+		double Angle = atan(Slope / (PointsSignificatifs - 1));
+		if (Angle < 0){
+			Angle = Angle + 2 * M_PI;
+		}
+
+		return Angle;
 	}
 
 	/*!

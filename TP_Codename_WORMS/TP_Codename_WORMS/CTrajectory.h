@@ -101,11 +101,23 @@ public:
 	Params :
 	_Speed : Vitesse à l'impact
 	_SlopeAngle : Angle de la pente du point d'impact (en degrés)
+	Discussion : Vitesse où le rebond n'arrive pas necessaire, ou à vérifier ailleurs
+	Was googled, tout sur internet est vrai plz?
+	http://integraledesmaths.free.fr/idm/PagePrincipale.htm#http://integraledesmaths.free.fr/idm/GeoAPAngDro.htm
 	*/
 	void Bounce(double _Slope){
-		double SlopeAngle = DegToRad(_Slope);
-		if (SlopeAngle - M_PI / 2 == m_ActualSpeed->getOrientation() || SlopeAngle + M_PI / 2 == m_ActualSpeed->getOrientation()){
-			m_ActualSpeed->setOrientation(m_ActualSpeed->getOrientation() + M_PI);
+		bool Vit = true;
+		if (Vit){
+			if (_Slope == 0){
+				m_ActualSpeed->setOrientation(m_ActualSpeed->getOrientation() + M_PI);
+			}
+			else {
+				double Slope1 = tan(_Slope);
+				double Slope2 = tan(m_ActualSpeed->getOrientation());
+				double AngleBetweenSlopes = atan((Slope1 - Slope2) / (1 + Slope1*Slope2));
+				double Angle = _Slope + AngleBetweenSlopes;
+				m_ActualSpeed->setOrientation(Angle);
+			}
 		}
 	}
 
