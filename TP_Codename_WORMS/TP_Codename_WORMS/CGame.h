@@ -24,7 +24,6 @@ private:
 	bool m_boPause;							// Indique si le jeu est en pause.
 	CTimer* TurnTimer;						// Indique le temps d'un tour.
 	CTimer* DropperTimer;					// Indique le Temps avant de faire tomber les worms.
-	bool m_boSpawn;
 public:
 
 	/*!
@@ -40,7 +39,6 @@ public:
 	@discussion Nuff said.
 	*/
 	CGame(CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer, int _NbOfTeam, int _NbOfWormPerTeam, CGestionnaireRessources* _Gestionaire){
-		m_boSpawn = true;
 		TurnTimer = new CTimer();
 		DropperTimer = new CTimer();
 		m_uiNbOfPlayingTeams = _NbOfTeam;
@@ -56,7 +54,7 @@ public:
 		m_pListeTeam = new CListeDC<CTeam*>();
 		m_pListeObjets = new CListeDC<CObjets*>();
 		Spawn();
-		DropperTimer->SetTimer(2000);
+		DropperTimer->SetTimer(200);
 		DropperTimer->Start();
 	}
 	
@@ -173,8 +171,10 @@ public:
 	@discussion None.
 	*/
 	void MainGame(){
-		if (m_boSpawn)
+		if (DropperTimer->IsElapsed()){
+			DropperTimer->Start();
 			Spawn();
+		}
 	}
 
 

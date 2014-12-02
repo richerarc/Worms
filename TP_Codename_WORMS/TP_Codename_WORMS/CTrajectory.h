@@ -58,6 +58,7 @@ public:
 	Return : Vecteur représentant la position au temps passé en paramètre
 	*/
 	void UpdatePosition(){
+		if (m_TrajectoryTime->getElapsedTime() >= 1){
 			m_ActualPos->setX(m_NextPos->getX());
 			m_ActualPos->setY(m_NextPos->getY());
 			unsigned int dTimeVariation = m_TrajectoryTime->getElapsedTime();
@@ -71,6 +72,7 @@ public:
 			//Le code ci-dessous est pour la vitesse actuelle
 			m_ActualSpeed->setComposanteXY((DeltaX + DeltaT * m_Acceleration->getComposanteX()) / dTimeVariation,
 				(DeltaY + DeltaT * m_Acceleration->getComposanteY()) / dTimeVariation);
+		}
 	}
 
 	CPosition* getNextPos(){
