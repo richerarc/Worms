@@ -24,6 +24,7 @@ private:
 	bool m_boPause;							// Indique si le jeu est en pause.
 	CTimer* TurnTimer;						// Indique le temps d'un tour.
 	CTimer* DropperTimer;					// Indique le Temps avant de faire tomber les worms.
+	bool m_boSpawn;
 public:
 
 	/*!
@@ -39,6 +40,7 @@ public:
 	@discussion Nuff said.
 	*/
 	CGame(CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer, int _NbOfTeam, int _NbOfWormPerTeam, CGestionnaireRessources* _Gestionaire){
+		m_boSpawn = true;
 		TurnTimer = new CTimer();
 		DropperTimer = new CTimer();
 		m_uiNbOfPlayingTeams = _NbOfTeam;
@@ -51,11 +53,9 @@ public:
 		m_boPause = false;
 		m_pMap = _Map;
 		CPhysics::Init(m_pMap->getMap(), m_pMap->getGravity(), m_pMap->getWind());
-		m_pListeTeam = nullptr;
+		m_pListeTeam = new CListeDC<CTeam*>();
 		m_pListeObjets = new CListeDC<CObjets*>();
-		for(int i = 0; i < m_pMap->getMine(); i++){
-			m_pListeObjets->AjouterFin(new CMines(m_Gestionaire->GetTexture("explosion1")->GetTexture(), {((rand()% (WIDTH - 10)) + 5), 5, 12, 8}, m_Gestionaire->GetTexture("mine")->GetTexture()));
-		}
+		Spawn();
 		DropperTimer->SetTimer(2000);
 		DropperTimer->Start();
 	}
@@ -103,7 +103,7 @@ public:
 			m_pListeObjets->ObtenirElement()->Draw(m_pRenderer);
 			m_pListeObjets->AllerSuivant();
 		}
-		if (m_pListeTeam != nullptr){
+		if ((m_pListeTeam != nullptr) && (m_pListeTeam->Count())){
 			m_pListeTeam->AllerDebut();
 			
 			for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
@@ -148,17 +148,21 @@ public:
 	@return Aucun.
 	@discussion None.
 	*/
-	void CreateTeam(){
-		m_pListeTeam = new CListeDC<CTeam*>();
-		string temp("Team");
-		char buf[10];
-		for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
-			temp.append(SDL_itoa(i, buf, 10));
-			m_pListeTeam->AjouterFin(new CTeam(temp, { static_cast<Uint8>(i * 200), static_cast<Uint8>(i * 100), static_cast<Uint8>(i * 50), 1 }, nullptr, m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontMenu")));
+	void Spawn(){
+		if (m_pListeObjets->Count() < m_pMap->getMine()){
+			m_pListeObjets->AjouterFin(new CMines(m_Gestionaire->GetTexture("explosion1")->GetTexture(), {((rand()% (WIDTH - 10)) + 5), 5, 12, 8}, m_Gestionaire->GetTexture("mine")->GetTexture()));
+		}
+		if (m_pListeObjets->Count() == m_pMap->getMine()){
+			string temp("Team");
+			char buf[10];
+			temp.append(SDL_itoa(m_pListeObjets->Count()+1, buf, 10));
+			m_pListeTeam->AjouterFin(new CTeam(temp, { static_cast<Uint8>(rand() % 5 * 200), static_cast<Uint8>(rand() % 5 * 100), static_cast<Uint8>(rand() % 5 * 50), 1 }, nullptr, m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontMenu")));
 			temp.pop_back();
 		}
-		m_pListeTeam->AllerDebut();
-		m_pListeTeam->ObtenirElement()->setFocus(true);
+		if (m_pListeTeam->Count() == m_uiNbOfPlayingTeams){
+			m_pListeTeam->AllerDebut();
+			m_pListeTeam->ObtenirElement()->setFocus(true);
+		}
 	}
 
 	/*!
@@ -169,8 +173,8 @@ public:
 	@discussion None.
 	*/
 	void MainGame(){
-		if (DropperTimer->IsElapsed() && (m_pListeTeam == nullptr))
-			CreateTeam();
+		if (m_boSpawn)
+			Spawn();
 	}
 
 

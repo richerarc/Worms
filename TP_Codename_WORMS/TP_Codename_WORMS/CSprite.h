@@ -59,7 +59,7 @@ public:
 	}
 	~CSprite(){
 		delete m_pTimer;
-		SDL_DestroyTexture(m_pTexture);
+			//SDL_DestroyTexture(m_pTexture);
 	}
 
 
@@ -118,4 +118,6 @@ public:
 		m_rSource.x = _iIMG * m_rSource.w;
 		SDL_RenderCopy(_Renderer, m_pTexture, &m_rSource, &m_rDest);
 	}
+	
+	
 };
