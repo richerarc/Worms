@@ -322,57 +322,57 @@ public:
 	@return MOVING: Si l'entité peut continuer
 	@discussion Ne déplace actuellement que d'un pixel sur l'axe X, à changer si voulu La hauteur (en pixels) d'une pente "escaladable" en y sera à déterminer (actuellement 3 pixels)
 	*/
-	static int Move(SDL_Rect _Rect, int _Direction){
-		if (LEFT){
-			for (int i = 0; i < _Rect.h + 3; i++){
-				if (!(((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x - 1] == 0)){
-					if (i < _Rect.h - 3)
+	static int Move(SDL_Rect* _Rect, int _Direction){
+		if (_Direction == LEFT){
+			for (int i = 0; i < _Rect->h + 3; i++){
+				if (!(((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x - 1] == 0)){
+					if (i < _Rect->h - 3)
 						return BLOCKED;
 					else {
-						if (i < _Rect.h){
-							_Rect.y = _Rect.y - (_Rect.h - i);
+						if (i < _Rect->h){
+							_Rect->y = _Rect->y - (_Rect->h - i);
 						}
 						else {
 							bool Verif = true;
-							for (int j = 0; j < _Rect.w; j++){
-								if ((((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + _Rect.h) + _Rect.x + j - 1] != 0)){
+							for (int j = 0; j < _Rect->w; j++){
+								if ((((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + _Rect->h) + _Rect->x + j - 1] != 0)){
 									Verif = true;
-									j = _Rect.w;
+									j = _Rect->w;
 								}
 							}
 							if (Verif)
-								_Rect.y = _Rect.y + (_Rect.h - i);
+								_Rect->y = _Rect->y + (_Rect->h - i);
 						}
 					}
 				}
 			}
-			_Rect.x = _Rect.x - 1;
+			_Rect->x = _Rect->x - 1;
 			return MOVING;
 		}
 		else{
-			for (int i = 0; i < _Rect.h + 3; i++){
-				if (!(((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x + _Rect.w] == 0)){
-					if (i < _Rect.h - 3)
+			for (int i = 0; i < _Rect->h + 3; i++){
+				if (!(((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x + _Rect->w] == 0)){
+					if (i < _Rect->h - 3)
 						return BLOCKED;
 					else {
-						if (i < _Rect.h){
-							_Rect.y = _Rect.y - (_Rect.h - i);
+						if (i < _Rect->h){
+							_Rect->y = _Rect->y - (_Rect->h - i);
 						}
 						else {
 							bool Verif = true;
-							for (int j = 0; j < _Rect.w; j++){
-								if ((((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + _Rect.h) + _Rect.x + j - 1] != 0)){
+							for (int j = 0; j < _Rect->w; j++){
+								if ((((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + _Rect->h) + _Rect->x + j - 1] != 0)){
 									Verif = true;
-									j = _Rect.w;
+									j = _Rect->w;
 								}
 							}
 							if (Verif)
-								_Rect.y = _Rect.y + (_Rect.h - i);
+								_Rect->y = _Rect->y + (_Rect->h - i);
 						}
 					}
 				}
 			}
-			_Rect.x = _Rect.x + 1;
+			_Rect->x = _Rect->x + 1;
 			return MOVING;
 		}
 	}

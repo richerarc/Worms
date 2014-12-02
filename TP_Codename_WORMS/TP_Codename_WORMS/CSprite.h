@@ -26,7 +26,7 @@ private:
 	void setRectSource(int _StartFrame, int _NbFrameUsed){
 		if (m_pTimer->IsElapsed() && m_boActif && (m_uiCurrentLoop < m_uinbLoop)){
 			m_pTimer->Start();
-			m_currentFrame = ((++m_currentFrame) % (_NbFrameUsed)) + _StartFrame;
+			m_currentFrame = ((m_currentFrame + 1) % (_NbFrameUsed)) + _StartFrame;
 			m_rSource.x = (m_rSource.w * m_currentFrame);
 			if (m_currentFrame == _NbFrameUsed - 1)
 				m_uiCurrentLoop++;
@@ -96,6 +96,7 @@ public:
 	void setCurrentAnimation(int _currentAni){
 		m_currentAnimation = _currentAni;
 		m_rSource.y = m_rSource.h * m_currentAnimation;
+		m_currentFrame = 0;
 	}
 
 	/*!

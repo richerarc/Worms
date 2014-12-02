@@ -111,24 +111,29 @@ public:
 		Move();
 		switch (m_EntityState) {
 			case NoMotionLeft:
-				m_pSprite->setCurrentAnimation(1);
+				if (m_pSprite->getCurrentAnimation() != 1)
+					m_pSprite->setCurrentAnimation(1);
 				m_pSprite->Render(_Renderer, 0);
     			break;
 			case NoMotionRight:
-				m_pSprite->setCurrentAnimation(0);
+				if (m_pSprite->getCurrentAnimation() != 0)
+					m_pSprite->setCurrentAnimation(0);
 				m_pSprite->Render(_Renderer, 0);
 				break;
 			case Largage:
-				m_pSprite->setCurrentAnimation(10);
+				if (m_pSprite->getCurrentAnimation() != 10)
+					m_pSprite->setCurrentAnimation(10);
 				m_pSprite->Render(1, 4, _Renderer);
 				break;
 			case MotionLeft:
-				m_pSprite->setCurrentAnimation(3);
-				m_pSprite->Render(_Renderer);
+				if (m_pSprite->getCurrentAnimation() != 3)
+					m_pSprite->setCurrentAnimation(3);
+				m_pSprite->Render(0,4,_Renderer);
 				break;
 			case MotionRight:
-				m_pSprite->setCurrentAnimation(2);
-				m_pSprite->Render(_Renderer);
+				if (m_pSprite->getCurrentAnimation() != 2)
+					m_pSprite->setCurrentAnimation(2);
+				m_pSprite->Render(0,4,_Renderer);
 				break;
 		}
 		
@@ -151,8 +156,10 @@ public:
 	void Move(){
 		switch (m_EntityState) {
 			case MotionRight:
+				CPhysics::Move(&m_RectPosition, RIGHT);
 				break;
 			case MotionLeft:
+				CPhysics::Move(&m_RectPosition, LEFT);
 				break;
 			case Largage:
 				m_Trajectoire->UpdatePosition();
@@ -173,6 +180,7 @@ public:
 				}
 				 break;
 		}
+		m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
 	}
 	
 	void setPosXY(int _X, int _Y){
