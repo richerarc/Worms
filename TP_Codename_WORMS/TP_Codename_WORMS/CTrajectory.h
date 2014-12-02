@@ -118,6 +118,10 @@ public:
 				double Angle = _Slope + AngleBetweenSlopes;
 				m_ActualSpeed->setOrientation(Angle);
 			}
+			m_InitSpeed->setComposanteXY(100 * m_ActualSpeed->getComposanteX(), 100 * m_ActualSpeed->getComposanteY());
+			m_TrajectoryTime->Start();
+			m_StartPos = m_ActualPos;
+			m_NextPos = m_ActualPos;
 		}
 	}
 
