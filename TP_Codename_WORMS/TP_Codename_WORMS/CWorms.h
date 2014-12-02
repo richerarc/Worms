@@ -58,6 +58,7 @@ private:
 	static CGestionnaireRessources* m_Gestionaire;	// Gestionnaire de Resource pour le Worms
 	static CMap* TabMap[5];
 	static fstream* m_SaveFile;
+	static int m_LastMapUsed;
 public:
 
 	static void Start(){
@@ -260,7 +261,6 @@ public:
 	}
 
 	static void Quit(){
-		CExplosion::deleteMask();
 		delete m_pWindow;
 		delete m_MenuPrincipal;
 		delete m_MenuNewGame;
@@ -383,7 +383,8 @@ public:
 		m_boInMenu = true;
 	}
 	static void BtnPlay(){
-		m_Game = new CGame(TabMap[((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId()], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire);
+		m_LastMapUsed = ((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId();
+		m_Game = new CGame(TabMap[m_LastMapUsed], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire);
 		m_MenuNewGame->DeActivateMenu();
 		m_Game->Activate();
 		m_boInMenu = false;
@@ -391,10 +392,11 @@ public:
 	static void BtnRestat(){
 		m_Game->DeActivate();
 		delete m_Game;
-		m_Game = new CGame(TabMap[((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId()], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire);
+		m_Game = nullptr;
+		m_Game = new CGame(TabMap[m_LastMapUsed], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire);
 		m_MenuPause->DeActivateMenu();
-		m_boInMenu = false;
 		m_Game->Activate();
+		m_boInMenu = false;
 	}
 	static void BtnResume(){
 		m_MenuPause->DeActivateMenu();
@@ -417,4 +419,5 @@ CGestionnaireRessources* CWorms::m_Gestionaire = nullptr;
 bool CWorms::m_boRun = true;
 CMap* CWorms::TabMap[5];
 fstream* CWorms::m_SaveFile = new fstream();
+int CWorms::m_LastMapUsed = 0;
 

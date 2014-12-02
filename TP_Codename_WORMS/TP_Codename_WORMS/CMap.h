@@ -55,7 +55,7 @@ public:
 	}
 
 	void ExplodeMap(SDL_Renderer* _Renderer, CExplosion* _explosion){
-	
+		
 	}
 
 	/*!

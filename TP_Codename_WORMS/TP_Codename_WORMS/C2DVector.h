@@ -46,6 +46,10 @@ public:
 		m_XFin = _XDepart + (m_ComposanteX);
 		m_YFin = _YDepart + (m_ComposanteY);
 	}
+	
+	~C2DVector(){
+		
+	}
 
 	/*!
 	@method Constructeur.

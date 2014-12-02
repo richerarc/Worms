@@ -18,7 +18,7 @@ public:
 	*/
 	CExplosion(CSprite* _Sprite, CPosition* _Pos){
 		m_pSprite = _Sprite;
-		m_pSprite->setSpritePos(m_pPosition->getX(), m_pPosition->getY());
+			//	m_pSprite->setSpritePos(m_pPosition->getX(), m_pPosition->getY());
 	}
 
 	/*!
@@ -47,10 +47,6 @@ public:
 
 	static void setExplosionMask(SDL_Surface* _ExplosionMask){
 		m_ExplosionMask = _ExplosionMask;
-	}
-	
-	static void deleteMask(){
-		SDL_FreeSurface(m_ExplosionMask);
 	}
 	
 	static SDL_Surface* getMask(){
