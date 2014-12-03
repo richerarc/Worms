@@ -67,7 +67,9 @@ public:
 	@discussion Aucune.
 	*/
 	static void RedefineWind(){
-		m_Wind->setNorme(((rand() % m_MaxWindSpeed) + 1)/100);
+		double temp = (rand() % (int)m_MaxWindSpeed);
+		double Norme = temp/100;
+		m_Wind->setNorme(Norme);
 		m_Wind->setOrientation(DegToRad(rand() % 360));
 	}
 
