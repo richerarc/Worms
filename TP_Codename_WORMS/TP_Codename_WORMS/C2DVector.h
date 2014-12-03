@@ -95,7 +95,7 @@ public:
 			if ((m_ComposanteX < 0) || ((m_ComposanteX < 0) && (m_ComposanteY < 0)))
 				m_Orientation = M_PI + m_Orientation;
 			else if (m_ComposanteY < 0)
-				m_Orientation = (2 * M_PI) + m_Orientation;
+				m_Orientation = (2 * M_PI) - m_Orientation;
 		}
 	}
 
@@ -136,7 +136,7 @@ public:
 			if ((m_ComposanteX < 0) || ((m_ComposanteX < 0) && (m_ComposanteY < 0)))
 				m_Orientation = M_PI + m_Orientation;
 			else if (m_ComposanteY < 0)
-				m_Orientation = (2 * M_PI) + m_Orientation;
+				m_Orientation = (2 * M_PI) - m_Orientation;
 		}
 	}
 

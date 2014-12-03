@@ -93,6 +93,7 @@ public:
 	*/
 	void Render(){
 		m_pMap->Draw(m_pRenderer);
+		m_pBoussole->setAngle(CPhysics::GetWind()->getOrientation()+180);
 		m_pBoussole->Draw(m_pRenderer);
 		
 		m_pListeObjets->AllerDebut();
