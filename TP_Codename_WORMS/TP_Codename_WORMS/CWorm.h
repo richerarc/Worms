@@ -69,36 +69,36 @@ public:
 	 @return null
 	 */
 	void HandleEvent(SDL_Event _Event){
-		
-		switch (_Event.type) {
-			case SDL_KEYDOWN:
-				switch (_Event.key.keysym.sym){
-					case SDLK_UP:
-					case SDLK_w:
+		if ((m_EntityState != JumpLeft) && (m_EntityState != JumpRight) && (m_EntityState != Largage)) {
+			switch (_Event.type) {
+				case SDL_KEYDOWN:
+					switch (_Event.key.keysym.sym){
+						case SDLK_UP:
+						case SDLK_w:
+							break;
+						case SDLK_LEFT:
+						case SDLK_a:
+							m_EntityState = MotionLeft;
+							break;
+						case SDLK_RIGHT:
+						case SDLK_d:
+							m_EntityState = MotionRight;
+							break;
+						case SDLK_SPACE:
 							if ((m_EntityState == NoMotionLeft) || (m_EntityState == MotionLeft))
 								m_EntityState = JumpLeft;
 							else
 								m_EntityState = JumpRight;
-						break;
-					case SDLK_LEFT:
-					case SDLK_a:
-						m_EntityState = MotionLeft;
-						break;
-					case SDLK_RIGHT:
-					case SDLK_d:
-						m_EntityState = MotionRight;
-						break;
-					case SDLK_SPACE:
-							//To do
-						break;
-				}
-				break;
-			case SDL_KEYUP:
-				if (m_EntityState == MotionLeft)
-					m_EntityState = NoMotionLeft;
-				else
-					m_EntityState = NoMotionRight;
-				break;
+							break;
+					}
+					break;
+				case SDL_KEYUP:
+					if (m_EntityState == MotionLeft)
+						m_EntityState = NoMotionLeft;
+					else
+						m_EntityState = NoMotionRight;
+					break;
+			}
 		}
 	}
 
@@ -110,11 +110,21 @@ public:
 	void Draw(SDL_Renderer * _Renderer){
 		Move();
 		switch (m_EntityState) {
+			case JumpLeft:
+				if (m_pSprite->getCurrentAnimation() != 5)
+					m_pSprite->setCurrentAnimation(5);
+				m_pSprite->Render(_Renderer);
+				break;
+			case JumpRight:
+				if (m_pSprite->getCurrentAnimation() != 4)
+					m_pSprite->setCurrentAnimation(4);
+				m_pSprite->Render(_Renderer);
+				break;
 			case NoMotionLeft:
 				if (m_pSprite->getCurrentAnimation() != 1)
 					m_pSprite->setCurrentAnimation(1);
 				m_pSprite->Render(_Renderer, 0);
-    			break;
+				break;
 			case NoMotionRight:
 				if (m_pSprite->getCurrentAnimation() != 0)
 					m_pSprite->setCurrentAnimation(0);
@@ -155,11 +165,63 @@ public:
 
 	void Move(){
 		switch (m_EntityState) {
+			case JumpLeft:
+				if (!m_Trajectoire)
+					m_Trajectoire = CPhysics::Propulsion(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(600.f, 1.5*M_PI, m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, double(0), double(CPhysics::GetGravity())));
+				else{
+					m_Trajectoire->UpdatePosition();
+					
+					CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+					if (temp != nullptr)
+					{
+						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
+							m_EntityState = NoMotionLeft;
+							delete m_Trajectoire;
+							m_Trajectoire = nullptr;
+						}
+						else
+							m_EntityState = JumpLeft;
+						
+						setPosXY(temp->getX(), temp->getY());
+						delete temp;
+					}
+					else{
+						setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
+					}
+				}
+				break;
+			case JumpRight:
+				if (!m_Trajectoire)
+					m_Trajectoire = CPhysics::Propulsion(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(60.f, 0.5*M_PI, m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, double(0), double(CPhysics::GetGravity())));
+				else{
+					m_Trajectoire->UpdatePosition();
+					
+					CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+					if (temp != nullptr)
+					{
+						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
+							m_EntityState = NoMotionRight;
+							delete m_Trajectoire;
+							m_Trajectoire = nullptr;
+						}
+						else
+							m_EntityState = JumpRight;
+						
+						setPosXY(temp->getX(), temp->getY());
+						delete temp;
+					}
+					else{
+						setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
+					}
+				}
+				break;
 			case MotionRight:
 				CPhysics::Move(&m_RectPosition, RIGHT);
+				m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
 				break;
 			case MotionLeft:
 				CPhysics::Move(&m_RectPosition, LEFT);
+				m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
 				break;
 			case Largage:
 				m_Trajectoire->UpdatePosition();
@@ -167,8 +229,11 @@ public:
 				CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
 				if (temp != nullptr)
 				{
-					if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY()))
+					if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
 						m_EntityState = NoMotionRight;
+						delete m_Trajectoire;
+						m_Trajectoire = nullptr;
+					}
 					else
 						m_EntityState = Largage;
 					
@@ -180,7 +245,6 @@ public:
 				}
 				 break;
 		}
-		m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
 	}
 	
 	void setPosXY(int _X, int _Y){
