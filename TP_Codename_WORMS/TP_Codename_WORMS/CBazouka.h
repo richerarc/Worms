@@ -1,11 +1,10 @@
 #ifndef TP_Codename_WORMS_CBazouka_h
 #define TP_Codename_WORMS_CBazouka_h
-
-/* Liste de chose TOO DOOO :
--Afficher la barre de gaz
--Vérifier les conditions dans le HandleEvent
+/*
+To Do:
+- Handle Event case down
+- Tester
 */
-/*!
 
 /*!
 @CBazouka
@@ -14,38 +13,42 @@
 class CBazouka{
 private:
 	//Données membres:
-	SDL_Rect m_Rect;			// La pos du rectangle de l'objet
-	SDL_Rect m_RectSurface;		// La pos du rectangle de l'objet
-	double iAngle;				// L'angle de rotation
-	SDL_Texture* m_pTexture;	// Texture de l'image à afficher.
-	bool m_boCharging;			// Booléen pour vérifier si le bazouka va lancer un missile
-	bool boIsRotated;			// Booléen pour vérifier si le bazouka sera en rotation
-	unsigned int m_uiPower;		// Représente le power du missile.
-	CPowerBar* m_PowerBar;		// Barre de puissance.
+	SDL_Rect m_Rect; //La pos du rectangle de l'objet
+	SDL_Rect m_RectSurface; //La pos du rectangle de l'objet
+	double iAngle; // L'angle de rotation
+	SDL_Texture* m_pTexture; // Texture de l'image à afficher.
+	bool m_boCharging; // Booléen pour vérifier si le bazouka va lancer un missile
+	bool boIsRotated; // Booléen pour vérifier si le bazouka sera en rotation
+	unsigned int m_uiPower; // Représente le power du missile.
+	CPowerBar* m_PowerBar;
+	CWorm * m_Worm;
 public:
-
 	/*!
 	@Constructeur
 	@Description: Permet d'initialiser les données membres
-	@param _ix _iy : la pos du bazouka (à modifier pour la pos du worms)
-	@param _pTexture : texture de l'image à afficher.
-	@Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
+	@param _Worm: Un pointeur vers le worm qui est focus
+	@param _pTexture : Texture de l'image à afficher.
 	*/
-	CBazouka(int _ix, int _iy, SDL_Texture* _pTexture){ // La position du bazouka devra être remplacer par la position du worms qui s'apprete  a attaquer.
-		m_Rect.x = _ix;
-		m_Rect.y = _iy;
+	CBazouka(SDL_Texture* _pTexture, CWorm * _pWorm){
+		m_Rect = _pWorm->getPosition();
+		m_RectSurface = _pWorm->getPosition();
+		m_Rect.w = 52;
+		m_Rect.h = 28;
 		SDL_QueryTexture(_pTexture, NULL, NULL, &m_Rect.w, &m_Rect.h);//Dimension du bazooka
 		m_pTexture = _pTexture;
 		m_boCharging = false;
 		boIsRotated = false;
 		iAngle = 0;
 		m_uiPower = 0;
-		m_PowerBar = new CPowerBar(m_Rect);
+		m_PowerBar = new CPowerBar(m_RectSurface);
+		m_PowerBar->setPowerLevel(m_uiPower);
+		m_Worm = _pWorm;
+
 	}
 
 	/*!
-	@method Destructeur:
-	@brief Permet  de détruire les objets créés en mémoire
+	@Destructeur:
+	@Permet de détruire les objets créés en mémoire
 	*/
 	~CBazouka(){
 		delete m_PowerBar;
@@ -58,10 +61,11 @@ public:
 	*/
 	void Render(SDL_Renderer* _pRenderer){
 
-		if (!boIsRotated)
-			SDL_RenderCopy(_pRenderer, m_pTexture, NULL, &m_Rect);
-		else
-			SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_Rect, iAngle, NULL, SDL_FLIP_NONE);
+		//if (!boIsRotated)
+		//	SDL_RenderCopy(_pRenderer, m_pTexture, NULL, &m_Rect);
+		//else
+
+		SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_Rect, iAngle, NULL, SDL_FLIP_NONE);
 
 		if (m_boCharging){
 			m_PowerBar->Draw(_pRenderer);
@@ -76,24 +80,27 @@ public:
 	void HandleEvent(SDL_Event* _Event){
 		switch (_Event->type)
 		{
+
 		case SDL_KEYDOWN:
 			switch (_Event->key.keysym.sym)
 			{
 			case SDLK_UP:
-				if (iAngle > -360)
-					iAngle--;
-				else{
-					iAngle = 0;
-					iAngle--;
-				}
+	//			if (m_Worm->getState() == 99){
+					if (iAngle >= 90 && iAngle <= 270) iAngle += 180;
+					if (iAngle >= -90 && iAngle <= 90) iAngle--;
+	//			}
+    //				if (m_Worm->getState() == 98){
+					if (iAngle >= -90 && iAngle <= 90) iAngle += 180;
+					if (iAngle >= 90 && iAngle <= 270) iAngle++;
+	//			}
 				boIsRotated = true;
 				break;
 
 			case SDLK_DOWN:
+
 				iAngle++;
-				if (iAngle > 360)
-					iAngle = 0;
 				boIsRotated = true;
+
 				break;
 
 			case SDLK_SPACE:
@@ -114,15 +121,22 @@ public:
 				break;
 
 			case SDLK_SPACE:
-				m_uiPower = m_PowerBar->getPowerLevel();
+				m_PowerBar->setPowerLevel(m_uiPower);
 				break;
 			}
 			break;
-			
+
 		default:
 			break;
+
 		}
 	}
 };
+
+
+
+
+
+
 
 #endif

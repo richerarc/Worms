@@ -2,7 +2,8 @@
 #define TP_Codename_WORMS_CJetPack_h
 
 /* Liste de chose TOO DOOO :
--Afficher la barre de gaz
+-Faire en sorte que le worm en jetpack rotate dépendament si tu vas a gauche ou droite
+-Tester
 */
 /*!
  @class CJetPack
@@ -11,9 +12,8 @@
 class CJetPack{
 private:
 	//Données membres:
-	SDL_Rect m_RectWorm;
+	SDL_Rect m_RectJetPack;
 	SDL_Rect m_RectSurface;		// La pos du rectangle de la surface de la barre de gaz
-	SDL_Texture* m_pTexture;	// Texture de l'image à afficher.
 	CPowerBar* m_pBarreGaz;		// Surface de la barre de lancement.
 	bool boBarreGaz;			// Booléen pour vérifier si la barre de lancement sera afficher
 	double m_iAngle;			// L'angle d'orientation du vecteur de déplacement
@@ -32,14 +32,14 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion No discussion is needed.
 	*/
-	CJetPack(SDL_Rect _RectWorm){
-		m_RectSurface = _RectWorm;
-		m_RectWorm = _RectWorm;
+	CJetPack(CWorm* _pWorm){
+		m_RectJetPack = _pWorm->getPosition();
+		m_RectSurface = _pWorm->getPosition();
 		m_pBarreGaz = new CPowerBar(m_RectSurface);
 		m_pBarreGaz->setPowerLevel(100);
 		m_iAngle = 0;
 		m_iNorme = 20;
-		m_pVecteur = new C2DVector(m_iNorme, m_iAngle, _RectWorm.x, _RectWorm.y);
+		m_pVecteur = new C2DVector(m_iNorme, m_iAngle, m_RectJetPack.x, m_RectJetPack.y);
 		boBarreGaz = false;
 		m_pTimer = new CTimer();
 		m_pTimer->SetTimer(100);
@@ -74,7 +74,7 @@ public:
 	void Deplacer(SDL_Rect _RectPosInitiale, double _Angle){
 		_RectPosInitiale.x += m_iNorme * cos(_Angle);
 		_RectPosInitiale.y += m_iNorme * sin(_Angle);
-		m_RectWorm = _RectPosInitiale;
+		m_RectJetPack = _RectPosInitiale;
 	}
 
 	/*!
@@ -92,7 +92,7 @@ public:
 				m_pTimer->Start();
 			}
 		//Déplacer la position du rect selon un angle de 180degree ou pi radian
-			Deplacer(m_RectWorm, (M_PI));
+			Deplacer(m_RectJetPack, (M_PI));
 
 		//Vérifier si le timer est déclancher, si oui, décrémenter le power et repartir le timer
 			if (m_pTimer->IsElapsed()){
@@ -107,7 +107,7 @@ public:
 			if (!m_pTimer->HasStarted()){
 				m_pTimer->Start();
 			}
-			Deplacer(m_RectWorm, (M_PI / 2));
+			Deplacer(m_RectJetPack, (M_PI / 2));
 			if (m_pTimer->IsElapsed()){
 				if (m_pBarreGaz->getPower() != 0){
 					m_pBarreGaz->PowerDown();
@@ -120,7 +120,7 @@ public:
 			if (!m_pTimer->HasStarted()){
 				m_pTimer->Start();
 			}
-			Deplacer(m_RectWorm, 0);
+			Deplacer(m_RectJetPack, 0);
 			if (m_pTimer->IsElapsed()){
 				if (m_pBarreGaz->getPower() != 0){
 					m_pBarreGaz->PowerDown();

@@ -37,12 +37,8 @@ public:
 	@discussion <#Other code info#>
 	*/
 	void Draw(SDL_Renderer* _pRenderer){
-		if (m_uiPower <= 16)
-			SDL_SetRenderDrawColor(_pRenderer, (150 + m_uiPower), (204 + m_uiPower), 0, 0);
-		if (m_uiPower > 17 && m_uiPower <= 34)
-			SDL_SetRenderDrawColor(_pRenderer, (204 + m_uiPower), (204 + m_uiPower), 0, 0);
-		if (m_uiPower > 34)
-			SDL_SetRenderDrawColor(_pRenderer, (208 + m_uiPower), (100 + m_uiPower), 0, 0);
+		SetDimension();
+		SDL_SetRenderDrawColor(_pRenderer, (m_uiPower * 5), (250 - (m_uiPower * 5)), 0, 255);
 		SDL_RenderFillRect(_pRenderer, &m_RectPower);
 	}
 
