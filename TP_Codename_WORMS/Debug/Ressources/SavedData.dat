@@ -5,8 +5,8 @@ Wind:200
 Mine:9
 }
 MMap1{
-Name:Cave 
-Grvt:150
+Name:Xmas
+Grvt:100
 Wind:50 
 Mine:6
 }
@@ -25,6 +25,6 @@ Mine:7
 MMap4{
 Name:FlatLand 
 Grvt:2
-Wind:100 
+Wind:50 
 Mine:30 
 }

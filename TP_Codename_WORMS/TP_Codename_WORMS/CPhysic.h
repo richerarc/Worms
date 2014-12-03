@@ -41,7 +41,7 @@ public:
 		m_Wind = new C2DVector(0,0,0,0);
 		m_Map = _map;
 		m_Gravity = _gravity;
-		m_MaxWindSpeed = _maxWind/100;
+		m_MaxWindSpeed = _maxWind;
 		RedefineWind();
 	}
 
@@ -67,7 +67,7 @@ public:
 	@discussion Aucune.
 	*/
 	static void RedefineWind(){
-		m_Wind->setNorme(((rand() % m_MaxWindSpeed) + 1));
+		m_Wind->setNorme(((rand() % m_MaxWindSpeed) + 1)/100);
 		m_Wind->setOrientation(DegToRad(rand() % 360));
 	}
 
