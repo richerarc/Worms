@@ -17,11 +17,16 @@ private:
 		m_YOrigine,		// Cordonnée Y de départ
 		m_XFin,			// Cordonnée X de Fin
 		m_YFin;			// Cordonnée Y de Fin
+
 	double	m_Norme,	// Norme du vecteur.
 		m_Orientation,	// Orientation.
 		m_ComposanteX,	// Composante X.
 		m_ComposanteY;	// Composante Y.
 
+	double m_XStart,
+		m_YStart,
+		m_XEnd,
+		m_YEnd;
 public:
 
 	/*!
@@ -41,14 +46,18 @@ public:
 		m_Orientation = _AngleRad;
 		m_ComposanteX = _Norme * cos(_AngleRad);
 		m_ComposanteY = _Norme * sin(_AngleRad);
-		if (m_ComposanteX < 0.5)
-			m_ComposanteX = 0;
 		m_XFin = _XDepart + (m_ComposanteX);
 		m_YFin = _YDepart + (m_ComposanteY);
+		m_XStart = (double)m_XOrigine;
+		m_YStart = (double)m_YOrigine;
+		m_XEnd = m_XStart + (m_ComposanteX);
+		m_YEnd = m_YStart + (m_ComposanteY);
+
+
 	}
-	
+
 	~C2DVector(){
-		
+
 	}
 
 	/*!
@@ -66,6 +75,10 @@ public:
 		m_YOrigine = _YDepart;
 		m_XFin = _Xfin;
 		m_YFin = _Yfin;
+		m_XStart = (double)m_XOrigine;
+		m_YStart = (double)m_YOrigine;
+		m_XEnd = (double)m_XFin;
+		m_YEnd = (double)m_YFin;
 		m_Norme = sqrt(pow(_Xfin - _XDepart, 2) + pow(_Yfin - _YDepart, 2));
 		m_ComposanteX = _Xfin - _XDepart;
 		m_ComposanteY = _Yfin - _YDepart;
@@ -103,6 +116,12 @@ public:
 		m_ComposanteY = _CompY;
 		m_XFin = _XDepart + (m_ComposanteX);
 		m_YFin = _YDepart + (m_ComposanteY);
+
+		m_XStart = (double)m_XOrigine;
+		m_YStart = (double)m_YOrigine;
+		m_XEnd = m_XStart + (m_ComposanteX);
+		m_YEnd = m_YStart + (m_ComposanteY);
+
 		m_Norme = sqrt(pow(m_ComposanteX, 2) + pow(m_ComposanteY, 2));
 		if ((m_ComposanteX == 0) && (m_ComposanteY > 0))
 			m_Orientation = M_PI / 2;
@@ -137,35 +156,33 @@ public:
 	int getYfin(){ return m_YFin; }
 	int getXDebut(){ return m_XOrigine; }
 	int getYDebut(){ return m_YOrigine; }
+	double getXEnd(){ return m_XEnd; }
+	double getYEnd(){ return m_YEnd; }
+	double getXStart(){ return m_XStart; }
+	double getYStart(){ return m_YStart; }
 	double getNorme(){ return m_Norme; }
 	double getOrientation(){ return m_Orientation; }
 	double getComposanteX(){ return m_ComposanteX; }
 	double getComposanteY(){ return m_ComposanteY; }
 
+	void setDOUBLE_XY_END(double _x, double _y){
+		m_XEnd = _x;
+		m_YEnd = _y;
+	}
+	void setDOUBLE_XY_START(double _x, double _y){
+		m_XStart = _x;
+		m_YStart = _y;
+	}
+
 	void setXYfin(int _x, int _y){
 		m_XFin = _x;
 		m_YFin = _y;
-		m_Norme = sqrt(pow(m_XFin - m_XOrigine, 2) + pow(m_YFin - m_YOrigine, 2));
-		if ((m_ComposanteX == 0) && (m_ComposanteY > 0))
-			m_Orientation = M_PI / 2;
-		else if ((m_ComposanteX == 0) && (m_ComposanteY < 0))
-			m_Orientation = 1.5 * M_PI;
-		else if ((m_ComposanteX > 0) && (m_ComposanteY == 0))
-			m_Orientation = 0;
-		else if ((m_ComposanteX < 0) && (m_ComposanteY == 0))
-			m_Orientation = M_PI;
-		else{
-			m_Orientation = atan(m_ComposanteY / m_ComposanteX);
-			if ((m_ComposanteX < 0) || ((m_ComposanteX < 0) && (m_ComposanteY < 0)))
-				m_Orientation = M_PI + m_Orientation;
-			else if (m_ComposanteY < 0)
-				m_Orientation = (2 * M_PI) + m_Orientation;
-		}
 	}
 	void setXYDebut(int _x, int _y){
 		m_XOrigine = _x;
 		m_YOrigine = _y;
 	}
+
 	void setComposanteXY(double _CompX, double _CompY){
 		m_ComposanteX = _CompX;
 		m_ComposanteY = _CompY;
@@ -173,6 +190,8 @@ public:
 			m_ComposanteX = 0;
 		m_XFin = m_XOrigine + (m_ComposanteX);
 		m_YFin = m_YOrigine + (m_ComposanteY);
+		m_XEnd = m_XStart + (m_ComposanteX);
+		m_YEnd = m_YStart + (m_ComposanteY);;
 		m_Norme = sqrt(pow(m_XFin - m_XOrigine, 2) + pow(m_YFin - m_YOrigine, 2));
 		if ((m_ComposanteX == 0) && (m_ComposanteY > 0))
 			m_Orientation = M_PI / 2;
@@ -194,19 +213,20 @@ public:
 		m_Norme = _Norme;
 		m_ComposanteX = m_Norme * cos(m_Orientation);
 		m_ComposanteY = m_Norme * sin(m_Orientation);
-		if (m_ComposanteX < 0.5)
-			m_ComposanteX = 0;
 		m_XFin = m_XOrigine + (m_ComposanteX);
 		m_YFin = m_YOrigine + (m_ComposanteY);
+		m_XEnd = m_XStart + (m_ComposanteX);
+		m_YEnd = m_YStart + (m_ComposanteY);
+
 	}
 	void setOrientation(double _AngleRadian){
 		m_Orientation = _AngleRadian;
 		m_ComposanteX = m_Norme * cos(m_Orientation);
 		m_ComposanteY = m_Norme * sin(m_Orientation);
-		if (m_ComposanteX < 0.5)
-			m_ComposanteX = 0;
 		m_XFin = m_XOrigine + (m_ComposanteX);
 		m_YFin = m_YOrigine + (m_ComposanteY);
+		m_XEnd = m_XStart + (m_ComposanteX);
+		m_YEnd = m_YStart + (m_ComposanteY);
 	}
 
 	/*!
