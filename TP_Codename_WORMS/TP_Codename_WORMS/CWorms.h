@@ -26,9 +26,6 @@
 #include "CObjets.h"
 #include "CMines.h"
 #include "CMissiles.h"
-#include "CPowerBar.h"
-#include "CBazouka.h"
-#include "CJetPack.h"
 #include "CGrenades.h"
 #include "CCaisses.h"
 #include "CCaisseSoin.h"
@@ -36,6 +33,9 @@
 #include "CTeam.h"
 #include "CMap.h"
 #include "CBoussole.h"
+#include "CPowerBar.h"
+#include "CBazouka.h"
+#include "CJetPack.h"
 #include "CGame.h"
 
 

@@ -21,7 +21,7 @@ private:
 	bool boIsRotated; // Booléen pour vérifier si le bazouka sera en rotation
 	unsigned int m_uiPower; // Représente le power du missile.
 	CPowerBar* m_PowerBar;
-	CWorm * m_Worm;
+	CWorm* m_Worm;
 public:
 	/*!
 	@Constructeur
@@ -29,7 +29,7 @@ public:
 	@param _Worm: Un pointeur vers le worm qui est focus
 	@param _pTexture : Texture de l'image à afficher.
 	*/
-	CBazouka(SDL_Texture* _pTexture, CWorm * _pWorm){
+	CBazouka(SDL_Texture* _pTexture, CWorm* _pWorm){
 		m_Rect = _pWorm->getPosition();
 		m_RectSurface = _pWorm->getPosition();
 		m_Rect.w = 52;
