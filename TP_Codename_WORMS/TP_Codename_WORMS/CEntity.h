@@ -113,6 +113,10 @@ public:
 		return m_RectPosition;
 	}
 
+	CTrajectory* getTrajectoire(){
+		return m_Trajectoire;
+	}
+
 	bool isFocused(){
 		return m_boFocus;
 	}

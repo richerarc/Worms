@@ -412,16 +412,20 @@ public:
 		return Angle;
 	}
 
-	/*!
-	@method Slide
-	@brief  Fonction qui donne la trajectoire d'un glissement
-	@param _Vector: Vitesse et direction initial du glissement
-	@param _X : Position initial de l'entité
-	@return La trajectoire du glissement
-	@discussion À FAIRE
+	/*
+	Method : VerifyIfSliding
+	Brief : Fonction qui retourne la trajectoire d'une chose en train de glisser par rapport au terrain
+	Params:
+	_Rect : Rectangle à évaluer
 	*/
-	static CTrajectory * Slide(CPosition * _Vector, int _X, int _Y){
-		return nullptr;
+	static bool VerifyIfSliding(SDL_Rect* _Rect){
+		int iNbrPixels = 0; //Nombre de pixels en contact directement sous le rectangle
+		for (int i = 0; i < _Rect->w; i++){
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + _Rect->h) + _Rect->x + i] == TRANSPARENCY){
+				iNbrPixels++;
+			}
+		}
+		return (iNbrPixels < _Rect->w / 2);//On suppose qu'à 50% du rect en contact avec le sol, aucune glissade ne survient
 	}
 
 	/*!
@@ -435,6 +439,23 @@ public:
 	*/
 	static CTrajectory* Propulsion(CPosition* _PosInit, C2DVector* _Vit, C2DVector* _Acc){
 		return new CTrajectory(_PosInit, _Vit, *_Acc + m_Wind);
+	}
+
+	/*!
+	@method Slide
+	@brief  Fonction qui fait glisser si la pente est trop grande
+	@param _Rect : Rectangle de l'objet impliqué
+	@return La trajectoire du glissement
+	*/
+	static CTrajectory * Slide(CEntity* _Entity){
+		SDL_Rect* TmpRect = new SDL_Rect({ _Entity->getPosition().x, _Entity->getPosition().y + _Entity->getPosition().h
+			, 50, _Entity->getPosition().w }); //Le 50 est arbitraire because or reasons
+		double AngleDePente = CPhysics::EvaluateSlope(TmpRect);
+		if (_Entity->getTrajectoire() != nullptr){
+		}
+		else{
+
+		}
 	}
 
 	/*!
