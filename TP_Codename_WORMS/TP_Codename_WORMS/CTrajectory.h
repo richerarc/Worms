@@ -114,23 +114,31 @@ public:
 	http://integraledesmaths.free.fr/idm/PagePrincipale.htm#http://integraledesmaths.free.fr/idm/GeoAPAngDro.htm
 	*/
 	void Bounce(double _Slope){
-		bool Vit = true;
-		if (Vit){
-			if (_Slope == 0){
-				m_ActualSpeed->setOrientation(m_ActualSpeed->getOrientation() + M_PI);
+		double Slope1 = tan(_Slope);
+		double Slope2 = tan(m_ActualSpeed->getOrientation());
+		double AngleBetweenSlopes = atan((Slope1 - Slope2) / (1 + Slope1*Slope2));
+		//if (m_ActualSpeed->getOrientation() > M_PI/2)
+		//m_ActualSpeed->setOrientation(2 * (M_PI / 2 - _Slope) + AngleBetweenSlopes);
+		//else
+		if (_Slope == 0.0){
+			if (m_ActualSpeed->getComposanteX() < 0)
+				m_ActualSpeed->setOrientation(-(M_PI - AngleBetweenSlopes));//done
+			else
+				m_ActualSpeed->setOrientation(AngleBetweenSlopes);//done
+		}
+		else{
+			if (_Slope < 0){
+				m_ActualSpeed->setOrientation(M_PI + AngleBetweenSlopes); //done
 			}
 			else {
-				double Slope1 = tan(_Slope);
-				double Slope2 = tan(m_ActualSpeed->getOrientation());
-				double AngleBetweenSlopes = atan((Slope1 - Slope2) / (1 + Slope1*Slope2));
-				double Angle = _Slope + AngleBetweenSlopes;
-				m_ActualSpeed->setOrientation(Angle);
+				m_ActualSpeed->setOrientation(AngleBetweenSlopes);
 			}
-			m_InitSpeed->setComposanteXY(100 * m_ActualSpeed->getComposanteX(), 100 * m_ActualSpeed->getComposanteY());
-			m_TrajectoryTime->Start();
-			m_StartPos = m_ActualPos;
-			m_NextPos = m_ActualPos;
 		}
+		m_InitSpeed->setComposanteXY(100 * m_ActualSpeed->getComposanteX(), 100 * m_ActualSpeed->getComposanteY());
+		m_StartPos = m_ActualPos;
+		delete m_NextPos;
+		m_NextPos = new CPosition(m_ActualPos->getX(), m_ActualPos->getY());
+		m_TrajectoryTime->Start();
 	}
 
 	/*

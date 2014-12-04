@@ -316,7 +316,6 @@ public:
 	@param _Pos : Position dans la surface où la pente est évaluée
 	@param _Direction : Direction de laquelle vient l'entité impliquée
 	@return L'angle de la pennte en degré;
-	@discussion À FAIRE : Évaluer une collision "de coté"
 	*/
 	static double EvaluateSlope(SDL_Rect* _Rect){
 		double Slope = 0;
@@ -325,7 +324,7 @@ public:
 		double PointsSignificatifs = 0;
 		for (int x = _Rect->x; x < _Rect->x + _Rect->w; x++){
 			for (int y = _Rect->y; y < _Rect->y + _Rect->h; y++){
-				if (((unsigned int*)m_Map->pixels)[m_Map->w * (y)+x] > TRANSPARENCY){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (y)+x] >TRANSPARENCY){
 					if (((unsigned int*)m_Map->pixels)[m_Map->w * (y + 1) + x] == 0
 						|| ((unsigned int*)m_Map->pixels)[m_Map->w * (y - 1) + x] == 0){
 						double TmpY = y;
@@ -341,9 +340,7 @@ public:
 			}
 		}
 		double Angle = atan(Slope / (PointsSignificatifs - 1));
-		if (Angle < 0){
-			Angle = Angle + 2 * M_PI;
-		}
+
 
 		return Angle;
 	}
