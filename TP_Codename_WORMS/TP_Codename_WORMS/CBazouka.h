@@ -64,9 +64,12 @@ public:
 		//if (!boIsRotated)
 		//	SDL_RenderCopy(_pRenderer, m_pTexture, NULL, &m_Rect);
 		//else
-
-		SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_Rect, iAngle, NULL, SDL_FLIP_NONE);
-
+		if(m_Worm->getState() == 9)
+			SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_Rect, iAngle, NULL, SDL_FLIP_NONE);
+		else
+		if (m_Worm->getState() == 10)
+			SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_Rect, iAngle, NULL, SDL_FLIP_NONE);
+	
 		if (m_boCharging){
 			m_PowerBar->Draw(_pRenderer);
 		}
@@ -85,14 +88,14 @@ public:
 			switch (_Event->key.keysym.sym)
 			{
 			case SDLK_UP:
-	//			if (m_Worm->getState() == 99){
+				if (m_Worm->getState() == 99){
 					if (iAngle >= 90 && iAngle <= 270) iAngle += 180;
 					if (iAngle >= -90 && iAngle <= 90) iAngle--;
-	//			}
-    //				if (m_Worm->getState() == 98){
+				}
+    				if (m_Worm->getState() == 98){
 					if (iAngle >= -90 && iAngle <= 90) iAngle += 180;
 					if (iAngle >= 90 && iAngle <= 270) iAngle++;
-	//			}
+				}
 				boIsRotated = true;
 				break;
 
