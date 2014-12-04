@@ -39,6 +39,7 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Initialise un vecteur avec sa norme son orientation et sa position de départ.
 	*/
+	/*
 	C2DVector(double _Norme, double _AngleRad, int _XDepart, int _YDepart){
 		m_XOrigine = _XDepart;
 		m_YOrigine = _YDepart;
@@ -55,6 +56,7 @@ public:
 
 
 	}
+	*/
 
 	~C2DVector(){
 
@@ -79,23 +81,22 @@ public:
 		m_YStart = (double)m_YOrigine;
 		m_XEnd = (double)m_XFin;
 		m_YEnd = (double)m_YFin;
-		m_Norme = sqrt(pow(_Xfin - _XDepart, 2) + pow(_Yfin - _YDepart, 2));
 		m_ComposanteX = _Xfin - _XDepart;
 		m_ComposanteY = _Yfin - _YDepart;
+		m_Norme = sqrt(pow(m_ComposanteX, 2) + pow(m_ComposanteY, 2));
 		if ((m_ComposanteX == 0) && (m_ComposanteY > 0))
-			m_Orientation = M_PI / 2;
-		else if ((m_ComposanteX == 0) && (m_ComposanteY < 0))
-			m_Orientation = 1.5 * M_PI;
-		else if ((m_ComposanteX > 0) && (m_ComposanteY == 0))
-			m_Orientation = 0;
-		else if ((m_ComposanteX < 0) && (m_ComposanteY == 0))
 			m_Orientation = M_PI;
+		else if ((m_ComposanteX == 0) && (m_ComposanteY < 0))
+			m_Orientation = M_PI / 2;
+		else if ((m_ComposanteX > 0) && (m_ComposanteY == 0))
+			m_Orientation = 90;
+		else if ((m_ComposanteX < 0) && (m_ComposanteY == 0))
+			m_Orientation = 1.5*M_PI;
 		else{
 			m_Orientation = atan(m_ComposanteY / m_ComposanteX);
-			if ((m_ComposanteX < 0) || ((m_ComposanteX < 0) && (m_ComposanteY < 0)))
-				m_Orientation = M_PI + m_Orientation;
-			else if (m_ComposanteY < 0)
-				m_Orientation = (2 * M_PI) - m_Orientation;
+			if ((m_ComposanteX < 0) && (m_ComposanteY < 0)){ m_Orientation = (m_Orientation + M_PI); }
+			else if ((m_ComposanteX < 0) && (m_ComposanteY > 0)){ m_Orientation = (m_Orientation + M_PI); }
+			else if ((m_ComposanteX > 0) && (m_ComposanteY > 0)){ m_Orientation = (2 * M_PI - m_Orientation); }
 		}
 	}
 
@@ -124,19 +125,18 @@ public:
 
 		m_Norme = sqrt(pow(m_ComposanteX, 2) + pow(m_ComposanteY, 2));
 		if ((m_ComposanteX == 0) && (m_ComposanteY > 0))
-			m_Orientation = M_PI / 2;
-		else if ((m_ComposanteX == 0) && (m_ComposanteY < 0))
-			m_Orientation = 1.5 * M_PI;
-		else if ((m_ComposanteX > 0) && (m_ComposanteY == 0))
-			m_Orientation = 0;
-		else if ((m_ComposanteX < 0) && (m_ComposanteY == 0))
 			m_Orientation = M_PI;
+		else if ((m_ComposanteX == 0) && (m_ComposanteY < 0))
+			m_Orientation = M_PI / 2;
+		else if ((m_ComposanteX > 0) && (m_ComposanteY == 0))
+			m_Orientation = 90;
+		else if ((m_ComposanteX < 0) && (m_ComposanteY == 0))
+			m_Orientation = 1.5*M_PI;
 		else{
 			m_Orientation = atan(m_ComposanteY / m_ComposanteX);
-			if ((m_ComposanteX < 0) || ((m_ComposanteX < 0) && (m_ComposanteY < 0)))
-				m_Orientation = M_PI + m_Orientation;
-			else if (m_ComposanteY < 0)
-				m_Orientation = (2 * M_PI) - m_Orientation;
+			if ((m_ComposanteX < 0) && (m_ComposanteY < 0)){ m_Orientation = (m_Orientation + M_PI); }
+			else if ((m_ComposanteX < 0) && (m_ComposanteY > 0)){ m_Orientation = (m_Orientation + M_PI); }
+			else if ((m_ComposanteX > 0) && (m_ComposanteY > 0)){ m_Orientation = (2 * M_PI - m_Orientation); }
 		}
 	}
 
@@ -194,35 +194,45 @@ public:
 		m_YEnd = m_YStart + (m_ComposanteY);;
 		m_Norme = sqrt(pow(m_XFin - m_XOrigine, 2) + pow(m_YFin - m_YOrigine, 2));
 		if ((m_ComposanteX == 0) && (m_ComposanteY > 0))
-			m_Orientation = M_PI / 2;
-		else if ((m_ComposanteX == 0) && (m_ComposanteY < 0))
-			m_Orientation = 1.5 * M_PI;
-		else if ((m_ComposanteX > 0) && (m_ComposanteY == 0))
-			m_Orientation = 0;
-		else if ((m_ComposanteX < 0) && (m_ComposanteY == 0))
 			m_Orientation = M_PI;
+		else if ((m_ComposanteX == 0) && (m_ComposanteY < 0))
+			m_Orientation = M_PI / 2;
+		else if ((m_ComposanteX > 0) && (m_ComposanteY == 0))
+			m_Orientation = 90;
+		else if ((m_ComposanteX < 0) && (m_ComposanteY == 0))
+			m_Orientation = 1.5*M_PI;
 		else{
 			m_Orientation = atan(m_ComposanteY / m_ComposanteX);
-			if ((m_ComposanteX < 0) || ((m_ComposanteX < 0) && (m_ComposanteY < 0)))
-				m_Orientation = M_PI + m_Orientation;
-			else if (m_ComposanteY < 0)
-				m_Orientation = (2 * M_PI) + m_Orientation;
+			if ((m_ComposanteX < 0) && (m_ComposanteY < 0)){ m_Orientation = (m_Orientation + M_PI); }
+			else if ((m_ComposanteX < 0) && (m_ComposanteY > 0)){ m_Orientation = (m_Orientation + M_PI); }
+			else if ((m_ComposanteX > 0) && (m_ComposanteY > 0)){ m_Orientation = (2 * M_PI - m_Orientation); }
 		}
 	}
 	void setNorme(double _Norme){
 		m_Norme = _Norme;
-		m_ComposanteX = m_Norme * cos(m_Orientation);
-		m_ComposanteY = m_Norme * sin(m_Orientation);
+	}
+
+	void setNorme_And_Orientation(double _Norme,double _AngleRadian){
+		m_Norme = _Norme;
+		m_Orientation = _AngleRadian;
+		float xt = (m_ComposanteX * cosf(_AngleRadian)) - (m_ComposanteY * sinf(_AngleRadian));
+		float yt = (m_ComposanteY * cosf(_AngleRadian)) + (m_ComposanteX * sinf(_AngleRadian));
+		m_ComposanteX = xt;
+		m_ComposanteY = yt;
+
 		m_XFin = m_XOrigine + (m_ComposanteX);
 		m_YFin = m_YOrigine + (m_ComposanteY);
 		m_XEnd = m_XStart + (m_ComposanteX);
 		m_YEnd = m_YStart + (m_ComposanteY);
-
 	}
+
 	void setOrientation(double _AngleRadian){
 		m_Orientation = _AngleRadian;
-		m_ComposanteX = m_Norme * cos(m_Orientation);
-		m_ComposanteY = m_Norme * sin(m_Orientation);
+		float xt = (m_ComposanteX * cosf(_AngleRadian)) - (m_ComposanteY * sinf(_AngleRadian));
+		float yt = (m_ComposanteY * cosf(_AngleRadian)) + (m_ComposanteX * sinf(_AngleRadian));
+		m_ComposanteX = xt;
+		m_ComposanteY = yt;
+		m_Norme = sqrt(m_ComposanteX* m_ComposanteX + m_ComposanteY *m_ComposanteY);
 		m_XFin = m_XOrigine + (m_ComposanteX);
 		m_YFin = m_YOrigine + (m_ComposanteY);
 		m_XEnd = m_XStart + (m_ComposanteX);
@@ -235,10 +245,11 @@ public:
 	@discussion Donne un vecteur de norme 1 mais avec la même orientation.
 	*/
 	void Normalize(){
-		if (m_Norme)
-			m_Norme /= (m_Norme / 2);
-		m_ComposanteX = cos(m_Orientation);
-		m_ComposanteY = sin(m_Orientation);
+		if (m_Norme){
+			m_ComposanteX = m_ComposanteX / m_Norme;
+			m_ComposanteY = m_ComposanteY / m_Norme;
+			m_Norme = 1;
+		}
 	}
 
 
