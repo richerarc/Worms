@@ -166,25 +166,24 @@ public:
 	string getName(){ return m_strName; }
 
 	void Move(){
+		
 		switch (m_EntityState) {
 			case JumpLeft:
-				if (m_itterateurSaut > -10){
-				setPosXY(m_RectPosition.x - m_itterateurSaut,m_RectPosition.y - 1.5 * m_itterateurSaut);
-				m_itterateurSaut -= 2;
+				if (m_itterateurSaut >  -10){
+					setPosXY(m_RectPosition.x - abs(m_itterateurSaut) ,m_RectPosition.y - 1.5 * m_itterateurSaut);
+					m_itterateurSaut -= (m_itterateurSaut + 5)/2;
 				}
-				if (m_itterateurSaut <= -10){
+				if (m_itterateurSaut <= -9){
 					m_itterateurSaut = 20;
-					m_EntityState = Chute;
 				}
 				break;
 			case JumpRight:
-				if (m_itterateurSaut > -10){
-					setPosXY(m_RectPosition.x + m_itterateurSaut ,m_RectPosition.y - 1.5 * m_itterateurSaut);
-					m_itterateurSaut -= 2;
+				if (m_itterateurSaut >  -10){
+					setPosXY(m_RectPosition.x + abs(m_itterateurSaut) ,m_RectPosition.y - 1.5 * m_itterateurSaut);
+					m_itterateurSaut -= (m_itterateurSaut + 5)/2;
 				}
-				if (m_itterateurSaut <= -10){
+				if (m_itterateurSaut <= -9){
 					m_itterateurSaut = 20;
-					m_EntityState = Chute;
 				}
 				break;
 			case MotionRight:
@@ -196,7 +195,27 @@ public:
 				m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
 				break;
 			case Chute:
-				
+				if (m_Trajectoire->isStopped()){
+					m_Trajectoire->setStratPos(m_RectPosition.x, m_RectPosition.y);
+					m_Trajectoire->Restart();
+				}
+				else{
+					m_Trajectoire->UpdatePosition();
+					
+					CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+					if (temp != nullptr)
+					{
+						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
+							m_EntityState = NoMotionRight;
+							m_Trajectoire->Stop();
+						}
+						setPosXY(temp->getX(), temp->getY());
+						delete temp;
+					}
+					else{
+						setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
+					}
+				}
 				break;
 			case Largage:
 				m_Trajectoire->UpdatePosition();
@@ -208,16 +227,13 @@ public:
 						m_EntityState = NoMotionRight;
 						m_Trajectoire->Stop();
 					}
-					else
-						m_EntityState = Largage;
-					
 					setPosXY(temp->getX(), temp->getY());
 					delete temp;
 				}
 				else{
 					setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
 				}
-				 break;
+				break;
 		}
 	}
 	
