@@ -2,9 +2,9 @@ class CMrow{
 private:
 	SDL_Rect m_RectPos;
 public:
-	CMrow(){
-		m_RectPos.x = 100;
-		m_RectPos.y = 100;
+	CMrow(SDL_Rect _pRectpos){
+		m_RectPos.x = _pRectPos.x;
+		m_RectPos.y = _pRectPos.y;
 	}
 	SDL_Rect getRect(){
 		return m_RectPos;

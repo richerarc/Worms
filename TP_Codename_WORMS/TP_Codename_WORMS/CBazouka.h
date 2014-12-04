@@ -18,7 +18,6 @@ private:
 	double iAngle; // L'angle de rotation
 	SDL_Texture* m_pTexture; // Texture de l'image à afficher.
 	bool m_boCharging; // Booléen pour vérifier si le bazouka va lancer un missile
-	bool boIsRotated; // Booléen pour vérifier si le bazouka sera en rotation
 	unsigned int m_uiPower; // Représente le power du missile.
 	CPowerBar* m_PowerBar;
 	CWorm* m_Worm;
@@ -27,7 +26,7 @@ public:
 	@Constructeur
 	@Description: Permet d'initialiser les données membres
 	@param _Worm: Un pointeur vers le worm qui est focus
-	@param _pTexture : Texture de l'image à afficher.
+	@param _pTexture : Texture de l'image à afficher. NOTE: LA TEXTURE loader doit être celle de droite.
 	*/
 	CBazouka(SDL_Texture* _pTexture, CWorm* _pWorm){
 		m_Rect = _pWorm->getPosition();
@@ -37,7 +36,6 @@ public:
 		SDL_QueryTexture(_pTexture, NULL, NULL, &m_Rect.w, &m_Rect.h);//Dimension du bazooka
 		m_pTexture = _pTexture;
 		m_boCharging = false;
-		boIsRotated = false;
 		iAngle = 0;
 		m_uiPower = 0;
 		m_PowerBar = new CPowerBar(m_RectSurface);
@@ -60,15 +58,11 @@ public:
 	@return null
 	*/
 	void Render(SDL_Renderer* _pRenderer){
-
-		//if (!boIsRotated)
-		//	SDL_RenderCopy(_pRenderer, m_pTexture, NULL, &m_Rect);
-		//else
-		if(m_Worm->getState() == 9)
+		if (m_Worm->getWormState() == UsingBazzRight)
 			SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_Rect, iAngle, NULL, SDL_FLIP_NONE);
 		else
-		if (m_Worm->getState() == 10)
-			SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_Rect, iAngle, NULL, SDL_FLIP_NONE);
+		if (m_Worm->getWormState() == UsingBazzLeft)
+			SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_Rect, iAngle, NULL, SDL_FLIP_VERTICAL);
 	
 		if (m_boCharging){
 			m_PowerBar->Draw(_pRenderer);
@@ -88,22 +82,25 @@ public:
 			switch (_Event->key.keysym.sym)
 			{
 			case SDLK_UP:
-				if (m_Worm->getState() == 99){
+				if (m_Worm->getWormState() == UsingBazzRight){
 					if (iAngle >= 90 && iAngle <= 270) iAngle += 180;
 					if (iAngle >= -90 && iAngle <= 90) iAngle--;
 				}
-    				if (m_Worm->getState() == 98){
+				if (m_Worm->getWormState() == UsingBazzLeft){
 					if (iAngle >= -90 && iAngle <= 90) iAngle += 180;
 					if (iAngle >= 90 && iAngle <= 270) iAngle++;
 				}
-				boIsRotated = true;
 				break;
 
 			case SDLK_DOWN:
-
-				iAngle++;
-				boIsRotated = true;
-
+				if (m_Worm->getWormState() == UsingBazzRight){
+					if (iAngle >= 90 && iAngle <= 270) iAngle += 180;
+					if (iAngle >= -90 && iAngle <= 90) iAngle++;
+				}
+				if (m_Worm->getWormState() == UsingBazzLeft){
+					if (iAngle >= -90 && iAngle <= 90) iAngle += 180;
+					if (iAngle >= 90 && iAngle <= 270) iAngle--;
+				}
 				break;
 
 			case SDLK_SPACE:
