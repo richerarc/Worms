@@ -70,7 +70,8 @@ public:
 		double temp = (rand() % (int)m_MaxWindSpeed);
 		double Norme = temp / 100;
 		m_Wind->setNorme(Norme);
-		m_Wind->setOrientation(DegToRad(rand() % 360));
+		double angle = (rand() % 360);
+		m_Wind->setOrientation(DegToRad(angle));
 	}
 
 	/*!
@@ -92,6 +93,72 @@ public:
 	}
 
 	/*!
+	@method VerifyGroudColision
+	@brief Vérifie si deux rect se touche
+	@param _Collider: Le rect en mouvement
+	@param _Collidee: Le rect immobile .
+	@return NOCONTACT : Le rectangle ne touche à rien
+	@return GROUND : Le rectangle touche au sol
+	@return LEFT : Le rectangle touche le terrain à gauche
+	@return RIGHT : Le rectangle touche le terrain à droite
+	@return CEILING : Le rectangle touche le plafond
+	@return GROUNDLEFT : Le rectangle touche le sol et la gauche
+	@return GROUNDRIGHT : Le rectangle touche le sol et la droite
+	@return CEILINGLEFT : Le rectangle touche le plafond et la gauche
+	@return CEILINGRIGHT : Le rectangle touche le plafond et la droite
+	@return GROUNDCEILING : Le rectangle touche au plafond et au sol
+	@discussion Aucune.
+    */
+	static int VerifyGroundCollision(SDL_Rect _Rect){
+		bool boGround = false;
+		bool boCeiling = false;
+		bool boLeft = false;
+		bool boRight = false;
+		for (int i = 0; i < _Rect.w; i++){
+			if (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect.y + _Rect.h)) + _Rect.x + i] > TRANSPARENCY && !boGround){
+				boGround = true;
+			}
+			if (_Rect.y > 0 && ((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1) + _Rect.x + i] > TRANSPARENCY && !boCeiling){
+				boCeiling = true;
+			}
+		}
+		for (int i = 0; i < _Rect.h; i++){
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x + _Rect.w] > TRANSPARENCY && !boRight){
+				boRight = true;
+			}
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x - 1] > TRANSPARENCY && !boLeft){
+				boLeft = true;
+			}
+		}
+
+		if (boGround){
+			if (boCeiling)
+				return GROUNDCEILING;
+			if (boLeft)
+				return GROUNDLEFT;
+			if (boRight)
+				return GROUNDRIGHT;
+			return GROUND;
+		}
+		else {
+			if (boCeiling){
+				if (boLeft)
+					return CEILINGLEFT;
+				if (boRight)
+					return CEILINGRIGHT;
+				return CEILING;
+			}
+			else {
+				if (boRight)
+					return RIGHT;
+				if (boLeft)
+					return LEFT;
+				return NOCONTACT;
+			}
+		}
+	}
+
+	/*!
 	@method VerifyNextPosition
 	@brief Vérifie la position prochaine pour les collisions.
 	@param _Trajectoire: Trajectoire a parcourir par l'objet.
@@ -103,7 +170,7 @@ public:
 	*/
 	static CPosition* VerifyNextPosition(CTrajectory* _Trajectoire, SDL_Rect _EntityRect){
 		C2DVector* pVector = new C2DVector((int)_Trajectoire->GetActualPosition()->getX(), (int)_Trajectoire->GetActualPosition()->getY(), (int)_Trajectoire->getNextPos()->getX(), (int)_Trajectoire->getNextPos()->getY());
-			//BIG BANANA TRIP
+		//BIG BANANA TRIP
 		if (pVector->getNorme()){
 			CPosition* CollisionPosition = new CPosition(0.0, 0.0);
 			pVector->Normalize();
