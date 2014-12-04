@@ -9,7 +9,7 @@
 #define TP_Codename_WORMS_CWorm_h
 
 // Un worm possde dŽjˆ l'Žtat en chute, immobile, ou en dŽplacement, qu'il tient d'entity
-enum WormState {NoMotionLeft, NoMotionRight, MotionLeft, MotionRight, JumpLeft, JumpRight, UtilisationOutil, Damaged, Largage};
+enum WormState {NoMotionLeft, NoMotionRight, MotionLeft, MotionRight, JumpLeft, JumpRight, UsingBazzLeft, UsingBazzRight, Damaged, Largage};
 
 /*!
 @CWorm
@@ -22,6 +22,7 @@ private:
 	CSprite* m_pSprite;//Sprite du worm
 	CLabel* m_lblNom;
 	SDL_Rect m_BarredeVie;
+	int m_itterateurSaut;
 public:
 
 	/*!
@@ -44,6 +45,7 @@ public:
 		m_lblNom = new CLabel("", m_strName.c_str(), _Font, SDL_Rect{_RectPos.x,_RectPos.y + 20,50,10});
 		m_EntityState = Largage;
 		m_pSprite->Start();
+		m_itterateurSaut = 4;
 	}
 
 	/*!
@@ -166,54 +168,11 @@ public:
 	void Move(){
 		switch (m_EntityState) {
 			case JumpLeft:
-				if (!m_Trajectoire)
-					m_Trajectoire = CPhysics::Propulsion(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(600.f, 1.5*M_PI, m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, double(0), double(CPhysics::GetGravity())));
-				else{
-					m_Trajectoire->UpdatePosition();
-					
-					CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
-					if (temp != nullptr)
-					{
-						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
-							m_EntityState = NoMotionLeft;
-							delete m_Trajectoire;
-							m_Trajectoire = nullptr;
-						}
-						else
-							m_EntityState = JumpLeft;
-						
-						setPosXY(temp->getX(), temp->getY());
-						delete temp;
-					}
-					else{
-						setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
-					}
-				}
+				setPosXY(m_RectPosition.x + m_itterateurSaut,m_RectPosition.y + 1.5 * m_itterateurSaut);
+				m_itterateurSaut -= 2;
 				break;
 			case JumpRight:
-				if (!m_Trajectoire)
-					m_Trajectoire = CPhysics::Propulsion(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(60.f, 0.5*M_PI, m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, double(0), double(CPhysics::GetGravity())));
-				else{
-					m_Trajectoire->UpdatePosition();
-					
-					CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
-					if (temp != nullptr)
-					{
-						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
-							m_EntityState = NoMotionRight;
-							delete m_Trajectoire;
-							m_Trajectoire = nullptr;
-						}
-						else
-							m_EntityState = JumpRight;
-						
-						setPosXY(temp->getX(), temp->getY());
-						delete temp;
-					}
-					else{
-						setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
-					}
-				}
+				
 				break;
 			case MotionRight:
 				CPhysics::Move(&m_RectPosition, RIGHT);
@@ -231,8 +190,7 @@ public:
 				{
 					if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
 						m_EntityState = NoMotionRight;
-						delete m_Trajectoire;
-						m_Trajectoire = nullptr;
+						m_Trajectoire->Stop();
 					}
 					else
 						m_EntityState = Largage;
@@ -251,6 +209,10 @@ public:
 		m_RectPosition.y = _Y;
 		m_RectPosition.x = _X;
 		m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
+	}
+	
+	int getWormState(){
+		return m_EntityState;
 	}
 };
 

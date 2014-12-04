@@ -15,9 +15,11 @@ private:
 	C2DVector* m_Acceleration;
 	CPosition* m_ActualPos;
 	CPosition* m_NextPos;
+	bool m_boStop;
 public:
 	//Constructeur...
 	CTrajectory(CPosition* _StartPos, C2DVector* _Speed, C2DVector* _Acc){
+		m_boStop = false;
 		m_TrajectoryTime = new CTimer();
 		m_StartPos = _StartPos;
 		m_InitSpeed = _Speed;
@@ -58,13 +60,13 @@ public:
 	Return : Vecteur représentant la position au temps passé en paramètre
 	*/
 	void UpdatePosition(){
-		if (m_TrajectoryTime->getElapsedTime() >= 1){
+		if ((m_TrajectoryTime->getElapsedTime() >= 1) && (!m_boStop)){
 			m_ActualPos->setX(m_NextPos->getX());
 			m_ActualPos->setY(m_NextPos->getY());
 			unsigned int dTimeVariation = m_TrajectoryTime->getElapsedTime();
 			double DeltaT = 0.5 * dTimeVariation * dTimeVariation;
-			double DeltaX = ((m_InitSpeed->getComposanteX() * dTimeVariation) + (DeltaT * m_Acceleration->getComposanteX())) / 100000;
-			double DeltaY = ((m_InitSpeed->getComposanteY() * dTimeVariation) + (DeltaT * m_Acceleration->getComposanteY())) / 100000;
+			double DeltaX = ((m_InitSpeed->getComposanteX()*dTimeVariation) + (DeltaT * m_Acceleration->getComposanteX()))/10000;
+			double DeltaY = ((m_InitSpeed->getComposanteY()*dTimeVariation) + (DeltaT * m_Acceleration->getComposanteY()))/10000;
 			m_NextPos->setX(m_ActualPos->getX() + DeltaX);
 			m_NextPos->setY(m_ActualPos->getY() + DeltaY);
 
@@ -93,6 +95,12 @@ public:
 	*/
 	C2DVector* GetInitSpeed(){
 		return m_InitSpeed;
+	}
+	
+	void setStratPos(int _X, int _Y){
+		m_InitSpeed->setXYDebut(_X, _Y);
+		m_ActualSpeed->setXYDebut(_X, _Y);
+		m_Acceleration->setXYDebut(_X, _Y);
 	}
 
 	/*
@@ -138,4 +146,25 @@ public:
 		m_InitSpeed->setNorme(0);
 		m_ActualSpeed->setNorme(0);
 	}
+	
+	void setSpeed(C2DVector* _Speed){
+		delete m_InitSpeed;
+		m_InitSpeed = _Speed;
+		m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX(), m_InitSpeed->getComposanteY());
+		
+	}
+	
+	void Stop(){
+		m_boStop = true;
+	}
+	
+	void Restart(){
+		m_boStop = false;
+		m_TrajectoryTime->Start();
+	}
+	
+	bool isStopped(){
+		return m_boStop;
+	}
+	
 };

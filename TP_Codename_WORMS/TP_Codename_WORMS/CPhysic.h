@@ -103,7 +103,7 @@ public:
 	*/
 	static CPosition* VerifyNextPosition(CTrajectory* _Trajectoire, SDL_Rect _EntityRect){
 		C2DVector* pVector = new C2DVector((int)_Trajectoire->GetActualPosition()->getX(), (int)_Trajectoire->GetActualPosition()->getY(), (int)_Trajectoire->getNextPos()->getX(), (int)_Trajectoire->getNextPos()->getY());
-
+			//BIG BANANA TRIP
 		if (pVector->getNorme()){
 
 			CPosition* CollisionPosition = new CPosition(0.0, 0.0);
