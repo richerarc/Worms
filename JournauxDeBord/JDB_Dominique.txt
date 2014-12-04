@@ -34,3 +34,6 @@ mais ne marche pas parfaitement, les rebonds seront bientot testables
 
 27 nov : 12h40 à 5h15
 Ajout de la fonction qui retourne une pente à partir d'un Rect et continuation du bounce. Slide sera aussi bientot faisable.
+
+2 déc : 9h00 à 12h00
+Bounce quasi fonctionnel, les fonctions reliés aux pentes semblent aussi marcher. Le slide sera à faire aux prochaines séances de travail
