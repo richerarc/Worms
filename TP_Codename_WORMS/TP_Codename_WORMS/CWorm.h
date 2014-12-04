@@ -45,7 +45,7 @@ public:
 		m_lblNom = new CLabel("", m_strName.c_str(), _Font, SDL_Rect{_RectPos.x,_RectPos.y + 20,50,10});
 		m_EntityState = Largage;
 		m_pSprite->Start();
-		m_itterateurSaut = 4;
+		m_itterateurSaut = 20;
 	}
 
 	/*!
@@ -168,11 +168,24 @@ public:
 	void Move(){
 		switch (m_EntityState) {
 			case JumpLeft:
-				setPosXY(m_RectPosition.x + m_itterateurSaut,m_RectPosition.y + 1.5 * m_itterateurSaut);
+				if (m_itterateurSaut > -10){
+				setPosXY(m_RectPosition.x - m_itterateurSaut,m_RectPosition.y - 1.5 * m_itterateurSaut);
 				m_itterateurSaut -= 2;
+				}
+				if (m_itterateurSaut <= -10){
+					m_itterateurSaut = 20;
+					m_EntityState = Chute;
+				}
 				break;
 			case JumpRight:
-				
+				if (m_itterateurSaut > -10){
+					setPosXY(m_RectPosition.x + m_itterateurSaut ,m_RectPosition.y - 1.5 * m_itterateurSaut);
+					m_itterateurSaut -= 2;
+				}
+				if (m_itterateurSaut <= -10){
+					m_itterateurSaut = 20;
+					m_EntityState = Chute;
+				}
 				break;
 			case MotionRight:
 				CPhysics::Move(&m_RectPosition, RIGHT);
@@ -181,6 +194,9 @@ public:
 			case MotionLeft:
 				CPhysics::Move(&m_RectPosition, LEFT);
 				m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
+				break;
+			case Chute:
+				
 				break;
 			case Largage:
 				m_Trajectoire->UpdatePosition();
