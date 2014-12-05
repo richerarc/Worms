@@ -75,3 +75,11 @@ Affichage du sprite de la barre de lancement au dessus du bazouka lorsqu'on acti
 27 novembre 14h à 18h:
 TRAVAIL FAIT AVEC DIEGO:
 Nous avons avancé la classe CJetPack, il reste à faire apparaitre la barre de gaz + les commentaires.
+2 Décembre 8h à 10h30:
+Debuggage de la barre de lancement de CBazouka + CJetPack
+2 Décembre de 10h30 à 11h50:
+Debuggage de la barre de lancement avec Diego, problème résolue
+4 Décembre 14h30 à 17h30:
+Nouvelles conditions pour le handleEvent du CBazouka
+4 Décembre 20h30 à 22h:
+Les conditions pour le handleEvent de CBazouka sont maintenant fonctionnelles
