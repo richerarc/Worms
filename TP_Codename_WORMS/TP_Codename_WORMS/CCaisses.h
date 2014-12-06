@@ -71,6 +71,21 @@ public:
 	}
 
 	/*!
+	@method GiveLife
+	@brief Calculer le nombre de point de vie rendu au worm.
+	@param _pWorm: Un pointeur de worm qui gagnera de la vie
+	@return nothing
+	@discussion La condition est de 80pts de vie puisque en haut de 80, 25% de vie de + va au dessus de 100.
+	*/
+	void GiveLife(CWorm* _pWorm){
+		if (_pWorm->getLife() <= 80)
+			_pWorm->SetLife(_pWorm->getLife() + (_pWorm->getLife() * 25 / 100));
+		else
+			_pWorm->SetLife(100);
+		
+	}
+
+	/*!
 	@method Accesseurs
 	@brief Permet d'acceder aux données membres.
 	*/
