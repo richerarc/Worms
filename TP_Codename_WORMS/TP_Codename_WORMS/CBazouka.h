@@ -2,8 +2,7 @@
 #define TP_Codename_WORMS_CBazouka_h
 /*
 To Do:
-- Faire les commentaires
-- Une méthode pour set les states dans CWorms
+
 */
 
 
@@ -26,7 +25,7 @@ private:
 	CPowerBar* m_PowerBar; // Représente une nouvelle barre de lancement
 	CWorm* m_Worm; // Représente un pointeur de worm afin d'obtenir sa position et ses states
 	SDL_RendererFlip m_flipType; // Représente le type de rotation effectuer sur le bazouka
-public: 
+public:
 	/*!
 	@Constructeur
 	@Description: Permet d'initialiser les données membres
@@ -102,49 +101,25 @@ public:
 				if (m_Worm->getWormState() == UsingBazzRight){
 					if (iAngle != -90)
 						iAngle -= 2;
-					else{
-						iAngle = 90;
-				//		m_Worm->setWormState(UsingBazzLeft);
-						m_flipType = SDL_FLIP_HORIZONTAL;
-						break;
-					}
 				}
 				if (m_Worm->getWormState() == UsingBazzLeft){
 					if (iAngle != 90)
 						iAngle += 2;
-					else{
-						iAngle = -90;
-				//		m_Worm->setWormState(UsingBazzRight);
-						m_flipType = SDL_FLIP_NONE;
-						break;
-					}
 				}
 				break;
 
 			case SDLK_DOWN:
 				boIsRotated = true;
-				if (m_Worm->getWormState() == 7){
+				if (m_Worm->getWormState() == UsingBazzRight){
 					if (iAngle != 90)
 						iAngle += 2;
-					else{
-						iAngle = -90;
-			//			m_Worm->setWormState(UsingBazzLeft);
-						m_flipType = SDL_FLIP_HORIZONTAL;
-						break;
-					}
 				}
 				if (m_Worm->getWormState() == UsingBazzLeft){
 					if (iAngle != -90)
 						iAngle -= 2;
-					else{
-						iAngle = 90;
-			//			m_Worm->setWormState(UsingBazzRight);
-						m_flipType = SDL_FLIP_NONE;
-						break;
-					}
-
 				}
 				break;
+
 			case SDLK_SPACE:
 				m_PowerBar->SetPosition(m_Rect.x, m_Rect.y);
 				m_boCharging = true;
@@ -152,13 +127,49 @@ public:
 				break;
 			}
 			break;
+
 		case SDL_KEYUP:
 			switch (_Event->key.keysym.sym)
 			{
+
 			case SDLK_UP:
+				if (m_Worm->getWormState() == UsingBazzRight){
+					if (iAngle == -90){
+						iAngle = 90;
+						m_Worm->setWormState(UsingBazzLeft);
+						m_flipType = SDL_FLIP_HORIZONTAL;
+						break;
+					}
+				}
+
+				if (m_Worm->getWormState() == UsingBazzLeft){
+					if (iAngle == 90){
+						iAngle = -90;
+						m_Worm->setWormState(UsingBazzRight);
+						m_flipType = SDL_FLIP_NONE;
+						break;
+					}
+				}
 				break;
 
+
 			case SDLK_DOWN:
+				if (m_Worm->getWormState() == UsingBazzRight){
+					if (iAngle == 90){
+						iAngle = -90;
+						m_Worm->setWormState(UsingBazzLeft);
+						m_flipType = SDL_FLIP_HORIZONTAL;
+						break;
+					}
+				}
+				if (m_Worm->getWormState() == UsingBazzLeft){
+					if (iAngle == -90){
+						iAngle = 90;
+						m_Worm->setWormState(UsingBazzRight);
+						m_flipType = SDL_FLIP_NONE;
+						break;
+					}
+				}
 				break;
 
 			case SDLK_SPACE:

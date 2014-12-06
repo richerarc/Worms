@@ -246,6 +246,9 @@ public:
 	int getWormState(){
 		return m_EntityState;
 	}
+	void setWormState(int _EntityState){
+		m_EntityState = _EntityState;
+	}
 };
 
 #endif
