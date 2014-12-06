@@ -67,8 +67,10 @@ public:
 		if (!boIsRotated){
 			if (m_Worm->getWormState() == UsingBazzRight)
 				SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_Rect, iAngle, NULL, SDL_FLIP_NONE);
-			if (m_Worm->getWormState() == UsingBazzLeft)
+			if (m_Worm->getWormState() == UsingBazzLeft){
 				SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_Rect, iAngle, NULL, SDL_FLIP_HORIZONTAL);
+				m_flipType = SDL_FLIP_HORIZONTAL;
+			}
 		}
 		else{
 			if (m_Worm->getWormState() == UsingBazzRight){
@@ -76,6 +78,7 @@ public:
 			}
 			if (m_Worm->getWormState() == UsingBazzLeft){
 				SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_Rect, iAngle, NULL, m_flipType);
+
 			}
 		}
 		if (m_boCharging){
