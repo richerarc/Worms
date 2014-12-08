@@ -29,32 +29,7 @@ private:
 		m_YEnd;
 public:
 
-	/*!
-	@method Constructeur.
-	@brief Initialise les données membres.
-	@param _Norme: Norme du vecteur
-	@param _AngleRad: Angle du vecteur
-	@param _XDepart: Position X de départ du vecteur
-	@param _YDepart: Position Y de Départ du vecteur
-	@return Adresse mémoire de l'objet.
-	@discussion Initialise un vecteur avec sa norme son orientation et sa position de départ.
-	*/
-	C2DVector(double _Norme, double _AngleRad, int _XDepart, int _YDepart){
-		m_XOrigine = _XDepart;
-		m_YOrigine = _YDepart;
-		m_Norme = _Norme;
-		m_Orientation = _AngleRad;
-		m_ComposanteX = _Norme * cos(_AngleRad);
-		m_ComposanteY = _Norme * sin(_AngleRad);
-		m_XFin = _XDepart + (m_ComposanteX);
-		m_YFin = _YDepart + (m_ComposanteY);
-		m_XStart = (double)m_XOrigine;
-		m_YStart = (double)m_YOrigine;
-		m_XEnd = m_XStart + (m_ComposanteX);
-		m_YEnd = m_YStart + (m_ComposanteY);
 
-
-	}
 
 	~C2DVector(){
 
@@ -95,7 +70,7 @@ public:
 			if ((m_ComposanteX < 0) || ((m_ComposanteX < 0) && (m_ComposanteY < 0)))
 				m_Orientation = M_PI + m_Orientation;
 			else if (m_ComposanteY < 0)
-				m_Orientation = (2 * M_PI) - m_Orientation;
+				m_Orientation = (2 * M_PI) + m_Orientation;
 		}
 	}
 
@@ -116,7 +91,6 @@ public:
 		m_ComposanteY = _CompY;
 		m_XFin = _XDepart + (m_ComposanteX);
 		m_YFin = _YDepart + (m_ComposanteY);
-
 		m_XStart = (double)m_XOrigine;
 		m_YStart = (double)m_YOrigine;
 		m_XEnd = m_XStart + (m_ComposanteX);
@@ -136,7 +110,7 @@ public:
 			if ((m_ComposanteX < 0) || ((m_ComposanteX < 0) && (m_ComposanteY < 0)))
 				m_Orientation = M_PI + m_Orientation;
 			else if (m_ComposanteY < 0)
-				m_Orientation = (2 * M_PI) - m_Orientation;
+				m_Orientation = (2 * M_PI) + m_Orientation;
 		}
 	}
 
@@ -161,6 +135,30 @@ public:
 	double getXStart(){ return m_XStart; }
 	double getYStart(){ return m_YStart; }
 	double getNorme(){ return m_Norme; }
+
+	double getSDLOrientation(){
+
+		if (m_ComposanteX == 0 && m_ComposanteY < 0){ return 0; }
+
+		if (m_ComposanteX == 0 && m_ComposanteY > 0){ return M_PI; }
+
+		if (m_ComposanteX < 0 && m_ComposanteY == 0){ return 3 * M_PI / 2; }
+
+		if (m_ComposanteX > 0 && m_ComposanteY == 0){ M_PI / 2; }
+
+		if ((m_ComposanteX > 0 && m_ComposanteY < 0) || (m_ComposanteX > 0 && m_ComposanteY > 0)){
+			return ((M_PI / 2) + atan(m_ComposanteY / m_ComposanteX));
+		}
+
+		if (m_ComposanteX < 0 && m_ComposanteY < 0){
+			return (atan(m_ComposanteY / m_ComposanteX) - (M_PI / 2));
+		}
+
+		if (m_ComposanteX < 0 && m_ComposanteY > 0){
+			return (atan(m_ComposanteY / m_ComposanteX) + (3 * M_PI / 2));
+		}
+	}
+
 	double getOrientation(){ return m_Orientation; }
 	double getComposanteX(){ return m_ComposanteX; }
 	double getComposanteY(){ return m_ComposanteY; }
