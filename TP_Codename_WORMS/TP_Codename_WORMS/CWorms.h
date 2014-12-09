@@ -130,7 +130,7 @@ public:
 #elif defined (_WIN32)
 		strPath.append("\\");
 #endif
-		string FileName[24] = {
+		string FileName[25] = {
 			"Arpegius.ttf",
 			"Btn1.png",
 			"BtnL.png",
@@ -154,16 +154,18 @@ public:
 			"background5.jpg",
 			"SpriteSheetFinal.png",
 			"Eplosionmask.png",
-			"explosion1.png"
+			"explosion1.png",
+			"FontWorm.ttf"
 		};
-		string strFilePath[24];
-		for (int i = 0; i < 24; i++){
+		string strFilePath[25];
+		for (int i = 0; i < 25; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
 		m_Gestionaire->AjouterTexture(new CTexture("MenuBackground", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[15].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("MenuBackground2", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[18].c_str())));
 		m_Gestionaire->AjouterFont(new CFont("FontMenu", strFilePath[0].c_str(), 30));
+		m_Gestionaire->AjouterFont(new CFont("FontWorm", strFilePath[24].c_str(), 8));
 		m_Gestionaire->AjouterTexture(new CTexture("TextureBtn", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("TextureBtnL", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[2].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("TextureBtnR", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[3].c_str())));
