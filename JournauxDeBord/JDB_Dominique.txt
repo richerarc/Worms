@@ -40,3 +40,7 @@ Bounce quasi fonctionnel, les fonctions reliés aux pentes semblent aussi marche
 
 4 déc : 12h10 à 17h10
 Rebond maintenant fonctionnel (pour l'instant...) et j'ai commencé à coder le glissage 
+
+9 déc : 9h00 à 4h10 (avec des pauses quand même ^_^)
+Le rebond avait finalement encore des erreurs qui ont été réglés (espérons). J'ai aussi commencé le slide, qui 
+semble assez bien avancé mais que je n'ai pas encore testé.
