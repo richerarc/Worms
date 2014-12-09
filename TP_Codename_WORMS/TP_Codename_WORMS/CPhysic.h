@@ -140,7 +140,7 @@ public:
 			double dblX, dblY;
 			dblX = pVector->getComposanteX() + pVector->getXStart();
 			dblY = pVector->getComposanteY() + pVector->getYStart();
-			unsigned int temp = 0;
+			int temp = 0;
 
 			//x>0 y>0
 			if (((pVector->getComposanteX()) > 0) && (pVector->getComposanteY() > 0)){
