@@ -1,23 +1,3 @@
-#include <math.h>
-
-/*!
-@method DegToRad.
-@brief Change les Degrés en Radian.
-@discussion Utile.
-*/
-double DegToRad(double _Degre){
-	return _Degre * M_PI / 180;
-}
-
-/*!
-@method RadToDeg.
-@brief Change les Radians en Degrés.
-@discussion Utile.
-*/
-double RadToDeg(double _Radian){
-	return _Radian * 180 / M_PI;
-}
-
 #include "C2DVector.h"
 
 

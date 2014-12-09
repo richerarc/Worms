@@ -120,5 +120,9 @@ public:
 		SDL_RenderCopy(_Renderer, m_pTexture, &m_rSource, &m_rDest);
 	}
 	
+	void Render(unsigned int _StartFrame, unsigned int _NbOfFrameUsed, SDL_Renderer* _Renderer, double _Angle){
+		setRectSource(_StartFrame, _NbOfFrameUsed);
+		SDL_RenderCopyEx(_Renderer, m_pTexture, &m_rSource, &m_rDest, RadToDeg(_Angle), NULL, SDL_FLIP_NONE);
+	}
 	
 };

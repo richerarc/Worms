@@ -12,6 +12,26 @@
 #include <SDL2\SDL_mixer.h>
 #endif
 
+#include <math.h>
+
+/*!
+ @method DegToRad.
+ @brief Change les DegrÈs en Radian.
+ @discussion Utile.
+ */
+double DegToRad(double _Degre){
+	return _Degre * M_PI / 180;
+}
+
+/*!
+ @method RadToDeg.
+ @brief Change les Radians en DegrÈs.
+ @discussion Utile.
+ */
+double RadToDeg(double _Radian){
+	return _Radian * 180 / M_PI;
+}
+
 #define WIDTH 1280
 #define HEIGHT 720
 

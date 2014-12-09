@@ -29,6 +29,7 @@ private:
 	SDL_Rect m_BarredeVie;
 	C2DVector* m_Deplacement;
 	SDL_Color* m_TeamColor;
+	float m_Angle;
 public:
 
 	/*!
@@ -41,6 +42,7 @@ public:
 	*/
 	CWorm(string _Name, SDL_Texture* _Texture, CSprite* _pSprite,CFont* _Font,SDL_Rect _RectPos, SDL_Color* _Color) :CEntity(_RectPos, _Texture){
 		m_strName = _Name;
+		m_Angle = 0;
 		m_TeamColor = _Color;
 		m_pSprite = _pSprite;
 		m_pSprite->setSpritePos(_RectPos.x, _RectPos.y);
@@ -155,12 +157,12 @@ public:
 			case MotionLeft:
 				if (m_pSprite->getCurrentAnimation() != 3)
 					m_pSprite->setCurrentAnimation(3);
-				m_pSprite->Render(0,4,_Renderer);
+				m_pSprite->Render(0,4,_Renderer, m_Angle);
 				break;
 			case MotionRight:
 				if (m_pSprite->getCurrentAnimation() != 2)
 					m_pSprite->setCurrentAnimation(2);
-				m_pSprite->Render(0,4,_Renderer);
+				m_pSprite->Render(0,4,_Renderer, m_Angle);
 				break;
 		}
 		
@@ -182,7 +184,7 @@ public:
 	string getName(){ return m_strName; }
 
 	void Move(){
-		float ftemp;
+		float ftemp = 0;
 		switch (m_EntityState) {
 			case JumpLeft:
 				
@@ -251,6 +253,7 @@ public:
 				}
 				break;
 		}
+		m_Angle = ftemp;
 	}
 	
 	void setPosXY(int _X, int _Y){
