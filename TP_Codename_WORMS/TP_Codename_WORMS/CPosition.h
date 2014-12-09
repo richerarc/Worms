@@ -5,6 +5,7 @@ class CPosition{
 private:
 	double	m_iX,  // m_iY et m_iX:  Positions en X et en Y du vecteur 2D
 		m_iY;
+	bool m_boState;
 public:
 
 	/*!
@@ -18,6 +19,7 @@ public:
 	CPosition(double _iX, double _iY){
 		m_iX = _iX;
 		m_iY = _iY;
+		m_boState = false;
 	}
 
 	/*!
@@ -53,5 +55,8 @@ public:
 		m_iX = _dX;
 		m_iY = _dY;
 	}
+
+	bool getState(){ return m_boState; }
+	void setState(bool _boState){ m_boState = _boState; }
 
 };

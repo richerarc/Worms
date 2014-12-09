@@ -140,29 +140,43 @@ public:
 			double dblX, dblY;
 			dblX = pVector->getComposanteX() + pVector->getXStart();
 			dblY = pVector->getComposanteY() + pVector->getYStart();
+			unsigned int temp = 0;
 
 			//x>0 y>0
 			if (((pVector->getComposanteX()) > 0) && (pVector->getComposanteY() > 0)){
 				while ((pVector->getXEnd() >= pVector->getXStart()) &&
 					(pVector->getYEnd() >= pVector->getYStart()))
 				{
-					for (int i = 0; i < _EntityRect.h; i++){
-<<<<<<< HEAD
-						temp = (m_Map->w * ((int)+i)) + ((int)dblX + _EntityRect.w);
-						if ( temp >= 0){
-<<<<<<< Updated upstream
+					for (int i = 0; i < _EntityRect.w; i++){
+						temp = (m_Map->w * ((int)dblY + _EntityRect.h)) + ((int)dblX + i);
+						if ((temp >= 0) && (dblX <= WIDTH) && (dblY <= HEIGHT) && (dblX > (0 -_EntityRect.w)) && () ){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
-=======
-							if ((temp >= 0) && (dblX <= WIDTH) && (dblY <= HEIGHT) && (dblX >(0 - _EntityRect.w)) && (dblY > (0 - _EntityRect.h))){
-=======
-						if ((m_Map->w * ((int)+i)) + ((int)dblX + _EntityRect.w) >= 0){
-							if (((unsigned int*)m_Map->pixels)[(m_Map->w * ((int)+i)) + ((int)dblX + _EntityRect.w)] > TRANSPARENCY){
->>>>>>> parent of 4352c85... changement dans la fonction Verify next pos
->>>>>>> Stashed changes
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
 								return CollisionPosition;
 							}
+						}
+						else{
+							CollisionPosition->setXY(dblX, dblY);
+							CollisionPosition->setState(true);
+							delete pVector;
+							return CollisionPosition;
+						}
+					}
+					for (int i = 0; i < _EntityRect.h; i++){
+						temp = (m_Map->w * ((int)+i)) + ((int)dblX + _EntityRect.w);
+						if ( temp >= 0){
+							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
+								CollisionPosition->setXY(dblX, dblY);
+								delete pVector;
+								return CollisionPosition;
+							}
+						}
+						else{
+							CollisionPosition->setXY(dblX, dblY);
+							CollisionPosition->setState(true);
+							delete pVector;
+							return CollisionPosition;
 						}
 					}
 					dblX = pVector->getComposanteX() + pVector->getXStart();
@@ -177,14 +191,9 @@ public:
 					(pVector->getYEnd() >= pVector->getYStart()))
 				{
 					for (int i = 0; i < _EntityRect.w; i++){
-<<<<<<< HEAD
 						temp = (m_Map->w * ((int)dblY + _EntityRect.h)) + ((int)dblX + i);
 						if (temp >= 0){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
-=======
-						if ((m_Map->w * ((int)dblY + _EntityRect.h)) + ((int)dblX + i) >= 0){
-							if (((unsigned int*)m_Map->pixels)[(m_Map->w * ((int)dblY + _EntityRect.h)) + ((int)dblX + i)] > TRANSPARENCY){
->>>>>>> parent of 4352c85... changement dans la fonction Verify next pos
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
 								return CollisionPosition;
@@ -192,14 +201,9 @@ public:
 						}
 					}
 					for (int i = 0; i < _EntityRect.h; i++){
-<<<<<<< HEAD
 						temp = (m_Map->w * ((int)dblY + i)) + ((int)dblX);
 						if (temp >= 0){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
-=======
-						if ((m_Map->w * ((int)dblY + i)) + ((int)dblX) >= 0){
-							if (((unsigned int*)m_Map->pixels)[(m_Map->w * ((int)dblY + i)) + ((int)dblX)] > TRANSPARENCY){
->>>>>>> parent of 4352c85... changement dans la fonction Verify next pos
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
 								return CollisionPosition;
@@ -218,14 +222,9 @@ public:
 					(pVector->getYEnd() <= pVector->getYStart()))
 				{
 					for (int i = 0; i < _EntityRect.w; i++){
-<<<<<<< HEAD
 						temp = (m_Map->w * ((int)dblY)) + ((int)dblX + i);
 						if (temp >= 0){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
-=======
-						if ((m_Map->w * ((int)dblY)) + ((int)dblX + i) >= 0){
-							if (((unsigned int*)m_Map->pixels)[(m_Map->w * ((int)dblY)) + ((int)dblX + i)] > TRANSPARENCY){
->>>>>>> parent of 4352c85... changement dans la fonction Verify next pos
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
 								return CollisionPosition;
@@ -233,14 +232,9 @@ public:
 						}
 					}
 					for (int i = 0; i < _EntityRect.h; i++){
-<<<<<<< HEAD
 						temp = (m_Map->w * ((int)dblY + i)) + ((int)dblX + _EntityRect.w);
 						if (temp >= 0){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
-=======
-						if ((m_Map->w * ((int)dblY + i)) + ((int)dblX + _EntityRect.w) >= 0){
-							if (((unsigned int*)m_Map->pixels)[(m_Map->w * ((int)dblY + i)) + ((int)dblX + _EntityRect.w)] > TRANSPARENCY){
->>>>>>> parent of 4352c85... changement dans la fonction Verify next pos
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
 								return CollisionPosition;
@@ -259,14 +253,9 @@ public:
 					(pVector->getYEnd() <= pVector->getYStart()))
 				{
 					for (int i = 0; i < _EntityRect.w; i++){
-<<<<<<< HEAD
 						temp = (m_Map->w * ((int)dblY)) + ((int)dblX + i);
 						if (temp >= 0){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
-=======
-						if ((m_Map->w * ((int)dblY)) + ((int)dblX + i) >= 0){
-							if (((unsigned int*)m_Map->pixels)[(m_Map->w * ((int)dblY)) + ((int)dblX + i)] > TRANSPARENCY){
->>>>>>> parent of 4352c85... changement dans la fonction Verify next pos
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
 								return CollisionPosition;
@@ -274,14 +263,9 @@ public:
 						}
 					}
 					for (int i = 0; i < _EntityRect.h; i++){
-<<<<<<< HEAD
 						temp = (m_Map->w * ((int)dblY + i)) + ((int)dblX);
 						if (temp >= 0){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
-=======
-						if ((m_Map->w * ((int)dblY + 1)) + ((int)dblX)){
-							if (((unsigned int*)m_Map->pixels)[(m_Map->w * ((int)dblY + 1)) + ((int)dblX)] > TRANSPARENCY){
->>>>>>> parent of 4352c85... changement dans la fonction Verify next pos
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
 								return CollisionPosition;
@@ -299,14 +283,9 @@ public:
 				while (pVector->getYEnd() >= pVector->getYStart())
 				{
 					for (int i = 0; i < _EntityRect.w; i++){
-<<<<<<< HEAD
 						temp = (m_Map->w * ((int)dblY + _EntityRect.h)) + ((int)dblX + i);
 						if (temp >= 0){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
-=======
-						if ((m_Map->w * ((int)dblY + _EntityRect.h)) + ((int)dblX + i) >= 0){
-							if (((unsigned int*)m_Map->pixels)[(m_Map->w * ((int)dblY + _EntityRect.h)) + ((int)dblX + i)] > TRANSPARENCY){
->>>>>>> parent of 4352c85... changement dans la fonction Verify next pos
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
 								return CollisionPosition;
@@ -324,14 +303,9 @@ public:
 				while (pVector->getYEnd() <= pVector->getYStart())
 				{
 					for (int i = 0; i < _EntityRect.w; i++){
-<<<<<<< HEAD
 						temp = (m_Map->w * ((int)dblY)) + ((int)dblX + i);
 						if (temp >= 0){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
-=======
-						if ((m_Map->w * ((int)dblY)) + ((int)dblX + i)){
-							if (((unsigned int*)m_Map->pixels)[(m_Map->w * ((int)dblY)) + ((int)dblX + i)] > TRANSPARENCY){
->>>>>>> parent of 4352c85... changement dans la fonction Verify next pos
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
 								return CollisionPosition;
@@ -349,14 +323,9 @@ public:
 				while (pVector->getXEnd() >= pVector->getXStart())
 				{
 					for (int i = 0; i < _EntityRect.h; i++){
-<<<<<<< HEAD
 						temp = (m_Map->w * ((int)dblY + i)) + ((int)dblX + _EntityRect.w);
 						if (temp >= 0){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
-=======
-						if ((m_Map->w * ((int)dblY + i)) + ((int)dblX + _EntityRect.w)){
-							if (((unsigned int*)m_Map->pixels)[(m_Map->w * ((int)dblY + i)) + ((int)dblX + _EntityRect.w)] > TRANSPARENCY){
->>>>>>> parent of 4352c85... changement dans la fonction Verify next pos
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
 								return CollisionPosition;
@@ -374,19 +343,9 @@ public:
 				while (pVector->getXEnd() <= pVector->getXStart())
 				{
 					for (int i = 0; i < _EntityRect.h; i++){
-<<<<<<< HEAD
 						temp = (m_Map->w * ((int)dblY + i)) + ((int)dblX);
-<<<<<<< Updated upstream
 						if (temp >= 0){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
-=======
-						if ((temp >= 0) && (dblX <= WIDTH) && (dblY <= HEIGHT) && (dblX >(0 - _EntityRect.w)) && (dblY > (0 - _EntityRect.h))){
- 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
-=======
-						if ((m_Map->w * ((int)dblY + 1)) + ((int)dblX)){
-							if (((unsigned int*)m_Map->pixels)[(m_Map->w * ((int)dblY + 1)) + ((int)dblX)] > TRANSPARENCY){
->>>>>>> parent of 4352c85... changement dans la fonction Verify next pos
->>>>>>> Stashed changes
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
 								return CollisionPosition;
