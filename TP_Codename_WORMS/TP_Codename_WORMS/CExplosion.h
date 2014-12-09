@@ -18,7 +18,8 @@ public:
 	*/
 	CExplosion(CSprite* _Sprite, CPosition* _Pos){
 		m_pSprite = _Sprite;
-			//	m_pSprite->setSpritePos(m_pPosition->getX(), m_pPosition->getY());
+		m_pSprite->setSpritePos(m_pPosition->getX(), m_pPosition->getY());
+		m_pPosition = _Pos;
 	}
 
 	/*!
