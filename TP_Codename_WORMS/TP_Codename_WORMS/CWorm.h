@@ -9,7 +9,7 @@
 #define TP_Codename_WORMS_CWorm_h
 
 // Un worm possde dŽjˆ l'Žtat en chute, immobile, ou en dŽplacement, qu'il tient d'entity
-enum WormState {NoMotionLeft, NoMotionRight, MotionLeft, MotionRight, JumpLeft, JumpRight, UsingBazzLeft, UsingBazzRight, Damaged, Largage};
+enum WormState {NoMotionLeft, NoMotionRight, MotionLeft, MotionRight, JumpLeft, JumpRight, UsingBazzLeft, UsingBazzRight, Damaged, Largage, SlideLeft, SlideRight};
 
 /*!
 @CWorm
@@ -22,6 +22,8 @@ private:
 	CSprite* m_pSprite;//Sprite du worm
 	CLabel* m_lblNom;
 	SDL_Rect m_BarredeVie;
+	C2DVector* m_Deplacement;
+	SDL_Color* m_TeamColor;
 public:
 
 	/*!
@@ -32,17 +34,19 @@ public:
 	 @param _RectPos : la position du sprite
 	@Classe héritant de CEntity
 	*/
-	CWorm(string _Name, SDL_Texture* _Texture, CSprite* _pSprite,CFont* _Font,SDL_Rect _RectPos) :CEntity(_RectPos, _Texture){
+	CWorm(string _Name, SDL_Texture* _Texture, CSprite* _pSprite,CFont* _Font,SDL_Rect _RectPos, SDL_Color* _Color) :CEntity(_RectPos, _Texture){
 		m_strName = _Name;
+		m_TeamColor = _Color;
 		m_pSprite = _pSprite;
 		m_pSprite->setSpritePos(_RectPos.x, _RectPos.y);
 		m_iLife = 100;
 		m_BarredeVie.h = 10;
 		m_BarredeVie.w = 50;
 		m_BarredeVie.x = _RectPos.x;
-		m_BarredeVie.y = _RectPos.y + 10;
-		m_lblNom = new CLabel("", m_strName.c_str(), _Font, SDL_Rect{_RectPos.x,_RectPos.y + 20,50,10});
+		m_BarredeVie.y = _RectPos.y - 10;
+		m_lblNom = new CLabel("", m_strName.c_str(), _Font, SDL_Rect{_RectPos.x,_RectPos.y - 20,50,10});
 		m_EntityState = Largage;
+		m_Deplacement = new C2DVector(m_RectPosition.x, m_RectPosition.y, 0,0);
 		m_pSprite->Start();
 
 	}
@@ -110,6 +114,9 @@ public:
 	*/
 	void Draw(SDL_Renderer * _Renderer){
 		Move();
+		m_lblNom->Draw(_Renderer);
+		SDL_SetRenderDrawColor(_Renderer, m_TeamColor->r, m_TeamColor->g, m_TeamColor->b, 1);
+		SDL_RenderFillRect(_Renderer, &m_BarredeVie);
 		switch (m_EntityState) {
 			case JumpLeft:
 				if (m_pSprite->getCurrentAnimation() != 5)
@@ -156,6 +163,7 @@ public:
 
 	void SetLife(int _iLifeActuelle){
 		m_iLife = _iLifeActuelle;
+		m_BarredeVie.w = _iLifeActuelle / 2;
 	}
 
 	int getLife(){ return m_iLife; }
@@ -175,11 +183,11 @@ public:
 				break;
 			case MotionRight:
 				CPhysics::Move(&m_RectPosition, RIGHT);
-				m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
+				setPosXY(m_RectPosition.x, m_RectPosition.y);
 				break;
 			case MotionLeft:
 				CPhysics::Move(&m_RectPosition, LEFT);
-				m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
+				setPosXY(m_RectPosition.x, m_RectPosition.y);
 				break;
 			case Chute:
 				if (m_Trajectoire->isStopped()){
@@ -228,6 +236,9 @@ public:
 		m_RectPosition.y = _Y;
 		m_RectPosition.x = _X;
 		m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
+		m_lblNom->setPos(m_RectPosition.x, m_RectPosition.y - 20);
+		m_BarredeVie.x = m_RectPosition.x;
+		m_BarredeVie.y = m_RectPosition.y - 10;
 	}
 	
 	int getWormState(){
