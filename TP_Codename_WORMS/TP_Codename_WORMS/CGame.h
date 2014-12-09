@@ -179,7 +179,6 @@ public:
 		}
 	}
 
-
 	/*!
 	@method Acesseurs
 	@brief Servent à acceder/modifier aux données membres.

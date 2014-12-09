@@ -67,11 +67,11 @@ public:
 	@discussion Aucune.
 	*/
 	static void RedefineWind(){
-		double tempX = (rand() % (2 * (int)m_MaxWindSpeed)) - m_MaxWindSpeed;
-		double tempY = (rand() % (2 * (int)m_MaxWindSpeed)) - m_MaxWindSpeed;
-		double CompX = tempX / 100;
-		double CompY = tempY / 100;
-		m_Wind->setComposanteXY(CompX, CompY);
+		double temp = (rand() % (int)m_MaxWindSpeed);
+		double Norme = temp / 100;
+		m_Wind->setNorme(Norme);
+		double angle = (rand() % 360);
+		m_Wind->setOrientation(DegToRad(angle));
 	}
 
 	/*!
