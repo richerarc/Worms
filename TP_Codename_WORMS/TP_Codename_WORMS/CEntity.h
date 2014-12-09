@@ -15,7 +15,6 @@ protected:
 	CTrajectory* m_Trajectoire;	// Trajectoire de l'objet
 	unsigned int m_EntityState;	// État actuel de l'objet
 	SDL_Texture* m_pTexture;	// Texture de l'entité
-	float m_Angle;
 public:
 
 	/*!
@@ -33,7 +32,6 @@ public:
 		m_EntityState = Chute;
 		m_pTexture = _Texture;
 		m_Trajectoire = CPhysics::Propulsion(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.f, 2.f), new C2DVector(m_RectPosition.x, m_RectPosition.y, double(0), double(CPhysics::GetGravity())));
-		m_Angle = 0;
 	}
 
 	/*!
@@ -45,6 +43,86 @@ public:
 			delete m_Trajectoire;
 		m_Trajectoire = nullptr;
 	}
+
+
+	/*
+	Method : VerifySliding
+	Brief : Fonction qui retourne si l'entité est en glissade, et qui le fait glisser s'il devrait le faire
+	Params :
+	Return : true : L'entité glisse
+	false : L'entité ne glisse pas
+	*/
+	bool VerifySliding(){
+		if (m_Trajectoire->IsSliding()){
+			return true;
+		}
+		SDL_Rect* RectTmp = new SDL_Rect({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
+		double dStartSlope = CPhysics::EvaluateSlope(RectTmp);
+		if (dStartSlope > M_PI / 2 && dStartSlope > 0 || dStartSlope > -M_PI / 2 && dStartSlope < 0){
+			m_Trajectoire->StartSliding();
+		}
+		else {
+			m_Trajectoire->StopSliding();
+		}
+		if (m_Trajectoire->GetActualSpeed()->getNorme() < 200)
+			m_Trajectoire->StopSliding();
+		return m_Trajectoire->IsSliding();
+	}
+
+	/*
+	Method : UpdateSlidePosition
+	Brief : Fonction qui ajuste la position en considérant que l'entité est en train de glisser
+	Params :
+	Return : Position de l'entité à ce moment
+	*/
+	void UpdateSlidePosition(){
+		m_Trajectoire->UpdatePosition();
+		SDL_Rect* RectTmp = new SDL_Rect({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
+		double dStartSlope = CPhysics::EvaluateSlope(RectTmp);
+		delete RectTmp;
+		bool boOnGround = false;
+		int iDecalage = 0;
+		if (dStartSlope < 0){ //Va vers la gauche...
+			while (!boOnGround){
+				for (int i = 0; i < m_RectPosition.w; i++){
+					if (((unsigned int*)CPhysics::GetMap()->pixels)[CPhysics::GetMap()->w * (m_RectPosition.y + m_RectPosition.h - 1) + m_RectPosition.x + i - iDecalage] > TRANSPARENCY){
+						iDecalage++;
+						i = m_RectPosition.w;
+					}
+					else {
+						boOnGround = true;
+					}
+				}
+			}
+			m_RectPosition.x = m_RectPosition.x - iDecalage;
+			m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+			C2DVector* TmpSpeed = new C2DVector(m_RectPosition.x, m_RectPosition.x,
+				m_Trajectoire->GetActualSpeed()->getNorme() * cos(dStartSlope),
+				m_Trajectoire->GetActualSpeed()->getNorme() * sin(dStartSlope));
+			m_Trajectoire->setActualSpeed(TmpSpeed);
+		}
+		else{ //...ou vers la droite
+			while (!boOnGround){
+				for (int i = 0; i < m_RectPosition.w; i++){
+					if (((unsigned int*)CPhysics::GetMap()->pixels)[CPhysics::GetMap()->w * (m_RectPosition.y + m_RectPosition.h - 1) + m_RectPosition.x + i + iDecalage] > TRANSPARENCY){
+						iDecalage++;
+						i = m_RectPosition.w;
+					}
+					else {
+						boOnGround = true;
+					}
+				}
+			}
+			m_RectPosition.x = m_RectPosition.x + iDecalage;
+			m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+			C2DVector* TmpSpeed = new C2DVector(m_RectPosition.x, m_RectPosition.x,
+				m_Trajectoire->GetActualSpeed()->getNorme() * cos(dStartSlope),
+				m_Trajectoire->GetActualSpeed()->getNorme() * sin(dStartSlope));
+			m_Trajectoire->setActualSpeed(TmpSpeed);
+		}
+		m_Trajectoire->SetActualPos(m_RectPosition.x, m_RectPosition.y);
+	}
+
 
 	/*!
 	@method Move
@@ -60,13 +138,17 @@ public:
 				m_Trajectoire->WipeOut();
 			break;
 		case Chute:
+			if (!VerifySliding())
 				m_Trajectoire->UpdatePosition();
+			else
+				UpdateSlidePosition();
 
 				CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
 				if (temp != nullptr)
 				{
 					if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY()))
-						m_EntityState = Immobile;
+						if (!VerifySliding())
+							m_EntityState = Immobile;
 					else
 						m_EntityState = Chute;
 					
