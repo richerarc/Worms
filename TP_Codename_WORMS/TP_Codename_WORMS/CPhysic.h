@@ -387,7 +387,7 @@ public:
 	static double EvaluateSlope(SDL_Rect* _Rect){
 		double Slope = 0;
 		bool first = false;
-		int PreviousY;
+		int PreviousY = 0;
 		double PointsSignificatifs = 0;
 		for (int x = _Rect->x; x < _Rect->x + _Rect->w; x++){
 			for (int y = _Rect->y; y < _Rect->y + _Rect->h; y++){
@@ -407,7 +407,7 @@ public:
 			}
 		}
 		double Angle = atan(Slope / (PointsSignificatifs - 1));
-
+		delete _Rect;
 
 		return Angle;
 	}
@@ -469,65 +469,30 @@ public:
 	*/
 	static int Move(SDL_Rect* _Rect, int _Direction){
 		if (_Direction == LEFT){
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + _Rect->h) + _Rect->x - 1] == 0){
-				_Rect->x = _Rect->x - 1;
-				return MOVING;
-			}
-			for (int i = 0; i < _Rect->h + 5; i++){
-				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y - 5 + i) + _Rect->x - 1] != 0){
+			for (int i = 0; i < _Rect->h / 2; i++){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x] != 0){
 					if (i < _Rect->h)
 						return BLOCKED;
-					else {
-						if (i < _Rect->h){
-							_Rect->y = _Rect->y - (_Rect->h - i);
-						}
-						else {
-							for (int j = 0; j < 5; j++) {
-								for (int h = 0; h < _Rect->w; h++){
-									if ((((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + j + _Rect->h) + _Rect->x + h - 1] != 0)){
-										_Rect->y = _Rect->y + (_Rect->h - j);
-										_Rect->x = _Rect->x + 1;
-										return MOVING;
-									}
-								}
-							}
-						}
-					}
+				}
+				else{
+					_Rect->x = _Rect->x - 1;
+					return MOVING;
 				}
 			}
-			_Rect->x = _Rect->x - 1;
-			return MOVING;
 		}
 		else{
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + _Rect->h) + _Rect->x + _Rect->w + 1] == 0){
-				_Rect->x = _Rect->x + 1;
-				return MOVING;
-			}
-			for (int i = 0; i < _Rect->h + 5; i++){
-				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y - 5 + i) + _Rect->x + _Rect->w] != 0){
+			for (int i = 0; i < _Rect->h / 2; i++){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x + _Rect->w] != 0){
 					if (i < _Rect->h)
 						return BLOCKED;
-					else {
-						if (i < _Rect->h){
-							_Rect->y = _Rect->y - (_Rect->h - i);
-						}
-						else {
-							for (int j = 0; j < 5; j++) {
-								for (int h = 0; h < _Rect->w; h++){
-									if ((((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + j + _Rect->h) + _Rect->x + h - 1] != 0)){
-										_Rect->y = _Rect->y + (_Rect->h - j);
-										_Rect->x = _Rect->x + 1;
-										return MOVING;
-									}
-								}
-							}
-						}
-					}
+				}
+				else{
+					_Rect->x = _Rect->x + 1;
+					return MOVING;
 				}
 			}
-			_Rect->x = _Rect->x + 1;
-			return MOVING;
 		}
+		return NULL;
 	}
 
 	/*!

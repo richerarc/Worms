@@ -4,6 +4,10 @@
 //  Created by Jessy Desjardins on 2014-11-11.
 //  Copyright (c) 2014 Jessy Desjardins. All rights reserved.
 //
+#define PI_SUR_DEUX 1.5707963268
+#define PI_SUR_TROIS 1.0471975512
+#define PI_SUR_QUATRE 0.7853981634
+#define PI_SUR_SIX 0.7853981634
 
 #ifndef TP_Codename_WORMS_CWorm_h
 #define TP_Codename_WORMS_CWorm_h
@@ -40,11 +44,11 @@ public:
 		m_pSprite = _pSprite;
 		m_pSprite->setSpritePos(_RectPos.x, _RectPos.y);
 		m_iLife = 100;
-		m_BarredeVie.h = 10;
+		m_BarredeVie.h = 5;
 		m_BarredeVie.w = 50;
 		m_BarredeVie.x = _RectPos.x;
-		m_BarredeVie.y = _RectPos.y - 10;
-		m_lblNom = new CLabel("", m_strName.c_str(), _Font, SDL_Rect{_RectPos.x,_RectPos.y - 20,50,10});
+		m_BarredeVie.y = _RectPos.y;
+		m_lblNom = new CLabel("", m_strName.c_str(), _Font, SDL_Rect{_RectPos.x,_RectPos.y - 18,50,10});
 		m_EntityState = Largage;
 		m_Deplacement = new C2DVector(m_RectPosition.x, m_RectPosition.y, 0,0);
 		m_pSprite->Start();
@@ -115,7 +119,8 @@ public:
 	void Draw(SDL_Renderer * _Renderer){
 		Move();
 		m_lblNom->Draw(_Renderer);
-		SDL_SetRenderDrawColor(_Renderer, m_TeamColor->r, m_TeamColor->g, m_TeamColor->b, 1);
+		SDL_SetRenderDrawColor(_Renderer, m_TeamColor->r, m_TeamColor->g, m_TeamColor->b, 120);
+		SDL_SetRenderDrawBlendMode(_Renderer, SDL_BLENDMODE_BLEND);
 		SDL_RenderFillRect(_Renderer, &m_BarredeVie);
 		switch (m_EntityState) {
 			case JumpLeft:
@@ -173,7 +178,7 @@ public:
 	string getName(){ return m_strName; }
 
 	void Move(){
-		int iTemp = CPhysics::VerifyGroundCollision(m_RectPosition);
+		float ftemp;
 		switch (m_EntityState) {
 			case JumpLeft:
 				
@@ -182,11 +187,15 @@ public:
 				
 				break;
 			case MotionRight:
-				CPhysics::Move(&m_RectPosition, RIGHT);
+				ftemp = CPhysics::EvaluateSlope(new SDL_Rect({m_RectPosition.x + m_RectPosition.w, m_RectPosition.y + (m_RectPosition.h / 2), m_RectPosition.w, m_RectPosition.h}));
+				if (ftemp >= -PI_SUR_TROIS)
+					CPhysics::Move(&m_RectPosition, RIGHT);
 				setPosXY(m_RectPosition.x, m_RectPosition.y);
 				break;
 			case MotionLeft:
-				CPhysics::Move(&m_RectPosition, LEFT);
+				ftemp = CPhysics::EvaluateSlope(new SDL_Rect({m_RectPosition.x - m_RectPosition.w, m_RectPosition.y + (m_RectPosition.h / 2), m_RectPosition.w, m_RectPosition.h}));
+				if (ftemp >= -PI_SUR_TROIS)
+					CPhysics::Move(&m_RectPosition, LEFT);
 				setPosXY(m_RectPosition.x, m_RectPosition.y);
 				break;
 			case Chute:
@@ -236,9 +245,9 @@ public:
 		m_RectPosition.y = _Y;
 		m_RectPosition.x = _X;
 		m_pSprite->setSpritePos(m_RectPosition.x, m_RectPosition.y);
-		m_lblNom->setPos(m_RectPosition.x, m_RectPosition.y - 20);
+		m_lblNom->setPos(m_RectPosition.x, m_RectPosition.y - 18);
 		m_BarredeVie.x = m_RectPosition.x;
-		m_BarredeVie.y = m_RectPosition.y - 10;
+		m_BarredeVie.y = m_RectPosition.y;
 	}
 	
 	int getWormState(){
