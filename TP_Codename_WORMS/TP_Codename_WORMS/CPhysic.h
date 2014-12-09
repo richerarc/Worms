@@ -447,16 +447,16 @@ public:
 	@param _Rect : Rectangle de l'objet impliqué
 	@return La trajectoire du glissement
 	*/
-	static CTrajectory * Slide(CEntity* _Entity){
-		SDL_Rect* TmpRect = new SDL_Rect({ _Entity->getPosition().x, _Entity->getPosition().y + _Entity->getPosition().h
-			, 50, _Entity->getPosition().w }); //Le 50 est arbitraire because or reasons
-		double AngleDePente = CPhysics::EvaluateSlope(TmpRect);
-		if (_Entity->getTrajectoire() != nullptr){
-		}
-		else{
+	//static CTrajectory * Slide(CEntity* _Entity){
+		//SDL_Rect* TmpRect = new SDL_Rect({ _Entity->getPosition().x, _Entity->getPosition().y + _Entity->getPosition().h
+			//, 50, _Entity->getPosition().w }); //Le 50 est arbitraire because or reasons
+		//double AngleDePente = CPhysics::EvaluateSlope(TmpRect);
+		//if (_Entity->getTrajectoire() != nullptr){
+		//}
+		//else{
 
-		}
-	}
+//		}
+	//}
 
 	/*!
 	@method Move
