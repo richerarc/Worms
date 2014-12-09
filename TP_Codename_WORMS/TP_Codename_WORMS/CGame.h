@@ -24,6 +24,7 @@ private:
 	bool m_boPause;							// Indique si le jeu est en pause.
 	CTimer* TurnTimer;						// Indique le temps d'un tour.
 	CTimer* DropperTimer;					// Indique le Temps avant de faire tomber les worms.
+	CWorm * ActiveWorm;
 public:
 
 	/*!
@@ -56,6 +57,7 @@ public:
 		Spawn();
 		DropperTimer->SetTimer(200);
 		DropperTimer->Start();
+		ActiveWorm = nullptr;
 	}
 	
 	/*!
@@ -83,6 +85,16 @@ public:
 			m_pListeTeam->ObtenirElement()->NextTurn();
 			m_pListeTeam->ObtenirElement()->setFocus(false);
 		}
+		for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
+			m_pListeTeam->AllerA(i);
+			if (m_pListeTeam->ObtenirElement()->IsFocused()){
+				for (int k = 0; k < m_uiNbOfWormPerTeam; k++){
+					ActiveWorm = m_pListeTeam->ObtenirElement()->getPlayingWorm();
+					break;
+				}
+				break;
+			}
+		}
 		m_pListeTeam->AllerA((uitemp + 1) % m_uiNbOfPlayingTeams);
 		m_pListeTeam->ObtenirElement()->setFocus(true);
 	}
@@ -93,8 +105,8 @@ public:
 	*/
 	void Render(){
 		m_pMap->Draw(m_pRenderer);
-		double Wind = RadToDeg(CPhysics::GetWind()->getSDLOrientation());
-		m_pBoussole->setAngle(Wind);
+		double Wind = RadToDeg(CPhysics::GetWind()->getOrientation());
+		m_pBoussole->setAngle((360-Wind));
 		m_pBoussole->Draw(m_pRenderer);
 		
 		m_pListeObjets->AllerDebut();
@@ -156,12 +168,22 @@ public:
 			string temp("Team");
 			char buf[10];
 			temp.append(SDL_itoa(m_pListeObjets->Count()+1, buf, 10));
-			m_pListeTeam->AjouterFin(new CTeam(temp, { static_cast<Uint8>(rand() % 255 + 1), static_cast<Uint8>(rand() % 255 + 1), static_cast<Uint8>(rand() % 255 + 1), 1 }, nullptr, m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontWorm")));
+			m_pListeTeam->AjouterFin(new CTeam(temp, { static_cast<Uint8>(rand() % 5 * 200), static_cast<Uint8>(rand() % 5 * 100), static_cast<Uint8>(rand() % 5 * 50), 1 }, nullptr, m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontMenu")));
 			temp.pop_back();
 		}
 		if (m_pListeTeam->Count() == m_uiNbOfPlayingTeams){
 			m_pListeTeam->AllerDebut();
 			m_pListeTeam->ObtenirElement()->setFocus(true);
+			if (m_pListeTeam->ObtenirElement()->IsFocused())
+				for (int k = 0; k < m_uiNbOfWormPerTeam; k++){
+					ActiveWorm = m_pListeTeam->ObtenirElement()->getPlayingWorm();
+				}
+			/*for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
+				m_pListeTeam->AllerA(i);
+				
+					break;
+				}
+			}*/
 		}
 	}
 
@@ -194,4 +216,12 @@ public:
 	void PauseGame(){ m_boPause = true;}
 	void ResumeGame(){ m_boPause = false;}
 
+
+	/*
+	Methode getActiveWorm
+	*/
+
+	CWorm* getActiveWorm(){
+		return ActiveWorm;
+	}
 };
