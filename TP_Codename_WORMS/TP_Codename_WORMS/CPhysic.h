@@ -199,12 +199,6 @@ public:
 								return CollisionPosition;
 							}
 						}
-						else{
-							CollisionPosition->setXY(dblX, dblY);
-							CollisionPosition->setState(true);
-							delete pVector;
-							return CollisionPosition;
-						}
 					}
 					for (int i = 0; i < _EntityRect.h; i++){
 						temp = (m_Map->w * ((int)dblY + i)) + ((int)dblX);
@@ -214,12 +208,6 @@ public:
 								delete pVector;
 								return CollisionPosition;
 							}
-						}
-						else{
-							CollisionPosition->setXY(dblX, dblY);
-							CollisionPosition->setState(true);
-							delete pVector;
-							return CollisionPosition;
 						}
 					}
 					dblX = pVector->getComposanteX() + pVector->getXStart();
@@ -242,12 +230,6 @@ public:
 								return CollisionPosition;
 							}
 						}
-						else{
-							CollisionPosition->setXY(dblX, dblY);
-							CollisionPosition->setState(true);
-							delete pVector;
-							return CollisionPosition;
-						}
 					}
 					for (int i = 0; i < _EntityRect.h; i++){
 						temp = (m_Map->w * ((int)dblY + i)) + ((int)dblX + _EntityRect.w);
@@ -257,12 +239,6 @@ public:
 								delete pVector;
 								return CollisionPosition;
 							}
-						}
-						else{
-							CollisionPosition->setXY(dblX, dblY);
-							CollisionPosition->setState(true);
-							delete pVector;
-							return CollisionPosition;
 						}
 					}
 					dblX = pVector->getComposanteX() + pVector->getXStart();
@@ -285,12 +261,6 @@ public:
 								return CollisionPosition;
 							}
 						}
-						else{
-							CollisionPosition->setXY(dblX, dblY);
-							CollisionPosition->setState(true);
-							delete pVector;
-							return CollisionPosition;
-						}
 					}
 					for (int i = 0; i < _EntityRect.h; i++){
 						temp = (m_Map->w * ((int)dblY + i)) + ((int)dblX);
@@ -300,12 +270,6 @@ public:
 								delete pVector;
 								return CollisionPosition;
 							}
-						}
-						else{
-							CollisionPosition->setXY(dblX, dblY);
-							CollisionPosition->setState(true);
-							delete pVector;
-							return CollisionPosition;
 						}
 					}
 					dblX = pVector->getComposanteX() + pVector->getXStart();
@@ -327,12 +291,6 @@ public:
 								return CollisionPosition;
 							}
 						}
-						else{
-							CollisionPosition->setXY(dblX, dblY);
-							CollisionPosition->setState(true);
-							delete pVector;
-							return CollisionPosition;
-						}
 					}
 					dblX = pVector->getComposanteX() + pVector->getXStart();
 					dblY = pVector->getComposanteY() + pVector->getYStart();
@@ -352,12 +310,6 @@ public:
 								delete pVector;
 								return CollisionPosition;
 							}
-						}
-						else{
-							CollisionPosition->setXY(dblX, dblY);
-							CollisionPosition->setState(true);
-							delete pVector;
-							return CollisionPosition;
 						}
 					}
 					dblX = pVector->getComposanteX() + pVector->getXStart();
@@ -379,12 +331,6 @@ public:
 								return CollisionPosition;
 							}
 						}
-						else{
-							CollisionPosition->setXY(dblX, dblY);
-							CollisionPosition->setState(true);
-							delete pVector;
-							return CollisionPosition;
-						}
 					}
 					dblX = pVector->getComposanteX() + pVector->getXStart();
 					dblY = pVector->getComposanteY() + pVector->getYStart();
@@ -399,17 +345,11 @@ public:
 					for (int i = 0; i < _EntityRect.h; i++){
 						temp = (m_Map->w * ((int)dblY + i)) + ((int)dblX);
 						if ((temp >= 0) && (dblX <= WIDTH) && (dblY <= HEIGHT) && (dblX >(0 - _EntityRect.w)) && (dblY > (0 - _EntityRect.h))){
- 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
+							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
 								return CollisionPosition;
 							}
-						}
-						else{
-							CollisionPosition->setXY(dblX, dblY);
-							CollisionPosition->setState(true);
-							delete pVector;
-							return CollisionPosition;
 						}
 					}
 					dblX = pVector->getComposanteX() + pVector->getXStart();
