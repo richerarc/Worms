@@ -109,53 +109,16 @@ public:
 	@return GROUNDCEILING : Le rectangle touche au plafond et au sol
 	@discussion Aucune.
     */
-	static int VerifyGroundCollision(SDL_Rect _Rect){
-		bool boGround = false;
-		bool boCeiling = false;
-		bool boLeft = false;
-		bool boRight = false;
-		for (int i = 0; i < _Rect.w; i++){
-			if (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect.y + _Rect.h)) + _Rect.x + i] > TRANSPARENCY && !boGround){
-				boGround = true;
+	static int VerifyGroundCollision(SDL_Rect* _Rect){
+		for (int i = 0; i < _Rect->w; i++){
+			while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h - 1)) + _Rect->x + i] > TRANSPARENCY){
+				_Rect->y--;
 			}
-			if (_Rect.y > 0 && ((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y - 1) + _Rect.x + i] > TRANSPARENCY && !boCeiling){
-				boCeiling = true;
+			while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] == TRANSPARENCY){
+				_Rect->y++;
 			}
 		}
-		for (int i = 0; i < _Rect.h; i++){
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x + _Rect.w] > TRANSPARENCY && !boRight){
-				boRight = true;
-			}
-			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x - 1] > TRANSPARENCY && !boLeft){
-				boLeft = true;
-			}
-		}
-
-		if (boGround){
-			if (boCeiling)
-				return GROUNDCEILING;
-			if (boLeft)
-				return GROUNDLEFT;
-			if (boRight)
-				return GROUNDRIGHT;
-			return GROUND;
-		}
-		else {
-			if (boCeiling){
-				if (boLeft)
-					return CEILINGLEFT;
-				if (boRight)
-					return CEILINGRIGHT;
-				return CEILING;
-			}
-			else {
-				if (boRight)
-					return RIGHT;
-				if (boLeft)
-					return LEFT;
-				return NOCONTACT;
-			}
-		}
+		return NOCONTACT;
 	}
 
 	/*!
@@ -470,7 +433,7 @@ public:
 	static int Move(SDL_Rect* _Rect, int _Direction){
 		if (_Direction == LEFT){
 			for (int i = 0; i < _Rect->h / 2; i++){
-				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x] != 0){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x + 6] != 0){
 					if (i < _Rect->h)
 						return BLOCKED;
 				}
@@ -482,7 +445,7 @@ public:
 		}
 		else{
 			for (int i = 0; i < _Rect->h / 2; i++){
-				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x + _Rect->w] != 0){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x + _Rect->w - 6] != 0){
 					if (i < _Rect->h)
 						return BLOCKED;
 				}

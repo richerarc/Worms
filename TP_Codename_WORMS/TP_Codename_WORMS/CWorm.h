@@ -8,6 +8,7 @@
 #define PI_SUR_TROIS 1.0471975512
 #define PI_SUR_QUATRE 0.7853981634
 #define PI_SUR_SIX 0.7853981634
+#define ANGLEMAX 1.2217304764
 
 #ifndef TP_Codename_WORMS_CWorm_h
 #define TP_Codename_WORMS_CWorm_h
@@ -119,7 +120,7 @@ public:
 	void Draw(SDL_Renderer * _Renderer){
 		Move();
 		m_lblNom->Draw(_Renderer);
-		SDL_SetRenderDrawColor(_Renderer, m_TeamColor->r, m_TeamColor->g, m_TeamColor->b, 120);
+		SDL_SetRenderDrawColor(_Renderer, m_TeamColor->r, m_TeamColor->g, m_TeamColor->b, 200);
 		SDL_SetRenderDrawBlendMode(_Renderer, SDL_BLENDMODE_BLEND);
 		SDL_RenderFillRect(_Renderer, &m_BarredeVie);
 		switch (m_EntityState) {
@@ -187,16 +188,24 @@ public:
 				
 				break;
 			case MotionRight:
-				ftemp = CPhysics::EvaluateSlope(new SDL_Rect({m_RectPosition.x + m_RectPosition.w, m_RectPosition.y + (m_RectPosition.h / 2), m_RectPosition.w, m_RectPosition.h}));
-				if (ftemp >= -PI_SUR_TROIS)
+				ftemp = CPhysics::EvaluateSlope(new SDL_Rect({m_RectPosition.x + (m_RectPosition.w / 2), m_RectPosition.y + (m_RectPosition.h / 2), m_RectPosition.w, m_RectPosition.h}));
+				if (ftemp >= -ANGLEMAX){
 					CPhysics::Move(&m_RectPosition, RIGHT);
-				setPosXY(m_RectPosition.x, m_RectPosition.y);
+					CPhysics::VerifyGroundCollision(&m_RectPosition);
+					setPosXY(m_RectPosition.x, m_RectPosition.y);
+				}
+				else if (ftemp >= ANGLEMAX)
+					m_EntityState = SlideRight;
 				break;
 			case MotionLeft:
-				ftemp = CPhysics::EvaluateSlope(new SDL_Rect({m_RectPosition.x - m_RectPosition.w, m_RectPosition.y + (m_RectPosition.h / 2), m_RectPosition.w, m_RectPosition.h}));
-				if (ftemp >= -PI_SUR_TROIS)
+				ftemp = CPhysics::EvaluateSlope(new SDL_Rect({m_RectPosition.x - (m_RectPosition.w / 2), m_RectPosition.y + (m_RectPosition.h / 2), m_RectPosition.w, m_RectPosition.h}));
+				if (ftemp <= ANGLEMAX){
 					CPhysics::Move(&m_RectPosition, LEFT);
-				setPosXY(m_RectPosition.x, m_RectPosition.y);
+					CPhysics::VerifyGroundCollision(&m_RectPosition);
+					setPosXY(m_RectPosition.x, m_RectPosition.y);
+				}
+				else if (ftemp <= -ANGLEMAX)
+					m_EntityState = SlideLeft;
 				break;
 			case Chute:
 				if (m_Trajectoire->isStopped()){

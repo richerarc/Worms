@@ -156,7 +156,7 @@ public:
 			string temp("Team");
 			char buf[10];
 			temp.append(SDL_itoa(m_pListeObjets->Count()+1, buf, 10));
-			m_pListeTeam->AjouterFin(new CTeam(temp, { static_cast<Uint8>(rand() % 255 + 1), static_cast<Uint8>(rand() % 255 + 1), static_cast<Uint8>(rand() % 255 + 1), 1 }, nullptr, m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontWorm")));
+			m_pListeTeam->AjouterFin(new CTeam(temp, nullptr, m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontWorm")));
 			temp.pop_back();
 		}
 		if (m_pListeTeam->Count() == m_uiNbOfPlayingTeams){
