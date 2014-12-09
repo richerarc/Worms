@@ -63,4 +63,15 @@
 
 22:48 2014-12-02: Aujourd'hui j'ai travailler sur un proget a part pour pas chier tout le projet. J'ai réadapter la classe C2DVector
 		  et la fonction pour les collision devrait demain marcher complètement. J'ai rencontré difficultés a debugger dans un environnement 
-		  Graphique HAHAHA Ah oui n'ai aussi rajouter un sprite pour les explosion de grenades. Total d'heures 3h.
+		  Graphique HAHAHA Ah oui j'ai aussi rajouter un sprite pour les explosion de grenades. Total d'heures 3h.
+
+20:01 2014-12-04: Jai oublier de mettre a jour mon journal de bord jeudi mais  je le fais a l'instant. Jeudi je me suis rendu compte, en 
+		  travaillant sur le vent, que le systeme d'axe n'est plus celui qu'on as appris à l'école. J'ai du réadapter la classe 
+	      	  C2DVector pour qu'elle retourne un bon angle selon le nouveau système d'axe. J'ai créé une Branche pour effectuer les changements.
+		  Jeudi je n'ai pas été en mesure de torouver les formules nécéssaires. total 3h
+
+20:05 2014-12-08: DAns la nuit du vendredi au samedi j'ai rêvé a la programmation toute la nuit. Sibouaire que sa dors mal sur un méchant temps!
+	  	  Mais au moin je me suis réveiller avec la reponse a mon questionnenment sur les angles et les axes de programmation. Comme 
+		  je ne peux pas programmer de la fin de semaine par manque de possesion d'un ordinateur portable, j'ai tout écrit
+		  sur un bout de papier entre deux commandes de déjeuner sur mes heures de travail HAHAHA. Aujourdhui j'ai revert ce que j'avais
+		  tenter de faire et j'ai fait ce que j'avais noté et devine quoi? SA MARCHE! VIVE LA NUIT! vIVE LES LITS! VIVE LE SOMMEIL!
