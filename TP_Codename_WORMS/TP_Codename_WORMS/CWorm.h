@@ -82,6 +82,9 @@ public:
 			switch (_Event.type) {
 				case SDL_KEYDOWN:
 					switch (_Event.key.keysym.sym){
+						case SDLK_1:
+
+							break;
 						case SDLK_UP:
 						case SDLK_w:
 							break;

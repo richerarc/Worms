@@ -25,6 +25,7 @@ private:
 	CTimer* TurnTimer;						// Indique le temps d'un tour.
 	CTimer* DropperTimer;					// Indique le Temps avant de faire tomber les worms.
 	CWorm * ActiveWorm;
+	CJetPack * Jetpack;
 public:
 
 	/*!
@@ -58,6 +59,7 @@ public:
 		DropperTimer->SetTimer(200);
 		DropperTimer->Start();
 		ActiveWorm = nullptr;
+		Jetpack = nullptr;
 	}
 	
 	/*!
@@ -150,6 +152,12 @@ public:
 						m_pListeTeam->AllerSuivant();
 				}
 			}
+			if (_Event.key.keysym.sym == SDLK_1 && ActiveWorm != nullptr){
+				Jetpack = new CJetPack(ActiveWorm);
+			}
+			if (Jetpack != nullptr)
+				Jetpack->HandleEvent(&_Event);
+
 		}
 	}
 
