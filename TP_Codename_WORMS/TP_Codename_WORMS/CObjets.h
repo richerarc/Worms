@@ -40,11 +40,11 @@ public:
 	virtual void Draw(SDL_Renderer*) = 0;
 
 	/*!
-	@Accesseur virtuel IsItExplosed
+	@Accesseur virtuel IsItExploded
 	@brief Permet de savoir si l'objet est explosé ou non.
 	@return bool.
 	*/
-	virtual bool IsExplosed(){return false;};
+	virtual bool IsExploded(){return false;};
 	
 	virtual void Detonate(){}
 };

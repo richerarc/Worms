@@ -9,7 +9,7 @@
 class CMissiles : public CObjets{
 private:
 	//Données membres:
-	bool boIsExplosed; //Donnée représentant si l'objet est explosé (true) ou non (false)
+	bool boIsexploded; //Donnée représentant si l'objet est explosé (true) ou non (false)
 
 public:
 
@@ -24,7 +24,7 @@ public:
 	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
 	CMissiles(SDL_Texture* _textureExplosion, SDL_Rect _RectPos, SDL_Texture* _Texture) :CObjets(_textureExplosion, _RectPos, _Texture){
-		boIsExplosed = false;
+		boIsexploded = false;
 	}
 	
 	/*!
@@ -73,12 +73,12 @@ public:
 		m_RectPosition.y = _iy;
 	}
 
-	bool IsItExplosed(){
-		return boIsExplosed;
+	bool IsItexploded(){
+		return boIsexploded;
 	}
 
 	void setExplosion(bool _boSet){
-		boIsExplosed = _boSet;
+		boIsexploded = _boSet;
 	}
 	
 

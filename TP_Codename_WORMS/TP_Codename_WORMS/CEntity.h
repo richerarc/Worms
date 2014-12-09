@@ -59,7 +59,7 @@ public:
 			break;
 		case Chute:
 				m_Trajectoire->UpdatePosition();
-				
+
 				CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
 				if (temp != nullptr)
 				{

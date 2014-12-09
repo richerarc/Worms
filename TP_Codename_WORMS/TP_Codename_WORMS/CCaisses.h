@@ -9,7 +9,7 @@
 class CCaisses : public CObjets{
 private:
 	//Données membres:
-	bool boIsExplosed;//Donnée représentant si l'objet est explosé (true) ou non (false).
+	bool boIsexploded;//Donnée représentant si l'objet est explosé (true) ou non (false).
 
 public:
 
@@ -23,7 +23,7 @@ public:
 	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets.
 	*/
 	CCaisses(SDL_Texture* _TextureExplosion, SDL_Rect _RectPos, SDL_Texture* _pTexture) :CObjets(_TextureExplosion, _RectPos, _pTexture){
-		boIsExplosed = false;
+		boIsexploded = false;
 	}
 
 	/*!
@@ -63,7 +63,7 @@ public:
 	@discussion Aucune.
 	*/
 	void ReactToExplosion(int _iX, int _iY, int _iRayon){
-		boIsExplosed = true;
+		boIsexploded = true;
 	}
 
 	void Move(){
@@ -90,12 +90,12 @@ public:
 	@brief Permet d'acceder aux données membres.
 	*/
 
-	bool IsItExplosed(){
-		return boIsExplosed;
+	bool IsItexploded(){
+		return boIsexploded;
 	}
 
 	void setExplosion(bool _boSet){
-		boIsExplosed = _boSet;
+		boIsexploded = _boSet;
 	}
 
 	void setPos(int _ix, int _iy){

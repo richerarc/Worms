@@ -10,7 +10,7 @@ class CGrenades : public CObjets{
 private:
 	//Données membres:
 	CTimer* m_pTimer;	// Déclaration d'une nouvelle minuterie pour le temps à écouler avant l'explosion.
-	bool boIsExplosed;	// Donnée représentant si l'objet est explosé (true) ou non (false)
+	bool boIsexploded;	// Donnée représentant si l'objet est explosé (true) ou non (false)
 
 public:
 
@@ -26,7 +26,7 @@ public:
 		m_pTimer = new CTimer();
 		m_pTimer->SetTimer(1000);
 		m_pTimer->Start();
-		boIsExplosed = false;
+		boIsexploded = false;
 	}
 
 	/*!
@@ -55,7 +55,7 @@ public:
 	void HandleEvent(SDL_Event _Event){
 		m_boFocus = true;
 		if (m_pTimer->IsElapsed())
-			boIsExplosed = true;
+			boIsexploded = true;
 	}
 
 	/*!
@@ -70,12 +70,12 @@ public:
 	@brief Servent a acceder/modifier aux données membres.
 	*/
 
-	bool IsItExplosed(){
-		return boIsExplosed;
+	bool IsItexploded(){
+		return boIsexploded;
 	}
 
 	void setExplosion(bool _boSet){
-		boIsExplosed = _boSet;
+		boIsexploded = _boSet;
 	}
 
 	void setPos(int _ix, int _iy){
