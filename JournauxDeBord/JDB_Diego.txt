@@ -43,3 +43,6 @@
 27 Novembre --  de 14h00 a 17h00
 
 -Jessy et moi avons travaillé dans la classe CJetpack.h, il manque des affaires, certainement. Nous avons modifié aussi la classe CPowerBar (Tous les commit se feront a partir du compte a jessy)
+
+09 Decembre -- de 10h00 a 12h15
+- J'ai fini une version basic de la classe CJetpack.h, elle marche quand meme bien. RIP Mrow.h
