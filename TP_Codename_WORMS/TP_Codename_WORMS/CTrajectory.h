@@ -69,11 +69,14 @@ public:
 			double DeltaY = ((m_InitSpeed->getComposanteY()*dTimeVariation) + (DeltaT * m_Acceleration->getComposanteY()))/10000;
 			m_NextPos->setX(m_ActualPos->getX() + DeltaX);
 			m_NextPos->setY(m_ActualPos->getY() + DeltaY);
-
+			
+			//m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX() + m_Acceleration->getComposanteX()*dTimeVariation,
+				//m_InitSpeed->getComposanteY() + m_Acceleration->getComposanteX()*dTimeVariation);
+			
 
 			//Le code ci-dessous est pour la vitesse actuelle
-			m_ActualSpeed->setComposanteXY((DeltaX + DeltaT * m_Acceleration->getComposanteX()) / dTimeVariation,
-				(DeltaY + DeltaT * m_Acceleration->getComposanteY()) / dTimeVariation);
+			m_ActualSpeed->setComposanteXY((DeltaX + DeltaT * m_Acceleration->getComposanteX()) / dTimeVariation ,
+				(DeltaY + DeltaT * m_Acceleration->getComposanteY()) / dTimeVariation );
 		}
 	}
 
@@ -121,21 +124,19 @@ public:
 		//m_ActualSpeed->setOrientation(2 * (M_PI / 2 - _Slope) + AngleBetweenSlopes);
 		//else
 		if (_Slope == 0.0){
-			if (m_ActualSpeed->getComposanteX() < 0)
-				m_ActualSpeed->setOrientation(-(M_PI - AngleBetweenSlopes));//done
-			else
-				m_ActualSpeed->setOrientation(AngleBetweenSlopes);//done
+			m_ActualSpeed->setOrientation(- m_ActualSpeed->getOrientation());//done
 		}
 		else{
-			if (_Slope < 0){
-				m_ActualSpeed->setOrientation(M_PI + AngleBetweenSlopes); //done
+			if (_Slope < 0.0){
+				m_ActualSpeed->setOrientation(AngleBetweenSlopes + M_PI); //done
 			}
 			else {
 				m_ActualSpeed->setOrientation(AngleBetweenSlopes);
 			}
 		}
-		m_InitSpeed->setComposanteXY(100 * m_ActualSpeed->getComposanteX(), 100 * m_ActualSpeed->getComposanteY());
-		m_StartPos = m_ActualPos;
+		m_InitSpeed->setComposanteXY(30 * m_ActualSpeed->getComposanteX(), 30 * m_ActualSpeed->getComposanteY());
+		m_StartPos->setXY(m_ActualPos->getX(), m_ActualPos->getY());
+		m_InitSpeed->setDOUBLE_XY_START(m_StartPos->getX(), m_StartPos->getY());
 		delete m_NextPos;
 		m_NextPos = new CPosition(m_ActualPos->getX(), m_ActualPos->getY());
 		m_TrajectoryTime->Start();
@@ -149,6 +150,10 @@ public:
 		return m_ActualPos;
 	}
 	
+	C2DVector* GetActualSpeed(){
+		return m_ActualSpeed;
+	}
+
 	void WipeOut(){
 		m_Acceleration->setNorme(0);
 		m_InitSpeed->setNorme(0);

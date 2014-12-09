@@ -86,7 +86,63 @@ public:
 
 	
 	void Move(){
-		
+		switch (m_EntityState){
+		case Immobile:
+			if (m_Trajectoire->GetInitSpeed())
+				m_Trajectoire->WipeOut();
+			break;
+		case Chute:
+			m_Trajectoire->UpdatePosition();
+
+			CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+			if (temp != nullptr)
+			{
+				if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY()))
+					if (m_Trajectoire->GetActualSpeed()->getNorme() < 200)
+						m_EntityState = Immobile;
+					else {
+						SDL_Rect* Impact = new SDL_Rect({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
+						m_Trajectoire->Bounce(CPhysics::EvaluateSlope(Impact));
+						delete Impact;
+						/*
+						int iCollision = CPhysics::VerifyGroundCollision(m_RectPosition);
+						if (iCollision != NOCONTACT){
+							if (iCollision == GROUND){
+								SDL_Rect* Impact = new SDL_Rect({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
+								m_Trajectoire->Bounce(CPhysics::EvaluateSlope(Impact));
+								delete Impact;
+							}
+						}
+						*/
+					}
+				else
+					m_EntityState = Chute;
+
+				m_RectPosition.y = temp->getY();
+				m_RectPosition.x = temp->getX();
+				delete temp;
+			}
+			else{
+				m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
+				m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+			}
+			break;
+		}
+		/*
+		int iCollision = CPhysics::VerifyGroundCollision(m_RectPosition);
+		if (iCollision != NOCONTACT){
+			if (iCollision == GROUND){
+				SDL_Rect* Impact = new SDL_Rect({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50});
+				m_Trajectoire->Bounce(CPhysics::EvaluateSlope(Impact));
+				delete Impact;
+			}
+		}
+		m_Trajectoire->UpdatePosition();
+		int iX = m_Trajectoire->GetActualPosition()->getX();
+		int iY = m_Trajectoire->GetActualPosition()->getY();
+		m_RectPosition.x = iX;
+		m_RectPosition.y = iY;
+		*/
 	}
 
 };

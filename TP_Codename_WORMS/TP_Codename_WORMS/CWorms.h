@@ -130,7 +130,7 @@ public:
 #elif defined (_WIN32)
 		strPath.append("\\");
 #endif
-		string FileName[25] = {
+		string FileName[26] = {
 			"Arpegius.ttf",
 			"Btn1.png",
 			"BtnL.png",
@@ -155,10 +155,11 @@ public:
 			"SpriteSheetFinal.png",
 			"Eplosionmask.png",
 			"explosion1.png",
-			"FontWorm.ttf"
+			"FontWorm.ttf",
+			"SpriteGrenade.png"
 		};
-		string strFilePath[25];
-		for (int i = 0; i < 25; i++){
+		string strFilePath[26];
+		for (int i = 0; i < 26; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
@@ -204,6 +205,7 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("worm", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[16].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("wormSprite", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[21].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("mine", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[17].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("grenade", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[25].c_str())));
 		m_Gestionaire->AjouterSurface(new CSurface("explosionmask", IMG_Load(strFilePath[22].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("explosion1", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[23].c_str())));
 
