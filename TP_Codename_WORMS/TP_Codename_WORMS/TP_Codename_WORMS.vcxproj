@@ -72,7 +72,6 @@
   <ItemGroup>
     <ClInclude Include="C2DVector.h" />
     <ClInclude Include="CJetPack.h" />
-    <ClInclude Include="CMrow.h" />
     <ClInclude Include="CPosition.h" />
     <ClInclude Include="CBazouka.h" />
     <ClInclude Include="CBoussole.h" />

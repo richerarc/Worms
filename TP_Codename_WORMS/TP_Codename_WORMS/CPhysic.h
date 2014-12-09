@@ -149,7 +149,7 @@ public:
 				{
 					for (int i = 0; i < _EntityRect.w; i++){
 						temp = (m_Map->w * ((int)dblY + _EntityRect.h)) + ((int)dblX + i);
-						if (temp >= 0){
+						if ((temp >= 0) && (dblX <= WIDTH) && (dblY <= HEIGHT) && (dblX > (0 -_EntityRect.w)) && () ){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
