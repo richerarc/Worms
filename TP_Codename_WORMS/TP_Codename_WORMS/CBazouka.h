@@ -15,16 +15,24 @@ To Do:
 class CBazouka{
 private:
 	//Données membres:
-	SDL_Rect m_Rect; //La pos du rectangle de l'objet
-	SDL_Rect m_RectSurface; //La pos du rectangle de l'objet
+	SDL_Rect m_RectBazouka; //La pos du rectangle de l'objet
+	SDL_Rect m_RectMissile; //Le rectangle du missile
 	double iAngle; // L'angle de rotation
-	SDL_Texture* m_pTexture; // Texture de l'image à afficher.
-	bool m_boCharging; // Booléen pour vérifier si le bazouka va lancer un missile
+	SDL_Texture* m_pTextureBazouka; // Texture de l'image du Bazouka à afficher.
+	SDL_Texture* m_pTextureMissile; // Texture de l'image du Missile à afficher.
+	SDL_Texture* m_pTextureExplosion;// Texture de l'image de l'explosion.
+	bool boCharging; // Booléen pour vérifier si le bazouka se prepare a lancer un missile
 	bool boIsRotated; // Booléen pour vérifier si le bazouka sera en rotation
+	bool boIsLaunch; // Booléen pour vérifier si le bazouka lance un missile
 	unsigned int m_uiPower; // Représente le power du missile.
 	CPowerBar* m_PowerBar; // Représente une nouvelle barre de lancement
 	CWorm* m_Worm; // Représente un pointeur de worm afin d'obtenir sa position et ses states
 	SDL_RendererFlip m_flipType; // Représente le type de rotation effectuer sur le bazouka
+	CMissiles* m_pMissile;
+	float fPosXTempo;
+	float fPosYTempo;
+	int iPosXTampon;
+	int iPosYTampon;
 public:
 	/*!
 	@Constructeur
@@ -32,18 +40,23 @@ public:
 	@param _Worm: Un pointeur vers le worm qui est focus
 	@param _pTexture : Texture de l'image à afficher. NOTE: LA TEXTURE loader doit être celle de droite.
 	*/
-	CBazouka(SDL_Texture* _pTexture, CWorm* _pWorm){
-		m_Rect = _pWorm->getPosition();
-		m_RectSurface = _pWorm->getPosition();
-		m_Rect.w = 52;
-		m_Rect.h = 28;
-		SDL_QueryTexture(_pTexture, NULL, NULL, &m_Rect.w, &m_Rect.h);//Dimension du bazooka
-		m_pTexture = _pTexture;
-		m_boCharging = false;
+	CBazouka(SDL_Texture* _pTextureBazouka, SDL_Texture* _pTextureMissile, SDL_Texture* _pTextureExplosion, CWorm* _pWorm){
+		m_RectBazouka = _pWorm->getPosition();
+		m_RectBazouka.w = 52;
+		m_RectBazouka.h = 28;
+		SDL_QueryTexture(_pTextureBazouka, NULL, NULL, &m_RectBazouka.w, &m_RectBazouka.h);//Texture du bazouka.
+		SDL_QueryTexture(_pTextureMissile, NULL, NULL, &m_RectMissile.w, &m_RectMissile.h);//Texture du missile.
+		m_pTextureBazouka = _pTextureBazouka;
+		m_pTextureMissile = _pTextureMissile;
+		m_pTextureExplosion = _pTextureExplosion;
+		boCharging = false;
 		boIsRotated = false;
+		boIsLaunch = false;
 		iAngle = 0;
 		m_uiPower = 0;
-		m_PowerBar = new CPowerBar(m_RectSurface);
+		fPosXTempo = 0;
+		fPosYTempo = 0;
+		m_PowerBar = new CPowerBar(m_RectBazouka);
 		m_PowerBar->setPowerLevel(m_uiPower);
 		m_Worm = _pWorm;
 		m_flipType = SDL_FLIP_NONE;
@@ -65,23 +78,26 @@ public:
 	void Render(SDL_Renderer* _pRenderer){
 		if (!boIsRotated){
 			if (m_Worm->getWormState() == UsingBazzRight)
-				SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_Rect, iAngle, NULL, SDL_FLIP_NONE);
+				SDL_RenderCopyEx(_pRenderer, m_pTextureBazouka, NULL, &m_RectBazouka, iAngle, NULL, SDL_FLIP_NONE);
 			if (m_Worm->getWormState() == UsingBazzLeft){
-				SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_Rect, iAngle, NULL, SDL_FLIP_HORIZONTAL);
+				SDL_RenderCopyEx(_pRenderer, m_pTextureBazouka, NULL, &m_RectBazouka, iAngle, NULL, SDL_FLIP_HORIZONTAL);
 				m_flipType = SDL_FLIP_HORIZONTAL;
 			}
 		}
 		else{
 			if (m_Worm->getWormState() == UsingBazzRight){
-				SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_Rect, iAngle, NULL, m_flipType);
+				SDL_RenderCopyEx(_pRenderer, m_pTextureBazouka, NULL, &m_RectBazouka, iAngle, NULL, m_flipType);
 			}
 			if (m_Worm->getWormState() == UsingBazzLeft){
-				SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_Rect, iAngle, NULL, m_flipType);
+				SDL_RenderCopyEx(_pRenderer, m_pTextureBazouka, NULL, &m_RectBazouka, iAngle, NULL, m_flipType);
 
 			}
 		}
-		if (m_boCharging){
+		if (boCharging){
 			m_PowerBar->Draw(_pRenderer);
+		}
+		if (boIsLaunch){
+			m_pMissile->Draw(_pRenderer);
 		}
 	}
 
@@ -121,8 +137,8 @@ public:
 				break;
 
 			case SDLK_SPACE:
-				m_PowerBar->SetPosition(m_Rect.x, m_Rect.y);
-				m_boCharging = true;
+				m_PowerBar->SetPosition(m_RectBazouka.x, m_RectBazouka.y);
+				boCharging = true;
 				m_PowerBar->PowerUp();
 				break;
 			}
@@ -173,6 +189,20 @@ public:
 				break;
 
 			case SDLK_SPACE:
+				boIsLaunch = true;
+				fPosXTempo = 53.9*cos(abs(DegToRad(iAngle - 15)));
+				fPosYTempo = 53.9*sin(abs(DegToRad(iAngle - 15)));
+				iPosXTampon = fPosXTempo;
+				iPosYTampon = fPosYTempo;
+				if (fPosXTempo > iPosXTampon + 0.5)
+					iPosXTampon++;
+				if (fPosYTempo > iPosYTampon + 0.5)
+					iPosYTampon++;
+				m_RectMissile.x = iPosXTampon;
+				m_RectMissile.y = iPosYTampon;
+
+				m_pMissile = new CMissiles(m_pTextureExplosion, m_RectMissile, m_pTextureMissile, m_PowerBar->getPowerLevel());
+				m_pMissile->Move();
 				m_PowerBar->setPowerLevel(m_uiPower);
 				break;
 			}

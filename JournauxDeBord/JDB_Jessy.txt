@@ -87,3 +87,5 @@ Les conditions pour le handleEvent de CBazouka sont maintenant fonctionnelles
 - Ajout d'une méthode pour calculer les points de vie rendu par la CCaisse
 - Ajout d'un accesseur setEntityState dans CWorm
 - Ajout de conditions dans le HandleEvent keyup du CBazouka
+9 Décembre 9h à 17h (avec plusieurs pauses) 
+- Lancer des missiles avec le bazouka (pas terminé)

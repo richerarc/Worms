@@ -10,7 +10,8 @@ class CMissiles : public CObjets{
 private:
 	//Données membres:
 	bool boIsexploded; //Donnée représentant si l'objet est explosé (true) ou non (false)
-
+	C2DVector* m_pVectorVitesse;
+	C2DVector* m_pVectorAccel;
 public:
 
 
@@ -23,10 +24,12 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
-	CMissiles(SDL_Texture* _textureExplosion, SDL_Rect _RectPos, SDL_Texture* _Texture) :CObjets(_textureExplosion, _RectPos, _Texture){
+	CMissiles(SDL_Texture* _textureExplosion, SDL_Rect _RectPos, SDL_Texture* _Texture, int _uiPower) :CObjets(_textureExplosion, _RectPos, _Texture){
 		boIsexploded = false;
+		m_pVectorVitesse = new C2DVector(_RectPos.x, _RectPos.y, 20, 20); // pas bon ça
+		m_pVectorAccel = new C2DVector(_RectPos.x, _RectPos.y, 35, 35); // pas bon ça aussi
 	}
-	
+
 	/*!
 	@Destructeur:
 	@Permet de détruire les objets créés en mémoire
@@ -35,7 +38,23 @@ public:
 	}
 
 	void Move(){
-		
+		switch (m_EntityState){
+		case Deplacement:
+			m_Trajectoire->UpdatePosition();
+			CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+			if (temp != nullptr)
+			{
+				m_Trajectoire = (CPhysics::Propulsion(temp, m_pVectorVitesse, m_pVectorAccel));
+				m_RectPosition.y = temp->getY();
+				m_RectPosition.x = temp->getX();
+				delete temp;
+			}
+			else{
+				m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
+				m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+			}
+			break;
+		}
 	}
 
 	/*!
@@ -44,6 +63,7 @@ public:
 	@return null
 	*/
 	void Draw(SDL_Renderer* _pRenderer){
+		Move();
 		SDL_RenderCopy(_pRenderer, m_pTexture, NULL, &m_RectPosition);
 	}
 
@@ -80,7 +100,7 @@ public:
 	void setExplosion(bool _boSet){
 		boIsexploded = _boSet;
 	}
-	
+
 
 };
 
