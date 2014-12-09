@@ -188,8 +188,6 @@ public:
 	void setComposanteXY(double _CompX, double _CompY){
 		m_ComposanteX = _CompX;
 		m_ComposanteY = _CompY;
-		if (m_ComposanteX < 0.5)
-			m_ComposanteX = 0;
 		m_XFin = m_XOrigine + (m_ComposanteX);
 		m_YFin = m_YOrigine + (m_ComposanteY);
 		m_XEnd = m_XStart + (m_ComposanteX);
