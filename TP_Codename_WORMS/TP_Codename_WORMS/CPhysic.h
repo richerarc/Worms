@@ -153,6 +153,8 @@ public:
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
+								if ((dblX > WIDTH) || (dblY > HEIGHT) || (dblX < (0 - _EntityRect.w)) || (dblY < (0 - _EntityRect.h)))
+									CollisionPosition->setState(true);
 								return CollisionPosition;
 							}
 						}
