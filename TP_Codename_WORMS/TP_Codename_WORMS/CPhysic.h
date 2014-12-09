@@ -447,16 +447,16 @@ public:
 	@param _Rect : Rectangle de l'objet impliqué
 	@return La trajectoire du glissement
 	*/
-	//static CTrajectory * Slide(CEntity* _Entity){
-		//SDL_Rect* TmpRect = new SDL_Rect({ _Entity->getPosition().x, _Entity->getPosition().y + _Entity->getPosition().h
-			//, 50, _Entity->getPosition().w }); //Le 50 est arbitraire because or reasons
-		//double AngleDePente = CPhysics::EvaluateSlope(TmpRect);
-		//if (_Entity->getTrajectoire() != nullptr){
-		//}
-		//else{
+	/*static CTrajectory * Slide(CEntity* _Entity){
+		SDL_Rect* TmpRect = new SDL_Rect({ _Entity->getPosition().x, _Entity->getPosition().y + _Entity->getPosition().h
+			, 50, _Entity->getPosition().w }); //Le 50 est arbitraire because or reasons
+		double AngleDePente = CPhysics::EvaluateSlope(TmpRect);
+		if (_Entity->getTrajectoire() != nullptr){
+		}
+		else{
 
-//		}
-	//}
+		}
+	}*/
 
 	/*!
 	@method Move
@@ -469,8 +469,12 @@ public:
 	*/
 	static int Move(SDL_Rect* _Rect, int _Direction){
 		if (_Direction == LEFT){
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + _Rect->h) + _Rect->x - 1] == 0){
+				_Rect->x = _Rect->x - 1;
+				return MOVING;
+			}
 			for (int i = 0; i < _Rect->h + 5; i++){
-				if (!(((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y - 5 + i) + _Rect->x - 1] == 0)){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y - 5 + i) + _Rect->x - 1] != 0){
 					if (i < _Rect->h)
 						return BLOCKED;
 					else {
@@ -478,15 +482,15 @@ public:
 							_Rect->y = _Rect->y - (_Rect->h - i);
 						}
 						else {
-							bool Verif = false;
-							for (int j = 0; j < _Rect->w; j++){
-								if ((((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + 5 + _Rect->h) + _Rect->x + j - 1] != 0)){
-									Verif = true;
-									break;
+							for (int j = 0; j < 5; j++) {
+								for (int h = 0; h < _Rect->w; h++){
+									if ((((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + j + _Rect->h) + _Rect->x + h - 1] != 0)){
+										_Rect->y = _Rect->y + (_Rect->h - j);
+										_Rect->x = _Rect->x + 1;
+										return MOVING;
+									}
 								}
 							}
-							if (Verif)
-								_Rect->y = _Rect->y + (_Rect->h - i);
 						}
 					}
 				}
@@ -495,8 +499,12 @@ public:
 			return MOVING;
 		}
 		else{
+			if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + _Rect->h) + _Rect->x + _Rect->w + 1] == 0){
+				_Rect->x = _Rect->x + 1;
+				return MOVING;
+			}
 			for (int i = 0; i < _Rect->h + 5; i++){
-				if (!(((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y - 5 + i) + _Rect->x + _Rect->w] == 0)){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y - 5 + i) + _Rect->x + _Rect->w] != 0){
 					if (i < _Rect->h)
 						return BLOCKED;
 					else {
@@ -504,15 +512,15 @@ public:
 							_Rect->y = _Rect->y - (_Rect->h - i);
 						}
 						else {
-							bool Verif = false;
-							for (int j = 0; j < _Rect->w; j++){
-								if ((((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + 5 + _Rect->h) + _Rect->x + j - 1] != 0)){
-									Verif = true;
-									break;
+							for (int j = 0; j < 5; j++) {
+								for (int h = 0; h < _Rect->w; h++){
+									if ((((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + j + _Rect->h) + _Rect->x + h - 1] != 0)){
+										_Rect->y = _Rect->y + (_Rect->h - j);
+										_Rect->x = _Rect->x + 1;
+										return MOVING;
+									}
 								}
 							}
-							if (Verif)
-								_Rect->y = _Rect->y + (_Rect->h - i);
 						}
 					}
 				}

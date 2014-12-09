@@ -22,7 +22,6 @@ private:
 	CSprite* m_pSprite;//Sprite du worm
 	CLabel* m_lblNom;
 	SDL_Rect m_BarredeVie;
-	int m_itterateurSaut;
 public:
 
 	/*!
@@ -45,7 +44,7 @@ public:
 		m_lblNom = new CLabel("", m_strName.c_str(), _Font, SDL_Rect{_RectPos.x,_RectPos.y + 20,50,10});
 		m_EntityState = Largage;
 		m_pSprite->Start();
-		m_itterateurSaut = 20;
+
 	}
 
 	/*!
@@ -166,25 +165,13 @@ public:
 	string getName(){ return m_strName; }
 
 	void Move(){
-		
+		int iTemp = CPhysics::VerifyGroundCollision(m_RectPosition);
 		switch (m_EntityState) {
 			case JumpLeft:
-				if (m_itterateurSaut >  -10){
-					setPosXY(m_RectPosition.x - abs(m_itterateurSaut) ,m_RectPosition.y - 1.5 * m_itterateurSaut);
-					m_itterateurSaut -= (m_itterateurSaut + 5)/2;
-				}
-				if (m_itterateurSaut <= -9){
-					m_itterateurSaut = 20;
-				}
+				
 				break;
 			case JumpRight:
-				if (m_itterateurSaut >  -10){
-					setPosXY(m_RectPosition.x + abs(m_itterateurSaut) ,m_RectPosition.y - 1.5 * m_itterateurSaut);
-					m_itterateurSaut -= (m_itterateurSaut + 5)/2;
-				}
-				if (m_itterateurSaut <= -9){
-					m_itterateurSaut = 20;
-				}
+				
 				break;
 			case MotionRight:
 				CPhysics::Move(&m_RectPosition, RIGHT);
