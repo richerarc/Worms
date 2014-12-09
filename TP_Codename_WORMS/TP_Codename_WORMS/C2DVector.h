@@ -135,7 +135,15 @@ public:
 	double getXStart(){ return m_XStart; }
 	double getYStart(){ return m_YStart; }
 	double getNorme(){ return m_Norme; }
+	double getOrientation(){ return m_Orientation; }
+	double getComposanteX(){ return m_ComposanteX; }
+	double getComposanteY(){ return m_ComposanteY; }
 
+	/*!
+	@method getSDLOrientation
+	@brief Obtient l'orientation voulue selon le système d'axe en affichage graphique.
+	@discussion Simple lorsqu'on a compris mais difficile a comprendre quand on as appris tout le contraire depuit le début de nos études.
+	*/
 	double getSDLOrientation(){
 
 		if (m_ComposanteX == 0 && m_ComposanteY < 0){ return 0; }
@@ -157,11 +165,9 @@ public:
 		if (m_ComposanteX < 0 && m_ComposanteY > 0){
 			return (atan(m_ComposanteY / m_ComposanteX) + (3 * M_PI / 2));
 		}
-	}
 
-	double getOrientation(){ return m_Orientation; }
-	double getComposanteX(){ return m_ComposanteX; }
-	double getComposanteY(){ return m_ComposanteY; }
+		return NULL;
+	}
 
 	void setDOUBLE_XY_END(double _x, double _y){
 		m_XEnd = _x;
@@ -171,7 +177,6 @@ public:
 		m_XStart = _x;
 		m_YStart = _y;
 	}
-
 	void setXYfin(int _x, int _y){
 		m_XFin = _x;
 		m_YFin = _y;
@@ -180,7 +185,6 @@ public:
 		m_XOrigine = _x;
 		m_YOrigine = _y;
 	}
-
 	void setComposanteXY(double _CompX, double _CompY){
 		m_ComposanteX = _CompX;
 		m_ComposanteY = _CompY;
