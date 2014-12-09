@@ -29,7 +29,6 @@ private:
 	SDL_Rect m_BarredeVie;
 	C2DVector* m_Deplacement;
 	SDL_Color* m_TeamColor;
-	float m_Angle;
 public:
 
 	/*!
@@ -157,12 +156,14 @@ public:
 			case MotionLeft:
 				if (m_pSprite->getCurrentAnimation() != 3)
 					m_pSprite->setCurrentAnimation(3);
-				m_pSprite->Render(0,4,_Renderer, m_Angle);
+					//m_pSprite->Render(0,4,_Renderer, m_Angle);
+				m_pSprite->Render(0,4,_Renderer);
 				break;
 			case MotionRight:
 				if (m_pSprite->getCurrentAnimation() != 2)
 					m_pSprite->setCurrentAnimation(2);
-				m_pSprite->Render(0,4,_Renderer, m_Angle);
+					//m_pSprite->Render(0,4,_Renderer, m_Angle);
+				m_pSprite->Render(0,4,_Renderer);
 				break;
 		}
 		
