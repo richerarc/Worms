@@ -15,6 +15,7 @@ protected:
 	CTrajectory* m_Trajectoire;	// Trajectoire de l'objet
 	unsigned int m_EntityState;	// État actuel de l'objet
 	SDL_Texture* m_pTexture;	// Texture de l'entité
+	float m_Angle;
 public:
 
 	/*!
@@ -32,6 +33,7 @@ public:
 		m_EntityState = Chute;
 		m_pTexture = _Texture;
 		m_Trajectoire = CPhysics::Propulsion(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.f, 2.f), new C2DVector(m_RectPosition.x, m_RectPosition.y, double(0), double(CPhysics::GetGravity())));
+		m_Angle = 0;
 	}
 
 	/*!
