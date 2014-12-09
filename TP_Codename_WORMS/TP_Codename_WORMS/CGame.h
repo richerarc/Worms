@@ -24,6 +24,8 @@ private:
 	bool m_boPause;							// Indique si le jeu est en pause.
 	CTimer* TurnTimer;						// Indique le temps d'un tour.
 	CTimer* DropperTimer;					// Indique le Temps avant de faire tomber les worms.
+	CWorm * ActiveWorm;
+	CJetPack * Jetpack;
 public:
 
 	/*!
@@ -56,6 +58,8 @@ public:
 		Spawn();
 		DropperTimer->SetTimer(200);
 		DropperTimer->Start();
+		ActiveWorm = nullptr;
+		Jetpack = nullptr;
 	}
 	
 	/*!
@@ -83,6 +87,16 @@ public:
 			m_pListeTeam->ObtenirElement()->NextTurn();
 			m_pListeTeam->ObtenirElement()->setFocus(false);
 		}
+		for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
+			m_pListeTeam->AllerA(i);
+			if (m_pListeTeam->ObtenirElement()->IsFocused()){
+				for (int k = 0; k < m_uiNbOfWormPerTeam; k++){
+					ActiveWorm = m_pListeTeam->ObtenirElement()->getPlayingWorm();
+					break;
+				}
+				break;
+			}
+		}
 		m_pListeTeam->AllerA((uitemp + 1) % m_uiNbOfPlayingTeams);
 		m_pListeTeam->ObtenirElement()->setFocus(true);
 	}
@@ -93,8 +107,8 @@ public:
 	*/
 	void Render(){
 		m_pMap->Draw(m_pRenderer);
-		double Wind = RadToDeg(CPhysics::GetWind()->getSDLOrientation());
-		m_pBoussole->setAngle(Wind);
+		double Wind = RadToDeg(CPhysics::GetWind()->getOrientation());
+		m_pBoussole->setAngle((360-Wind));
 		m_pBoussole->Draw(m_pRenderer);
 		
 		m_pListeObjets->AllerDebut();
@@ -138,6 +152,12 @@ public:
 						m_pListeTeam->AllerSuivant();
 				}
 			}
+			if (_Event.key.keysym.sym == SDLK_1 && ActiveWorm != nullptr){
+				Jetpack = new CJetPack(ActiveWorm);
+			}
+			if (Jetpack != nullptr)
+				Jetpack->HandleEvent(&_Event);
+
 		}
 	}
 
@@ -162,6 +182,16 @@ public:
 		if (m_pListeTeam->Count() == m_uiNbOfPlayingTeams){
 			m_pListeTeam->AllerDebut();
 			m_pListeTeam->ObtenirElement()->setFocus(true);
+			if (m_pListeTeam->ObtenirElement()->IsFocused())
+				for (int k = 0; k < m_uiNbOfWormPerTeam; k++){
+					ActiveWorm = m_pListeTeam->ObtenirElement()->getPlayingWorm();
+				}
+			/*for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
+				m_pListeTeam->AllerA(i);
+				
+					break;
+				}
+			}*/
 		}
 	}
 
@@ -194,4 +224,12 @@ public:
 	void PauseGame(){ m_boPause = true;}
 	void ResumeGame(){ m_boPause = false;}
 
+
+	/*
+	Methode getActiveWorm
+	*/
+
+	CWorm* getActiveWorm(){
+		return ActiveWorm;
+	}
 };

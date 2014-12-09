@@ -20,6 +20,7 @@ private:
 	double m_iNorme;			// La norme du vecteur de déplacement
 	C2DVector* m_pVecteur;		// Le pointeur de vecteur de déplacement
 	CTimer* m_pTimer;			// Une minuterie pour décrémenter le power à tous les "x" secondes
+	CWorm * Worm;
 
 
 public:
@@ -33,8 +34,8 @@ public:
 	@discussion No discussion is needed.
 	*/
 	CJetPack(CWorm* _pWorm){
+		Worm = _pWorm;
 		m_RectJetPack = _pWorm->getPosition();
-		m_RectSurface = _pWorm->getPosition();
 		m_pBarreGaz = new CPowerBar(m_RectSurface);
 		m_pBarreGaz->setPowerLevel(100);
 		m_iAngle = 0;
@@ -71,30 +72,37 @@ public:
 	@return Aucun
 	@discussion none.
 	*/
-	void Deplacer(SDL_Rect _RectPosInitiale, double _Angle){
-		_RectPosInitiale.x += m_iNorme * cos(_Angle);
-		_RectPosInitiale.y += m_iNorme * sin(_Angle);
+	/*void Deplacer(SDL_Rect* _RectPosInitiale, double _Angle){
+		_RectPosInitiale->x += m_iNorme * cos(_Angle);
+		_RectPosInitiale->y += m_iNorme * sin(_Angle);
 		m_RectJetPack = _RectPosInitiale;
-	}
+		}*/
 
 	/*!
 	@method HandleEvent
 	@param _Event : Un SDL_Event pour traiter les evenement
 	@return null
 	*/
+	void RefreshPosWorm(CWorm* _pWorm){
+		_pWorm->setPosXY(m_RectJetPack.x, m_RectJetPack.y);
+	}
 	void HandleEvent(SDL_Event* _Event){
 		switch (_Event->key.keysym.sym){
 
 
+			int right, left, up;
 		case SDLK_LEFT:
-		//Vérifier si le timer à été partie, sinon, le partir
+			//Vérifier si le timer à été partie, sinon, le partir
 			if (!m_pTimer->HasStarted()){
 				m_pTimer->Start();
 			}
-		//Déplacer la position du rect selon un angle de 180degree ou pi radian
-			Deplacer(m_RectJetPack, (M_PI));
-
-		//Vérifier si le timer est déclancher, si oui, décrémenter le power et repartir le timer
+			//Déplacer la position du rect selon un angle de 180degree ou pi radian
+			left = m_RectJetPack.x;
+			left--;
+			m_RectJetPack.x = left;
+			cout << "LEFT. X = " << Worm->getPosition().x << " Y = " << Worm->getPosition().y << endl;
+			RefreshPosWorm(Worm);
+			//Vérifier si le timer est déclancher, si oui, décrémenter le power et repartir le timer
 			if (m_pTimer->IsElapsed()){
 				if (m_pBarreGaz->getPower() != 0){
 					m_pBarreGaz->PowerDown();
@@ -107,7 +115,11 @@ public:
 			if (!m_pTimer->HasStarted()){
 				m_pTimer->Start();
 			}
-			Deplacer(m_RectJetPack, (M_PI / 2));
+			up = m_RectJetPack.y;
+			up-= 2;
+			m_RectJetPack.y = up;
+			cout << "UP. X = " << Worm->getPosition().x << " Y = " << Worm->getPosition().y << endl;
+			RefreshPosWorm(Worm);
 			if (m_pTimer->IsElapsed()){
 				if (m_pBarreGaz->getPower() != 0){
 					m_pBarreGaz->PowerDown();
@@ -120,17 +132,22 @@ public:
 			if (!m_pTimer->HasStarted()){
 				m_pTimer->Start();
 			}
-			Deplacer(m_RectJetPack, 0);
 			if (m_pTimer->IsElapsed()){
 				if (m_pBarreGaz->getPower() != 0){
 					m_pBarreGaz->PowerDown();
 					m_pTimer->Start();
 				}
+				right = m_RectJetPack.x;
+				right++;
+				m_RectJetPack.x = right;
+				cout << "RIGHT. X = " << Worm->getPosition().x << " Y = " << Worm->getPosition().y << endl;
+				RefreshPosWorm(Worm);
 			}
 			break;
 
 		}
 	}
+
 
 
 };

@@ -83,3 +83,7 @@ Debuggage de la barre de lancement avec Diego, problème résolue
 Nouvelles conditions pour le handleEvent du CBazouka
 4 Décembre 20h30 à 22h:
 Les conditions pour le handleEvent de CBazouka sont maintenant fonctionnelles
+6 Décembre 10h à 13h:
+- Ajout d'une méthode pour calculer les points de vie rendu par la CCaisse
+- Ajout d'un accesseur setEntityState dans CWorm
+- Ajout de conditions dans le HandleEvent keyup du CBazouka
