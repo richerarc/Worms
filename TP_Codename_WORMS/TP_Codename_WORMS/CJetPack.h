@@ -65,90 +65,89 @@ public:
 	}
 
 	/*!
-	@method Deplacer
-	@brief Deplace le jetpack
-	@param _RectPosInitiale: position initiale du worm
-	@param _Angle : angle du vecteur deplacement.
-	@return Aucun
-	@discussion none.
-	*/
+	 @method Deplacer
+	 @brief Deplace le jetpack
+	 @param _RectPosInitiale: position initiale du worm
+	 @param _Angle : angle du vecteur deplacement.
+	 @return Aucun
+	 @discussion none.
+	 */
 	/*void Deplacer(SDL_Rect* _RectPosInitiale, double _Angle){
 		_RectPosInitiale->x += m_iNorme * cos(_Angle);
 		_RectPosInitiale->y += m_iNorme * sin(_Angle);
 		m_RectJetPack = _RectPosInitiale;
 		}*/
-
+	
 	/*!
-	@method HandleEvent
-	@param _Event : Un SDL_Event pour traiter les evenement
-	@return null
-	*/
+	 @method HandleEvent
+	 @param _Event : Un SDL_Event pour traiter les evenement
+	 @return null
+	 */
 	void RefreshPosWorm(CWorm* _pWorm){
 		_pWorm->setPosXY(m_RectJetPack.x, m_RectJetPack.y);
 	}
-	void HandleEvent(SDL_Event* _Event){
-		switch (_Event->key.keysym.sym){
-
-
-			int right, left, up;
-		case SDLK_LEFT:
-			//Vérifier si le timer à été partie, sinon, le partir
-			if (!m_pTimer->HasStarted()){
-				m_pTimer->Start();
-			}
-			//Déplacer la position du rect selon un angle de 180degree ou pi radian
-			left = m_RectJetPack.x;
-			left--;
-			m_RectJetPack.x = left;
-			cout << "LEFT. X = " << Worm->getPosition().x << " Y = " << Worm->getPosition().y << endl;
-			RefreshPosWorm(Worm);
-			//Vérifier si le timer est déclancher, si oui, décrémenter le power et repartir le timer
-			if (m_pTimer->IsElapsed()){
-				if (m_pBarreGaz->getPower() != 0){
-					m_pBarreGaz->PowerDown();
-					m_pTimer->Start();
+	void HandleEvent(SDL_Event _Event){
+		switch (_Event.type) {
+			case SDL_KEYDOWN:
+				switch (_Event.key.keysym.sym){
+						int right, left, up;
+					case SDLK_LEFT:
+							//Vérifier si le timer à été partie, sinon, le partir
+						if (!m_pTimer->HasStarted()){
+							m_pTimer->Start();
+						}
+							//Déplacer la position du rect selon un angle de 180degree ou pi radian
+						left = m_RectJetPack.x;
+						left--;
+						m_RectJetPack.x = left;
+						cout << "LEFT. X = " << Worm->getPosition().x << " Y = " << Worm->getPosition().y << endl;
+						RefreshPosWorm(Worm);
+							//Vérifier si le timer est déclancher, si oui, décrémenter le power et repartir le timer
+						if (m_pTimer->IsElapsed()){
+							if (m_pBarreGaz->getPower() != 0){
+								m_pBarreGaz->PowerDown();
+								m_pTimer->Start();
+							}
+						}
+						break;
+					case SDLK_UP:
+						if (!m_pTimer->HasStarted()){
+							m_pTimer->Start();
+						}
+						up = m_RectJetPack.y;
+						up-= 2;
+						m_RectJetPack.y = up;
+						cout << "UP. X = " << Worm->getPosition().x << " Y = " << Worm->getPosition().y << endl;
+						RefreshPosWorm(Worm);
+						if (m_pTimer->IsElapsed()){
+							if (m_pBarreGaz->getPower() != 0){
+								m_pBarreGaz->PowerDown();
+								m_pTimer->Start();
+							}
+						}
+						break;
+					case SDLK_RIGHT:
+						if (!m_pTimer->HasStarted()){
+							m_pTimer->Start();
+						}
+						if (m_pTimer->IsElapsed()){
+							if (m_pBarreGaz->getPower() != 0){
+								m_pBarreGaz->PowerDown();
+								m_pTimer->Start();
+							}
+							right = m_RectJetPack.x;
+							right++;
+							m_RectJetPack.x = right;
+							cout << "RIGHT. X = " << Worm->getPosition().x << " Y = " << Worm->getPosition().y << endl;
+							RefreshPosWorm(Worm);
+						}
+						break;
 				}
-			}
-			break;
-
-		case SDLK_UP:
-			if (!m_pTimer->HasStarted()){
-				m_pTimer->Start();
-			}
-			up = m_RectJetPack.y;
-			up-= 2;
-			m_RectJetPack.y = up;
-			cout << "UP. X = " << Worm->getPosition().x << " Y = " << Worm->getPosition().y << endl;
-			RefreshPosWorm(Worm);
-			if (m_pTimer->IsElapsed()){
-				if (m_pBarreGaz->getPower() != 0){
-					m_pBarreGaz->PowerDown();
-					m_pTimer->Start();
-				}
-			}
-			break;
-
-		case SDLK_RIGHT:
-			if (!m_pTimer->HasStarted()){
-				m_pTimer->Start();
-			}
-			if (m_pTimer->IsElapsed()){
-				if (m_pBarreGaz->getPower() != 0){
-					m_pBarreGaz->PowerDown();
-					m_pTimer->Start();
-				}
-				right = m_RectJetPack.x;
-				right++;
-				m_RectJetPack.x = right;
-				cout << "RIGHT. X = " << Worm->getPosition().x << " Y = " << Worm->getPosition().y << endl;
-				RefreshPosWorm(Worm);
-			}
-			break;
-
+				break;
 		}
 	}
-
-
+	
+	
 
 };
 

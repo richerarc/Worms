@@ -156,7 +156,7 @@ public:
 				Jetpack = new CJetPack(ActiveWorm);
 			}
 			if (Jetpack != nullptr)
-				Jetpack->HandleEvent(&_Event);
+				Jetpack->HandleEvent(_Event);
 
 		}
 	}

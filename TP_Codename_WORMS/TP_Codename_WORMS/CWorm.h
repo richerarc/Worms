@@ -191,7 +191,7 @@ public:
 				
 				break;
 			case MotionRight:
-				ftemp = CPhysics::EvaluateSlope(new SDL_Rect({m_RectPosition.x + (m_RectPosition.w / 2), m_RectPosition.y + (m_RectPosition.h / 2), m_RectPosition.w, m_RectPosition.h}));
+				ftemp = CPhysics::EvaluateSlope(new SDL_Rect({m_RectPosition.x, m_RectPosition.y + (m_RectPosition.h / 2), 60, m_RectPosition.h}));
 				if (ftemp >= -ANGLEMAX){
 					CPhysics::Move(&m_RectPosition, RIGHT);
 					CPhysics::VerifyGroundCollision(&m_RectPosition);
@@ -201,7 +201,7 @@ public:
 					m_EntityState = SlideRight;
 				break;
 			case MotionLeft:
-				ftemp = CPhysics::EvaluateSlope(new SDL_Rect({m_RectPosition.x - (m_RectPosition.w / 2), m_RectPosition.y + (m_RectPosition.h / 2), m_RectPosition.w, m_RectPosition.h}));
+				ftemp = CPhysics::EvaluateSlope(new SDL_Rect({m_RectPosition.x - m_RectPosition.w, m_RectPosition.y + (m_RectPosition.h / 2), 60, m_RectPosition.h}));
 				if (ftemp <= ANGLEMAX){
 					CPhysics::Move(&m_RectPosition, LEFT);
 					CPhysics::VerifyGroundCollision(&m_RectPosition);
