@@ -38,9 +38,11 @@ public:
 		char Buffer[255];
 		for (int i = 0; i < _uiNbWorms; i++)
 		{
+			strNom.append(" ");
 			strNom.append(SDL_itoa(i, Buffer, 10));
 			//Il manque des données pour créer l'équipes.
-			m_pTabWorm[i] = new CWorm(strNom, _WormRepo, new CSprite("", _TexSprite, 10, 17, 80, -1), _Font, { rand() % WIDTH, 0, 30, 50 }, &m_TeamColor);
+			m_pTabWorm[i] = new CWorm(strNom, _WormRepo, new CSprite("", _TexSprite, 10, 17, 80, -1), _Font, { rand() % WIDTH, -50, 30, 50 }, &_Color);
+			strNom.pop_back();
 			strNom.pop_back();
 		}
 		m_pTabWorm[0]->setFocus(true);

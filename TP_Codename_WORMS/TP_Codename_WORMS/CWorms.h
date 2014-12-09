@@ -165,7 +165,7 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("MenuBackground", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[15].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("MenuBackground2", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[18].c_str())));
 		m_Gestionaire->AjouterFont(new CFont("FontMenu", strFilePath[0].c_str(), 30));
-		m_Gestionaire->AjouterFont(new CFont("FontWorm", strFilePath[24].c_str(), 8));
+		m_Gestionaire->AjouterFont(new CFont("FontWorm", strFilePath[24].c_str(), 16));
 		m_Gestionaire->AjouterTexture(new CTexture("TextureBtn", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[1].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("TextureBtnL", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[2].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("TextureBtnR", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[3].c_str())));
