@@ -8,7 +8,7 @@
 #define PI_SUR_TROIS 1.0471975512
 #define PI_SUR_QUATRE 0.7853981634
 #define PI_SUR_SIX 0.7853981634
-#define ANGLEMAX 1.2217304764
+#define ANGLEMAX 1.1344640138
 
 #ifndef TP_Codename_WORMS_CWorm_h
 #define TP_Codename_WORMS_CWorm_h
@@ -156,13 +156,11 @@ public:
 			case MotionLeft:
 				if (m_pSprite->getCurrentAnimation() != 3)
 					m_pSprite->setCurrentAnimation(3);
-					//m_pSprite->Render(0,4,_Renderer, m_Angle);
 				m_pSprite->Render(0,4,_Renderer);
 				break;
 			case MotionRight:
 				if (m_pSprite->getCurrentAnimation() != 2)
 					m_pSprite->setCurrentAnimation(2);
-					//m_pSprite->Render(0,4,_Renderer, m_Angle);
 				m_pSprite->Render(0,4,_Renderer);
 				break;
 		}
@@ -194,47 +192,60 @@ public:
 				
 				break;
 			case MotionRight:
-				ftemp = CPhysics::EvaluateSlope(new SDL_Rect({m_RectPosition.x, m_RectPosition.y + (m_RectPosition.h / 2), 60, m_RectPosition.h}));
-				if (ftemp >= -ANGLEMAX){
-					CPhysics::Move(&m_RectPosition, RIGHT);
-					CPhysics::HandleGroundCollision(&m_RectPosition, RIGHT);
-					setPosXY(m_RectPosition.x, m_RectPosition.y);
-				}
-				else if (ftemp >= ANGLEMAX)
-					m_EntityState = SlideRight;
-				break;
-			case MotionLeft:
-				ftemp = CPhysics::EvaluateSlope(new SDL_Rect({m_RectPosition.x - m_RectPosition.w, m_RectPosition.y + (m_RectPosition.h / 2), 60, m_RectPosition.h}));
-				if (ftemp <= ANGLEMAX){
-					CPhysics::Move(&m_RectPosition, LEFT);
-					CPhysics::HandleGroundCollision(&m_RectPosition, LEFT);
-					setPosXY(m_RectPosition.x, m_RectPosition.y);
-				}
-				else if (ftemp <= -ANGLEMAX)
-					m_EntityState = SlideLeft;
-				break;
-			case Chute:
-				if (m_Trajectoire->isStopped()){
-					m_Trajectoire->setStratPos(m_RectPosition.x, m_RectPosition.y);
-					m_Trajectoire->Restart();
+				
+					// TODO Ajuster la largeur du rect pour la slope
+				ftemp = CPhysics::EvaluateSlope({m_RectPosition.x, m_RectPosition.y + (3 * m_RectPosition.h / 4), m_RectPosition.w + 5, m_RectPosition.h / 2});
+				if (ftemp <= 0){
+					if (ftemp >= -ANGLEMAX){
+						CPhysics::Move(&m_RectPosition, RIGHT);
+						CPhysics::HandleGroundCollision(&m_RectPosition, CEILINGRIGHT);
+						setPosXY(m_RectPosition.x, m_RectPosition.y);
+					}
+					else if ((ftemp <= -ANGLEMAX) && (ftemp < PI_SUR_DEUX || ftemp > -PI_SUR_DEUX ))
+						m_EntityState = SlideRight;
+					else
+						m_EntityState = Chute;
 				}
 				else{
-					m_Trajectoire->UpdatePosition();
-					
-					CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
-					if (temp != nullptr)
-					{
-						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
-							m_EntityState = NoMotionRight;
-							m_Trajectoire->Stop();
-						}
-						setPosXY(temp->getX(), temp->getY());
-						delete temp;
+					if (ftemp <= ANGLEMAX){
+						CPhysics::Move(&m_RectPosition, RIGHT);
+						CPhysics::HandleGroundCollision(&m_RectPosition, GROUNDRIGHT);
+						setPosXY(m_RectPosition.x, m_RectPosition.y);
 					}
-					else{
-						setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
-					}
+					else if ((ftemp >= ANGLEMAX) && (ftemp < PI_SUR_DEUX || ftemp > -PI_SUR_DEUX ))
+						m_EntityState = SlideRight;
+					else
+						m_EntityState = Chute;
+
 				}
+				break;
+			case MotionLeft:
+				ftemp = CPhysics::EvaluateSlope({m_RectPosition.x - 5, m_RectPosition.y + (3 * m_RectPosition.h / 4), m_RectPosition.w + 5, m_RectPosition.h / 2});
+				if (ftemp <= 0){
+					if (ftemp >= -ANGLEMAX){
+						CPhysics::Move(&m_RectPosition, LEFT);
+						CPhysics::HandleGroundCollision(&m_RectPosition, GROUNDLEFT);
+						setPosXY(m_RectPosition.x, m_RectPosition.y);
+					}
+					else if ((ftemp >= ANGLEMAX) && (ftemp < PI_SUR_DEUX || ftemp > -PI_SUR_DEUX ))
+						m_EntityState = SlideLeft;
+					else
+						m_EntityState = Chute;
+				}
+				else{
+					if (ftemp <= ANGLEMAX){
+						CPhysics::Move(&m_RectPosition, LEFT);
+						CPhysics::HandleGroundCollision(&m_RectPosition, CEILINGLEFT);
+						setPosXY(m_RectPosition.x, m_RectPosition.y);
+					}
+					else if ((ftemp <= -ANGLEMAX) && (ftemp < PI_SUR_DEUX || ftemp > -PI_SUR_DEUX ))
+						m_EntityState = SlideLeft;
+					else
+						m_EntityState = Chute;
+				}
+				break;
+			case Chute:
+				
 				break;
 			case Largage:
 				m_Trajectoire->UpdatePosition();
@@ -244,7 +255,8 @@ public:
 				{
 					if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
 						m_EntityState = NoMotionRight;
-						m_Trajectoire->Stop();
+						delete m_Trajectoire;
+						m_Trajectoire = nullptr;
 					}
 					setPosXY(temp->getX(), temp->getY());
 					delete temp;
@@ -254,7 +266,6 @@ public:
 				}
 				break;
 		}
-		m_Angle = ftemp;
 	}
 	
 	void setPosXY(int _X, int _Y){

@@ -101,9 +101,8 @@ public:
 					if (m_Trajectoire->GetActualSpeed()->getNorme() < 200)
 						m_EntityState = Immobile;
 					else {
-						SDL_Rect* Impact = new SDL_Rect({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
+						SDL_Rect Impact = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 };
 						m_Trajectoire->Bounce(CPhysics::EvaluateSlope(Impact));
-						delete Impact;
 						/*
 						int iCollision = CPhysics::VerifyGroundCollision(m_RectPosition);
 						if (iCollision != NOCONTACT){
