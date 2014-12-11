@@ -109,14 +109,30 @@ public:
 	@discussion Aucune.
     */
 	static void HandleGroundCollision(SDL_Rect* _Rect, int _Direction){
-			for (int i = 0; i < _Rect->w; i++){
-				while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h - 1)) + _Rect->x + i] > TRANSPARENCY){
-					_Rect->y--;
+		switch (_Direction) {
+			case GROUNDLEFT:
+			case CEILINGRIGHT:
+				for (int i = 0; i < _Rect->w; i++){
+					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h - 1)) + _Rect->x + i] > TRANSPARENCY){
+						_Rect->y--;
+					}
+					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] == TRANSPARENCY){
+						_Rect->y++;
+					}
 				}
-				while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] == TRANSPARENCY){
-					_Rect->y++;
+			    break;
+			case CEILINGLEFT:
+			case GROUNDRIGHT:
+				for (int i = _Rect->w; i > 0; i--){
+					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h - 1)) + _Rect->x + i] > TRANSPARENCY){
+						_Rect->y--;
+					}
+					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] == TRANSPARENCY){
+						_Rect->y++;
+					}
 				}
-			}
+				break;
+		}
 	}
 
 	/*!
@@ -382,13 +398,13 @@ public:
 	@param _Direction : Direction de laquelle vient l'entit� impliqu�e
 	@return L'angle de la pennte en degr�;
 	*/
-	static double EvaluateSlope(SDL_Rect* _Rect){
+	static double EvaluateSlope(SDL_Rect _Rect){
 		double Slope = 0;
 		bool first = false;
 		int PreviousY = 0;
 		double PointsSignificatifs = 0;
-		for (int x = _Rect->x; x < _Rect->x + _Rect->w; x++){
-			for (int y = _Rect->y; y < _Rect->y + _Rect->h; y++){
+		for (int x = _Rect.x; x < _Rect.x + _Rect.w; x++){
+			for (int y = _Rect.y; y < _Rect.y + _Rect.h; y++){
 				if (((unsigned int*)m_Map->pixels)[m_Map->w * (y)+x] >TRANSPARENCY){
 					if (((unsigned int*)m_Map->pixels)[m_Map->w * (y + 1) + x] == 0
 						|| ((unsigned int*)m_Map->pixels)[m_Map->w * (y - 1) + x] == 0){
@@ -399,14 +415,12 @@ public:
 							first = true;
 						PreviousY = TmpY;
 						PointsSignificatifs++;
-						y = _Rect->y + _Rect->h;
+						y = _Rect.y + _Rect.h;
 					}
 				}
 			}
 		}
 		double Angle = atan(Slope / (PointsSignificatifs - 1));
-		delete _Rect;
-
 		return Angle;
 	}
 
