@@ -39,7 +39,7 @@ public:
 	 @param _RectPos : la position du sprite
 	@Classe héritant de CEntity
 	*/
-	CWorm(string _Name, SDL_Texture* _Texture, CSprite* _pSprite,CFont* _Font,SDL_Rect _RectPos, SDL_Color* _Color) :CEntity(_RectPos, _Texture){
+	CWorm(string _Name, SDL_Texture* _Texture, CSprite* _pSprite,CFont* _Font,SDL_Rect _RectPos, SDL_Color* _Color, SDL_Texture* _TextureExplosion) :CEntity(_RectPos, _Texture, _TextureExplosion){
 		m_strName = _Name;
 		m_Angle = 0;
 		m_TeamColor = _Color;

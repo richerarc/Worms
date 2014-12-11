@@ -26,6 +26,9 @@ private:
 	CTimer* DropperTimer;					// Indique le Temps avant de faire tomber les worms.
 	CWorm * ActiveWorm;
 	CJetPack * Jetpack;
+	CExplosion* m_explode;
+	bool boEx;
+	
 public:
 
 	/*!
@@ -60,6 +63,8 @@ public:
 		DropperTimer->Start();
 		ActiveWorm = nullptr;
 		Jetpack = nullptr;
+		m_explode = new CExplosion(m_Gestionaire->GetSprite("explosion1"), new CPosition(0, 0));
+		boEx = false;
 	}
 	
 	/*!
@@ -125,6 +130,11 @@ public:
 				m_pListeTeam->AllerSuivant();
 			}
 		}
+		if (boEx && !m_explode->IsDone()){
+			m_explode->startExplosion();
+			m_explode->Draw(m_pRenderer);
+		}
+		if (m_explode->IsDone()){ boEx = false; }
 	}
 	
 	/*!
@@ -136,6 +146,30 @@ public:
 	*/
 	void HandleEvent(SDL_Event _Event){
 		if (!m_boPause){
+
+			switch (_Event.type)
+			{
+			case SDL_MOUSEBUTTONDOWN:
+				if (_Event.button.button == SDL_BUTTON_LEFT){
+					m_explode->setPositionXY(_Event.button.x-48, _Event.button.y-48);
+					boEx = true;
+				}
+				break;
+
+
+			case SDL_KEYDOWN:
+				switch (_Event.key.keysym.sym) 
+				{
+				case SDLK_ESCAPE:
+						PauseGame();
+					break;
+				}
+				break;
+			case SDL_KEYUP:
+				break;
+			}
+
+
 			switch (_Event.key.keysym.sym) {
 				case SDLK_ESCAPE:
 					PauseGame();
@@ -170,13 +204,13 @@ public:
 	*/
 	void Spawn(){
 		if (m_pListeObjets->Count() < m_pMap->getMine()){
-			m_pListeObjets->AjouterFin(new CMines(m_Gestionaire->GetTexture("explosion1")->GetTexture(), {((rand()% (WIDTH - 10)) + 5), 5, 12, 8}, m_Gestionaire->GetTexture("mine")->GetTexture()));
+			m_pListeObjets->AjouterFin(new CMines({ ((rand() % (WIDTH - 10)) + 5), 5, 12, 8 }, m_Gestionaire->GetTexture("mine")->GetTexture(), m_Gestionaire->GetTexture("explosion1")->GetTexture()));
 		}
 		if (m_pListeObjets->Count() == m_pMap->getMine()){
 			string temp("Team");
 			char buf[10];
 			temp.append(SDL_itoa(m_pListeObjets->Count()+1, buf, 10));
-			m_pListeTeam->AjouterFin(new CTeam(temp, nullptr, m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontWorm")));
+			m_pListeTeam->AjouterFin(new CTeam(temp, nullptr, m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontWorm"), m_Gestionaire->GetTexture("explosion1")->GetTexture()));
 			temp.pop_back();
 		}
 		if (m_pListeTeam->Count() == m_uiNbOfPlayingTeams){

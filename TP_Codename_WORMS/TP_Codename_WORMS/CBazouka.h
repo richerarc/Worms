@@ -201,7 +201,7 @@ public:
 				m_RectMissile.x = iPosXTampon;
 				m_RectMissile.y = iPosYTampon;
 
-				m_pMissile = new CMissiles(m_pTextureExplosion, m_RectMissile, m_pTextureMissile, m_PowerBar->getPowerLevel());
+				m_pMissile = new CMissiles(m_RectMissile, m_pTextureMissile, m_PowerBar->getPowerLevel(),m_pTextureExplosion);
 				m_pMissile->Move();
 				m_PowerBar->setPowerLevel(m_uiPower);
 				break;

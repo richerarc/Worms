@@ -24,7 +24,7 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
-	CMissiles(SDL_Texture* _textureExplosion, SDL_Rect _RectPos, SDL_Texture* _Texture, int _uiPower) :CObjets(_textureExplosion, _RectPos, _Texture){
+	CMissiles(SDL_Rect _RectPos, SDL_Texture* _Texture, int _uiPower, SDL_Texture* _textureExplosion) :CObjets( _RectPos, _Texture, _textureExplosion){
 		boIsexploded = false;
 		m_pVectorVitesse = new C2DVector(_RectPos.x, _RectPos.y, 20, 20); // pas bon ça
 		m_pVectorAccel = new C2DVector(_RectPos.x, _RectPos.y, 35, 35); // pas bon ça aussi

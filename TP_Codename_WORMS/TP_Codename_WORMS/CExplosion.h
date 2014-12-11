@@ -18,8 +18,8 @@ public:
 	*/
 	CExplosion(CSprite* _Sprite, CPosition* _Pos){
 		m_pSprite = _Sprite;
-			//		m_pSprite->setSpritePos(m_pPosition->getX(), m_pPosition->getY());
-			//	m_pPosition = _Pos;
+		m_pPosition = _Pos;
+		m_pSprite->setSpritePos(m_pPosition->getX(), m_pPosition->getY());
 	}
 
 	/*!
@@ -36,9 +36,14 @@ public:
 	@Permet de détruire les objets créés en mémoire
 	*/
 	~CExplosion(){
+		delete m_pPosition;
 	}
 
+	void startExplosion(){
+		m_pSprite->Start();
+	}
 
+	bool IsDone(){ return m_pSprite->AnimationIsOver(); }
 
 
 	/*!
@@ -64,6 +69,11 @@ public:
 	
 	int getRange(){
 		return m_Range;
+	}
+
+	void setPositionXY(int _iX, int _iY){
+		m_pPosition->setXY(_iX, _iY);
+		m_pSprite->setSpritePos(_iX, _iY);
 	}
 	
 };

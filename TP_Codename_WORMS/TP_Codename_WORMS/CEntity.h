@@ -16,6 +16,7 @@ protected:
 	unsigned int m_EntityState;	// État actuel de l'objet
 	SDL_Texture* m_pTexture;	// Texture de l'entité
 	float m_Angle;
+	CExplosion* m_Explosif;  // Nuclear DATA
 public:
 
 	/*!
@@ -26,7 +27,8 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Intialise un objet qui subbit les forces gravitationnelles.
 	*/
-	CEntity(SDL_Rect _RectPos, SDL_Texture* _Texture){
+	CEntity(SDL_Rect _RectPos, SDL_Texture* _Texture, SDL_Texture* _ExplosionTexture){
+	//	m_Explosif = new CExplosion(new CSprite("", _ExplosionTexture, 12, 1, 30, 0), new CPosition(_RectPos.x, _RectPos.y));
 		m_RectPosition = _RectPos;
 		m_boFocus = false;
 		m_Trajectoire = nullptr;

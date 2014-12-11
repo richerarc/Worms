@@ -81,8 +81,10 @@ public:
 				if ((m_Game != nullptr) && m_Game->inGame()){
 					m_Game->HandleEvent(*m_pEvent);
 					if (m_pEvent->key.keysym.sym == SDLK_ESCAPE){
-						m_MenuPause->ActivateMenu();
-						m_boInMenu = true;
+						if (!m_MenuPause->IsActive()){
+							m_MenuPause->ActivateMenu();
+							m_boInMenu = true;
+						}
 					}
 				}
 			}
@@ -211,6 +213,7 @@ public:
 
 		m_SaveFile->open(strFilePath[12].c_str());
 		
+		m_Gestionaire->AjouterSprite(new CSprite("explosion1", m_Gestionaire->GetTexture("explosion1")->GetTexture(), 15, 1, 30, 1));
 		CExplosion::setExplosionMask(m_Gestionaire->GetSurface("explosionmask")->getSurface());
 }
 
