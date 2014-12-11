@@ -521,9 +521,6 @@ public:
 	static void setGravity(double _d){
 		m_Gravity = _d;
 	}
-	static SDL_Surface* GetMap(){
-		return m_Map;
-	}
 };
 C2DVector * CPhysics::m_Wind = nullptr;
 double CPhysics::m_Gravity = 1;
