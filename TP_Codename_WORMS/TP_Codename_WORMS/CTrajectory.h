@@ -16,7 +16,6 @@ private:
 	CPosition* m_ActualPos;
 	CPosition* m_NextPos;
 	bool m_boStop;
-	bool m_boSliding;
 public:
 	//Constructeur...
 	CTrajectory(CPosition* _StartPos, C2DVector* _Speed, C2DVector* _Acc){
@@ -52,9 +51,6 @@ public:
 		m_NextPos = nullptr;
 		delete m_TrajectoryTime;
 	}
-
-
-
 
 	/*
 	Method : GetPosition
@@ -158,31 +154,16 @@ public:
 		return m_ActualSpeed;
 	}
 
-	void StartSliding(){
-		m_boSliding = true;
-	}
-
-	void StopSliding(){
-		m_boSliding = false;
-	}
-
 	void WipeOut(){
 		m_Acceleration->setNorme(0);
 		m_InitSpeed->setNorme(0);
 		m_ActualSpeed->setNorme(0);
 	}
 	
-	bool IsSliding(){
-		return m_boSliding;
-	}
-
-
-	void setActualSpeed(C2DVector* _Speed){
-		m_InitSpeed->setComposanteXY(_Speed->getComposanteX(),_Speed->getComposanteY());
+	void setSpeed(C2DVector* _Speed){
+		delete m_InitSpeed;
+		m_InitSpeed = _Speed;
 		m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX(), m_InitSpeed->getComposanteY());
-		delete _Speed;
-		m_TrajectoryTime->Start();
-		m_StartPos->setXY(m_ActualPos->getX(), m_ActualPos->getY());
 		
 	}
 	
@@ -193,11 +174,6 @@ public:
 	void Restart(){
 		m_boStop = false;
 		m_TrajectoryTime->Start();
-	}
-
-	void SetActualPos(int _X, int _Y){
-		m_ActualPos->setX(_X);
-		m_ActualPos->setY(_Y);
 	}
 	
 	bool isStopped(){
