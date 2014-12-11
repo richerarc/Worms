@@ -197,7 +197,7 @@ public:
 				ftemp = CPhysics::EvaluateSlope(new SDL_Rect({m_RectPosition.x, m_RectPosition.y + (m_RectPosition.h / 2), 60, m_RectPosition.h}));
 				if (ftemp >= -ANGLEMAX){
 					CPhysics::Move(&m_RectPosition, RIGHT);
-					CPhysics::VerifyGroundCollision(&m_RectPosition);
+					CPhysics::HandleGroundCollision(&m_RectPosition, RIGHT);
 					setPosXY(m_RectPosition.x, m_RectPosition.y);
 				}
 				else if (ftemp >= ANGLEMAX)
@@ -207,7 +207,7 @@ public:
 				ftemp = CPhysics::EvaluateSlope(new SDL_Rect({m_RectPosition.x - m_RectPosition.w, m_RectPosition.y + (m_RectPosition.h / 2), 60, m_RectPosition.h}));
 				if (ftemp <= ANGLEMAX){
 					CPhysics::Move(&m_RectPosition, LEFT);
-					CPhysics::VerifyGroundCollision(&m_RectPosition);
+					CPhysics::HandleGroundCollision(&m_RectPosition, LEFT);
 					setPosXY(m_RectPosition.x, m_RectPosition.y);
 				}
 				else if (ftemp <= -ANGLEMAX)
