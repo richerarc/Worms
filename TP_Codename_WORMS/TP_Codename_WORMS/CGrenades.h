@@ -84,7 +84,6 @@ public:
 	}
 
 
-	
 	void Move(){
 		switch (m_EntityState){
 		case Immobile:
@@ -92,28 +91,41 @@ public:
 				m_Trajectoire->WipeOut();
 			break;
 		case Chute:
+			
 			m_Trajectoire->UpdatePosition();
+			
 
 			CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
 			if (temp != nullptr)
 			{
-				if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY()))
-					if (m_Trajectoire->GetActualSpeed()->getNorme() < 200)
-						m_EntityState = Immobile;
-					else {
-						SDL_Rect Impact = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 };
-						m_Trajectoire->Bounce(CPhysics::EvaluateSlope(Impact));
-						/*
-						int iCollision = CPhysics::VerifyGroundCollision(m_RectPosition);
-						if (iCollision != NOCONTACT){
-							if (iCollision == GROUND){
-								SDL_Rect* Impact = new SDL_Rect({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
-								m_Trajectoire->Bounce(CPhysics::EvaluateSlope(Impact));
-								delete Impact;
-							}
-						}
-						*/
+				if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
+					double SpeedNorm = m_Trajectoire->GetActualSpeed()->getNorme();
+					if (SpeedNorm < 200){
+						double Slope = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
+						//if (VerifySliding()){
+							//UpdateSlidePosition();
+						//}
+						//else{
+							//double Slope = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
+							//if (Slope < M_PI / 4 && Slope > 0 || Slope < -M_PI / 4 && Slope < 0){
+								m_EntityState = Immobile;
+							//}
+						//}
 					}
+					else {
+						m_Trajectoire->Bounce(CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 }));
+							/*
+							int iCollision = CPhysics::VerifyGroundCollision(m_RectPosition);
+							if (iCollision != NOCONTACT){
+							if (iCollision == GROUND){
+							SDL_Rect* Impact = new SDL_Rect({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
+							m_Trajectoire->Bounce(CPhysics::EvaluateSlope(Impact));
+							delete Impact;
+							}
+							}
+							*/
+					}
+				}
 				else
 					m_EntityState = Chute;
 

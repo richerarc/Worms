@@ -170,7 +170,9 @@ public:
 	*/
 	void Spawn(){
 		if (m_pListeObjets->Count() < m_pMap->getMine()){
-			m_pListeObjets->AjouterFin(new CMines(m_Gestionaire->GetTexture("explosion1")->GetTexture(), {((rand()% (WIDTH - 10)) + 5), 5, 12, 8}, m_Gestionaire->GetTexture("mine")->GetTexture()));
+			//m_pListeObjets->AjouterFin(new CMines(m_Gestionaire->GetTexture("explosion1")->GetTexture(), {((rand()% (WIDTH - 10)) + 5), 5, 12, 8}, m_Gestionaire->GetTexture("mine")->GetTexture()));
+			m_pListeObjets->AjouterFin(new CGrenades(m_Gestionaire->GetTexture("explosion1")->GetTexture(), { ((rand() % (WIDTH - 10)) + 5), 5, 17, 25 }, m_Gestionaire->GetTexture("grenade")->GetTexture()));
+
 		}
 		if (m_pListeObjets->Count() == m_pMap->getMine()){
 			string temp("Team");

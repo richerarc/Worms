@@ -16,10 +16,12 @@ private:
 	CPosition* m_ActualPos;
 	CPosition* m_NextPos;
 	bool m_boStop;
+	bool m_boSliding;
 public:
 	//Constructeur...
 	CTrajectory(CPosition* _StartPos, C2DVector* _Speed, C2DVector* _Acc){
 		m_boStop = false;
+		m_boSliding = false;
 		m_TrajectoryTime = new CTimer();
 		m_StartPos = _StartPos;
 		m_InitSpeed = _Speed;
@@ -70,13 +72,13 @@ public:
 			m_NextPos->setX(m_ActualPos->getX() + DeltaX);
 			m_NextPos->setY(m_ActualPos->getY() + DeltaY);
 			
-			//m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX() + m_Acceleration->getComposanteX()*dTimeVariation,
-				//m_InitSpeed->getComposanteY() + m_Acceleration->getComposanteX()*dTimeVariation);
+			m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX() + m_Acceleration->getComposanteX()/dTimeVariation,
+				m_InitSpeed->getComposanteY() + m_Acceleration->getComposanteY()/dTimeVariation);
 			
 
 			//Le code ci-dessous est pour la vitesse actuelle
-			m_ActualSpeed->setComposanteXY((DeltaX + DeltaT * m_Acceleration->getComposanteX()) / dTimeVariation ,
-				(DeltaY + DeltaT * m_Acceleration->getComposanteY()) / dTimeVariation );
+			//m_ActualSpeed->setComposanteXY((DeltaX + DeltaT * m_Acceleration->getComposanteX()) / dTimeVariation ,
+				//(DeltaY + DeltaT * m_Acceleration->getComposanteY()) / dTimeVariation );
 		}
 	}
 
@@ -167,6 +169,18 @@ public:
 		
 	}
 	
+	bool IsSliding(){
+		return m_boSliding;
+	}
+
+	void StartSlide(){
+		m_boSliding = true;
+	}
+
+	void StopSlide(){
+		m_boSliding = false;
+	}
+
 	void Stop(){
 		m_boStop = true;
 	}
@@ -178,6 +192,20 @@ public:
 	
 	bool isStopped(){
 		return m_boStop;
+	}
+
+	void setActualSpeed(C2DVector* _Speed){
+		m_InitSpeed->setComposanteXY(_Speed->getComposanteX(), _Speed->getComposanteY());
+		m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX(), m_InitSpeed->getComposanteY());
+		delete _Speed;
+		m_TrajectoryTime->Start();
+		m_StartPos->setXY(m_ActualPos->getX(), m_ActualPos->getY());
+
+	}
+
+	void SetActualPos(int _X, int _Y){
+		m_ActualPos->setX(_X);
+		m_ActualPos->setY(_Y);
 	}
 	
 };
