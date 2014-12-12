@@ -45,8 +45,8 @@ public:
 		m_rSource.h = m_rSource.h / m_NbrAnimation;
 		m_rSource.x = 0;
 		m_rSource.y = 0;
-		m_rDest.x = 500;
-		m_rDest.y = 200;
+		m_rDest.x = 0;
+		m_rDest.y = 0;
 		m_rDest.w = m_rSource.w;
 		m_rDest.h = m_rSource.h;
 		m_pTimer->Start();
@@ -68,21 +68,23 @@ public:
 		m_rDest.y = _iy;
 	}
 
-	bool AnimationIsOver(){
-		if (m_currentFrame == m_NbrFrame-1){
-			SDL_QueryTexture(m_pTexture, NULL, NULL, &m_rSource.w, &m_rSource.h);
-			m_rSource.w = (m_rSource.w / m_NbrFrame);
-			m_rSource.h = m_rSource.h / m_NbrAnimation;
-			m_rSource.x = 0;
-			m_rSource.y = 0;
-			m_rDest.x = 500;
-			m_rDest.y = 200;
-			m_rDest.w = m_rSource.w;
-			m_rDest.h = m_rSource.h;
-			m_pTimer->Start();
-			m_currentFrame = 0;
-			m_uiCurrentLoop = 0;
-			m_boActif = false;
+	bool AnimationIsOver(bool _boreset){
+		if (m_currentFrame == m_NbrFrame - 1){
+			if (_boreset){
+				SDL_QueryTexture(m_pTexture, NULL, NULL, &m_rSource.w, &m_rSource.h);
+				m_rSource.w = (m_rSource.w / m_NbrFrame);
+				m_rSource.h = m_rSource.h / m_NbrAnimation;
+				m_rSource.x = 0;
+				m_rSource.y = 0;
+				m_rDest.x = 0;
+				m_rDest.y = 0;
+				m_rDest.w = m_rSource.w;
+				m_rDest.h = m_rSource.h;
+				m_pTimer->Start();
+				m_currentFrame = 0;
+				m_uiCurrentLoop = 0;
+				m_boActif = false;
+			}
 			return true;
 		}
 		return false;

@@ -63,7 +63,8 @@ public:
 		DropperTimer->Start();
 		ActiveWorm = nullptr;
 		Jetpack = nullptr;
-		m_explode = new CExplosion(m_Gestionaire->GetSprite("explosion1"), new CPosition(0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("explosion1", m_Gestionaire->GetTexture("explosion1")->GetTexture(), 15, 1, 50, 1));
+		m_explode = new CExplosion(m_Gestionaire->GetSprite("explosion1"), new CPosition(0, 0),0);
 		boEx = false;
 	}
 	
@@ -79,6 +80,8 @@ public:
 		CPhysics::Annihilate();
 		delete DropperTimer;
 		delete TurnTimer;
+		delete m_explode;
+		delete Jetpack;
 	}
 
 	/*!
@@ -132,7 +135,7 @@ public:
 		}
 		if (boEx && !m_explode->IsDone()){
 			m_explode->startExplosion();
-			m_explode->Draw(m_pRenderer);
+			m_explode->Draw(m_pRenderer,m_pMap->getMap());
 		}
 		if (m_explode->IsDone()){ boEx = false; }
 	}
@@ -151,7 +154,7 @@ public:
 			{
 			case SDL_MOUSEBUTTONDOWN:
 				if (_Event.button.button == SDL_BUTTON_LEFT){
-					m_explode->setPositionXY(_Event.button.x-48, _Event.button.y-48);
+					m_explode->setPositionXY(_Event.button.x - 48, _Event.button.y-96);
 					boEx = true;
 				}
 				break;

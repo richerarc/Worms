@@ -213,7 +213,7 @@ public:
 
 		m_SaveFile->open(strFilePath[12].c_str());
 		
-		m_Gestionaire->AjouterSprite(new CSprite("explosion1", m_Gestionaire->GetTexture("explosion1")->GetTexture(), 15, 1, 30, 1));
+
 		CExplosion::setExplosionMask(m_Gestionaire->GetSurface("explosionmask")->getSurface());
 }
 
