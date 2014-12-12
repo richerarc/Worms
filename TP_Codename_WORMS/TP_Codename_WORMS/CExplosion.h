@@ -4,10 +4,11 @@
 class CExplosion{
 private:
 	CSprite* m_pSprite;		//Donnée membre représentant le sprite d'explosion.
-	CPosition* m_pPosition;	//Donnée membre représentant la position de l'explosion.
 	static SDL_Surface* m_ExplosionMask;
 	int m_Range;    // Le rayon d'action de l'explosion
 	SDL_Rect m_RectSource;
+	SDL_Rect m_RectDestination;
+	SDL_Rect m_SpriteDimension;
 public:
 
 	/*!
@@ -17,14 +18,18 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion No discussion is needed.
 	*/
-	CExplosion(CSprite* _Sprite, CPosition* _Pos, int _Range){
+	CExplosion(CSprite* _Sprite, int _Range){
 		m_pSprite = _Sprite;
-		m_pPosition = _Pos;
-		m_pSprite->setSpritePos(m_pPosition->getX(), m_pPosition->getY());
+		m_pSprite->setSpritePos(0, 0);
 		m_RectSource.x = _Range;
 		m_RectSource.y = 0;
 		m_RectSource.h = m_ExplosionMask->h;
 		m_RectSource.w = m_ExplosionMask->w / 3;
+		m_RectDestination.x = 0;
+		m_RectDestination.y = 0;
+		m_RectDestination.h = m_RectSource.h;
+		m_RectDestination.w = m_RectSource.w;
+		m_SpriteDimension = m_pSprite->getRectSource();
 	}
 
 	/*!
@@ -48,7 +53,7 @@ public:
 				temp = (((unsigned int*)m_ExplosionMask->pixels)[i]);
 				if ((i>0) && !(i % 100)){ i += 200; }
 				if (temp != 0){
-					if (((unsigned int*)_Map->pixels)[i + m_pSprite->getX()] > 0){ ((unsigned int*)_Map->pixels)[i + m_pSprite->getX()] = 0; }
+					if (((unsigned int*)_Map->pixels)[0] > 0){ ((unsigned int*)_Map->pixels)[i + m_pSprite->getX()] = 0; }
 				}
 			}
 			break;
@@ -70,7 +75,6 @@ public:
 	@Permet de détruire les objets créés en mémoire
 	*/
 	~CExplosion(){
-		delete m_pPosition;
 	}
 
 	void startExplosion(){
@@ -94,11 +98,11 @@ public:
 	}
 
 	int getX(){
-		return m_pPosition->getX();
+		return m_RectDestination.x;
 	}
 
 	int getY(){
-		return m_pPosition->getY();
+		return m_RectDestination.y;
 	}
 
 	int getRange(){
@@ -106,8 +110,9 @@ public:
 	}
 
 	void setPositionXY(int _iX, int _iY){
-		m_pPosition->setXY(_iX, _iY);
-		m_pSprite->setSpritePos(_iX, _iY);
+		m_RectDestination.x = _iX - (m_RectSource.w / 2);
+		m_RectDestination.y = _iY - (m_RectSource.h / 2);
+		m_pSprite->setSpritePos(_iX-(m_SpriteDimension.w/2), _iY-(m_SpriteDimension.h));
 	}
 
 };

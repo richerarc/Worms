@@ -90,6 +90,8 @@ public:
 		return false;
 	}
 
+	SDL_Rect getRectSource(){ return m_rSource; }
+
 	void Start(){
 		m_boActif = true;
 	}
