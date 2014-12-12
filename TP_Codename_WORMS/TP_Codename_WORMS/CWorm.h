@@ -186,15 +186,59 @@ public:
 		float ftemp = 0;
 		switch (m_EntityState) {
 			case JumpLeft:
-				
+				if (m_Trajectoire == nullptr){
+					m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
+													new C2DVector(m_RectPosition.x, m_RectPosition.y, -40000.f, -25500.f),
+													new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity() + CPhysics::GetWind()->getComposanteY()));
+				}
+				else{
+					m_Trajectoire->UpdatePosition();
+					
+					CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+					if (temp != nullptr)
+					{
+						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
+							m_EntityState = NoMotionLeft;
+							delete m_Trajectoire;
+							m_Trajectoire = nullptr;
+						}
+						setPosXY(temp->getX(), temp->getY());
+						delete temp;
+					}
+					else{
+						setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
+					}
+				}
 				break;
 			case JumpRight:
-				
+				if (m_Trajectoire == nullptr){
+					m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
+													new C2DVector(m_RectPosition.x, m_RectPosition.y, 40000.f, -25500.f),
+													new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity() + CPhysics::GetWind()->getComposanteY()));
+				}
+				else{
+					m_Trajectoire->UpdatePosition();
+					
+					CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+					if (temp != nullptr)
+					{
+						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
+							m_EntityState = NoMotionRight;
+							delete m_Trajectoire;
+							m_Trajectoire = nullptr;
+						}
+						setPosXY(temp->getX(), temp->getY());
+						delete temp;
+					}
+					else{
+						setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
+					}
+				}
 				break;
 			case MotionRight:
 				
 					// TODO Ajuster la largeur du rect pour la slope
-				ftemp = CPhysics::EvaluateSlope({m_RectPosition.x, m_RectPosition.y + (3 * m_RectPosition.h / 4), m_RectPosition.w + 5, m_RectPosition.h / 2});
+				ftemp = CPhysics::EvaluateSlope({m_RectPosition.x + m_RectPosition.w - (m_RectPosition.h / 8), m_RectPosition.y + (3 * m_RectPosition.h / 4), m_RectPosition.h / 4, m_RectPosition.h / 4});
 				if (ftemp <= 0){
 					if (ftemp >= -ANGLEMAX){
 						CPhysics::Move(&m_RectPosition, RIGHT);
@@ -220,7 +264,7 @@ public:
 				}
 				break;
 			case MotionLeft:
-				ftemp = CPhysics::EvaluateSlope({m_RectPosition.x - 5, m_RectPosition.y + (3 * m_RectPosition.h / 4), m_RectPosition.w + 5, m_RectPosition.h / 2});
+				ftemp = CPhysics::EvaluateSlope({m_RectPosition.x - (m_RectPosition.h / 8), m_RectPosition.y + (3 * m_RectPosition.h / 4), m_RectPosition.h / 4, m_RectPosition.h / 4});
 				if (ftemp <= 0){
 					if (ftemp >= -ANGLEMAX){
 						CPhysics::Move(&m_RectPosition, LEFT);
