@@ -30,4 +30,6 @@ Mer. 26 nov. 09h24 : Je continue sur les collision avec le sol pour s'assurer qu
 
 Mer. 26 nov. 18h58 : J'ai continuer sur la physics, puis j'ai ajouté que les worms tombent maintenant une fois que les mines sont dropé. J'ai aussi vue que l'utilisation de mémoire dans les menu est [bizarre]... TODO (2-3hrs)
 
-Mar. 2 déc. 11h56 : (J'ai oublier de mettre a jour mon journal de bord jeudi et vendredi mais bon...) Les worms se déplace, et tombes un après les autres, il grimpes les pente mais ne les descendent pas encore TODO. (3hrs)
+Mar. 02 déc. 11h56 : (J'ai oublier de mettre a jour mon journal de bord jeudi et vendredi mais bon...) Les worms se déplace, et tombes un après les autres, il grimpes les pente mais ne les descendent pas encore TODO. (3hrs)
+
+Ven. 12 déc. 10h00 : GROS COMMIT DE JOURNAL (pour aucun raison assez valable pour être énoncé ici, je n'ai pas pris soin de remplir mon journal de bord dans les dernier jours. je m'en excuse) Voilà: après plusieurs heures de travail (mettons 20) les woms se déplace, détecte les colision, saute, chutes, et je commence à les faire slider. des changement sont à faire dans CPhysics, je risque de m'en occuper moi même par souci de sécurité (j'insère lol). 
