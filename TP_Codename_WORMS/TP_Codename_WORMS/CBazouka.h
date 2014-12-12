@@ -189,19 +189,35 @@ public:
 				break;
 
 			case SDLK_SPACE:
-				boIsLaunch = true;
-				fPosXTempo = 53.9*cos(abs((int)DegToRad(iAngle - 15)));
-				fPosYTempo = 53.9*sin(abs((int)DegToRad(iAngle - 15)));
-				iPosXTampon = fPosXTempo;
-				iPosYTampon = fPosYTempo;
+				if (m_Worm->getWormState() == UsingBazzLeft){
+					if (iAngle < 0)
+						fPosYTempo = m_RectBazouka.y + (-52 * sin((int)DegToRad(iAngle)));
+					else
+						fPosYTempo = m_RectBazouka.y + (52 * sin((int)DegToRad(iAngle)));
+
+					fPosXTempo = m_RectBazouka.x + (-52 * cos((int)DegToRad(iAngle)));
+					iPosXTampon = fPosXTempo;
+					iPosYTampon = fPosYTempo;
+				}
+				if (m_Worm->getWormState() == UsingBazzRight){
+					if (iAngle > 0)
+						fPosYTempo = m_RectBazouka.y + (-52 * sin((int)DegToRad(iAngle)));
+					else
+						fPosYTempo = m_RectBazouka.y + (52 * sin((int)DegToRad(iAngle)));
+
+					fPosXTempo = m_RectBazouka.x + (52 * cos((int)DegToRad(iAngle)));
+					iPosXTampon = fPosXTempo;
+					iPosYTampon = fPosYTempo;
+				}
 				if (fPosXTempo > iPosXTampon + 0.5)
 					iPosXTampon++;
 				if (fPosYTempo > iPosYTampon + 0.5)
 					iPosYTampon++;
+
 				m_RectMissile.x = iPosXTampon;
 				m_RectMissile.y = iPosYTampon;
 
-				m_pMissile = new CMissiles(m_pTextureExplosion, m_RectMissile, m_pTextureMissile, m_PowerBar->getPowerLevel());
+				m_pMissile = new CMissiles(m_pTextureExplosion, m_RectMissile, m_pTextureMissile, m_PowerBar->getPowerLevel(), iAngle);
 				m_pMissile->Move();
 				m_PowerBar->setPowerLevel(m_uiPower);
 				break;
@@ -209,7 +225,6 @@ public:
 			break;
 		default:
 			break;
-
 		}
 	}
 };
