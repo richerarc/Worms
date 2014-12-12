@@ -75,3 +75,7 @@
 		  je ne peux pas programmer de la fin de semaine par manque de possesion d'un ordinateur portable, j'ai tout écrit
 		  sur un bout de papier entre deux commandes de déjeuner sur mes heures de travail HAHAHA. Aujourdhui j'ai revert ce que j'avais
 		  tenter de faire et j'ai fait ce que j'avais noté et devine quoi? SA MARCHE! VIVE LA NUIT! vIVE LES LITS! VIVE LE SOMMEIL!
+
+21:58 2014-12-11: J'ai commencer a patenter les explosions. Le sprite affiche bien. Il reste a effacer les pixels de la map, j'ai rencontré
+	 	  quelque problèmes a ce sujet. De plus, la classe CJetPack ne contient aucun delete dans le destructeur alors elle cause des fuites de 
+		  mémoires.
