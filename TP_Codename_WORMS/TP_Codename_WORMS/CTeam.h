@@ -31,7 +31,7 @@ public:
 	CTeam(string _strTeamName, SDL_Texture* _WormRepo, SDL_Texture* _TexSprite, Uint8 _uiNbWorms, CFont* _Font){
 		m_boFocus = false;
 		m_uiWormTurn = 0;
-		m_TeamColor = { static_cast<Uint8>(rand() % 255 + 1), static_cast<Uint8>(rand() % 255 + 1), static_cast<Uint8>(rand() % 255 + 1), 255 };
+		m_TeamColor = { static_cast<Uint8>((SDL_GetTicks() - rand()) % 255 + 1), static_cast<Uint8>((rand() + SDL_GetTicks()) % 255 + 1), static_cast<Uint8>((SDL_GetTicks() * rand()) % 255 + 1), 255 };
 		m_strTeamName = _strTeamName;
 		m_uiNbOfWorm = _uiNbWorms;
 		string strNom = "Worm";

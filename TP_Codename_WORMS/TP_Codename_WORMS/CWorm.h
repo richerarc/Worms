@@ -29,6 +29,7 @@ private:
 	SDL_Rect m_BarredeVie;
 	C2DVector* m_Deplacement;
 	SDL_Color* m_TeamColor;
+	bool m_boDrawRect;
 public:
 
 	/*!
@@ -53,6 +54,7 @@ public:
 		m_lblNom = new CLabel("", m_strName.c_str(), _Font, SDL_Rect{_RectPos.x,_RectPos.y - 18,50,10});
 		m_EntityState = Largage;
 		m_Deplacement = new C2DVector(m_RectPosition.x, m_RectPosition.y, 0,0);
+		m_boDrawRect = false;
 		m_pSprite->Start();
 
 	}
@@ -84,6 +86,12 @@ public:
 			switch (_Event.type) {
 				case SDL_KEYDOWN:
 					switch (_Event.key.keysym.sym){
+						case SDLK_g:
+							m_boDrawRect = false;
+							break;
+						case SDLK_f:
+							m_boDrawRect = true;
+							break;
 						case SDLK_1:
 
 							break;
@@ -101,7 +109,7 @@ public:
 						case SDLK_SPACE:
 							if ((m_EntityState == NoMotionLeft) || (m_EntityState == MotionLeft))
 								m_EntityState = JumpLeft;
-							else
+							else if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight))
 								m_EntityState = JumpRight;
 							break;
 					}
@@ -164,7 +172,8 @@ public:
 				m_pSprite->Render(0,4,_Renderer);
 				break;
 		}
-		
+		if (m_boDrawRect)
+			SDL_RenderDrawRect(_Renderer, &m_RectPosition);
 	}
 
 	/*!
@@ -328,5 +337,4 @@ public:
 		m_EntityState = _EntityState;
 	}
 };
-
 #endif
