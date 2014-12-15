@@ -20,7 +20,7 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Classe héritant de CEntity, elle prend donc les paramètres de CEntity.
 	*/
-	CObjets(SDL_Rect _RectPos, SDL_Texture* _Texture, SDL_Texture* _textureExplosion) :CEntity(_RectPos, _Texture, _textureExplosion){
+	CObjets(SDL_Rect _RectPos, SDL_Texture* _Texture, CExplosion* _Explosion) :CEntity(_RectPos, _Texture, _Explosion){
 		
 	}
 

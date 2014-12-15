@@ -63,8 +63,8 @@ public:
 		DropperTimer->Start();
 		ActiveWorm = nullptr;
 		Jetpack = nullptr;
-		m_Gestionaire->AjouterSprite(new CSprite("explosion1", m_Gestionaire->GetTexture("explosion1")->GetTexture(), 15, 1, 100, 1));
-		m_explode = new CExplosion(m_Gestionaire->GetSprite("explosion1"),0);
+		m_Gestionaire->AjouterSprite(new CSprite("explosion1", m_Gestionaire->GetTexture("explosion1")->GetTexture(), 15, 1, 50, 1));
+		m_explode = new CExplosion(m_Gestionaire->GetSprite("explosion1"),50, m_pMap);
 		boEx = false;
 	}
 	
@@ -136,7 +136,7 @@ public:
 		if (m_explode->IsDone()){ boEx = false; }
 		if (boEx && !m_explode->IsDone()){
 			m_explode->startExplosion();
-			m_explode->Draw(m_pRenderer,m_pMap->getMap());
+			m_explode->Draw(m_pRenderer);
 		}
 	
 	}

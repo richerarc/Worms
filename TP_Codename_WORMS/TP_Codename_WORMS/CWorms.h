@@ -19,6 +19,7 @@
 #include "CSlideShow.h"
 #include "CMenu.h"
 #include "CPosition.h"
+#include "CMap.h"
 #include "CTrajectory.h"
 #include "CExplosion.h"
 #include "CPhysic.h"
@@ -32,7 +33,7 @@
 #include "CCaisseSoin.h"
 
 #include "CTeam.h"
-#include "CMap.h"
+
 #include "CBoussole.h"
 #include "CPowerBar.h"
 #include "CBazouka.h"
@@ -60,6 +61,8 @@ private:
 	static CMap* TabMap[5];
 	static fstream* m_SaveFile;
 	static int m_LastMapUsed;
+	static CExplosion* Explosion_Bazooka_Mines;
+	static CExplosion* Explosion_Grenades_Caisses_Worms;
 public:
 
 	static void Start(){
@@ -211,10 +214,13 @@ public:
 		m_Gestionaire->AjouterSurface(new CSurface("explosionmask", IMG_Load(strFilePath[22].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("explosion1", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[23].c_str())));
 
+
+		/*Explosions*/
+		//m_Gestionaire->AjouterSprite(new CSprite("SpriteExBaz",))
+
 		m_SaveFile->open(strFilePath[12].c_str());
 		
 
-		CExplosion::setExplosionMask(m_Gestionaire->GetSurface("explosionmask")->getSurface());
 }
 
 	static void LoadData(){
@@ -292,7 +298,6 @@ public:
 		m_pEvent = new SDL_Event();
 		m_Gestionaire = new CGestionnaireRessources();
 		LoadResources(_argv);
-
 		LoadData();
 
 		//
@@ -305,6 +310,7 @@ public:
 		m_MenuPrincipal->getElement("btnQuit")->OnClickAction = BtnQuit;
 		m_MenuPrincipal->getElement("btnNewGame")->OnClickAction = BtnNewGame;
 		m_MenuPrincipal->ActivateMenu();
+
 		//
 		// Initialisation du menu NewGame
 		//
@@ -334,7 +340,6 @@ public:
 		//
 		// Initialisation du menu Pause
 		//
-
 		m_MenuPause->AddElement(new CButton("btnResume", "Resume", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 10, 10 }, m_Gestionaire->GetSprite("SpriteBtnResume")), 20, 50, 162, 33);
 		m_MenuPause->AddElement(new CButton("btnRestart", "Restart", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 10, 10 }, m_Gestionaire->GetSprite("SpriteBtnRestart")), 20, 100, 162, 33);
 		m_MenuPause->AddElement(new CButton("btnMainMenu", "Main Menu", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 10, 10 }, m_Gestionaire->GetSprite("SpriteBtnMainMenu")), 20, 225, 162, 33);
@@ -344,6 +349,10 @@ public:
 		m_MenuPause->getElement("btnQuitDskt")->OnClickAction = BtnQuit;
 		m_MenuPause->getElement("btnResume")->OnClickAction = BtnResume;
 
+		//
+		//Initialisation des explosions
+		//
+		Explosion_Bazooka_Mines = new CExplosion(,50)
 	}
 
 	//
@@ -414,7 +423,8 @@ public:
 };
 
 // Initialisation des données membre statique
-
+CExplosion* CWorms::Explosion_Bazooka_Mines = nullptr;
+CExplosion* CWorms::Explosion_Grenades_Caisses_Worms = nullptr;
 CWindow* CWorms::m_pWindow = nullptr;
 CMenu* CWorms::m_MenuPrincipal = nullptr;
 CMenu* CWorms::m_MenuNewGame = nullptr;

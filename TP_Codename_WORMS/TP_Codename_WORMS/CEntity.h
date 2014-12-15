@@ -16,7 +16,7 @@ protected:
 	unsigned int m_EntityState;	// État actuel de l'objet
 	SDL_Texture* m_pTexture;	// Texture de l'entité
 	float m_Angle;
-	CExplosion* m_Explosif;  // Nuclear DATA
+	CExplosion* m_pExplosion;  // Nuclear DATA
 public:
 
 	/*!
@@ -27,13 +27,13 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Intialise un objet qui subbit les forces gravitationnelles.
 	*/
-	CEntity(SDL_Rect _RectPos, SDL_Texture* _Texture, SDL_Texture* _ExplosionTexture){
-	//	m_Explosif = new CExplosion(new CSprite("", _ExplosionTexture, 12, 1, 30, 0), new CPosition(_RectPos.x, _RectPos.y));
+	CEntity(SDL_Rect _RectPos, SDL_Texture* _EntityTexture, CExplosion* _Explosion){
+		m_pExplosion = new CExplosion(_Explosion->getSprite(),_Explosion->getRadius(),_Explosion->getMap());
 		m_RectPosition = _RectPos;
 		m_boFocus = false;
 		m_Trajectoire = nullptr;
 		m_EntityState = Chute;
-		m_pTexture = _Texture;
+		m_pTexture = _EntityTexture;
 		m_Trajectoire = CPhysics::Propulsion(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.f, 2.f), new C2DVector(m_RectPosition.x, m_RectPosition.y, double(0), double(CPhysics::GetGravity())));
 		m_Angle = 0;
 	}

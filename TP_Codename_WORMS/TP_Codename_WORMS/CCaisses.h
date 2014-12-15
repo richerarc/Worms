@@ -22,7 +22,7 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets.
 	*/
-	CCaisses(SDL_Rect _RectPos, SDL_Texture* _pTexture, SDL_Texture* _TextureExplosion) :CObjets(_RectPos, _pTexture, _TextureExplosion){
+	CCaisses(SDL_Rect _RectPos, SDL_Texture* _Texture, CExplosion* _Explosion) :CObjets(_RectPos, _Texture, _Explosion){
 		boIsexploded = false;
 	}
 

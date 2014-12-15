@@ -25,7 +25,7 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
-	CMines(SDL_Rect _RectPos, SDL_Texture* _Texture, SDL_Texture* _textureExplosion) :CObjets(_RectPos, _Texture, _textureExplosion){
+	CMines(SDL_Rect _RectPos, SDL_Texture* _Texture, CExplosion* _Explosion) :CObjets(_RectPos, _Texture, _Explosion){
 		boIsexploded = false;
 	}
 

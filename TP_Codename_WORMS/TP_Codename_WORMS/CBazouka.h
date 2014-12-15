@@ -20,7 +20,7 @@ private:
 	double iAngle; // L'angle de rotation
 	SDL_Texture* m_pTextureBazouka; // Texture de l'image du Bazouka à afficher.
 	SDL_Texture* m_pTextureMissile; // Texture de l'image du Missile à afficher.
-	SDL_Texture* m_pTextureExplosion;// Texture de l'image de l'explosion.
+	CExplosion* m_pExplosion;// Texture de l'image de l'explosion.
 	bool boCharging; // Booléen pour vérifier si le bazouka se prepare a lancer un missile
 	bool boIsRotated; // Booléen pour vérifier si le bazouka sera en rotation
 	bool boIsLaunch; // Booléen pour vérifier si le bazouka lance un missile
@@ -40,7 +40,7 @@ public:
 	@param _Worm: Un pointeur vers le worm qui est focus
 	@param _pTexture : Texture de l'image à afficher. NOTE: LA TEXTURE loader doit être celle de droite.
 	*/
-	CBazouka(SDL_Texture* _pTextureBazouka, SDL_Texture* _pTextureMissile, SDL_Texture* _pTextureExplosion, CWorm* _pWorm){
+	CBazouka(SDL_Texture* _pTextureBazouka, SDL_Texture* _pTextureMissile, CExplosion* _pExplosion, CWorm* _pWorm){
 		m_RectBazouka = _pWorm->getPosition();
 		m_RectBazouka.w = 52;
 		m_RectBazouka.h = 28;
@@ -48,7 +48,7 @@ public:
 		SDL_QueryTexture(_pTextureMissile, NULL, NULL, &m_RectMissile.w, &m_RectMissile.h);//Texture du missile.
 		m_pTextureBazouka = _pTextureBazouka;
 		m_pTextureMissile = _pTextureMissile;
-		m_pTextureExplosion = _pTextureExplosion;
+		m_pExplosion = _pExplosion;
 		boCharging = false;
 		boIsRotated = false;
 		boIsLaunch = false;
@@ -201,7 +201,7 @@ public:
 				m_RectMissile.x = iPosXTampon;
 				m_RectMissile.y = iPosYTampon;
 
-				m_pMissile = new CMissiles(m_RectMissile, m_pTextureMissile, m_PowerBar->getPowerLevel(),m_pTextureExplosion);
+				m_pMissile = new CMissiles(m_RectMissile, m_pTextureMissile, m_PowerBar->getPowerLevel(),m_pExplosion);
 				m_pMissile->Move();
 				m_PowerBar->setPowerLevel(m_uiPower);
 				break;
