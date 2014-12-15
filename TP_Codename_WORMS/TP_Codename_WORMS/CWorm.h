@@ -188,7 +188,7 @@ public:
 			case JumpLeft:
 				if (m_Trajectoire == nullptr){
 					m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
-													new C2DVector(m_RectPosition.x, m_RectPosition.y, -40000.f, -25500.f),
+													new C2DVector(m_RectPosition.x, m_RectPosition.y, -100.f, -250.f),
 													new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity() + CPhysics::GetWind()->getComposanteY()));
 				}
 				else{
@@ -213,7 +213,7 @@ public:
 			case JumpRight:
 				if (m_Trajectoire == nullptr){
 					m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
-													new C2DVector(m_RectPosition.x, m_RectPosition.y, 40000.f, -25500.f),
+													new C2DVector(m_RectPosition.x, m_RectPosition.y, 100.f, -250.f),
 													new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity() + CPhysics::GetWind()->getComposanteY()));
 				}
 				else{
