@@ -130,7 +130,7 @@ public:
 #elif defined (_WIN32)
 		strPath.append("\\");
 #endif
-		string FileName[26] = {
+		string FileName[29] = {
 			"Arpegius.ttf",
 			"Btn1.png",
 			"BtnL.png",
@@ -156,10 +156,13 @@ public:
 			"Eplosionmask.png",
 			"explosion1.png",
 			"FontWorm.ttf",
-			"SpriteGrenade.png"
+			"SpriteGrenade.png",
+			"menu.ogg",
+			"arcade.ogg",
+			"desert.ogg"
 		};
-		string strFilePath[26];
-		for (int i = 0; i < 26; i++){
+		string strFilePath[29];
+		for (int i = 0; i < 29; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
@@ -208,6 +211,10 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("grenade", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[25].c_str())));
 		m_Gestionaire->AjouterSurface(new CSurface("explosionmask", IMG_Load(strFilePath[22].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("explosion1", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[23].c_str())));
+		
+		m_Gestionaire->AjouterMusic(new CSound("MenuTheme", strFilePath[26].c_str()));
+		m_Gestionaire->AjouterMusic(new CSound("ArcadeTheme", strFilePath[27].c_str()));
+		m_Gestionaire->AjouterMusic(new CSound("DesertTheme", strFilePath[28].c_str()));
 
 		m_SaveFile->open(strFilePath[12].c_str());
 		
@@ -289,7 +296,8 @@ public:
 		m_pEvent = new SDL_Event();
 		m_Gestionaire = new CGestionnaireRessources();
 		LoadResources(_argv);
-
+		CMenu::SetTheme(m_Gestionaire->GetSound("MenuTheme"));
+		CMenu::getMusic()->Play(-1);
 		LoadData();
 
 		//
@@ -391,6 +399,7 @@ public:
 		m_LastMapUsed = ((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId();
 		m_Game = new CGame(TabMap[m_LastMapUsed], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire);
 		m_MenuNewGame->DeActivateMenu();
+		CMenu::getMusic()->Pause();
 		m_Game->Activate();
 		m_boInMenu = false;
 	}
