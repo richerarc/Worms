@@ -40,7 +40,7 @@ public:
 	@param _RectPos : la position du sprite
 	@Classe héritant de CEntity
 	*/
-	CWorm(string _Name, SDL_Texture* _Texture, CSprite* _pSprite, CFont* _Font, SDL_Rect _RectPos, SDL_Color* _Color) :CEntity(_RectPos, _Texture){
+	CWorm(string _Name, SDL_Texture* _Texture, CSprite* _pSprite, CFont* _Font, SDL_Rect _RectPos, SDL_Color* _Color, CExplosion* _Explosion) :CEntity(_RectPos, _Texture, _Explosion){
 		m_strName = _Name;
 		m_Angle = 0;
 		m_TeamColor = _Color;
@@ -188,8 +188,8 @@ public:
 		else if(_Explosion != nullptr){
 			
 			float Distance = _Explosion->getPosition()->ClaculateDistance((m_RectPosition.x + (m_RectPosition.w / 2)), (m_RectPosition.y + (m_RectPosition.h / 2)));
-			if (Distance <= _Explosion->getRange()){
-				m_iLife -= 110 - 100 * (Distance / _Explosion->getRange);
+			if (Distance <= _Explosion->getRadius()){
+				m_iLife -= 110 - 100 * (Distance / _Explosion->getRadius());
 			}
 		}
 	}
