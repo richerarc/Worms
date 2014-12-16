@@ -8,7 +8,8 @@ enum MissileStates { BazzLeft, BazzRight };
 class CMissiles : public CObjets{
 private:
 	//Données membres:
-	bool boIsexploded; //Donnée représentant si l'objet est explosé (true) ou non (false).
+	bool boHasExplosed; //Donnée représentant si l'objet a explosé
+	bool boIsexploded; //Donnée représentant si l'objet va explosé (true) ou non (false).
 	int m_iPower; // Donnée représentant le power du missile donné par le bazouka.
 	int m_iAngle; // Donnée représentant l'angle d'inclinaison du bazouka.
 public:
@@ -28,6 +29,7 @@ public:
 	*/
 	CMissiles(SDL_Rect _RectPos, SDL_Texture* _Texture, int _iPower, int _iAngle, CExplosion* _Explosion, int _uiMissileState) :CObjets(_RectPos, _Texture, _Explosion){
 		boIsexploded = false;
+		boHasExplosed = false;
 		m_iPower = _iPower;
 		m_iAngle = _iAngle;
 		m_Trajectoire = nullptr;
@@ -57,14 +59,22 @@ public:
 					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, -10 * m_iPower * cos(DegToRad(m_iAngle)), -10 * m_iPower * sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity())));
 			}
 		}
-		//	SDL_Rect m_pRectTemp = CPhysics::HandleGroundCollision(m_RectPosition,)
-		//while (m_RectPosition != m_pRectTemp){
+
 		m_Trajectoire->UpdatePosition();
-		m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
-		m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
-	//}
-	boIsexploded = true;
-}
+		CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+		if (temp != nullptr){
+			if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY()))
+				boIsexploded = true;
+
+			m_RectPosition.y = temp->getY();
+			m_RectPosition.x = temp->getX();
+
+		}
+		else{
+			m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
+			m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+		}
+	}
 
 /*!
 @method Draw
@@ -75,14 +85,17 @@ public:
 void Draw(SDL_Renderer* _pRenderer){
 	if (!boIsexploded){
 		Move();
-		SDL_RenderCopy(_pRenderer, m_pTexture, NULL, &m_RectPosition);
+		SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_RectPosition, DegToRad(m_Trajectoire->GetInitSpeed()->getOrientation()), NULL, SDL_FLIP_NONE);
 	}
 	else{
-		m_pExplosion->setPositionXY(m_RectPosition.x, m_RectPosition.y);
+		m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);
 		m_pExplosion->startExplosion();
 		m_pExplosion->Draw(_pRenderer);
-		if (m_pExplosion->IsDone())
+		if (m_pExplosion->IsDone()){
 			m_pExplosion->ExplodeMap(_pRenderer);
+			boHasExplosed = true;
+		}
+
 
 	}
 }
@@ -106,10 +119,9 @@ void setPos(int _ix, int _iy){
 	m_RectPosition.y = _iy;
 }
 
-bool IsItexploded(){
-	return boIsexploded;
+bool IsExploded(){
+	return boHasExplosed;
 }
-
 void setExplosion(bool _boSet){
 	boIsexploded = _boSet;
 }
