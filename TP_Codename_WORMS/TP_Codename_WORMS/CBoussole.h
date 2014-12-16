@@ -16,7 +16,10 @@ private:
 	SDL_Texture* m_pArrow;			// Image de la flèche (Rotation).
 	SDL_Rect m_RectArrowPosition;	// Position de la fleche.
 	double m_dblAngle;				// Angle de la rotation en degrés.
-
+	CLabel* m_pLabel;
+	unsigned int m_uiSpeed;
+	string m_strWindSpeed;
+	
 public:
 
 	/*!
@@ -27,12 +30,15 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion No discussion is needed.
 	*/
-	CBoussole(SDL_Texture* _ArrowTexture ){
+	CBoussole(SDL_Texture* _ArrowTexture, CFont* _Font){
 		m_pArrow = _ArrowTexture;
 		SDL_QueryTexture(_ArrowTexture, NULL, NULL, &m_RectArrowPosition.w, &m_RectArrowPosition.h);
 		m_RectArrowPosition.x = WIDTH - m_RectArrowPosition.w - 5;
 		m_RectArrowPosition.y = 5;
 		m_dblAngle = 0;
+		m_strWindSpeed =  "0 px/ms";
+		m_uiSpeed = 0;
+		m_pLabel = new CLabel("lbleWind",m_strWindSpeed.c_str(), _Font, { m_RectArrowPosition.x + 15, m_RectArrowPosition.y + m_RectArrowPosition.h + 1, 30, 30 });
 	}
 
 	/*!
@@ -52,6 +58,7 @@ public:
 	*/
 	void Draw(SDL_Renderer* _Renderer){
 		SDL_RenderCopyEx(_Renderer, m_pArrow, NULL, &m_RectArrowPosition, m_dblAngle, NULL, SDL_FLIP_NONE);
+		m_pLabel->Draw(_Renderer);
 	}
 
 	/*!
@@ -63,4 +70,10 @@ public:
 
 	void setAngle(double _Angle){ m_dblAngle = _Angle; }
 
+	void setWindSpeed(unsigned int _uiSpeed){
+		char temp[10];
+		m_strWindSpeed = SDL_uitoa(_uiSpeed, temp, 10);
+		m_strWindSpeed.append(" px/ms");
+		m_pLabel->setText(m_strWindSpeed.c_str());
+	}
 };
