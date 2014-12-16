@@ -1,9 +1,9 @@
 
 
 /*
-Nom : CTrajectory
-Discussion : Classe représentant la trajectoire d'un point
-*/
+ Nom : CTrajectory
+ Discussion : Classe reprŽsentant la trajectoire d'un point
+ */
 
 
 class CTrajectory{
@@ -17,7 +17,7 @@ private:
 	CPosition* m_NextPos;
 	bool m_boStop;
 public:
-	//Constructeur...
+		//Constructeur...
 	CTrajectory(CPosition* _StartPos, C2DVector* _Speed, C2DVector* _Acc){
 		m_boStop = false;
 		m_TrajectoryTime = new CTimer();
@@ -29,8 +29,8 @@ public:
 		m_NextPos = new CPosition(m_ActualPos->getX(), m_ActualPos->getY());
 		m_TrajectoryTime->Start();
 	}
-
-	//Destructeur...
+	
+		//Destructeur...
 	~CTrajectory(){
 		if (m_StartPos){
 			if (m_ActualPos == m_StartPos)
@@ -51,14 +51,14 @@ public:
 		m_NextPos = nullptr;
 		delete m_TrajectoryTime;
 	}
-
+	
 	/*
-	Method : GetPosition
-	Brief : Fonction qui retourne la variation de la position dans la trajectoire selon le temps
-	Params :
-	_Acceleration : Accélération appliquée à la trajectoire
-	Return : Vecteur représentant la position au temps passé en paramètre
-	*/
+	 Method : GetPosition
+	 Brief : Fonction qui retourne la variation de la position dans la trajectoire selon le temps
+	 Params :
+	 _Acceleration : AccŽlŽration appliquŽe ˆ la trajectoire
+	 Return : Vecteur reprŽsentant la position au temps passŽ en paramtre
+	 */
 	void UpdatePosition(){
 		if ((m_TrajectoryTime->getElapsedTime() >= 1) && (!m_boStop)){
 			m_ActualPos->setX(m_NextPos->getX());
@@ -70,32 +70,32 @@ public:
 			m_NextPos->setX(m_ActualPos->getX() + DeltaX);
 			m_NextPos->setY(m_ActualPos->getY() + DeltaY);
 			
-			//m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX() + m_Acceleration->getComposanteX()*dTimeVariation,
-				//m_InitSpeed->getComposanteY() + m_Acceleration->getComposanteX()*dTimeVariation);
+			m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX() + m_Acceleration->getComposanteX()/dTimeVariation,
+										   m_InitSpeed->getComposanteY() + m_Acceleration->getComposanteY()/dTimeVariation);
 			
-
-			//Le code ci-dessous est pour la vitesse actuelle
-			m_ActualSpeed->setComposanteXY((DeltaX + DeltaT * m_Acceleration->getComposanteX()) / dTimeVariation ,
-				(DeltaY + DeltaT * m_Acceleration->getComposanteY()) / dTimeVariation );
+			
+				//Le code ci-dessous est pour la vitesse actuelle
+				//	m_ActualSpeed->setComposanteXY((DeltaX + DeltaT * m_Acceleration->getComposanteX()) / dTimeVariation ,
+				//	(DeltaY + DeltaT * m_Acceleration->getComposanteY()) / dTimeVariation );
 		}
 	}
-
+	
 	CPosition* getNextPos(){
 		return m_NextPos;
 	}
-
+	
 	void UpdateAcceleration(double _CompX, double _CompY){
 		m_Acceleration->setComposanteXY(_CompX, _CompY);
 	}
-
+	
 	void AddAcceleration(C2DVector* _Accel){
 		m_Acceleration = m_Acceleration->operator+(_Accel);
 	}
-
+	
 	/*
-	Method : GetInitSpeed
-	Brief : Fonction qui retourne la vitesse initiale
-	*/
+	 Method : GetInitSpeed
+	 Brief : Fonction qui retourne la vitesse initiale
+	 */
 	C2DVector* GetInitSpeed(){
 		return m_InitSpeed;
 	}
@@ -105,24 +105,24 @@ public:
 		m_ActualSpeed->setXYDebut(_X, _Y);
 		m_Acceleration->setXYDebut(_X, _Y);
 	}
-
+	
 	/*
-	Method : Bounce
-	Brief : Procédure qui ajuste la trajectoire suite à un rebond
-	Params :
-	_Speed : Vitesse à l'impact
-	_SlopeAngle : Angle de la pente du point d'impact (en degrés)
-	Discussion : Vitesse où le rebond n'arrive pas necessaire, ou à vérifier ailleurs
-	Was googled, tout sur internet est vrai plz?
-	http://integraledesmaths.free.fr/idm/PagePrincipale.htm#http://integraledesmaths.free.fr/idm/GeoAPAngDro.htm
-	*/
+	 Method : Bounce
+	 Brief : ProcŽdure qui ajuste la trajectoire suite ˆ un rebond
+	 Params :
+	 _Speed : Vitesse ˆ l'impact
+	 _SlopeAngle : Angle de la pente du point d'impact (en degrŽs)
+	 Discussion : Vitesse o le rebond n'arrive pas necessaire, ou ˆ vŽrifier ailleurs
+	 Was googled, tout sur internet est vrai plz?
+	 http://integraledesmaths.free.fr/idm/PagePrincipale.htm#http://integraledesmaths.free.fr/idm/GeoAPAngDro.htm
+	 */
 	void Bounce(double _Slope){
 		double Slope1 = tan(_Slope);
 		double Slope2 = tan(m_ActualSpeed->getOrientation());
 		double AngleBetweenSlopes = atan((Slope1 - Slope2) / (1 + Slope1*Slope2));
-		//if (m_ActualSpeed->getOrientation() > M_PI/2)
-		//m_ActualSpeed->setOrientation(2 * (M_PI / 2 - _Slope) + AngleBetweenSlopes);
-		//else
+			//if (m_ActualSpeed->getOrientation() > M_PI/2)
+			//m_ActualSpeed->setOrientation(2 * (M_PI / 2 - _Slope) + AngleBetweenSlopes);
+			//else
 		if (_Slope == 0.0){
 			m_ActualSpeed->setOrientation(- m_ActualSpeed->getOrientation());//done
 		}
@@ -141,11 +141,11 @@ public:
 		m_NextPos = new CPosition(m_ActualPos->getX(), m_ActualPos->getY());
 		m_TrajectoryTime->Start();
 	}
-
+	
 	/*
-	Method : GetActualPosition
-	Brief : Retourne la position actuelle (sans bouger)
-	*/
+	 Method : GetActualPosition
+	 Brief : Retourne la position actuelle (sans bouger)
+	 */
 	CPosition* GetActualPosition(){
 		return m_ActualPos;
 	}
@@ -153,7 +153,7 @@ public:
 	C2DVector* GetActualSpeed(){
 		return m_ActualSpeed;
 	}
-
+	
 	void WipeOut(){
 		m_Acceleration->setNorme(0);
 		m_InitSpeed->setNorme(0);
