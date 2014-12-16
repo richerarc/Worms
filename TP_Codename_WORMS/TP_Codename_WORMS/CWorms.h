@@ -61,8 +61,6 @@ private:
 	static CMap* TabMap[5];
 	static fstream* m_SaveFile;
 	static int m_LastMapUsed;
-	static CExplosion* Explosion_Bazooka_Mines;
-	static CExplosion* Explosion_Grenades_Caisses_Worms;
 public:
 
 	static void Start(){
@@ -158,7 +156,7 @@ public:
 			"map5.png",
 			"background5.jpg",
 			"SpriteSheetFinal.png",
-			"Eplosionmask.png",
+			"explosion2.png",
 			"explosion1.png",
 			"FontWorm.ttf",
 			"SpriteGrenade.png"
@@ -211,12 +209,13 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("wormSprite", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[21].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("mine", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[17].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("grenade", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[25].c_str())));
-		m_Gestionaire->AjouterSurface(new CSurface("explosionmask", IMG_Load(strFilePath[22].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("explosion2", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[22].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("explosion1", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[23].c_str())));
 
 
 		/*Explosions*/
-		//m_Gestionaire->AjouterSprite(new CSprite("SpriteExBaz",))
+		m_Gestionaire->AjouterSprite(new CSprite("bigex", m_Gestionaire->GetTexture("explosion1")->GetTexture(), 15, 1, 50, 1));
+		m_Gestionaire->AjouterSprite(new CSprite("smallex", m_Gestionaire->GetTexture("explosion2")->GetTexture(), 18, 1, 50, 1));
 
 		m_SaveFile->open(strFilePath[12].c_str());
 		
@@ -349,10 +348,7 @@ public:
 		m_MenuPause->getElement("btnQuitDskt")->OnClickAction = BtnQuit;
 		m_MenuPause->getElement("btnResume")->OnClickAction = BtnResume;
 
-		//
-		//Initialisation des explosions
-		//
-		Explosion_Bazooka_Mines = new CExplosion(,50)
+
 	}
 
 	//
@@ -423,8 +419,6 @@ public:
 };
 
 // Initialisation des données membre statique
-CExplosion* CWorms::Explosion_Bazooka_Mines = nullptr;
-CExplosion* CWorms::Explosion_Grenades_Caisses_Worms = nullptr;
 CWindow* CWorms::m_pWindow = nullptr;
 CMenu* CWorms::m_MenuPrincipal = nullptr;
 CMenu* CWorms::m_MenuNewGame = nullptr;

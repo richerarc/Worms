@@ -46,6 +46,7 @@ public:
 		if (m_Trajectoire)
 			delete m_Trajectoire;
 		m_Trajectoire = nullptr;
+		delete m_pExplosion;
 	}
 
 	/*!

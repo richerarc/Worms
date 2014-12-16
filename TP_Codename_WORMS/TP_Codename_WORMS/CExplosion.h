@@ -3,10 +3,9 @@
 
 class CExplosion{
 private:
-	CSprite* m_pSprite;		//Donnée membre représentant le sprite d'explosion.
-	int m_iRadius;    // Le rayon d'action de l'explosion
-	SDL_Rect m_RectDestination;
-	SDL_Rect m_SpriteDimension;
+	CSprite* m_pSprite;			// Donnée membre représentant le sprite d'explosion.
+	int m_iRadius;				// Le rayon d'action de l'explosion
+	SDL_Rect m_RectDestination;	// Position Et dimension du Rect de l'explosion
 	CMap* m_pMap;
 public:
 
@@ -14,6 +13,8 @@ public:
 	@method Constructeur.
 	@brief Initialise les données membres.
 	@param _Sprite : le sprite de de l'explosion
+	@param _Radius : Rayon d'effet de l'explosion
+	@param _ActiveMap: Champ de bataille courrament actif.
 	@return Adresse mémoire de l'objet.
 	@discussion No discussion is needed.
 	*/
@@ -26,7 +27,13 @@ public:
 		m_RectDestination.y = 0;
 		m_RectDestination.h = _Radius * 2;
 		m_RectDestination.w = _Radius * 2;
-		m_SpriteDimension = m_pSprite->getRectSource();
+	}
+
+	/*!
+	@method Destructeur:
+	@brief Permet de détruire les objets créés en mémoire
+	*/
+	~CExplosion(){
 	}
 
 	/*!
@@ -36,13 +43,9 @@ public:
 	*/
 	void Draw(SDL_Renderer* _pRenderer){
 		m_pSprite->Render(_pRenderer);
-		if (m_pSprite->AnimationIsOver(false)){
-			ExplodeMap();
-			m_pMap->ConvertMap(_pRenderer);
-		}
 	}
 
-	void ExplodeMap(){
+	void ExplodeMap(SDL_Renderer* _pRenderer){
 		double dblX, dblY ;
 		double dblRayon;
 		int iTemp;
@@ -63,41 +66,26 @@ public:
 				}
 			}
 		}
-	}
-
-	/*!
-	@Destructeur:
-	@Permet de détruire les objets créés en mémoire
-	*/
-	~CExplosion(){
+		m_pMap->ConvertMap(_pRenderer);
 	}
 
 	void startExplosion(){
 		m_pSprite->Start();
 	}
 
-	bool IsDone(){ return m_pSprite->AnimationIsOver(true); }
-
-
 	/*!
 	@method Acesseurs
 	@brief Servent a acceder/modifier aux données membres.
 	*/
 
-
-	int getX(){
-		return m_RectDestination.x;
-	}
-
-	int getY(){
-		return m_RectDestination.y;
-	}
-
-
+	bool IsDone(){ return m_pSprite->AnimationIsOver(); }
+	int getX(){	return m_RectDestination.x; }
+	int getY(){	return m_RectDestination.y; }
+	int getRadius(){ return m_iRadius; }
 	CMap* getMap(){ return m_pMap; }
 	CSprite* getSprite(){ return m_pSprite; }
-	int getRadius(){ return m_iRadius; }
 
+	void setActiveMap(CMap* _Activemap){ m_pMap = _Activemap; }
 	void setPositionXY(int _iX, int _iY){
 		m_RectDestination.x = _iX - m_iRadius;
 		m_RectDestination.y = _iY - m_iRadius;

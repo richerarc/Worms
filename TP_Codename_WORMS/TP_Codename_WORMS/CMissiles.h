@@ -31,8 +31,9 @@ public:
 	}
 
 	/*!
-	@Destructeur:
-	@Permet de détruire les objets créés en mémoire
+	@method Destructeur.
+	@brief Destroy.
+	@discussion He is dead.
 	*/
 	~CMissiles(){
 	}
