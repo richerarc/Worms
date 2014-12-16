@@ -108,31 +108,8 @@ public:
 	 @return GROUNDCEILING : Le rectangle touche au plafond et au sol
 	 @discussion Aucune.
 	 */
-	static void HandleGroundCollision(SDL_Rect* _Rect, int _Direction){
-		switch (_Direction) {
-			case GROUNDLEFT:
-			case CEILINGRIGHT:
-				for (int i = 0; i < _Rect->w - 14; i++){
-					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + 7 + i] != TRANSPARENCY){
-						_Rect->y--;
-					}
-					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + 7 + i] == TRANSPARENCY){
-						_Rect->y++;
-					}
-				}
-				break;
-			case CEILINGLEFT:
-			case GROUNDRIGHT:
-				for (int i = _Rect->w - 14; i > 0; i--){
-					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + 7 + i] != TRANSPARENCY){
-						_Rect->y--;
-					}
-					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + 7 + i] == TRANSPARENCY){
-						_Rect->y++;
-					}
-				}
-				break;
-		}
+	static void verifyGroundCollision(SDL_Rect* _Rect, int _Direction){
+		
 	}
 	
 	/*!
@@ -478,32 +455,69 @@ public:
 	 @return MOVING: Si l'entit� peut continuer
 	 @discussion Ne d�place actuellement que d'un pixel sur l'axe X, � changer si voulu La hauteur (en pixels) d'une pente "escaladable" en y sera � d�terminer (actuellement 3 pixels)
 	 */
-	static int Move(SDL_Rect* _Rect, int _Direction){
-		if (_Direction == LEFT){
-			for (int i = 0; i < _Rect->h / 2; i++){
-				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x] != 0){
-					if (i < _Rect->h)
-						return BLOCKED;
+	static void Move(SDL_Rect* _Rect, int _Direction){
+		switch (_Direction) {
+			case GROUNDLEFT:
+				for (int i = 0; i < _Rect->h / 2; i++){
+					if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x] != 0){
+						if (i < _Rect->h)
+							break;
+					}
+					else{
+						_Rect->x = _Rect->x - 1;
+						
+					}
 				}
-				else{
-					_Rect->x = _Rect->x - 1;
-					return MOVING;
+				while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h + 1)) + _Rect->x] != TRANSPARENCY){
+					_Rect->y--;
 				}
-			}
+				break;
+			case CEILINGRIGHT:
+				for (int i = 0; i < _Rect->h / 2; i++){
+					if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x + _Rect->w] != 0){
+						if (i < _Rect->h)
+							break;
+					}
+					else{
+						_Rect->x = _Rect->x + 1;
+						
+					}
+				}
+				while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h + 1)) + _Rect->x] == TRANSPARENCY){
+					_Rect->y++;
+				}
+				break;
+			case CEILINGLEFT:
+				for (int i = 0; i < _Rect->h / 2; i++){
+					if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x] != 0){
+						if (i < _Rect->h)
+							break;
+					}
+					else{
+						_Rect->x = _Rect->x - 1;
+						
+					}
+				}
+				while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h + 1)) + _Rect->x + _Rect->w] == TRANSPARENCY){
+					_Rect->y++;
+				}
+				break;
+			case GROUNDRIGHT:
+				for (int i = 0; i < _Rect->h / 2; i++){
+					if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x + _Rect->w] != 0){
+						if (i < _Rect->h)
+							break;
+					}
+					else{
+						_Rect->x = _Rect->x + 1;
+						
+					}
+				}
+				while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h + 1)) + _Rect->x + _Rect->w] != TRANSPARENCY){
+					_Rect->y--;
+				}
+				break;
 		}
-		else{
-			for (int i = 0; i < _Rect->h / 2; i++){
-				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x + _Rect->w] != 0){
-					if (i < _Rect->h)
-						return BLOCKED;
-				}
-				else{
-					_Rect->x = _Rect->x + 1;
-					return MOVING;
-				}
-			}
-		}
-		return NULL;
 	}
 	
 	/*!
