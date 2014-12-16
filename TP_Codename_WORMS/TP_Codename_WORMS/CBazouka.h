@@ -191,6 +191,7 @@ public:
 
 			case SDLK_SPACE:
 
+
 				if (m_Worm->getWormState() == 6){
 					fPosYTempo = m_RectBazouka.y + (-40 * sin(DegToRad(iAngle)));
 					fPosXTempo = m_RectBazouka.x + (-1 * cos(DegToRad(iAngle)));
@@ -219,6 +220,7 @@ public:
 
 				}
 				boHasLaunch = true;
+
 				m_pMissile->Move();
 				m_PowerBar->setPowerLevel(m_uiPower);
 
