@@ -256,16 +256,7 @@ public:
 		if (m_pListeTeam->Count() == m_uiNbOfPlayingTeams){
 			m_pListeTeam->AllerDebut();
 			m_pListeTeam->ObtenirElement()->setFocus(true);
-			if (m_pListeTeam->ObtenirElement()->IsFocused())
-				for (int k = 0; k < m_uiNbOfWormPerTeam; k++){
-					ActiveWorm = m_pListeTeam->ObtenirElement()->getPlayingWorm();
-				}
-			/*for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
-				m_pListeTeam->AllerA(i);
-				
-					break;
-				}
-			}*/
+			ActiveWorm = m_pListeTeam->ObtenirElement()->getPlayingWorm();
 		}
 	}
 
@@ -277,7 +268,7 @@ public:
 	@discussion None.
 	*/
 	void MainGame(){
-		if (DropperTimer->IsElapsed()){
+		if (DropperTimer->IsElapsed() && (m_pListeTeam->Count() < m_uiNbOfPlayingTeams)){
 			DropperTimer->Start();
 			Spawn();
 		}
