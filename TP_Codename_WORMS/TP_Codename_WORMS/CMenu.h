@@ -18,7 +18,6 @@ private:
 	SDL_Rect m_MenuInfo;	   // Position et dimension du menu.
 	bool m_boMenuActif;		   // Indique si le menu est actif ou non
 	SDL_Texture* m_pBackground;
-	static CSound* m_Theme;
 public:
 
 	/*!
@@ -226,14 +225,5 @@ public:
 		m_pBackground = _Texture;
 	}
 
-	static void SetTheme(CSound* _NewTheme){
-		m_Theme = _NewTheme;
-	}
-	
-	static CSound* getMusic(){
-		return m_Theme;
-	}
 
 };
-
-CSound* CMenu::m_Theme = nullptr;
