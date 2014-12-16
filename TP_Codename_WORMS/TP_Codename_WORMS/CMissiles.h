@@ -24,7 +24,8 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
-	CMissiles(SDL_Texture* _textureExplosion, SDL_Rect _RectPos, SDL_Texture* _Texture, int _uiPower, int _uiAngle) :CObjets(_textureExplosion, _RectPos, _Texture){
+
+	CMissiles(SDL_Rect _RectPos, SDL_Texture* _Texture, int _uiPower, CExplosion* _Explosion) :CObjets( _RectPos, _Texture, _Explosion){
 		boIsexploded = false;
 		m_uiPower = _uiPower;
 		m_uiAngle = _uiAngle;
@@ -32,8 +33,9 @@ public:
 	}
 
 	/*!
-	@Destructeur:
-	@Permet de détruire les objets créés en mémoire
+	@method Destructeur.
+	@brief Destroy.
+	@discussion He is dead.
 	*/
 	~CMissiles(){
 	}

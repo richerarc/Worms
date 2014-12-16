@@ -22,7 +22,7 @@ private:
 public:
 
 	/*!
-	@ Constructeur
+	@method Constructeur
 	@brief Initialise les données membres.
 	@param _Renderer : Renderer de la fenetre.
 	@param _PositionDimension : Informations sur la position et la dimension de la fênetre.
@@ -69,12 +69,11 @@ public:
 	}
 
 	/*!
-	 @method ClickEvent.
-	 @brief Appelle le bon OnClick.
-	 @param  _uiX: Position en x de la souris.
-	 @param  _uiY: Position en y de la souris.
-	 @return Aucun.
-	 */
+	@method HandleEvent.
+	@brief Réagit aux events.
+	@param  _Event : Event SDL
+	@return Aucun.
+	*/
 	void HandleEvent(SDL_Event _Event){
 		if (m_boMenuActif){
 			CGUIE* Temp;
@@ -114,7 +113,7 @@ public:
 					break;
 				}
 			}
-			
+
 		}
 	}
 

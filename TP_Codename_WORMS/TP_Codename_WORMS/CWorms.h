@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * Fichier pour la classe CWorms
  * Créé le 06/11/2014 à 13h50 par Richer Archambault
  */
@@ -19,6 +19,7 @@
 #include "CSlideShow.h"
 #include "CMenu.h"
 #include "CPosition.h"
+#include "CMap.h"
 #include "CTrajectory.h"
 #include "CExplosion.h"
 #include "CPhysic.h"
@@ -32,7 +33,7 @@
 #include "CCaisseSoin.h"
 
 #include "CTeam.h"
-#include "CMap.h"
+
 #include "CBoussole.h"
 #include "CPowerBar.h"
 #include "CBazouka.h"
@@ -85,8 +86,10 @@ public:
 				if ((m_Game != nullptr) && m_Game->inGame()){
 					m_Game->HandleEvent(*m_pEvent);
 					if (m_pEvent->key.keysym.sym == SDLK_ESCAPE){
-						m_MenuPause->ActivateMenu();
-						m_boInMenu = true;
+						if (!m_MenuPause->IsActive()){
+							m_MenuPause->ActivateMenu();
+							m_boInMenu = true;
+						}
 					}
 					if (m_pEvent->key.keysym.sym == SDLK_f){
 						m_boFPS = true;
@@ -175,7 +178,7 @@ public:
 			"map5.png",
 			"background5.jpg",
 			"SpriteSheetFinal.png",
-			"Eplosionmask.png",
+			"explosion2.png",
 			"explosion1.png",
 			"FontWorm.ttf",
 			"SpriteGrenade.png",
@@ -231,16 +234,21 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("wormSprite", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[21].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("mine", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[17].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("grenade", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[25].c_str())));
-		m_Gestionaire->AjouterSurface(new CSurface("explosionmask", IMG_Load(strFilePath[22].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("explosion2", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[22].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("explosion1", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[23].c_str())));
 		
 		m_Gestionaire->AjouterMusic(new CSound("MenuTheme", strFilePath[26].c_str()));
 		m_Gestionaire->AjouterMusic(new CSound("ArcadeTheme", strFilePath[27].c_str()));
 		m_Gestionaire->AjouterMusic(new CSound("DesertTheme", strFilePath[28].c_str()));
 
+
+		/*Explosions*/
+		m_Gestionaire->AjouterSprite(new CSprite("bigex", m_Gestionaire->GetTexture("explosion1")->GetTexture(), 15, 1, 50, 1));
+		m_Gestionaire->AjouterSprite(new CSprite("smallex", m_Gestionaire->GetTexture("explosion2")->GetTexture(), 18, 1, 50, 1));
+
 		m_SaveFile->open(strFilePath[12].c_str());
 		
-		CExplosion::setExplosionMask(m_Gestionaire->GetSurface("explosionmask")->getSurface());
+
 }
 
 	static void LoadData(){
@@ -321,8 +329,10 @@ public:
 		m_timerFPS->SetTimer(1000);
 		m_timerFPS->Start();
 		LoadResources(_argv);
+
 		CMenu::SetTheme(m_Gestionaire->GetSound("MenuTheme"));
 		CMenu::getMusic()->Play(-1);
+
 		LoadData();
 
 		//
@@ -335,6 +345,7 @@ public:
 		m_MenuPrincipal->getElement("btnQuit")->OnClickAction = BtnQuit;
 		m_MenuPrincipal->getElement("btnNewGame")->OnClickAction = BtnNewGame;
 		m_MenuPrincipal->ActivateMenu();
+
 		//
 		// Initialisation du menu NewGame
 		//
@@ -364,7 +375,6 @@ public:
 		//
 		// Initialisation du menu Pause
 		//
-
 		m_MenuPause->AddElement(new CButton("btnResume", "Resume", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 10, 10 }, m_Gestionaire->GetSprite("SpriteBtnResume")), 20, 50, 162, 33);
 		m_MenuPause->AddElement(new CButton("btnRestart", "Restart", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 10, 10 }, m_Gestionaire->GetSprite("SpriteBtnRestart")), 20, 100, 162, 33);
 		m_MenuPause->AddElement(new CButton("btnMainMenu", "Main Menu", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 10, 10 }, m_Gestionaire->GetSprite("SpriteBtnMainMenu")), 20, 225, 162, 33);
@@ -373,6 +383,7 @@ public:
 		m_MenuPause->getElement("btnMainMenu")->OnClickAction = BtnMainMenu;
 		m_MenuPause->getElement("btnQuitDskt")->OnClickAction = BtnQuit;
 		m_MenuPause->getElement("btnResume")->OnClickAction = BtnResume;
+
 
 	}
 
@@ -445,7 +456,6 @@ public:
 };
 
 // Initialisation des données membre statique
-
 CWindow* CWorms::m_pWindow = nullptr;
 CMenu* CWorms::m_MenuPrincipal = nullptr;
 CMenu* CWorms::m_MenuNewGame = nullptr;
