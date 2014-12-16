@@ -106,7 +106,7 @@ public:
 	@brief Change le focus des équipes pour le changement de tour.
 	*/
 	void NextTurn(){
-		Uint8 uitemp = m_uiTeamTurn % m_uiNbOfPlayingTeams;
+		unsigned int uitemp = m_uiTeamTurn % m_uiNbOfPlayingTeams;
 		m_pListeTeam->AllerA(uitemp);
 		if (m_pListeTeam->ObtenirElement()->IsFocused()) {
 			m_pListeTeam->ObtenirElement()->NextTurn();

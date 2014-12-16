@@ -14,8 +14,8 @@ private:
 	string m_strTeamName;
 	CWorm* m_pTabWorm[6];
 	SDL_Color m_TeamColor;
-	Uint8 m_uiNbOfWorm;
-	Uint8 m_uiWormTurn;
+	unsigned int m_uiNbOfWorm;
+	unsigned int m_uiWormTurn;
 	bool m_boFocus;
 
 public:
@@ -28,7 +28,7 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Voilà.
 	*/
-	CTeam(string _strTeamName, SDL_Texture* _WormRepo, SDL_Texture* _TexSprite, Uint8 _uiNbWorms, CFont* _Font, CExplosion* _Explosion ){
+	CTeam(string _strTeamName, SDL_Texture* _WormRepo, SDL_Texture* _TexSprite, unsigned int _uiNbWorms, CFont* _Font, CExplosion* _Explosion ){
 		m_boFocus = false;
 		m_uiWormTurn = 0;
 		m_TeamColor = { static_cast<Uint8>((SDL_GetTicks() - rand()) % 255 + 1), static_cast<Uint8>((rand() + SDL_GetTicks()) % 255 + 1), static_cast<Uint8>((SDL_GetTicks() * rand()) % 255 + 1), 255 };
@@ -40,7 +40,6 @@ public:
 		{
 			strNom.append(" ");
 			strNom.append(SDL_itoa(i, Buffer, 10));
-			//Il manque des données pour créer l'équipes.
 			m_pTabWorm[i] = new CWorm(strNom, _WormRepo, new CSprite("", _TexSprite, 10, 17, 80, -1), _Font, {rand() % WIDTH, -50, 30, 50 }, &m_TeamColor,_Explosion);
 			strNom.pop_back();
 			strNom.pop_back();
@@ -53,7 +52,7 @@ public:
 	@brief Change le focus des Worms pour le tour suivant.
 	*/
 	void NextTurn(){
-		Uint8 temp = (m_uiWormTurn) % m_uiNbOfWorm;
+		unsigned int temp = (m_uiWormTurn) % m_uiNbOfWorm;
 		if (m_pTabWorm[temp]->isFocused()){
 			m_pTabWorm[temp]->setFocus(false);
 		}
