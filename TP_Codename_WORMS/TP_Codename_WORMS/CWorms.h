@@ -61,6 +61,10 @@ private:
 	static CMap* TabMap[5];
 	static fstream* m_SaveFile;
 	static int m_LastMapUsed;
+	static string m_strFPS;
+	static int m_nbrFPS;
+	static bool m_boFPS;
+	static CTimer* m_timerFPS;
 public:
 
 	static void Start(){
@@ -87,6 +91,12 @@ public:
 							m_boInMenu = true;
 						}
 					}
+					if (m_pEvent->key.keysym.sym == SDLK_f){
+						m_boFPS = true;
+					}
+					if (m_pEvent->key.keysym.sym == SDLK_g){
+						m_boFPS = false;
+					}
 				}
 			}
 			if (m_Game != nullptr)
@@ -98,6 +108,16 @@ public:
 		SDL_RenderClear(m_pWindow->getRenderer());
 			if ((m_Game != nullptr) && m_Game->inGame())
 				m_Game->Render();
+		if (m_boFPS){
+			if (m_timerFPS->IsElapsed()){
+				m_timerFPS->Start();
+				m_strFPS = "FPS: ";
+				char buf[10];
+				m_strFPS.append(SDL_itoa(m_nbrFPS, buf, 10));
+				m_nbrFPS = 0;
+				}
+			m_Gestionaire->GetFont("FontMenu")->RenderText(m_pWindow->getRenderer(), m_strFPS.c_str(), 10, 10);
+		}
 		if (m_boInMenu){
 			SDL_SetRenderDrawColor(m_pWindow->getRenderer(), 255, 255, 255, 1);
 			if (m_MenuPrincipal->IsActive())
@@ -111,6 +131,7 @@ public:
 		}
 
 		m_pWindow->Refresh();
+		m_nbrFPS++;
 	}
 
 	static void LoadResources(string _argv){
@@ -296,6 +317,9 @@ public:
 		m_MenuNewTeam = new CMenu(m_pWindow->getRenderer(), { 0, 0, WIDTH, HEIGHT });
 		m_pEvent = new SDL_Event();
 		m_Gestionaire = new CGestionnaireRessources();
+		m_timerFPS = new CTimer();
+		m_timerFPS->SetTimer(1000);
+		m_timerFPS->Start();
 		LoadResources(_argv);
 		LoadData();
 
@@ -432,4 +456,7 @@ bool CWorms::m_boRun = true;
 CMap* CWorms::TabMap[5];
 fstream* CWorms::m_SaveFile = new fstream();
 int CWorms::m_LastMapUsed = 0;
-
+string CWorms::m_strFPS = "FPS:";
+int CWorms::m_nbrFPS = 0;
+bool CWorms::m_boFPS = false;
+CTimer* CWorms::m_timerFPS = nullptr;
