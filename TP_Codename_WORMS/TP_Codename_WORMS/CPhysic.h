@@ -92,6 +92,37 @@ public:
 		return false;
 	}
 	
+	
+	
+	static void HandleGroundCollision(SDL_Rect* _Rect, int _Direction){
+		switch (_Direction) {
+			case GROUNDLEFT:
+			case CEILINGRIGHT:
+				for (int i = 0; i < _Rect->w; i++){
+					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] != TRANSPARENCY){
+						_Rect->y--;
+					}
+					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] == TRANSPARENCY){
+						_Rect->y++;
+					}
+				}
+				break;
+			case CEILINGLEFT:
+			case GROUNDRIGHT:
+				for (int i = _Rect->w; i > 0; i--){
+					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] != TRANSPARENCY){
+						_Rect->y--;
+					}
+					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] == TRANSPARENCY){
+						_Rect->y++;
+					}
+				}
+				break;
+		}
+	}
+	
+	
+	
 	/*!
 	 @method VerifyGroudColision
 	 @brief V�rifie si deux rect se touche
@@ -109,7 +140,15 @@ public:
 	 @return GROUNDCEILING : Le rectangle touche au plafond et au sol
 	 @discussion Aucune.
 	 */
-	static void verifyGroundCollision(SDL_Rect* _Rect, int _Direction){
+	static CPosition* verifyGroundCollision(SDL_Rect _Rect){
+		for (int i = 0; i < _Rect.h; i++){
+			for (int j = 0; j < _Rect.w; j++) {
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x + j] != TRANSPARENCY){
+					return new CPosition(_Rect.x + j, _Rect.y + i);
+				}
+			}
+		}
+		return nullptr;
 	}
 	
 	/*!
@@ -455,69 +494,32 @@ public:
 	 @return MOVING: Si l'entit� peut continuer
 	 @discussion Ne d�place actuellement que d'un pixel sur l'axe X, � changer si voulu La hauteur (en pixels) d'une pente "escaladable" en y sera � d�terminer (actuellement 3 pixels)
 	 */
-	static void Move(SDL_Rect* _Rect, int _Direction){
-		switch (_Direction) {
-			case GROUNDLEFT:
-				for (int i = 0; i < _Rect->h / 2; i++){
-					if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x] != 0){
-						if (i < _Rect->h)
-							break;
-					}
-					else{
-						_Rect->x = _Rect->x - 1;
-						
-					}
+	static int Move(SDL_Rect* _Rect, int _Direction){
+		if (_Direction == LEFT){
+			for (int i = 0; i < _Rect->h / 2; i++){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x] != 0){
+					if (i < _Rect->h)
+						return BLOCKED;
 				}
-				while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h + 1)) + _Rect->x] != TRANSPARENCY){
-					_Rect->y--;
+				else{
+					_Rect->x = _Rect->x - 1;
+					return MOVING;
 				}
-				break;
-			case CEILINGRIGHT:
-				for (int i = 0; i < _Rect->h / 2; i++){
-					if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x + _Rect->w] != 0){
-						if (i < _Rect->h)
-							break;
-					}
-					else{
-						_Rect->x = _Rect->x + 1;
-						
-					}
-				}
-				while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h + 1)) + _Rect->x] == TRANSPARENCY){
-					_Rect->y++;
-				}
-				break;
-			case CEILINGLEFT:
-				for (int i = 0; i < _Rect->h / 2; i++){
-					if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x] != 0){
-						if (i < _Rect->h)
-							break;
-					}
-					else{
-						_Rect->x = _Rect->x - 1;
-						
-					}
-				}
-				while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h + 1)) + _Rect->x + _Rect->w] == TRANSPARENCY){
-					_Rect->y++;
-				}
-				break;
-			case GROUNDRIGHT:
-				for (int i = 0; i < _Rect->h / 2; i++){
-					if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x + _Rect->w] != 0){
-						if (i < _Rect->h)
-							break;
-					}
-					else{
-						_Rect->x = _Rect->x + 1;
-						
-					}
-				}
-				while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h + 1)) + _Rect->x + _Rect->w] != TRANSPARENCY){
-					_Rect->y--;
-				}
-				break;
+			}
 		}
+		else{
+			for (int i = 0; i < _Rect->h / 2; i++){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x + _Rect->w] != 0){
+					if (i < _Rect->h)
+						return BLOCKED;
+				}
+				else{
+					_Rect->x = _Rect->x + 1;
+					return MOVING;
+				}
+			}
+		}
+		return NULL;
 	}
 	
 	/*!
