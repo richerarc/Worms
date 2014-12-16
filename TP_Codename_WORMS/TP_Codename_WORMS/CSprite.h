@@ -140,6 +140,9 @@ public:
 
 	int getY(){ return m_rDest.y; }
 
+	int getH(){ return m_rSource.h; }
+	int getW(){ return m_rSource.w; }
+
 	SDL_Rect getRectSource(){ return m_rSource; }
 
 };
