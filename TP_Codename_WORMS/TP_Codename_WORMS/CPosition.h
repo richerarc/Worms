@@ -56,16 +56,6 @@ public:
 		m_iY = _dY;
 	}
 
-	//Methode CalculateDistance()
-	//retour: float (Distance entre deux points.
-	//Parametres: Soit un CPosition * ou des valeurs de x et y
-
-	float ClaculateDistance(CPosition * _ComparePosition){
-		return sqrt(pow(abs(m_iX - _ComparePosition->getX()), 2)*pow(abs(m_iY - _ComparePosition->getY()), 2));
-	}
-	float ClaculateDistance( float _X, float _Y){
-		return sqrt(pow(abs(m_iX - _X), 2)*pow(abs(m_iY - _Y), 2));
-	}
 	bool getState(){ return m_boState; }
 	void setState(bool _boState){ m_boState = _boState; }
 
