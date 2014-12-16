@@ -18,7 +18,7 @@
 class CPhysics{
 private:
 	static C2DVector * m_Wind;			// Le vent
-	static double m_Gravity;			// La gravité
+	static double m_Gravity;			// La gravit�
 	static int m_MaxSpeed;				// La vitesse maximum
 	static int m_MaxWindSpeed;			// Le vent maximum
 	static SDL_Surface * m_Map;			// Le Cham de battaile ou la physique aura son effet.
@@ -29,12 +29,12 @@ public:
 
 	/*!
 	@method Init.
-	@brief Initialise les données membres.
+	@brief Initialise les donn�es membres.
 	@param _map: Champ de battaile
-	@param _gravity: Gravité qui influra sur les entitées
+	@param _gravity: Gravit� qui influra sur les entit�es
 	@param _maxWind: Vent maximum.
-	@return Adresse mémoire de l'objet.
-	@discussion Comme tous les données membres sont statiques, Le init agit comme un constructeur.
+	@return Adresse m�moire de l'objet.
+	@discussion Comme tous les donn�es membres sont statiques, Le init agit comme un constructeur.
 	*/
 	static void Init(SDL_Surface* _map, double _gravity, int _maxWind){
 		m_Wind = new C2DVector(0, 0, 0, 0);
@@ -75,7 +75,7 @@ public:
 
 	/*!
 	@method Verify collision
-	@brief Vérifie si deux rect se touche
+	@brief V�rifie si deux rect se touche
 	@param _Collider: Le rect en mouvement
 	@param _Collidee: Le rect immobile .
 	@return true si il y a un collision?
@@ -93,13 +93,13 @@ public:
 
 	/*!
 	@method VerifyGroudColision
-	@brief Vérifie si deux rect se touche
+	@brief V�rifie si deux rect se touche
 	@param _Collider: Le rect en mouvement
 	@param _Collidee: Le rect immobile .
-	@return NOCONTACT : Le rectangle ne touche é rien
+	@return NOCONTACT : Le rectangle ne touche � rien
 	@return GROUND : Le rectangle touche au sol
-	@return LEFT : Le rectangle touche le terrain é gauche
-	@return RIGHT : Le rectangle touche le terrain é droite
+	@return LEFT : Le rectangle touche le terrain � gauche
+	@return RIGHT : Le rectangle touche le terrain � droite
 	@return CEILING : Le rectangle touche le plafond
 	@return GROUNDLEFT : Le rectangle touche le sol et la gauche
 	@return GROUNDRIGHT : Le rectangle touche le sol et la droite
@@ -109,24 +109,40 @@ public:
 	@discussion Aucune.
     */
 	static void HandleGroundCollision(SDL_Rect* _Rect, int _Direction){
-			for (int i = 0; i < _Rect->w; i++){
-				while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h - 1)) + _Rect->x + i] > TRANSPARENCY){
-					_Rect->y--;
+		switch (_Direction) {
+			case GROUNDLEFT:
+			case CEILINGRIGHT:
+				for (int i = 0; i < _Rect->w - 14; i++){
+					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + 7 + i] != TRANSPARENCY){
+						_Rect->y--;
+					}
+					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + 7 + i] == TRANSPARENCY){
+						_Rect->y++;
+					}
 				}
-				while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] == TRANSPARENCY){
-					_Rect->y++;
+			    break;
+			case CEILINGLEFT:
+			case GROUNDRIGHT:
+				for (int i = _Rect->w - 14; i > 0; i--){
+					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + 7 + i] != TRANSPARENCY){
+						_Rect->y--;
+					}
+					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + 7 + i] == TRANSPARENCY){
+						_Rect->y++;
+					}
 				}
-			}
+				break;
+		}
 	}
 
 	/*!
 	@method VerifyNextPosition
-	@brief Vérifie la position prochaine pour les collisions.
+	@brief V�rifie la position prochaine pour les collisions.
 	@param _Trajectoire: Trajectoire a parcourir par l'objet.
 	@param _EntityRect: Rect de l'objet qui tombe
 	@return La position de la collision si il y en a une.
 	@return La position finale si la trajectoire c'est fait sans collisions.
-	@return nullptr si le déplacement n'est pas significatif.
+	@return nullptr si le d�placement n'est pas significatif.
 	@discussion Retourne toujours une position valide sauf si le vecteur Original n'est pas assez gros.
 	*/
 	static CPosition* VerifyNextPosition(CTrajectory* _Trajectoire, SDL_Rect _EntityRect){
@@ -377,18 +393,18 @@ public:
 
 	/*!
 	@method Evaluate Slope
-	@brief  Fonction qui retourne la pente (en degrés) é partir d'une section de la map
-	@param _Pos : Position dans la surface oé la pente est évaluée
-	@param _Direction : Direction de laquelle vient l'entité impliquée
-	@return L'angle de la pennte en degré;
+	@brief  Fonction qui retourne la pente (en degr�s) � partir d'une section de la map
+	@param _Pos : Position dans la surface o� la pente est �valu�e
+	@param _Direction : Direction de laquelle vient l'entit� impliqu�e
+	@return L'angle de la pennte en degr�;
 	*/
-	static double EvaluateSlope(SDL_Rect* _Rect){
+	static double EvaluateSlope(SDL_Rect _Rect){
 		double Slope = 0;
 		bool first = false;
 		int PreviousY = 0;
 		double PointsSignificatifs = 0;
-		for (int x = _Rect->x; x < _Rect->x + _Rect->w; x++){
-			for (int y = _Rect->y; y < _Rect->y + _Rect->h; y++){
+		for (int x = _Rect.x; x < _Rect.x + _Rect.w; x++){
+			for (int y = _Rect.y; y < _Rect.y + _Rect.h; y++){
 				if (((unsigned int*)m_Map->pixels)[m_Map->w * (y)+x] >TRANSPARENCY){
 					if (((unsigned int*)m_Map->pixels)[m_Map->w * (y + 1) + x] == 0
 						|| ((unsigned int*)m_Map->pixels)[m_Map->w * (y - 1) + x] == 0){
@@ -399,14 +415,12 @@ public:
 							first = true;
 						PreviousY = TmpY;
 						PointsSignificatifs++;
-						y = _Rect->y + _Rect->h;
+						y = _Rect.y + _Rect.h;
 					}
 				}
 			}
 		}
 		double Angle = atan(Slope / (PointsSignificatifs - 1));
-		delete _Rect;
-
 		return Angle;
 	}
 
@@ -414,7 +428,7 @@ public:
 	Method : VerifyIfSliding
 	Brief : Fonction qui retourne la trajectoire d'une chose en train de glisser par rapport au terrain
 	Params:
-	_Rect : Rectangle é évaluer
+	_Rect : Rectangle � �valuer
 	*/
 	static bool VerifyIfSliding(SDL_Rect* _Rect){
 		int iNbrPixels = 0; //Nombre de pixels en contact directement sous le rectangle
@@ -423,15 +437,15 @@ public:
 				iNbrPixels++;
 			}
 		}
-		return (iNbrPixels < _Rect->w / 2);//On suppose qu'é 50% du rect en contact avec le sol, aucune glissade ne survient
+		return (iNbrPixels < _Rect->w / 2);//On suppose qu'� 50% du rect en contact avec le sol, aucune glissade ne survient
 	}
 
 	/*!
 	@method Propulsion
-	@brief  Retourne une trajectoire selon un vitesse de départ et un accélération
+	@brief  Retourne une trajectoire selon un vitesse de d�part et un acc�l�ration
 	@param _PosInit: Position initiale de l'objet subbisant la propulsion
 	@param _Vit: Vitesse et direction initial du glissement
-	@param _Acc: Position initial de l'entité
+	@param _Acc: Position initial de l'entit�
 	@return La trajectoire de ala propuslion
 	@discussion Aucune.
 	*/
@@ -442,7 +456,7 @@ public:
 	/*!
 	@method Slide
 	@brief  Fonction qui fait glisser si la pente est trop grande
-	@param _Rect : Rectangle de l'objet impliqué
+	@param _Rect : Rectangle de l'objet impliqu�
 	@return La trajectoire du glissement
 	*/
 	/*static CTrajectory * Slide(CEntity* _Entity){
@@ -458,17 +472,17 @@ public:
 
 	/*!
 	@method Move
-	@brief  Fonction qui ajuste la position suite é un mouvement sans accélération
-	@param _Rect : Rectangle se déplaéant
-	@param _Direction : Bool de la direction empruntée (true = gauche, false = droite))
-	@return BLOCKED: Si l'entité est pognée
-	@return MOVING: Si l'entité peut continuer
-	@discussion Ne déplace actuellement que d'un pixel sur l'axe X, é changer si voulu La hauteur (en pixels) d'une pente "escaladable" en y sera é déterminer (actuellement 3 pixels)
+	@brief  Fonction qui ajuste la position suite � un mouvement sans acc�l�ration
+	@param _Rect : Rectangle se d�pla�ant
+	@param _Direction : Bool de la direction emprunt�e (true = gauche, false = droite))
+	@return BLOCKED: Si l'entit� est pogn�e
+	@return MOVING: Si l'entit� peut continuer
+	@discussion Ne d�place actuellement que d'un pixel sur l'axe X, � changer si voulu La hauteur (en pixels) d'une pente "escaladable" en y sera � d�terminer (actuellement 3 pixels)
 	*/
 	static int Move(SDL_Rect* _Rect, int _Direction){
 		if (_Direction == LEFT){
 			for (int i = 0; i < _Rect->h / 2; i++){
-				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x + 6] != 0){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x] != 0){
 					if (i < _Rect->h)
 						return BLOCKED;
 				}
@@ -480,7 +494,7 @@ public:
 		}
 		else{
 			for (int i = 0; i < _Rect->h / 2; i++){
-				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x + _Rect->w - 6] != 0){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x + _Rect->w] != 0){
 					if (i < _Rect->h)
 						return BLOCKED;
 				}
@@ -495,7 +509,7 @@ public:
 
 	/*!
 	@method Acesseurs
-	@brief Servent a acceder/modifier aux données membres.
+	@brief Servent a acceder/modifier aux donn�es membres.
 	*/
 
 	static C2DVector* GetWind(){

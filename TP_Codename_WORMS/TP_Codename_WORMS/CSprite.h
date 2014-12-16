@@ -32,7 +32,6 @@ private:
 				m_uiCurrentLoop++;
 		}
 	}
-
 public:
 
 	CSprite(const char* _Name, SDL_Texture* _Texture, int _nbrFrame, int _nbrAnimation, int _delai, int _loop) : CRessource(_Name){
@@ -46,8 +45,8 @@ public:
 		m_rSource.h = m_rSource.h / m_NbrAnimation;
 		m_rSource.x = 0;
 		m_rSource.y = 0;
-		m_rDest.x = 0;
-		m_rDest.y = 0;
+		m_rDest.x = 500;
+		m_rDest.y = 200;
 		m_rDest.w = m_rSource.w;
 		m_rDest.h = m_rSource.h;
 		m_pTimer->Start();
@@ -58,10 +57,46 @@ public:
 			m_uinbLoop = 1;
 		m_uiCurrentLoop = 0;
 	}
-
 	~CSprite(){
 		delete m_pTimer;
 		SDL_DestroyTexture(m_pTexture);
+	}
+
+
+	void setSpritePos(int _ix, int _iy){
+		m_rDest.x = _ix;
+		m_rDest.y = _iy;
+	}
+
+	void Start(){
+		m_boActif = true;
+	}
+
+	void Pause(){
+		m_boActif = false;
+	}
+
+	void setNbLoop(int _loop){
+		m_uinbLoop = _loop;
+		if (!m_uinbLoop)
+			m_uinbLoop = 1;
+	}
+
+	int getCurrentAnimation(){
+		return m_currentAnimation;
+	}
+
+	int getX(){
+		return m_rDest.x;
+	}
+	int getY(){
+		return m_rDest.y;
+	}
+
+	void setCurrentAnimation(int _currentAni){
+		m_currentAnimation = _currentAni;
+		m_rSource.y = m_rSource.h * m_currentAnimation;
+		m_currentFrame = 0;
 	}
 
 	/*!
@@ -90,59 +125,4 @@ public:
 		SDL_RenderCopyEx(_Renderer, m_pTexture, &m_rSource, &m_rDest, RadToDeg(_Angle), NULL, SDL_FLIP_NONE);
 	}
 	
-	bool AnimationIsOver(){
-		if (m_currentFrame == m_NbrFrame - 1){
-			m_rSource.x = 0;
-			m_rSource.y = 0;
-			m_rDest.x = 0;
-			m_rDest.y = 0;
-			m_rDest.w = m_rSource.w;
-			m_rDest.h = m_rSource.h;
-			m_pTimer->Start();
-			m_currentFrame = 0;
-			m_uiCurrentLoop = 0;
-			m_boActif = false;
-			return true;
-		}
-		return false;
-	}
-
-
-
-	void setSpritePos(int _ix, int _iy){
-		m_rDest.x = _ix;
-		m_rDest.y = _iy;
-	}
-
-	void Start(){
-		m_boActif = true;
-	}
-
-	void Pause(){
-		m_boActif = false;
-	}
-
-	void setNbLoop(int _loop){
-		m_uinbLoop = _loop;
-		if (!m_uinbLoop)
-			m_uinbLoop = 1;
-	}
-
-	void setCurrentAnimation(int _currentAni){
-		m_currentAnimation = _currentAni;
-		m_rSource.y = m_rSource.h * m_currentAnimation;
-		m_currentFrame = 0;
-	}
-
-	int getCurrentAnimation(){ return m_currentAnimation; }
-
-	int getX(){ return m_rDest.x; }
-
-	int getY(){ return m_rDest.y; }
-
-	int getH(){ return m_rSource.h; }
-	int getW(){ return m_rSource.w; }
-
-	SDL_Rect getRectSource(){ return m_rSource; }
-
 };

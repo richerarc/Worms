@@ -9,7 +9,7 @@
 class CObjets : public CEntity{
 protected:
 	//Données membres:
-
+	CExplosion* m_Explosif;  // Nuclear DATA
 public:
 
 	/*!
@@ -20,8 +20,8 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Classe héritant de CEntity, elle prend donc les paramètres de CEntity.
 	*/
-	CObjets(SDL_Rect _RectPos, SDL_Texture* _Texture, CExplosion* _Explosion) :CEntity(_RectPos, _Texture, _Explosion){
-		
+	CObjets(SDL_Texture* _textureExplosion, SDL_Rect _RectPos, SDL_Texture* _Texture) :CEntity(_RectPos, _Texture){
+		m_Explosif = new CExplosion(new CSprite("", _Texture, 12, 1, 30, 0), new CPosition(_RectPos.x, _RectPos.y));
 	}
 
 	/*!

@@ -20,7 +20,7 @@ private:
 	double iAngle; // L'angle de rotation
 	SDL_Texture* m_pTextureBazouka; // Texture de l'image du Bazouka à afficher.
 	SDL_Texture* m_pTextureMissile; // Texture de l'image du Missile à afficher.
-	CExplosion* m_pExplosion;// Texture de l'image de l'explosion.
+	SDL_Texture* m_pTextureExplosion;// Texture de l'image de l'explosion.
 	bool boCharging; // Booléen pour vérifier si le bazouka se prepare a lancer un missile
 	bool boIsRotated; // Booléen pour vérifier si le bazouka sera en rotation
 	bool boIsLaunch; // Booléen pour vérifier si le bazouka lance un missile
@@ -40,7 +40,7 @@ public:
 	@param _Worm: Un pointeur vers le worm qui est focus
 	@param _pTexture : Texture de l'image à afficher. NOTE: LA TEXTURE loader doit être celle de droite.
 	*/
-	CBazouka(SDL_Texture* _pTextureBazouka, SDL_Texture* _pTextureMissile, CExplosion* _pExplosion, CWorm* _pWorm){
+	CBazouka(SDL_Texture* _pTextureBazouka, SDL_Texture* _pTextureMissile, SDL_Texture* _pTextureExplosion, CWorm* _pWorm){
 		m_RectBazouka = _pWorm->getPosition();
 		m_RectBazouka.w = 52;
 		m_RectBazouka.h = 28;
@@ -48,7 +48,7 @@ public:
 		SDL_QueryTexture(_pTextureMissile, NULL, NULL, &m_RectMissile.w, &m_RectMissile.h);//Texture du missile.
 		m_pTextureBazouka = _pTextureBazouka;
 		m_pTextureMissile = _pTextureMissile;
-		m_pExplosion = _pExplosion;
+		m_pTextureExplosion = _pTextureExplosion;
 		boCharging = false;
 		boIsRotated = false;
 		boIsLaunch = false;
@@ -189,19 +189,35 @@ public:
 				break;
 
 			case SDLK_SPACE:
-				boIsLaunch = true;
-				fPosXTempo = 53.9*cos(abs((int)DegToRad(iAngle - 15)));
-				fPosYTempo = 53.9*sin(abs((int)DegToRad(iAngle - 15)));
-				iPosXTampon = fPosXTempo;
-				iPosYTampon = fPosYTempo;
+				if (m_Worm->getWormState() == UsingBazzLeft){
+					if (iAngle < 0)
+						fPosYTempo = m_RectBazouka.y + (-52 * sin((int)DegToRad(iAngle)));
+					else
+						fPosYTempo = m_RectBazouka.y + (52 * sin((int)DegToRad(iAngle)));
+
+					fPosXTempo = m_RectBazouka.x + (-52 * cos((int)DegToRad(iAngle)));
+					iPosXTampon = fPosXTempo;
+					iPosYTampon = fPosYTempo;
+				}
+				if (m_Worm->getWormState() == UsingBazzRight){
+					if (iAngle > 0)
+						fPosYTempo = m_RectBazouka.y + (-52 * sin((int)DegToRad(iAngle)));
+					else
+						fPosYTempo = m_RectBazouka.y + (52 * sin((int)DegToRad(iAngle)));
+
+					fPosXTempo = m_RectBazouka.x + (52 * cos((int)DegToRad(iAngle)));
+					iPosXTampon = fPosXTempo;
+					iPosYTampon = fPosYTempo;
+				}
 				if (fPosXTempo > iPosXTampon + 0.5)
 					iPosXTampon++;
 				if (fPosYTempo > iPosYTampon + 0.5)
 					iPosYTampon++;
+
 				m_RectMissile.x = iPosXTampon;
 				m_RectMissile.y = iPosYTampon;
 
-				m_pMissile = new CMissiles(m_RectMissile, m_pTextureMissile, m_PowerBar->getPowerLevel(),m_pExplosion);
+				m_pMissile = new CMissiles(m_pTextureExplosion, m_RectMissile, m_pTextureMissile, m_PowerBar->getPowerLevel(), iAngle);
 				m_pMissile->Move();
 				m_PowerBar->setPowerLevel(m_uiPower);
 				break;
@@ -209,7 +225,6 @@ public:
 			break;
 		default:
 			break;
-
 		}
 	}
 };

@@ -18,10 +18,11 @@ private:
 	SDL_Rect m_MenuInfo;	   // Position et dimension du menu.
 	bool m_boMenuActif;		   // Indique si le menu est actif ou non
 	SDL_Texture* m_pBackground;
+	static CSound* m_Theme;
 public:
 
 	/*!
-	@method Constructeur
+	@ Constructeur
 	@brief Initialise les données membres.
 	@param _Renderer : Renderer de la fenetre.
 	@param _PositionDimension : Informations sur la position et la dimension de la fênetre.
@@ -68,11 +69,12 @@ public:
 	}
 
 	/*!
-	@method HandleEvent.
-	@brief Réagit aux events.
-	@param  _Event : Event SDL
-	@return Aucun.
-	*/
+	 @method ClickEvent.
+	 @brief Appelle le bon OnClick.
+	 @param  _uiX: Position en x de la souris.
+	 @param  _uiY: Position en y de la souris.
+	 @return Aucun.
+	 */
 	void HandleEvent(SDL_Event _Event){
 		if (m_boMenuActif){
 			CGUIE* Temp;
@@ -112,7 +114,7 @@ public:
 					break;
 				}
 			}
-
+			
 		}
 	}
 
@@ -225,5 +227,14 @@ public:
 		m_pBackground = _Texture;
 	}
 
+	static void SetTheme(CSound* _NewTheme){
+		m_Theme = _NewTheme;
+	}
+	
+	static CSound* getMusic(){
+		return m_Theme;
+	}
 
 };
+
+CSound* CMenu::m_Theme = nullptr;

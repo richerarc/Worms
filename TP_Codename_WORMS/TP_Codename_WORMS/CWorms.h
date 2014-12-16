@@ -19,7 +19,6 @@
 #include "CSlideShow.h"
 #include "CMenu.h"
 #include "CPosition.h"
-#include "CMap.h"
 #include "CTrajectory.h"
 #include "CExplosion.h"
 #include "CPhysic.h"
@@ -33,7 +32,7 @@
 #include "CCaisseSoin.h"
 
 #include "CTeam.h"
-
+#include "CMap.h"
 #include "CBoussole.h"
 #include "CPowerBar.h"
 #include "CBazouka.h"
@@ -61,6 +60,10 @@ private:
 	static CMap* TabMap[5];
 	static fstream* m_SaveFile;
 	static int m_LastMapUsed;
+	static string m_strFPS;
+	static int m_nbrFPS;
+	static bool m_boFPS;
+	static CTimer* m_timerFPS;
 public:
 
 	static void Start(){
@@ -82,10 +85,14 @@ public:
 				if ((m_Game != nullptr) && m_Game->inGame()){
 					m_Game->HandleEvent(*m_pEvent);
 					if (m_pEvent->key.keysym.sym == SDLK_ESCAPE){
-						if (!m_MenuPause->IsActive()){
-							m_MenuPause->ActivateMenu();
-							m_boInMenu = true;
-						}
+						m_MenuPause->ActivateMenu();
+						m_boInMenu = true;
+					}
+					if (m_pEvent->key.keysym.sym == SDLK_f){
+						m_boFPS = true;
+					}
+					if (m_pEvent->key.keysym.sym == SDLK_g){
+						m_boFPS = false;
 					}
 				}
 			}
@@ -96,8 +103,19 @@ public:
 
 	static void Render(){
 		SDL_RenderClear(m_pWindow->getRenderer());
-			if ((m_Game != nullptr) && m_Game->inGame())
+		if ((m_Game != nullptr) && m_Game->inGame()){
 				m_Game->Render();
+			if (m_boFPS){
+				if (m_timerFPS->IsElapsed()){
+					m_timerFPS->Start();
+					m_strFPS = "FPS: ";
+					char buf[10];
+					m_strFPS.append(SDL_itoa(m_nbrFPS, buf, 10));
+					m_nbrFPS = 0;
+				}
+				m_Gestionaire->GetFont("FontMenu")->RenderText(m_pWindow->getRenderer(), m_strFPS.c_str(), 10, 10);
+			}
+		}
 		if (m_boInMenu){
 			SDL_SetRenderDrawColor(m_pWindow->getRenderer(), 255, 255, 255, 1);
 			if (m_MenuPrincipal->IsActive())
@@ -111,6 +129,7 @@ public:
 		}
 
 		m_pWindow->Refresh();
+		m_nbrFPS++;
 	}
 
 	static void LoadResources(string _argv){
@@ -133,7 +152,7 @@ public:
 #elif defined (_WIN32)
 		strPath.append("\\");
 #endif
-		string FileName[26] = {
+		string FileName[29] = {
 			"Arpegius.ttf",
 			"Btn1.png",
 			"BtnL.png",
@@ -156,13 +175,16 @@ public:
 			"map5.png",
 			"background5.jpg",
 			"SpriteSheetFinal.png",
-			"explosion2.png",
+			"Eplosionmask.png",
 			"explosion1.png",
 			"FontWorm.ttf",
-			"SpriteGrenade.png"
+			"SpriteGrenade.png",
+			"menu.ogg",
+			"arcade.ogg",
+			"desert.ogg"
 		};
-		string strFilePath[26];
-		for (int i = 0; i < 26; i++){
+		string strFilePath[29];
+		for (int i = 0; i < 29; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
@@ -209,17 +231,16 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("wormSprite", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[21].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("mine", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[17].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("grenade", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[25].c_str())));
-		m_Gestionaire->AjouterTexture(new CTexture("explosion2", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[22].c_str())));
+		m_Gestionaire->AjouterSurface(new CSurface("explosionmask", IMG_Load(strFilePath[22].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("explosion1", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[23].c_str())));
-
-
-		/*Explosions*/
-		m_Gestionaire->AjouterSprite(new CSprite("bigex", m_Gestionaire->GetTexture("explosion1")->GetTexture(), 15, 1, 50, 1));
-		m_Gestionaire->AjouterSprite(new CSprite("smallex", m_Gestionaire->GetTexture("explosion2")->GetTexture(), 18, 1, 50, 1));
+		
+		m_Gestionaire->AjouterMusic(new CSound("MenuTheme", strFilePath[26].c_str()));
+		m_Gestionaire->AjouterMusic(new CSound("ArcadeTheme", strFilePath[27].c_str()));
+		m_Gestionaire->AjouterMusic(new CSound("DesertTheme", strFilePath[28].c_str()));
 
 		m_SaveFile->open(strFilePath[12].c_str());
 		
-
+		CExplosion::setExplosionMask(m_Gestionaire->GetSurface("explosionmask")->getSurface());
 }
 
 	static void LoadData(){
@@ -296,7 +317,12 @@ public:
 		m_MenuNewTeam = new CMenu(m_pWindow->getRenderer(), { 0, 0, WIDTH, HEIGHT });
 		m_pEvent = new SDL_Event();
 		m_Gestionaire = new CGestionnaireRessources();
+		m_timerFPS = new CTimer();
+		m_timerFPS->SetTimer(1000);
+		m_timerFPS->Start();
 		LoadResources(_argv);
+		CMenu::SetTheme(m_Gestionaire->GetSound("MenuTheme"));
+		CMenu::getMusic()->Play(-1);
 		LoadData();
 
 		//
@@ -309,7 +335,6 @@ public:
 		m_MenuPrincipal->getElement("btnQuit")->OnClickAction = BtnQuit;
 		m_MenuPrincipal->getElement("btnNewGame")->OnClickAction = BtnNewGame;
 		m_MenuPrincipal->ActivateMenu();
-
 		//
 		// Initialisation du menu NewGame
 		//
@@ -339,6 +364,7 @@ public:
 		//
 		// Initialisation du menu Pause
 		//
+
 		m_MenuPause->AddElement(new CButton("btnResume", "Resume", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 10, 10 }, m_Gestionaire->GetSprite("SpriteBtnResume")), 20, 50, 162, 33);
 		m_MenuPause->AddElement(new CButton("btnRestart", "Restart", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 10, 10 }, m_Gestionaire->GetSprite("SpriteBtnRestart")), 20, 100, 162, 33);
 		m_MenuPause->AddElement(new CButton("btnMainMenu", "Main Menu", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 10, 10 }, m_Gestionaire->GetSprite("SpriteBtnMainMenu")), 20, 225, 162, 33);
@@ -347,7 +373,6 @@ public:
 		m_MenuPause->getElement("btnMainMenu")->OnClickAction = BtnMainMenu;
 		m_MenuPause->getElement("btnQuitDskt")->OnClickAction = BtnQuit;
 		m_MenuPause->getElement("btnResume")->OnClickAction = BtnResume;
-
 
 	}
 
@@ -399,6 +424,7 @@ public:
 		m_LastMapUsed = ((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId();
 		m_Game = new CGame(TabMap[m_LastMapUsed], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture()), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire);
 		m_MenuNewGame->DeActivateMenu();
+		CMenu::getMusic()->Pause();
 		m_Game->Activate();
 		m_boInMenu = false;
 	}
@@ -419,6 +445,7 @@ public:
 };
 
 // Initialisation des données membre statique
+
 CWindow* CWorms::m_pWindow = nullptr;
 CMenu* CWorms::m_MenuPrincipal = nullptr;
 CMenu* CWorms::m_MenuNewGame = nullptr;
@@ -432,4 +459,8 @@ bool CWorms::m_boRun = true;
 CMap* CWorms::TabMap[5];
 fstream* CWorms::m_SaveFile = new fstream();
 int CWorms::m_LastMapUsed = 0;
+string CWorms::m_strFPS = "FPS:";
+int CWorms::m_nbrFPS = 0;
+bool CWorms::m_boFPS = false;
+CTimer* CWorms::m_timerFPS = nullptr;
 

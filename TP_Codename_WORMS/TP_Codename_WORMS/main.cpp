@@ -1,4 +1,5 @@
 
+
 #if defined(__APPLE__) && defined(__MACH__) /* __APPLE & __MACH__ sont les deux Macro défini par LLVM */
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>

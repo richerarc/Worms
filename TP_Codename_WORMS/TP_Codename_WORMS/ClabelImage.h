@@ -14,14 +14,10 @@ private:
 public:
 
 	/*!
-	@method Constructeur.
-	@brief Initialise les données membres.
-	@param  _Name :Le nom du labelImage afin de l'identifier.
-	@param  _strText le text à l'intérieur.
-	@param _Font: la police utilisée
-	@param _Rect: le rect.
-	@return Adresse mémoire de l'objet.
-	@discussion Classe héritant de CGUIE, donc elle passe les paramètres nécessaires au constructeur de CGUIE.
+	@Constructeur
+	@Description: Permet d'initialiser les données membres
+	@Paramètres: Le nom du labelImage afin de l'identifier, le text à l'intérieur, le font et le rect, et la texture contenant l'image.
+	@Classe héritant de CGUIE, donc elle passe les paramètres nécessaires au constructeur de CGUIE
 	*/
 	CLabelImage(const char* _Name, const char* _strText, CFont* _Font, SDL_Rect _Rect, SDL_Texture* _Texture) :CLabel(_Name, _strText, _Font, _Rect){
 		m_pTexture = _Texture;
@@ -30,19 +26,16 @@ public:
 	}
 
 	/*!
-	@method Destructeur.
-	@brief Destroy.
-	@discussion He is dead.
+	@Destructeur:
+	@Permet de détruire les objets créés en mémoire
 	*/
 	~CLabelImage(){
 	}
 
-
 	/*!
-	@method Draw:
-	@brief permet de dessiner le LabelImage sur le renderer.
-	@param Le renderer sur lequel on dessine l'image
-	@discussion: none
+	@Méthode Draw:
+	@Fonction permettant de dessiner le LabelImage sur le renderer.
+	@Paramètre: Le renderer sur lequel on dessine l'image
 	*/
 	void Draw(SDL_Renderer* _Renderer){
 		SDL_RenderCopy(_Renderer, m_pTexture, NULL, &m_Rect);
@@ -50,9 +43,8 @@ public:
 	}
 
 	/*!
-	@method AutoSize
-	@brief Fonction permettant de rendre l'image du label de la même dimension que le texte.
-	@discussion: none
+	@Méthode AutoSize:
+	@Fonction permettant de rendre l'image du label de la même dimension que le texte.
 	*/
 	void Autosize(){
 		m_Rect.w = m_strText.length() * (m_Font->getFontSize());

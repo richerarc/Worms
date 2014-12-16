@@ -23,12 +23,7 @@ private:
 
 public:
 
-	/*!
-	@method Constructeur.
-	@brief Initialise les données membres.
-	@return Adresse mémoire de l'objet.
-	@discussion Nuff said.
-	*/
+	//Constructeur...
 	CGestionnaireRessources(){
 		m_pListeSprites = new CListeDC<CSprite*>();
 		m_pListeFonts = new CListeDC<CFont*>();
@@ -38,10 +33,7 @@ public:
 
 	}
 
-	/*!
-	@method Destructeur:
-	@brief Permet de détruire les objets créés en mémoire
-	*/
+	//Destructeur...
 	~CGestionnaireRessources(){
 		delete m_pListeSprites;
 		delete m_pListeFonts;
@@ -49,11 +41,6 @@ public:
 		delete m_pListeTexture;
 		delete m_pListeSurface;
 	}
-
-	/*!
-	@method Acesseurs
-	@brief Servent à acceder/modifier aux données membres.
-	*/
 
 	/*
 	Méthode : AjouterSprite

@@ -54,11 +54,9 @@ public:
 		m_boModified = false;
 	}
 
-	/*
 	void ExplodeMap(SDL_Renderer* _Renderer, CExplosion* _explosion){
 		
 	}
-	*/
 
 	/*!
 	@method Draw

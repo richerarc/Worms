@@ -40,8 +40,6 @@ public:
 		SetDimension();
 		SDL_SetRenderDrawColor(_pRenderer, (m_uiPower * 5), (250 - (m_uiPower * 5)), 0, 255);
 		SDL_RenderFillRect(_pRenderer, &m_RectPower);
-		SDL_SetRenderDrawColor(_pRenderer, 0, 0, 0, 255);
-		SDL_RenderDrawRect(_pRenderer, &m_RectPower);
 	}
 
 	/*!
