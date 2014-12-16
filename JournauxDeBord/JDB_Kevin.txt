@@ -43,8 +43,8 @@
 		  Total d'heures pour la journée: 5h15.
 
 23:42 2014-11-20: J'ai créé le menu pause et fait les fonctionalités qui viennent avec, J'ai fais des modificatio
-		  ici et laJe vais tester plus en pronfondeur demain. Avec la physique presque complété, nous ne sommes 
-		  pas trop en retard.
+		  ici et laJe vais tester plus en pronfondeur demain. Avec la physique presque complété, nous ne 
+	   	  sommes pas trop en retard.
 	   	  Total d'heures pour aujourd'ui: 3h.
 
 17:39 2014-11-25: J'ai fait des changement dans les sprites, des optimisations pour le menu pause, moi et richer
@@ -53,39 +53,229 @@
 		  une Classe CPowerbar j'ai aussi optimiser CBazooka(Handle Event en particulier).
 		  Total d'heures: 5h et des poussieres.
 
-22:09 2014-11-26: J.ai faits quelques ajustement divers sur les maps et jai tenter de résoudre le probleme des collisions
-		  des mines dans un projet à part. J'ai réussi sur la map flat mais pas sur les autres je le montrerai aux
-		  autres demain.
+22:09 2014-11-26: J.ai faits quelques ajustement divers sur les maps et jai tenter de résoudre le probleme des 
+		  collisions des mines dans un projet à part. J'ai réussi sur la map flat mais pas sur les autres 
+		  je le montrerai aux autres demain.
 		  Total d'heures pour aujourdhui: environ 2h.
 
-23:16 2014-11-27: Aujourd'hui j'ai repenser notre maniere de vérifier les collisions a marche pour le mines il reste a adapter
-	          le code pour les worms. J'ai garder l'ancienne fonction au cas ou... Avec la nouvelle façon de vérifier
-		  les collision, VerifiyGroundCollision n'est plus nécéssaire. En faisant les commentaires je me suis rendu 
-		  compte qu'on devra redéfinir le vent dans CPhysic pour qu'il deviennent un vecteur.
-		  Dans cPhysic il y a une donnée membre qui semble innutile(static unsigned int m_uiPixel[WIDTH * HEIGHT];)
-		  et aussi un constructeur en commantaire il semble inutile on pourrait peut être les supprimer.
-		  J'ai fait beauconp de commentaires, je suis rendu dans CPhysic.h.
+23:16 2014-11-27: Aujourd'hui j'ai repenser notre maniere de vérifier les collisions a marche pour le mines il 
+		  reste a adapter le code pour les worms. J'ai garder l'ancienne fonction au cas ou... Avec la 
+	          nouvelle façon de vérifier les collision, VerifiyGroundCollision n'est plus nécéssaire. En 
+	          faisant les commentaires je me suis rendu compte qu'on devra redéfinir le vent dans CPhysic
+	          pour qu'il deviennent un vecteur. Dans cPhysic il y a une donnée membre qui semble
+	          innutile(static unsigned int m_uiPixel[WIDTH * HEIGHT];) et aussi un constructeur en commantaire 
+		  il semble inutile, on pourrait peut être les supprimer. J'ai fait beauconp de commentaires,
+		  je suis rendu dans CPhysic.h.
 		  Total d'heures pour aujourdhui: 9h.
 
-22:48 2014-12-02: Aujourd'hui j'ai travailler sur un proget a part pour pas chier tout le projet. J'ai réadapter la classe C2DVector
-		  et la fonction pour les collision devrait demain marcher complètement. J'ai rencontré difficultés a debugger dans un environnement 
-		  Graphique HAHAHA Ah oui j'ai aussi rajouter un sprite pour les explosion de grenades.
+22:48 2014-12-02: Aujourd'hui j'ai travailler sur un proget a part pour pas chier tout le projet. J'ai réadapter
+	          la classe C2DVector et la fonction pour les collision devrait demain marcher complètement. J'ai
+	          rencontré difficultés a debugger dans un environnement Graphique HAHAHA Ah oui j'ai aussi rajouter
+		  un sprite pour les explosion de grenades.
 		  Total d'heures pour la journée: 3h.
 
-20:01 2014-12-04: Jai oublier de mettre a jour mon journal de bord jeudi mais  je le fais a l'instant. Jeudi je me suis rendu compte, en 
-		  travaillant sur le vent, que le systeme d'axe n'est plus celui qu'on as appris à l'école. J'ai du réadapter la classe 
-	      	  C2DVector pour qu'elle retourne un bon angle selon le nouveau système d'axe. J'ai créé une Branche pour effectuer les changements.
-		  Jeudi je n'ai pas été en mesure de torouver les formules nécéssaires. 
+20:01 2014-12-04: Jai oublier de mettre a jour mon journal de bord jeudi mais  je le fais a l'instant. Jeudi je me 
+	          suis rendu compte, en travaillant sur le vent, que le systeme d'axe n'est plus celui qu'on as 
+	   	  appris à l'école. J'ai du réadapter la classe C2DVector pour qu'elle retourne un bon angle selon 
+		  le nouveau système d'axe. J'ai créé une Branche pour effectuer les changements. Jeudi je n'ai pas
+		  été en mesure de torouver les formules nécéssaires. 
 		  Total d'heures pour aujourdhui: 3h.
 
-20:05 2014-12-08: DAns la nuit du vendredi au samedi j'ai rêvé a la programmation toute la nuit. Sibouaire que sa dors mal sur un méchant temps!
-	  	  Mais au moin je me suis réveiller avec la reponse a mon questionnenment sur les angles et les axes de programmation. Comme 
-		  je ne peux pas programmer de la fin de semaine par manque de possesion d'un ordinateur portable, j'ai tout écrit
-		  sur un bout de papier entre deux commandes de déjeuner sur mes heures de travail HAHAHA. Aujourdhui j'ai revert ce que j'avais
-		  tenter de faire et j'ai fait ce que j'avais noté et devine quoi? SA MARCHE! VIVE LA NUIT! vIVE LES LITS! VIVE LE SOMMEIL!
+20:05 2014-12-08: Dans la nuit du vendredi au samedi j'ai rêvé a la programmation toute la nuit. Sibouaire que ça dors
+		  mal sur un méchant temps! Mais au moin je me suis réveiller avec la reponse a mon questionnenment sur
+		  les angles et les axes de programmation. Comme je ne peux pas programmer de la fin de semaine par manque 
+		  de possesion d'un ordinateur portable, j'ai tout écrit sur un bout de papier entre deux commandes de déjeuner
+		  sur mes heures de travail HAHAHA. Aujourdhui j'ai revert ce que j'avais tenter de faire et j'ai fait ce que 
+		  j'avais noté et devine quoi? SA MARCHE! VIVE LA NUIT! vIVE LES LITS! VIVE LE SOMMEIL!
 		  Total d'heures: environ 30min.
 
-21:58 2014-12-11: J'ai commencer a patenter les explosions. Le sprite affiche bien. Il reste a effacer les pixels de la map, j'ai rencontré
-	 	  quelque problèmes a ce sujet. De plus, la classe CJetPack ne contient aucun delete dans le destructeur alors elle cause des fuites de 
-		  mémoires.
-		  Total d'heures pour aujourdhui 4h.
+21:58 2014-12-11: J'ai commencé à patenter les explosions. Le sprite affiche bien. Il reste a effacer les pixels de la map,
+		  j'ai rencontré quelque problèmes a ce sujet. De plus, la classe CJetPack ne contient aucun delete dans le 
+		  destructeur alors elle cause des fuites de mémoires.
+		  Total d'heures pour aujourdhui: 4h.
+
+22:40 2014-12-15: J'ai patenté la classe CExplosion aujourd'hui. Elle est maitenant terminé elle éclate la map, Jai aussi refait le code que richer avait 
+		  commencé pour l'implémentation d'une classe CExplosion qui était loin d'être terminé, alors j'ai du retoucher toutes les classes  héritant
+		  de CEntity et toutes leur instanciations. Cela vas certainement créé beaucoup de conflit lors du merge, car j'ai du jouer dans environ une
+	          demi-douzaine de classe. J'ai également travailler dans CWorms et CGame. Justement, dans CGame les fonctions "MainGame" et "Spawn"
+	          Sont SHADY AS FUCK je ne sais absolument pas si celui qui la fait ou modifié savait ce qu'il faisait (bug de création d'équipe Non-stop)
+		  Deplus, j'ai fais quelques commentaires ici et là.
+		  Total d'heures pour aujourdhui: 3h.
+                                                                                                                 
+                                                                                                ``...`                                                                                                  
+                                                                                           `,'++++++++++'';,``                                                                                          
+                                                                                         .;###@@@@@@@@@@#####+;;:.`                                                                                     
+                                                                                       .'+@@@@@@@@@@@@@@@@@@@@@@#++;.                                                                                   
+                                                                                     `;##@@@@@@@@@@@@@@@@@@@@@@@@@@##+:.                                                                                
+                                                                                    ,+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@+'.                                                                              
+                                                                                  `;#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#+;.                                                                            
+                                                                                 .+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#+:                                                                           
+                                                                                :+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@+;`                                                                         
+                                                                               ,+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#'`                                                                        
+                                                                             `'#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@+.                                                                       
+                                                                            `'#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#+,                                                                      
+                                                                            '#@@@@@@@@@@####@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@+.                                                                     
+                                                                           ;#@@@@@';;:,,,::;;';;;;;;'''+@@#@@@@@@@@@@@@@@@@@@@@@@#+.                                                                    
+                                                                          ;@@@@@+.                  `````,'#+@@@@@@@@@@@@@@@@@@@@@#'`                                                                   
+                                                                         :@@@@@;                           `:''#@@@@@@@@@@@@@@@@@@@#'                                                                   
+                                                                        `#@@@+,                               `,+#@@@@@@@@@@@@@@@@@@+:                                                                  
+                                                                        ;@@@+.                                  .+#@@@@@@@@@@@@@@@@@@+.                                                                 
+                                                                       `@@@+`                                     :'@@@@@@@@@@@@@@@@@@+                                                                 
+                                                                       #@@#.                                       ,+#@@@@@@@@@@@@@@@@+:                                                                
+                                                                      .@@@:                                         `;@@@@@@@@@@@@@@@@@+`                                                               
+                                                                      '@@@                                           `'@@@@@@@@@@@@@@@@#,                                                               
+                                                                     ,@@@;                                            ;@@@@@@@@@@@@@@@@@'                                                               
+                                                                    `@@@#`                                            ;@@@@@@@@@@@@@@@@@#`                                                              
+                                                                    :@@@'`                                           .+@@@@@@@@@@@@@@@@@#:                                                              
+                                                                    '@@@:                                           `'@@@@@@@@@@@@@@@@@@#'                                                              
+                                                                   `+@@+,                                           :+@@@@@@@@@@@@@@@@@@@+                                                              
+                                                                   .#@@+`                                          `'@@@@@@@@@@@@@@@@@@@@+`                                                             
+                                                                   .@@#'                                           `'@@@@@@@@@@@@@@@@@@@@+.                                                             
+                                                                   '@@#,                                           `'@@@@@@@@@@@@@@@@@@@@+.                                                             
+                                                                   #@@@`                                            '#@@@@@@@@@@@@@@@@@@@+,                                                             
+                                                                   @@@'                                             `+@@@@@@@@@@@@@@@@@@@+,                                                             
+                                                                   @@@:                                              :#@@@@@@@@@@@@@@@@@@+,                                                             
+                                                                   @@@,                                              `'@@@@@@@@@@@@@@@@@@+,                                                             
+                                                                   @@#`                                               :+@@@@@@@@@@@@@@@@@+.                                                             
+                                                                  `@@+                                                 ;#@@@@@@@@@@@@@@@@'.                                                             
+                                                                  `@@;                         .,::::::::.              :+@@@@@@@@@@@@@@@'.                                                             
+                                                                  .@@,                        :#@@@@@@@@@@+.             :#@@@@@@@@@@@@@@+`                                                             
+                                                                  .@@` `.:'++##@@+.           ;'#@@@@@@@#@@@#,            '#@@@@@@@@@@@@@+`                                                             
+                                                                  .@# .;+@@@@@@@@##`           ,+++@@@@@@@@###'           `#@@@@@@@@@@@@@+                                                              
+                                                                  .@:`'@@@@@@###+#+;`            `:;;;''+'+##'+.           .@@@@@@@@@@@@@+                                                              
+                                                                  .+.,@@@@@''++++:`,,                     `,+@#+:           +@@@@@@@@@@@@+                                                              
+                                                                  .; #@##:         `;              `..``     .+#+:          ,@@@@@@@@@@@#;                                                              
+                                                                  .:.+'.   `,:;;;;; '            .;'#+@;;,     ,+#,         `#@@@@@@@@@@#,                                                              
+                                                                  ., ,.  `'#@##+;.  '           :;`;:;@';:;:`    ,;          +@@@@@@@@@@#                                                               
+                                                                  .:    ,',#,+@:.;, '          .',,;@@@#, .'::     `         :#@@@@@@###+,.`                                                            
+                                                                  .:   .; .##@#. .;';           ,:.;+@#+++;` .;::,;:          @@@@@@+',..,:'',                                                          
+                                                                  .:   +,,,'##';;;+',           `::,`         `;';.``         #@@@@+.    `` `::                                                         
+                                                                  .:  `,.`````  `;,;`             `.:';:,,:'    .:':`         #@@@#.   `;;;:  ;.                                                        
+                                                                  .:        .`.:;..;                  `.,,,`                  #@@#.    ;.  '` .,                                                        
+                                                                  .:       `,,..  ;`                                          ##@.    ;,   ;;``:                                                        
+                                                                  .:             .:                                           ++;   `;.    ;;``;                                                        
+                                                                  .;             :.                                           ;+   `;,     ';``;                                                        
+                                                                  .;             '                                            `,  `;.      ':``;                                                        
+                                                                  `'            ;.                                                ,,`..`   ':``:                                                        
+                                                                   '           .'      .;                                         `;+'+;'``':``:                                                        
+                                                                   '`          :`       ,:`    `                                   :;;##', ':`.,                                                        
+                                                                   ;`         .:         ,;,` `'`                                  ,;+#++. +: :.                                                        
+                                                                   :`        `'`          `,:` .'`                                 :.;#++` +, ;                                                         
+                                                                   ,.       `;`                `+;`                                ,`,+': `'`,:                                                         
+                                                                   ..       ;.             `    :',                               `: `',: .: ;                                                          
+                                                                   .,       ;` `,,`     ,;::,   .:;                               :.  ;', ,,.:                                                          
+                                                                   `,       .;,+'+'    ;:''':   ;.,:                             `:```;;  :`:`                                                          
+                                                                   `:       `:;+:`::..;, `':``.:;  ;`                            ,:,:',  `;`'                                                           
+                                                                   .'       .,`.`  .;;.   `,;;:.   ,,                             .,;.   '.:.                                                           
+                                                                   `:       ,.                     `;                                `` ::`;                                                            
+                                                                   `:       ;`                      ;.                         :.    ,::: :.                                                            
+                                                                   `:       '     ``      `         `;                         ':     :, `;                                                             
+                                                                    ;      `;   .;';;,:;;;';,        :.                       .#'        '`                                                             
+                                                                    ;      :.  ,',,,,;:,,,,,:'`      `;                       :+'`      ,:                                                              
+                                                                    '     `;  `',,,,...,,,,,.,',      ;.                     `;;.;     .;                                                               
+                                                                    ;`    .,  ;:,,,,;;::,,....,'.     `;                     ::; ,;`  :;`                                                               
+                                                                    ,,    ,. .;,:;'';;;;''';;:,,',     ;`                   `;,:  .;;;,                                                                 
+                                                                    .;    ;` ::';,,,,...,;'++++;:'.    .:                   .,',                                                                        
+                                                                     +    ' `';:;;'''''+',```.:'';',    :                   :`+.                                                                        
+                                                                     '`  ,: ;;:;,...````         .'',   :`                  ' #`                                                                        
+                                                                     :.  '`.+`                    `;';  ,,                 ,;`+                                                                         
+                                                                     `: `' ';                      `,+; .:                 '`,+                                                                         
+                                                                     `: .,.+`                        `: `;                ,, ;;                                                                         
+                                                                      :`,,.:        `.,,.               .:   `           .;` ':                                                                         
+                                                                      ,,,, `      .;':,,:;:`         .';;` `;`          .'   +`                                                                         
+                                                                      `;.;      `:;.      ,':`    ``   `` `;,          .;`  `+                                                                          
+                                                                       ;:;.    .;.          .;. .:.'.    `;.          ,;`   .'                                                                          
+                                                                       `#.;`  `'`             '. ,;`;,``,;`         `::     ,,                                                                          
+                                                                        :';. `'`               ;` :, ,:;:          ,;.      '.                                                                          
+                                                                        .:`  :.                .;  ::`           `;:        +.                                                                          
+                                                                         ;` :,                  ;.  .;::,.`     ,;.         +`                                                                          
+                                                                         `: .                    ;.  ```,,`   `;:          `'                                                                           
+                                                                          :`                     `,         `:;.           ,;                                                                           
+                                                                          .;                               ,'.             ;:                                                                           
+                                                                           ;.                            .;:               ':                                                                           
+                                                                            ;`                          ;:.                +,                                                                           
+                                                                            .;`                       .'.                  +.                                                                           
+                                                                            :++.                    `;:`                   #,                                                                           
+                                                                            #':'`                 `;'.                     +;;                                                                          
+                                                                           ':;`';.         `.,,::::.                       + :.                                                                         
+                                                                          :;,: ;`:#+:;;;;;;;:,````                         ' ,;                                                                         
+                                                                         .+.', ,:  ..```.`                                 ' ,'`                                                                        
+                                                                        `+: +.  ;.                                        `; .',                                                                        
+                                                                       `;' `+`  `;                                        ,, .;;`                                                                       
+                                                                      `;+` .'`   :`                                      `;` `;`;`                                                                      
+                                                                     `+'`  ,+`   .:                                      ;.   ' .'`                                                                     
+                                                                    ,';`   ,+`    ;,                                   `;.    '  .;`                                                                    
+                                                                  `;+:     .+      ;,                                 `'.     '   `;`                                                                   
+                                                                 ,+',      `+       ::`                              ,;`      ;    .;`                                                                  
+                                                                ;+:`        #        .;                             ,;`       ;     .'.                                                                 
+                                                              `:#,          #` ``     ,;`                          ,:         ;      `;:.                                                               
+                                                             .;::           +.`'';.    `',                        ::          ;        `;'.                                                             
+                                                           `:'`             ,:.#@@#+;.`  ::                     `',           '         ..;;`                                                           
+                                                          .;'.              `++@@@@@@@+;: ,;`                  .;.            '         `, `::`                                                         
+                                                        `;;`'               `+@@@@@@@@@@#'`.;,`               :;             `;          ,`  .',                                                        
+                                                     `,:;` :,                '@@@@@@@@@@@@#;.,;,            .;,              `'          `,    ,;,`                                                     
+                                                    :',`  `'`               ;#@@@@@@@@@@@@@@+, ,;`        `;;`               `;           ,`    `,':`                                                   
+                                                .,:;,     .,               .'+@@@@@@@@@@@@@@@#;``;:`     ,;.         ````.....'           `:       ,;;:.`                                               
+                                             .;+;.`       :`              `'.+@@@@@@@@@@@@@@@@@'` .;:   ::`     `,;;;'++++++++#`           .,        `.:';`                                             
+                                         `.:;;.           ;               :.,#@@@@@@@@@@@@@@@@@#'   ,;,;,  `.,;'#####@@@@@@@@@+`            ,`           .;;..                                          
+                                      `,;:,`             ,:              .; ;@@@@@@@@@@@##+#@@@@@'`  `.` `;;#+#@@@@@@@@@@@@@@@+`            `,             `:#'.                                        
+                                   `,;;,                 ;`              ' .+@@@@@@@@@@@@@#+#@@@@@#+;.`:++##@@@@@@@@@@@@@@@@@@+.             ;.               ,;;,                                      
+                                 ,;:,`                  .,              :. :#@@@@@@@@@@@@@@@@#+#@@##@@@@@#@@@@@@@@@@@@@@@@@@@@+.              :`                `,;,                                    
+                              `,',                      :`             .:  ;#@@@@@@@@@@@@@@@@@@#+@##@@@@@@@@@@@@@@@@@@@@@@@@@@+,              .,                   ,;`                                  
+                            `,;,`                      `;             .'`  ;#@@@@@@@@@@@@@@@@@@@##+#@@@@@#@#####+#@@@@@@@@@@@@+;,              :,                   `:;.                                
+                          .;;.`                        ;.            .;`   '#@@@@@@@@@@@@@@@@@@@@@##@@@@@+@##@@@@@@@@@@@@@@@@@+`,,              :.                    `:',                              
+                       `,;;`                          .:            .'     ;#@@@@@@@@@@@@@@#######'#@@@@@+@@@@@@@@@@@@@@@@@@@@'` ,:`             :.                     `,;,`                           
+                     `:;.`                            ;`           .;`     ;#@@@@@@@@@@@######@@##+@@@@@##@@@@@@@@@@@@@@@@@@@#'   .;`            `;`                      `.;;.                         
+                  `.;;.                              ;,           .;`      ;#@@@@@@@@@@@@@@@@@@@@@@@@@@@#@##@@@@@@@@@@@@@@@@@#'    .;`            `;`                        `;'.`                      
+                 :',`                               :,           `;.       :#@@@@@@@@@@@@@@@@@@@#@#'####@@@#+#@@@@@@@@@@@@@@@#:     .;`            .;                          `,::.                    
+              `,',                                 `;:          `;`        :#@@@@@@@@@@@@@@@@@##:`    `,+@@@@#+#@@@@@@@@@@@@@#.      `:             ,:                            .;;.`                 
+             :;,`                                    ,;`       `'.         ,#@@@@@@@@@@@@@@#;,:,        ;#@@@@@##@@@@@@@@@@@@#        ::             ,,                             .,:;:.              
+           .',                                        `;.     `;`          .@@@@@@@@@@@@#+.   :'         :#@@@@@##@@@@@@@@@@@+         :,             ::                                .;',            
+         .::`                                          `;`   `;.            @@@@@@@@@@#;.     :'         `:#@@@@@@#@@@@@@@@@@'          ;:             :,                                 `,::`         
+        ;;;.                                            .;  .'`             #@@@@@@##:`       :;           .@#@@@@@@@@@@@@@@#,           ,;`           `+`                                   `;;        
+      `'. .:,                                            :,.;`              '@@@@#+:          ;:            ,+#@@@@@@@@@@@@#@:            .':         `;:                                      :;`      
+      ;.    ;.                                           `':                :@@@#+`           ;:            ,.;@@@@@@@@@@@@@'              `':       `':                                        .+`     
+     .:      ;`                                          ::                 .''+.:`           ;:            :` ;#@@@@@@@@@@@:               `+.     `',                                        ,';'`    
+     '`      `'                                         ;,                       :`           .,            ;`  .+@@@@@@@@@+,                `+.   `;.                                        ,,` `:    
+    .;        ,:                                       '.                        ,`           .,            ;     '#@@@@@@+;.                 `#. `;`                                        .:    ;.   
+    :`         '                                     .;.                         ,`           .,            ;      .;+@#@#,;`                  `:,;,                                        `'`    .;   
+    :          :.                                   `+`                          ,.           .,            ;        `.;#' '`                    ;'                                         ,,      '`  
+   `:          .,                                  ,:`                           .,           .,            ;           ,, '                      :.                                        ;`      ,,  
+   `:          `;                                `':                             `:           ..           `;              ;                       ;.                                      `;        :  
+   ,,           :.                               ``                               ;                        `;              ,                       `;`                                     `;        ,  
+   ,.           `;                                                                :,                       .:              ,                        `.                                     :.           
+                 `                                                                `;                       `:              ,                                                               ;`           
+                                                                                   :`                      `,              ,                                                                            
+                                                                                                                           ,                                                                            
+                                                                                                                           :                                                                            
+                                                                                                                           `                                                                            
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                   `:;;;:  .;;;;`      .:;;;.`     :;;;;;;;;;;;`       ,;;;;;;;:.`       :;;;;;;,     :;;;;;;;:.                                                        
+                                                   `;''';` .''''`    `;''''''',    ;'''''''''''`       ,''''''''''.     `''''''';    `;''''''''''.                                                      
+                                                   `;''''. .''''`   `'''''''''',   ;'''''''''';`       ,'''''''''';`    `''''''''`   `;'''''''''''`                                                     
+                                                    ;'''': .''''`   :''''';'''';   ;'''''''''';`       ,''''';''''',    .''''''''`   `;'''';;'''''.                                                     
+                                                    ;''''' .''''`  `;'''',`;''''`  ...;'''';...        ,'''';`,'''':    ,''''''''.   `;'''',`;'''',                                                     
+                                                    ;'''''..''''`  `;''''.`;''''.     :'''':           ,'''';`.'''':    :''';;''',   `;'''', ;'''',                                                     
+                                                    ;''''':.''''`  `;''''.`;'''',     :'''':           ,'''';`.'''':    :''';;''',   `;'''', ;'''':                                                     
+                                                    ;''''';,''''`  `;''''.`;'''',     :'''':           ,'''';`,'''':    ;'''::''':   `;'''', ;'''':                                                     
+                                                    ;'''''':''''`  `;''''.`;'''',     :'''':           ,'''''''''';.   `;''',,''';   `;'''', ;'''':                                                     
+                                                    ;'''''';''''`  `;''''.`;'''',     :'''':           ,''''''''':`    `''''..''';`  `;'''', ;'''':                                                     
+                                                    ;'''''''''''`  `;''''.`;'''',     :'''':           ,'''''''''';`   `''''..''''`  `;'''', ;'''':                                                     
+                                                    ;'''''''''''`  `;''''.`;'''',     :'''':           ,'''';.;'''':   .''''``''''.  `;'''', ;'''':                                                     
+                                                    ;''';'''''''`  `;''''.`;'''',     :'''':           ,'''';`.'''';`  ,''''  '''',  `;'''', ;'''':                                                     
+                                                    ;''':;''''''`  `;''''.`;'''',     :'''':           ,'''';`.'''''`  :''';  ;''':  `;'''', ;'''':                                                     
+                                                    ;''':,''''''`  `;''''.`;'''',     :'''':           ,'''';`.'''''`  ;'''';''''';  `;'''', ;'''':                                                     
+                                                    ;''':`''''''`  `;''''.`;''''.     :'''':           ,'''';`.'''''`  ''''''''''''  `;'''', ;'''':                                                     
+                                                    ;''': ;'''''`  `;''''.`;''''.     :'''':           ,'''';`.'''''` `''''''''''''` `;'''',`;'''':                                                     
+                                                   `;''': ,'''''`   :'''':,'''''`     :'''':           ,'''';,;'''';` .'''';::;''''. `;'''':,''''',                                                     
+                                                   `;''': .'''''`   .'''''''''':      :'''':           ,''''''''''';  ,'''',  ,'''', `;'''''''''''.                                                     
+                                                   `;''': `;''''`    ,'''''''';`      :'''':           ,''''''''''',  :'''':  ,'''': `;'''''''''';`                                                     
+                                                   `;''':  :''''`     .:;''':,`       :'''':           ,''''''''':,   :'''':  ,''''; `;'''''''';:`
+
