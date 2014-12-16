@@ -107,6 +107,81 @@ public:
 		*/
 	}
 
+	/*
+	Method : VerifySliding
+	Brief : Fonction qui retourne si l'entité est en glissade, et qui le fait glisser s'il devrait le faire
+	Params :
+	Return : true : L'entité glisse
+	false : L'entité ne glisse pas
+	*/
+	bool VerifySliding(){
+		if (m_Trajectoire->IsSliding()){
+			return true;
+		}
+		//SDL_Rect* RectTmp = new SDL_Rect({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
+		double dStartSlope = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
+		if (dStartSlope > M_PI / 4 && dStartSlope > 0 || dStartSlope > -M_PI / 4 && dStartSlope < 0){
+			m_Trajectoire->StartSlide();
+		}
+		else {
+			m_Trajectoire->StopSlide();
+		}
+		return m_Trajectoire->IsSliding();
+	}
+
+	/*
+	Method : UpdateSlidePosition
+	Brief : Fonction qui ajuste la position en considérant que l'entité est en train de glisser
+	Params :
+	Return : Position de l'entité à ce moment
+	*/
+	void UpdateSlidePosition(){
+		double dStartSlope = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
+		bool boOnGround = false;
+		int iDecalage = 0;
+		if (dStartSlope < 0){ //Va vers la gauche...
+			while (!boOnGround){
+				for (int i = 0; i < m_RectPosition.w; i++){
+					if (((unsigned int*)CPhysics::GetMap()->pixels)[CPhysics::GetMap()->w * (m_RectPosition.y + m_RectPosition.h) + m_RectPosition.x + i - iDecalage] > TRANSPARENCY){
+						iDecalage++;
+						i = m_RectPosition.w;
+					}
+					else {
+						boOnGround = true;
+					}
+				}
+			}
+			m_RectPosition.x = m_RectPosition.x - iDecalage;
+			m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+			C2DVector* TmpSpeed = new C2DVector(m_Trajectoire->GetActualSpeed()->getXDebut(),
+				m_Trajectoire->GetActualSpeed()->getYDebut(),
+				m_Trajectoire->GetActualSpeed()->getNorme() * cos(dStartSlope),
+				m_Trajectoire->GetActualSpeed()->getNorme() * sin(dStartSlope));
+			m_Trajectoire->setActualSpeed(TmpSpeed);
+		}
+		else{ //...ou vers la droite
+			while (!boOnGround){
+				for (int i = 0; i < m_RectPosition.w; i++){
+					if (((unsigned int*)CPhysics::GetMap()->pixels)[CPhysics::GetMap()->w * (m_RectPosition.y + m_RectPosition.h) + m_RectPosition.x + i + iDecalage] > TRANSPARENCY){
+						iDecalage++;
+						i = m_RectPosition.w;
+					}
+					else {
+						boOnGround = true;
+					}
+				}
+			}
+			m_RectPosition.x = m_RectPosition.x + iDecalage;
+			m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+			C2DVector* TmpSpeed = new C2DVector(m_RectPosition.x, m_RectPosition.x,
+				m_Trajectoire->GetActualSpeed()->getNorme() * cos(dStartSlope),
+				m_Trajectoire->GetActualSpeed()->getNorme() * sin(dStartSlope));
+			m_Trajectoire->setActualSpeed(TmpSpeed);
+		}
+		m_Trajectoire->SetActualPos(m_RectPosition.x, m_RectPosition.y);
+		CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+	}
+
 	/*!
 	@method Acesseurs
 	@brief Servent a acceder/modifier aux données membres.

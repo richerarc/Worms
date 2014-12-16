@@ -112,22 +112,22 @@ public:
 		switch (_Direction) {
 			case GROUNDLEFT:
 			case CEILINGRIGHT:
-				for (int i = 0; i < _Rect->w; i++){
-					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h - 1)) + _Rect->x + i] > TRANSPARENCY){
+				for (int i = 0; i < _Rect->w - 14; i++){
+					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + 7 + i] != TRANSPARENCY){
 						_Rect->y--;
 					}
-					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] == TRANSPARENCY){
+					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + 7 + i] == TRANSPARENCY){
 						_Rect->y++;
 					}
 				}
 			    break;
 			case CEILINGLEFT:
 			case GROUNDRIGHT:
-				for (int i = _Rect->w; i > 0; i--){
-					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h - 1)) + _Rect->x + i] > TRANSPARENCY){
+				for (int i = _Rect->w - 14; i > 0; i--){
+					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + 7 + i] != TRANSPARENCY){
 						_Rect->y--;
 					}
-					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] == TRANSPARENCY){
+					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + 7 + i] == TRANSPARENCY){
 						_Rect->y++;
 					}
 				}
@@ -482,7 +482,7 @@ public:
 	static int Move(SDL_Rect* _Rect, int _Direction){
 		if (_Direction == LEFT){
 			for (int i = 0; i < _Rect->h / 2; i++){
-				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x + 6] != 0){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x] != 0){
 					if (i < _Rect->h)
 						return BLOCKED;
 				}
@@ -494,7 +494,7 @@ public:
 		}
 		else{
 			for (int i = 0; i < _Rect->h / 2; i++){
-				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x + _Rect->w - 6] != 0){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x + _Rect->w] != 0){
 					if (i < _Rect->h)
 						return BLOCKED;
 				}
@@ -520,6 +520,9 @@ public:
 	}
 	static void setGravity(double _d){
 		m_Gravity = _d;
+	}
+	static SDL_Surface* GetMap(){
+		return m_Map;
 	}
 };
 C2DVector * CPhysics::m_Wind = nullptr;
