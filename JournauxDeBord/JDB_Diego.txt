@@ -46,3 +46,9 @@
 
 09 Decembre -- de 10h00 a 12h15
 - J'ai fini une version basic de la classe CJetpack.h, elle marche quand meme bien. RIP Mrow.h
+
+Le 11 Decembre, j'ai créé des textures sur gimp. -environ 30 minutes
+
+16 Decembre -- de 9h00 a
+- J'ai codé le systeme de dégâts dans la classe CWorm, quelques problemes son surenus, mais ils sont reglés.
+  
