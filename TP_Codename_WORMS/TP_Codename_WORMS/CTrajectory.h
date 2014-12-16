@@ -70,13 +70,13 @@ public:
 			m_NextPos->setX(m_ActualPos->getX() + DeltaX);
 			m_NextPos->setY(m_ActualPos->getY() + DeltaY);
 			
-			m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX() + m_Acceleration->getComposanteX()/dTimeVariation,
-			m_InitSpeed->getComposanteY() + m_Acceleration->getComposanteY()/dTimeVariation);
+			//m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX() + m_Acceleration->getComposanteX()*dTimeVariation,
+				//m_InitSpeed->getComposanteY() + m_Acceleration->getComposanteX()*dTimeVariation);
 			
 
 			//Le code ci-dessous est pour la vitesse actuelle
-		//	m_ActualSpeed->setComposanteXY((DeltaX + DeltaT * m_Acceleration->getComposanteX()) / dTimeVariation ,
-			//	(DeltaY + DeltaT * m_Acceleration->getComposanteY()) / dTimeVariation );
+			m_ActualSpeed->setComposanteXY((DeltaX + DeltaT * m_Acceleration->getComposanteX()) / dTimeVariation ,
+				(DeltaY + DeltaT * m_Acceleration->getComposanteY()) / dTimeVariation );
 		}
 	}
 

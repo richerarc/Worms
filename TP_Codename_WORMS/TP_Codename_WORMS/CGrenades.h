@@ -22,7 +22,7 @@ public:
 	@param _pTexture : texture de l'image à afficher	@return Adresse mémoire de l'objet.
 	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets.
 	*/
-	CGrenades(SDL_Texture* _textureExplosion, SDL_Rect _RectPos, SDL_Texture* _Texture) :CObjets(_textureExplosion, _RectPos, _Texture){
+	CGrenades(SDL_Rect _RectPos, SDL_Texture* _Texture, CExplosion* _Explosion) :CObjets(_RectPos, _Texture, _Explosion){
 		m_pTimer = new CTimer();
 		m_pTimer->SetTimer(1000);
 		m_pTimer->Start();
@@ -101,8 +101,9 @@ public:
 					if (m_Trajectoire->GetActualSpeed()->getNorme() < 200)
 						m_EntityState = Immobile;
 					else {
-						SDL_Rect Impact = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 };
+						SDL_Rect* Impact = new SDL_Rect({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
 						m_Trajectoire->Bounce(CPhysics::EvaluateSlope(Impact));
+						delete Impact;
 						/*
 						int iCollision = CPhysics::VerifyGroundCollision(m_RectPosition);
 						if (iCollision != NOCONTACT){

@@ -26,6 +26,17 @@ private:
 	CTimer* DropperTimer;					// Indique le Temps avant de faire tomber les worms.
 	CWorm * ActiveWorm;
 	CJetPack * Jetpack;
+	CExplosion* m_pBig_Explosion;
+	CExplosion* m_pSmall_Explosion;
+
+	/*
+	//Données test pour les explosions
+	
+	CExplosion* m_explode;
+	bool boEx;
+
+	*/
+	
 public:
 
 	/*!
@@ -55,11 +66,21 @@ public:
 		CPhysics::Init(m_pMap->getMap(), m_pMap->getGravity(), m_pMap->getWind());
 		m_pListeTeam = new CListeDC<CTeam*>();
 		m_pListeObjets = new CListeDC<CObjets*>();
+		m_pBig_Explosion = new CExplosion(m_Gestionaire->GetSprite("bigex"), 48, _Map);
+		m_pSmall_Explosion = new CExplosion(m_Gestionaire->GetSprite("smallex"), 25, _Map);
 		Spawn();
 		DropperTimer->SetTimer(200);
 		DropperTimer->Start();
 		ActiveWorm = nullptr;
 		Jetpack = nullptr;
+
+		/*
+		//Tests pour les expolsions
+		
+		m_explode = new CExplosion(m_Gestionaire->GetSprite("smallex"), 25, _Map);
+		boEx = false;
+
+		*/
 	}
 	
 	/*!
@@ -74,6 +95,10 @@ public:
 		CPhysics::Annihilate();
 		delete DropperTimer;
 		delete TurnTimer;
+	//	delete m_explode; // Test pour les explosions
+		delete m_pBig_Explosion;
+		delete m_pSmall_Explosion;
+		delete Jetpack;
 	}
 
 	/*!
@@ -124,7 +149,22 @@ public:
 				m_pListeTeam->ObtenirElement()->draw(m_pRenderer);
 				m_pListeTeam->AllerSuivant();
 			}
+		}	
+
+		/*
+
+		//Tests pour les explosions
+
+		if (m_explode->IsDone()){ 
+			boEx = false;
+			m_explode->ExplodeMap(m_pRenderer);
 		}
+		if (boEx){
+			m_explode->startExplosion();
+			m_explode->Draw(m_pRenderer);
+		}
+	*/
+
 	}
 	
 	/*!
@@ -136,6 +176,33 @@ public:
 	*/
 	void HandleEvent(SDL_Event _Event){
 		if (!m_boPause){
+
+			switch (_Event.type)
+			{
+			case SDL_MOUSEBUTTONDOWN:
+				if (_Event.button.button == SDL_BUTTON_LEFT){
+					/*
+					//Tests pour les expolsions
+					m_explode->setPositionXY(_Event.button.x, _Event.button.y);
+					boEx = true;
+					*/
+				}
+				break;
+
+
+			case SDL_KEYDOWN:
+				switch (_Event.key.keysym.sym) 
+				{
+				case SDLK_ESCAPE:
+						PauseGame();
+					break;
+				}
+				break;
+			case SDL_KEYUP:
+				break;
+			}
+
+
 			switch (_Event.key.keysym.sym) {
 				case SDLK_ESCAPE:
 					PauseGame();
@@ -169,16 +236,21 @@ public:
 	@discussion None.
 	*/
 	void Spawn(){
+
 		if (m_pListeObjets->Count() < m_pMap->getMine()){
-			m_pListeObjets->AjouterFin(new CMines(m_Gestionaire->GetTexture("explosion1")->GetTexture(), {((rand()% (WIDTH - 10)) + 5), 5, 12, 8}, m_Gestionaire->GetTexture("mine")->GetTexture()));
+			m_pListeObjets->AjouterFin(new CMines({ ((rand() % (WIDTH - 10)) + 5), 5, 12, 8 }, m_Gestionaire->GetTexture("mine")->GetTexture(), m_pSmall_Explosion));
 		}
+
 		if (m_pListeObjets->Count() == m_pMap->getMine()){
-			string temp("Team");
-			char buf[10];
-			temp.append(SDL_itoa(m_pListeObjets->Count()+1, buf, 10));
-			m_pListeTeam->AjouterFin(new CTeam(temp, nullptr, m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontWorm")));
-			temp.pop_back();
+			if (m_pListeTeam->Count() < m_uiNbOfPlayingTeams){
+				string temp("Team");
+				char buf[10];
+				temp.append(SDL_itoa(m_pListeObjets->Count() + 1, buf, 10));
+				m_pListeTeam->AjouterFin(new CTeam(temp, nullptr, m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontWorm"), m_pSmall_Explosion));
+				temp.pop_back();
+			}
 		}
+
 		if (m_pListeTeam->Count() == m_uiNbOfPlayingTeams){
 			m_pListeTeam->AllerDebut();
 			m_pListeTeam->ObtenirElement()->setFocus(true);
@@ -214,22 +286,17 @@ public:
 	@brief Servent à acceder/modifier aux données membres.
 	*/
 
-	void setNbOfPlayingTeams(Uint8 _NbOfTeams){ m_uiNbOfPlayingTeams = _NbOfTeams; }
-
+	CWorm* getActiveWorm(){ return ActiveWorm; }
 	Uint8 getNbOfPlayingTeams(){ return m_uiNbOfPlayingTeams; }
-	
 	bool inGame(){return m_boInPlay;}
+
 	void Activate(){m_boInPlay = true;}
 	void DeActivate(){m_boInPlay = false;}
 	void PauseGame(){ m_boPause = true;}
 	void ResumeGame(){ m_boPause = false;}
+	void setNbOfPlayingTeams(Uint8 _NbOfTeams){ m_uiNbOfPlayingTeams = _NbOfTeams; }
 
 
-	/*
-	Methode getActiveWorm
-	*/
 
-	CWorm* getActiveWorm(){
-		return ActiveWorm;
-	}
+
 };
