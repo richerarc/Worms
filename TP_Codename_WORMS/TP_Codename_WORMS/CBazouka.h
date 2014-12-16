@@ -190,8 +190,8 @@ public:
 
 			case SDLK_SPACE:
 				boIsLaunch = true;
-				fPosXTempo = 53.9*cos(abs(DegToRad(iAngle - 15)));
-				fPosYTempo = 53.9*sin(abs(DegToRad(iAngle - 15)));
+				fPosXTempo = 53.9*cos(abs((int)DegToRad(iAngle - 15)));
+				fPosYTempo = 53.9*sin(abs((int)DegToRad(iAngle - 15)));
 				iPosXTampon = fPosXTempo;
 				iPosYTampon = fPosYTempo;
 				if (fPosXTempo > iPosXTampon + 0.5)
