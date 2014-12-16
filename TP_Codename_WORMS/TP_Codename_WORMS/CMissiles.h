@@ -1,7 +1,6 @@
 #ifndef TP_Codename_WORMS_CMissiles_h
 #define TP_Codename_WORMS_CMissiles_h
-
-
+enum MissileStates { BazzLeft, BazzRight };
 /*!
 @CMissiles
 @Classe permettant la création d'un missile
@@ -9,9 +8,9 @@
 class CMissiles : public CObjets{
 private:
 	//Données membres:
-	bool boIsexploded; //Donnée représentant si l'objet est explosé (true) ou non (false)
-	C2DVector* m_pVectorVitesse;
-	C2DVector* m_pVectorAccel;
+	bool boIsexploded; //Donnée représentant si l'objet est explosé (true) ou non (false).
+	int m_iPower; // Donnée représentant le power du missile donné par le bazouka.
+	int m_iAngle; // Donnée représentant l'angle d'inclinaison du bazouka.
 public:
 
 
@@ -24,10 +23,12 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
-	CMissiles(SDL_Rect _RectPos, SDL_Texture* _Texture, int _uiPower, CExplosion* _Explosion) :CObjets( _RectPos, _Texture, _Explosion){
+	CMissiles(SDL_Rect _RectPos, SDL_Texture* _Texture, int _iPower, int _iAngle, CExplosion* _Explosion, int _uiMissileState) :CObjets( _RectPos, _Texture, _Explosion){
 		boIsexploded = false;
-		m_pVectorVitesse = new C2DVector(_RectPos.x, _RectPos.y, 20, 20); // pas bon ça
-		m_pVectorAccel = new C2DVector(_RectPos.x, _RectPos.y, 35, 35); // pas bon ça aussi
+		m_iPower = _iPower;
+		m_iAngle = _iAngle;
+		m_Trajectoire = nullptr;
+		m_EntityState = _uiMissileState;
 	}
 
 	/*!
