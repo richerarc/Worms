@@ -26,7 +26,7 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
-	CMissiles(SDL_Rect _RectPos, SDL_Texture* _Texture, int _iPower, int _iAngle, CExplosion* _Explosion, int _uiMissileState) :CObjets( _RectPos, _Texture, _Explosion){
+	CMissiles(SDL_Rect _RectPos, SDL_Texture* _Texture, int _iPower, int _iAngle, CExplosion* _Explosion, int _uiMissileState) :CObjets(_RectPos, _Texture, _Explosion){
 		boIsexploded = false;
 		m_iPower = _iPower;
 		m_iAngle = _iAngle;
@@ -57,55 +57,62 @@ public:
 					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, -10 * m_iPower * cos(DegToRad(m_iAngle)), -10 * m_iPower * sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity())));
 			}
 		}
+		//	SDL_Rect m_pRectTemp = CPhysics::HandleGroundCollision(m_RectPosition,)
+		//while (m_RectPosition != m_pRectTemp){
 		m_Trajectoire->UpdatePosition();
 		m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
 		m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+	//}
+	boIsexploded = true;
+}
 
-	}
+/*!
+@method Draw
+@param _Renderer : Renderer pour rendre la texture du missile
+@return null
+*/
 
-	/*!
-	@method Draw
-	@param _Renderer : Renderer pour rendre la texture du missile
-	@return null
-	*/
-	void Draw(SDL_Renderer* _pRenderer){
+void Draw(SDL_Renderer* _pRenderer){
+	if (!boIsexploded){
 		Move();
 		SDL_RenderCopy(_pRenderer, m_pTexture, NULL, &m_RectPosition);
 	}
+	else{
+		m_pExplosion->setPositionXY(m_RectPosition.x, m_RectPosition.y);
+		m_pExplosion->startExplosion();
+		m_pExplosion->Draw(_pRenderer);
+		if (m_pExplosion->IsDone())
+			m_pExplosion->ExplodeMap(_pRenderer);
 
-	/*!
-	@method HandleEvent
-	@param _Event : Un SDL_Event pour traiter les evenement
-	@return null
-	*/
-	void HandleEvent(SDL_Event _Event){
-		m_boFocus = true;
 	}
+}
 
-	/*!
-	@Méthode:
-	@ReactToExplosion
-	@Permet de calculer les dommages subit par l'explosion
-	*/
-	void ReactToExplosion(int _iX, int _iY, int _iRayon){}
+/*!
+@method HandleEvent
+@param _Event : Un SDL_Event pour traiter les evenement
+@return null
+*/
+void HandleEvent(SDL_Event _Event){
+	m_boFocus = true;
+}
 
-	/*!
-	@method Acesseurs
-	@brief Servent a acceder/modifier aux données membres.
-	*/
+/*!
+@method Acesseurs
+@brief Servent a acceder/modifier aux données membres.
+*/
 
-	void setPos(int _ix, int _iy){
-		m_RectPosition.x = _ix;
-		m_RectPosition.y = _iy;
-	}
+void setPos(int _ix, int _iy){
+	m_RectPosition.x = _ix;
+	m_RectPosition.y = _iy;
+}
 
-	bool IsItexploded(){
-		return boIsexploded;
-	}
+bool IsItexploded(){
+	return boIsexploded;
+}
 
-	void setExplosion(bool _boSet){
-		boIsexploded = _boSet;
-	}
+void setExplosion(bool _boSet){
+	boIsexploded = _boSet;
+}
 
 
 };
