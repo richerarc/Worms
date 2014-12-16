@@ -17,9 +17,12 @@ public:
 	/*!
 	@method Constructeur.
 	@brief Initialise les données membres.
-	@param _iRayon: le rayond d'explosion de l'objet
 	@param _RectPos: la pos du rectangle de l'objet
-	@param _pTexture : texture de l'image à afficher
+	@param _Texture: la texture du missile
+	@param _iPower: le power du missile
+	@param _iAngle : l'angle d'inclinaison du missile
+	@param _Explosion: un pointeur vers la classe explosion
+	@param _uiMissileState: l'état du missile (gauche - droite)
 	@return Adresse mémoire de l'objet.
 	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
@@ -40,23 +43,24 @@ public:
 	}
 
 	void Move(){
-		switch (m_EntityState){
-		case Deplacement:
-			m_Trajectoire->UpdatePosition();
-			CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
-			if (temp != nullptr)
-			{
-				m_Trajectoire = (CPhysics::Propulsion(temp, m_pVectorVitesse, m_pVectorAccel));
-				m_RectPosition.y = temp->getY();
-				m_RectPosition.x = temp->getX();
-				delete temp;
+		if (m_Trajectoire == nullptr){
+			if (m_EntityState == BazzLeft){
+				if (m_iAngle<0)
+					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, 10 * m_iPower * cos(DegToRad(m_iAngle)), 10 * m_iPower* sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity())));
+				else
+					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, 10 * m_iPower * cos(DegToRad(m_iAngle)), 10 * m_iPower * sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity())));
 			}
-			else{
-				m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
-				m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+			if (m_EntityState == BazzRight){
+				if (m_iAngle>0)
+					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, -10 * m_iPower * cos(DegToRad(m_iAngle)), -10 * m_iPower * sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity())));
+				else
+					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, -10 * m_iPower * cos(DegToRad(m_iAngle)), -10 * m_iPower * sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity())));
 			}
-			break;
 		}
+		m_Trajectoire->UpdatePosition();
+		m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
+		m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+
 	}
 
 	/*!
