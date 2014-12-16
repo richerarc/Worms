@@ -36,6 +36,7 @@ public:
 	 @return Adresse m�moire de l'objet.
 	 @discussion Comme tous les donn�es membres sont statiques, Le init agit comme un constructeur.
 	 */
+
 	static void Init(SDL_Surface* _map, double _gravity, int _maxWind){
 		m_Wind = new C2DVector(0, 0, 0, 0);
 		m_Map = _map;
@@ -109,7 +110,6 @@ public:
 	 @discussion Aucune.
 	 */
 	static void verifyGroundCollision(SDL_Rect* _Rect, int _Direction){
-		
 	}
 	
 	/*!
@@ -524,7 +524,6 @@ public:
 	 @method Acesseurs
 	 @brief Servent a acceder/modifier aux donn�es membres.
 	 */
-	
 	static C2DVector* GetWind(){
 		return m_Wind;
 	}
@@ -533,6 +532,9 @@ public:
 	}
 	static void setGravity(double _d){
 		m_Gravity = _d;
+	}
+	static SDL_Surface* GetMap(){
+		return m_Map;
 	}
 };
 C2DVector * CPhysics::m_Wind = nullptr;

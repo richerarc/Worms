@@ -172,18 +172,22 @@ public:
 	void setDOUBLE_XY_END(double _x, double _y){
 		m_XEnd = _x;
 		m_YEnd = _y;
+		m_Norme = sqrt(pow(m_XFin - m_XOrigine, 2) + pow(m_YFin - m_YOrigine, 2));
 	}
 	void setDOUBLE_XY_START(double _x, double _y){
 		m_XStart = _x;
 		m_YStart = _y;
+		m_Norme = sqrt(pow(m_XFin - m_XOrigine, 2) + pow(m_YFin - m_YOrigine, 2));
 	}
 	void setXYfin(int _x, int _y){
 		m_XFin = _x;
 		m_YFin = _y;
+		m_Norme = sqrt(pow(m_XFin - m_XOrigine, 2) + pow(m_YFin - m_YOrigine, 2));
 	}
 	void setXYDebut(int _x, int _y){
 		m_XOrigine = _x;
 		m_YOrigine = _y;
+		m_Norme = sqrt(pow(m_XFin - m_XOrigine, 2) + pow(m_YFin - m_YOrigine, 2));
 	}
 	void setComposanteXY(double _CompX, double _CompY){
 		m_ComposanteX = _CompX;
@@ -192,7 +196,8 @@ public:
 		m_YFin = m_YOrigine + (m_ComposanteY);
 		m_XEnd = m_XStart + (m_ComposanteX);
 		m_YEnd = m_YStart + (m_ComposanteY);;
-		m_Norme = sqrt(pow(m_XFin - m_XOrigine, 2) + pow(m_YFin - m_YOrigine, 2));
+		//m_Norme = sqrt(pow(m_XFin - m_XOrigine, 2) + pow(m_YFin - m_YOrigine, 2));
+		m_Norme = sqrt(pow(m_ComposanteX, 2) + pow(m_ComposanteY, 2));
 		if ((m_ComposanteX == 0) && (m_ComposanteY > 0))
 			m_Orientation = M_PI / 2;
 		else if ((m_ComposanteX == 0) && (m_ComposanteY < 0))
