@@ -37,7 +37,7 @@ public:
 	@param _Renderer : Le renderer sur lequel dessiner
 	@return Aucun
 	*/
-	virtual void Draw(SDL_Renderer*) = 0;
+	virtual void Draw(SDL_Renderer*){};
 
 	/*!
 	@Accesseur virtuel IsItExploded
