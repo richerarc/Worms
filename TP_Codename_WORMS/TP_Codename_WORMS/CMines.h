@@ -44,7 +44,7 @@ public:
 	void Draw(SDL_Renderer* _pRenderer){
 			//SDL_RenderCopy(_pRenderer, m_pTexture, NULL, &m_RectPosition);
 		if ((!m_Angle) && (m_EntityState == Immobile))
-			m_Angle = CPhysics::EvaluateSlope({m_RectPosition.x, m_RectPosition.y + m_RectPosition.h / 2, m_RectPosition.w, m_RectPosition.h});
+			m_Angle = CPhysics::EvaluateSlope(new SDL_Rect({m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, m_RectPosition.h}));
 		SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_RectPosition, RadToDeg(m_Angle), NULL, SDL_FLIP_NONE);
 	}
 
