@@ -1,0 +1,3 @@
+class CWeaponMenu : public CGUIE{
+
+};

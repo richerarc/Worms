@@ -108,6 +108,7 @@
     <ClInclude Include="CWindow.h" />
     <ClInclude Include="CWorm.h" />
     <ClInclude Include="CWorms.h" />
+    <ClInclude Include="WeaponMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
