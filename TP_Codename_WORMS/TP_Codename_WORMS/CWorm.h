@@ -14,7 +14,7 @@
 #define TP_Codename_WORMS_CWorm_h
 
 // Un worm possde dŽjˆ l'Žtat en chute, immobile, ou en dŽplacement, qu'il tient d'entity
-enum WormState {NoMotionLeft, NoMotionRight, MotionLeft, MotionRight, JumpLeft, JumpRight, UsingBazzLeft, UsingBazzRight, Damaged, Largage, SlideLeft, SlideRight};
+enum WormState { NoMotionLeft, NoMotionRight, MotionLeft, MotionRight, JumpLeft, JumpRight, UsingBazzLeft, UsingBazzRight, Damaged, Largage, SlideLeft, SlideRight };
 
 /*!
 @CWorm
@@ -35,12 +35,12 @@ public:
 	/*!
 	@Constructeur
 	@Description: Permet d'initialiser les données membres
-	 @param _iLifeMax : la vie maximum du worm
-	 @param _pSprite : le sprite du worm
-	 @param _RectPos : la position du sprite
+	@param _iLifeMax : la vie maximum du worm
+	@param _pSprite : le sprite du worm
+	@param _RectPos : la position du sprite
 	@Classe héritant de CEntity
 	*/
-	CWorm(string _Name, SDL_Texture* _Texture, CSprite* _pSprite,CFont* _Font,SDL_Rect _RectPos, SDL_Color* _Color,CExplosion* _Explosion) :CEntity(_RectPos, _Texture, _Explosion){
+	CWorm(string _Name, SDL_Texture* _Texture, CSprite* _pSprite, CFont* _Font, SDL_Rect _RectPos, SDL_Color* _Color) :CEntity(_RectPos, _Texture){
 		m_strName = _Name;
 		m_Angle = 0;
 		m_TeamColor = _Color;
@@ -51,9 +51,9 @@ public:
 		m_BarredeVie.w = 50;
 		m_BarredeVie.x = _RectPos.x;
 		m_BarredeVie.y = _RectPos.y;
-		m_lblNom = new CLabel("", m_strName.c_str(), _Font, SDL_Rect{_RectPos.x,_RectPos.y - 18,50,10});
+		m_lblNom = new CLabel("", m_strName.c_str(), _Font, SDL_Rect{ _RectPos.x, _RectPos.y - 18, 50, 10 });
 		m_EntityState = Largage;
-		m_Deplacement = new C2DVector(m_RectPosition.x, m_RectPosition.y, 0,0);
+		m_Deplacement = new C2DVector(m_RectPosition.x, m_RectPosition.y, 0, 0);
 		m_boDrawRect = false;
 		m_pSprite->Start();
 
@@ -66,16 +66,16 @@ public:
 	~CWorm(){
 		delete m_pSprite;
 	}
-	
+
 	/*!
 	 @Méthode:
 	 @ReactToExplosion
 	 @Permet de calculer les dommages subit par l'explosion
 	 */
-	void ReactToExplosion(int _iX,int _iY,int _Rayon){
-		
+	void ReactToExplosion(int _iX, int _iY, int _Rayon){
+
 	}
-	
+
 	/*!
 	 @method HandleEvent
 	 @param _Evant : Un SDL_Event pour traiter les evenement
@@ -84,49 +84,49 @@ public:
 	void HandleEvent(SDL_Event _Event){
 		if ((m_EntityState != JumpLeft) && (m_EntityState != JumpRight) && (m_EntityState != Largage)) {
 			switch (_Event.type) {
-				case SDL_KEYDOWN:
-					switch (_Event.key.keysym.sym){
-						case SDLK_g:
-							m_boDrawRect = false;
-							break;
-						case SDLK_f:
-							m_boDrawRect = true;
-							break;
-						case SDLK_1:
-							
-							break;
-						case SDLK_UP:
-						case SDLK_w:
-							break;
-						case SDLK_LEFT:
-						case SDLK_a:
-							m_EntityState = MotionLeft;
-							break;
-						case SDLK_RIGHT:
-						case SDLK_d:
-							m_EntityState = MotionRight;
-							break;
-						case SDLK_SPACE:
-							if ((m_EntityState == NoMotionLeft) || (m_EntityState == MotionLeft))
-								m_EntityState = JumpLeft;
-							else if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight))
-								m_EntityState = JumpRight;
-							break;
-					}
+			case SDL_KEYDOWN:
+				switch (_Event.key.keysym.sym){
+				case SDLK_g:
+					m_boDrawRect = false;
 					break;
-				case SDL_KEYUP:
-					if (m_EntityState == MotionLeft)
-						m_EntityState = NoMotionLeft;
-					else
-						m_EntityState = NoMotionRight;
+				case SDLK_f:
+					m_boDrawRect = true;
 					break;
+				case SDLK_1:
+
+					break;
+				case SDLK_UP:
+				case SDLK_w:
+					break;
+				case SDLK_LEFT:
+				case SDLK_a:
+					m_EntityState = MotionLeft;
+					break;
+				case SDLK_RIGHT:
+				case SDLK_d:
+					m_EntityState = MotionRight;
+					break;
+				case SDLK_SPACE:
+					if ((m_EntityState == NoMotionLeft) || (m_EntityState == MotionLeft))
+						m_EntityState = JumpLeft;
+					else if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight))
+						m_EntityState = JumpRight;
+					break;
+				}
+				break;
+			case SDL_KEYUP:
+				if (m_EntityState == MotionLeft)
+					m_EntityState = NoMotionLeft;
+				else
+					m_EntityState = NoMotionRight;
+				break;
 			}
 		}
 	}
 
 	/*!
 	@method Draw
-	@param _Renderer : Renderer pour rendre la texture du Sprite 
+	@param _Renderer : Renderer pour rendre la texture du Sprite
 	@return null
 	*/
 	void Draw(SDL_Renderer * _Renderer){
@@ -136,45 +136,64 @@ public:
 		SDL_SetRenderDrawBlendMode(_Renderer, SDL_BLENDMODE_BLEND);
 		SDL_RenderFillRect(_Renderer, &m_BarredeVie);
 		switch (m_EntityState) {
-			case JumpLeft:
-				if (m_pSprite->getCurrentAnimation() != 5)
-					m_pSprite->setCurrentAnimation(5);
-				m_pSprite->Render(_Renderer);
-				break;
-			case JumpRight:
-				if (m_pSprite->getCurrentAnimation() != 4)
-					m_pSprite->setCurrentAnimation(4);
-				m_pSprite->Render(_Renderer);
-				break;
-			case NoMotionLeft:
-				if (m_pSprite->getCurrentAnimation() != 1)
-					m_pSprite->setCurrentAnimation(1);
-				m_pSprite->Render(_Renderer, 0);
-				break;
-			case NoMotionRight:
-				if (m_pSprite->getCurrentAnimation() != 0)
-					m_pSprite->setCurrentAnimation(0);
-				m_pSprite->Render(_Renderer, 0);
-				break;
-			case Largage:
-				if (m_pSprite->getCurrentAnimation() != 10)
-					m_pSprite->setCurrentAnimation(10);
-				m_pSprite->Render(1, 4, _Renderer);
-				break;
-			case MotionLeft:
-				if (m_pSprite->getCurrentAnimation() != 3)
-					m_pSprite->setCurrentAnimation(3);
-				m_pSprite->Render(0,4,_Renderer);
-				break;
-			case MotionRight:
-				if (m_pSprite->getCurrentAnimation() != 2)
-					m_pSprite->setCurrentAnimation(2);
-				m_pSprite->Render(0,4,_Renderer);
-				break;
+		case JumpLeft:
+			if (m_pSprite->getCurrentAnimation() != 5)
+				m_pSprite->setCurrentAnimation(5);
+			m_pSprite->Render(_Renderer);
+			break;
+		case JumpRight:
+			if (m_pSprite->getCurrentAnimation() != 4)
+				m_pSprite->setCurrentAnimation(4);
+			m_pSprite->Render(_Renderer);
+			break;
+		case NoMotionLeft:
+			if (m_pSprite->getCurrentAnimation() != 1)
+				m_pSprite->setCurrentAnimation(1);
+			m_pSprite->Render(_Renderer, 0);
+			break;
+		case NoMotionRight:
+			if (m_pSprite->getCurrentAnimation() != 0)
+				m_pSprite->setCurrentAnimation(0);
+			m_pSprite->Render(_Renderer, 0);
+			break;
+		case Largage:
+			if (m_pSprite->getCurrentAnimation() != 10)
+				m_pSprite->setCurrentAnimation(10);
+			m_pSprite->Render(1, 4, _Renderer);
+			break;
+		case MotionLeft:
+			if (m_pSprite->getCurrentAnimation() != 3)
+				m_pSprite->setCurrentAnimation(3);
+			m_pSprite->Render(0, 4, _Renderer);
+			break;
+		case MotionRight:
+			if (m_pSprite->getCurrentAnimation() != 2)
+				m_pSprite->setCurrentAnimation(2);
+			m_pSprite->Render(0, 4, _Renderer);
+			break;
 		}
 		if (m_boDrawRect)
 			SDL_RenderDrawRect(_Renderer, &m_RectPosition);
 	}
+	//			Methode: RecieveDamage()
+	//			PARAM :
+	//				_ExplosionPos : Position du centre de l'explosion.
+	//				_Radius : Rayon(puissance de l'explosion.')
+	//				_Knife : Booléen qui détermine si le dégât est causé par l'arme Couteau.
+
+	void RecieveDamage(CExplosion * _Explosion, bool _Knife){
+		if (_Knife){
+			m_iLife -= 30;
+		}
+		else if(_Explosion != nullptr){
+			
+			float Distance = _Explosion->getPosition()->ClaculateDistance((m_RectPosition.x + (m_RectPosition.w / 2)), (m_RectPosition.y + (m_RectPosition.h / 2)));
+			if (Distance <= _Explosion->getRange()){
+				m_iLife -= 110 - 100 * (Distance / _Explosion->getRange);
+			}
+		}
+	}
+
 
 	/*!
 	@Accesseurs:
@@ -191,118 +210,44 @@ public:
 
 	string getName(){ return m_strName; }
 
+
 	void Move(){
 		float ftemp = 0;
 		switch (m_EntityState) {
-			case JumpLeft:
-				if (m_Trajectoire == nullptr){
-					m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
-													new C2DVector(m_RectPosition.x, m_RectPosition.y, -100.f, -250.f),
-													new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity() + CPhysics::GetWind()->getComposanteY()));
-				}
-				else{
-					m_Trajectoire->UpdatePosition();
-					
-					CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
-					if (temp != nullptr)
-					{
-						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
-							m_EntityState = NoMotionLeft;
-							delete m_Trajectoire;
-							m_Trajectoire = nullptr;
-						}
-						setPosXY(temp->getX(), temp->getY());
-						delete temp;
-					}
-					else{
-						setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
-					}
-				}
-				break;
-			case JumpRight:
-				if (m_Trajectoire == nullptr){
-					m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
-													new C2DVector(m_RectPosition.x, m_RectPosition.y, 100.f, -250.f),
-													new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity() + CPhysics::GetWind()->getComposanteY()));
-				}
-				else{
-					m_Trajectoire->UpdatePosition();
-					
-					CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
-					if (temp != nullptr)
-					{
-						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
-							m_EntityState = NoMotionRight;
-							delete m_Trajectoire;
-							m_Trajectoire = nullptr;
-						}
-						setPosXY(temp->getX(), temp->getY());
-						delete temp;
-					}
-					else{
-						setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
-					}
-				}
-				break;
-			case MotionRight:
-				
-					// TODO Ajuster la largeur du rect pour la slope
-				ftemp = CPhysics::EvaluateSlope({m_RectPosition.x + m_RectPosition.w - (m_RectPosition.h / 8), m_RectPosition.y + (3 * m_RectPosition.h / 4), m_RectPosition.h / 4, m_RectPosition.h / 4});
-				if (ftemp <= 0){
-					if (ftemp >= -ANGLEMAX){
-						CPhysics::Move(&m_RectPosition, RIGHT);
-						CPhysics::HandleGroundCollision(&m_RectPosition, CEILINGRIGHT);
-						setPosXY(m_RectPosition.x, m_RectPosition.y);
-					}
-					else if ((ftemp <= -ANGLEMAX) && (ftemp < PI_SUR_DEUX || ftemp > -PI_SUR_DEUX ))
-						m_EntityState = SlideRight;
-					else
-						m_EntityState = Chute;
-				}
-				else{
-					if (ftemp <= ANGLEMAX){
-						CPhysics::Move(&m_RectPosition, RIGHT);
-						CPhysics::HandleGroundCollision(&m_RectPosition, GROUNDRIGHT);
-						setPosXY(m_RectPosition.x, m_RectPosition.y);
-					}
-					else if ((ftemp >= ANGLEMAX) && (ftemp < PI_SUR_DEUX || ftemp > -PI_SUR_DEUX ))
-						m_EntityState = SlideRight;
-					else
-						m_EntityState = Chute;
-					
-				}
-				break;
-			case MotionLeft:
-				ftemp = CPhysics::EvaluateSlope({m_RectPosition.x - (m_RectPosition.h / 8), m_RectPosition.y + (3 * m_RectPosition.h / 4), m_RectPosition.h / 4, m_RectPosition.h / 4});
-				if (ftemp <= 0){
-					if (ftemp >= -ANGLEMAX){
-						CPhysics::Move(&m_RectPosition, LEFT);
-						CPhysics::HandleGroundCollision(&m_RectPosition, GROUNDLEFT);
-						setPosXY(m_RectPosition.x, m_RectPosition.y);
-					}
-					else if ((ftemp >= ANGLEMAX) && (ftemp < PI_SUR_DEUX || ftemp > -PI_SUR_DEUX ))
-						m_EntityState = SlideLeft;
-					else
-						m_EntityState = Chute;
-				}
-				else{
-					if (ftemp <= ANGLEMAX){
-						CPhysics::Move(&m_RectPosition, LEFT);
-						CPhysics::HandleGroundCollision(&m_RectPosition, CEILINGLEFT);
-						setPosXY(m_RectPosition.x, m_RectPosition.y);
-					}
-					else if ((ftemp <= -ANGLEMAX) && (ftemp < PI_SUR_DEUX || ftemp > -PI_SUR_DEUX ))
-						m_EntityState = SlideLeft;
-					else
-						m_EntityState = Chute;
-				}
-				break;
-			case Chute:
-				
-				break;
-			case Largage:
+		case JumpLeft:
+			if (m_Trajectoire == nullptr){
+				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
+					new C2DVector(m_RectPosition.x, m_RectPosition.y, -100.f, -250.f),
+					new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity() + CPhysics::GetWind()->getComposanteY()));
+			}
+			else{
 				m_Trajectoire->UpdatePosition();
-				
+
+				CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+				if (temp != nullptr)
+				{
+					if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
+						m_EntityState = NoMotionLeft;
+						delete m_Trajectoire;
+						m_Trajectoire = nullptr;
+					}
+					setPosXY(temp->getX(), temp->getY());
+					delete temp;
+				}
+				else{
+					setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
+				}
+			}
+			break;
+		case JumpRight:
+			if (m_Trajectoire == nullptr){
+				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
+					new C2DVector(m_RectPosition.x, m_RectPosition.y, 100.f, -250.f),
+					new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity() + CPhysics::GetWind()->getComposanteY()));
+			}
+			else{
+				m_Trajectoire->UpdatePosition();
+
 				CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
 				if (temp != nullptr)
 				{
@@ -317,10 +262,85 @@ public:
 				else{
 					setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
 				}
-				break;
+			}
+			break;
+		case MotionRight:
+
+			// TODO Ajuster la largeur du rect pour la slope
+			ftemp = CPhysics::EvaluateSlope({ m_RectPosition.x + m_RectPosition.w - (m_RectPosition.h / 8), m_RectPosition.y + (3 * m_RectPosition.h / 4), m_RectPosition.h / 4, m_RectPosition.h / 4 });
+			if (ftemp <= 0){
+				if (ftemp >= -ANGLEMAX){
+					CPhysics::Move(&m_RectPosition, RIGHT);
+					CPhysics::HandleGroundCollision(&m_RectPosition, CEILINGRIGHT);
+					setPosXY(m_RectPosition.x, m_RectPosition.y);
+				}
+				else if ((ftemp <= -ANGLEMAX) && (ftemp < PI_SUR_DEUX || ftemp > -PI_SUR_DEUX))
+					m_EntityState = SlideRight;
+				else
+					m_EntityState = Chute;
+			}
+			else{
+				if (ftemp <= ANGLEMAX){
+					CPhysics::Move(&m_RectPosition, RIGHT);
+					CPhysics::HandleGroundCollision(&m_RectPosition, GROUNDRIGHT);
+					setPosXY(m_RectPosition.x, m_RectPosition.y);
+				}
+				else if ((ftemp >= ANGLEMAX) && (ftemp < PI_SUR_DEUX || ftemp > -PI_SUR_DEUX))
+					m_EntityState = SlideRight;
+				else
+					m_EntityState = Chute;
+
+			}
+			break;
+		case MotionLeft:
+			ftemp = CPhysics::EvaluateSlope({ m_RectPosition.x - (m_RectPosition.h / 8), m_RectPosition.y + (3 * m_RectPosition.h / 4), m_RectPosition.h / 4, m_RectPosition.h / 4 });
+			if (ftemp <= 0){
+				if (ftemp >= -ANGLEMAX){
+					CPhysics::Move(&m_RectPosition, LEFT);
+					CPhysics::HandleGroundCollision(&m_RectPosition, GROUNDLEFT);
+					setPosXY(m_RectPosition.x, m_RectPosition.y);
+				}
+				else if ((ftemp >= ANGLEMAX) && (ftemp < PI_SUR_DEUX || ftemp > -PI_SUR_DEUX))
+					m_EntityState = SlideLeft;
+				else
+					m_EntityState = Chute;
+			}
+			else{
+				if (ftemp <= ANGLEMAX){
+					CPhysics::Move(&m_RectPosition, LEFT);
+					CPhysics::HandleGroundCollision(&m_RectPosition, CEILINGLEFT);
+					setPosXY(m_RectPosition.x, m_RectPosition.y);
+				}
+				else if ((ftemp <= -ANGLEMAX) && (ftemp < PI_SUR_DEUX || ftemp > -PI_SUR_DEUX))
+					m_EntityState = SlideLeft;
+				else
+					m_EntityState = Chute;
+			}
+			break;
+		case Chute:
+
+			break;
+		case Largage:
+			m_Trajectoire->UpdatePosition();
+
+			CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+			if (temp != nullptr)
+			{
+				if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
+					m_EntityState = NoMotionRight;
+					delete m_Trajectoire;
+					m_Trajectoire = nullptr;
+				}
+				setPosXY(temp->getX(), temp->getY());
+				delete temp;
+			}
+			else{
+				setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
+			}
+			break;
 		}
 	}
-	
+
 	void setPosXY(int _X, int _Y){
 		m_RectPosition.y = _Y;
 		m_RectPosition.x = _X;
@@ -329,7 +349,7 @@ public:
 		m_BarredeVie.x = m_RectPosition.x;
 		m_BarredeVie.y = m_RectPosition.y;
 	}
-	
+
 	int getWormState(){
 		return m_EntityState;
 	}
@@ -337,5 +357,4 @@ public:
 		m_EntityState = _EntityState;
 	}
 };
-
 #endif
