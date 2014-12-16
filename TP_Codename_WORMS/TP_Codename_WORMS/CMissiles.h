@@ -10,8 +10,8 @@ class CMissiles : public CObjets{
 private:
 	//Données membres:
 	bool boIsexploded; //Donnée représentant si l'objet est explosé (true) ou non (false)
-	int m_uiPower; // Donnée représentant le power passer par la CPowerBarre
-	int m_uiAngle; // Angle du bazouka
+	C2DVector* m_pVectorVitesse;
+	C2DVector* m_pVectorAccel;
 public:
 
 
@@ -24,12 +24,10 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
-
 	CMissiles(SDL_Rect _RectPos, SDL_Texture* _Texture, int _uiPower, CExplosion* _Explosion) :CObjets( _RectPos, _Texture, _Explosion){
 		boIsexploded = false;
-		m_uiPower = _uiPower;
-		m_uiAngle = _uiAngle;
-		m_Trajectoire = nullptr;
+		m_pVectorVitesse = new C2DVector(_RectPos.x, _RectPos.y, 20, 20); // pas bon ça
+		m_pVectorAccel = new C2DVector(_RectPos.x, _RectPos.y, 35, 35); // pas bon ça aussi
 	}
 
 	/*!
@@ -41,12 +39,23 @@ public:
 	}
 
 	void Move(){
-		if (m_Trajectoire == nullptr){
-			m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, 10 * m_uiPower * cos(DegToRad(m_uiAngle)), m_uiPower * sin(DegToRad(m_uiAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity())));
+		switch (m_EntityState){
+		case Deplacement:
+			m_Trajectoire->UpdatePosition();
+			CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+			if (temp != nullptr)
+			{
+				m_Trajectoire = (CPhysics::Propulsion(temp, m_pVectorVitesse, m_pVectorAccel));
+				m_RectPosition.y = temp->getY();
+				m_RectPosition.x = temp->getX();
+				delete temp;
+			}
+			else{
+				m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
+				m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+			}
+			break;
 		}
-		m_Trajectoire->UpdatePosition();
-		m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
-		m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
 	}
 
 	/*!

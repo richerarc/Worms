@@ -89,8 +89,3 @@ Les conditions pour le handleEvent de CBazouka sont maintenant fonctionnelles
 - Ajout de conditions dans le HandleEvent keyup du CBazouka
 9 Décembre 9h à 17h (avec plusieurs pauses) 
 - Lancer des missiles avec le bazouka (pas terminé)
-
-11 Décembre(ma fête)13h30 à 17h30:
--Debuggage intensif de la trajectoire(problème finalement résolue)
--Ajout du lancé de missile: le bazouka lance maintenant des missiles avec une bonne trajectoire
--Ajout des conditions pour faire spawn le missile à l'embout du bazouka(pas terminé)
