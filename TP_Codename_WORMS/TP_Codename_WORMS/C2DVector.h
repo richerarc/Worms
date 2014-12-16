@@ -241,7 +241,7 @@ public:
 	*/
 	void Normalize(){
 		if (m_Norme)
-			m_Norme /= (m_Norme / 2);
+			m_Norme /= (m_Norme );
 		m_ComposanteX = cos(m_Orientation);
 		m_ComposanteY = sin(m_Orientation);
 	}
