@@ -124,6 +124,7 @@ public:
 		}
 		m_pListeTeam->AllerA((uitemp + 1) % m_uiNbOfPlayingTeams);
 		m_pListeTeam->ObtenirElement()->setFocus(true);
+		m_uiTeamTurn++;
 	}
 
 	/*!
@@ -198,6 +199,8 @@ public:
 				case SDLK_ESCAPE:
 						PauseGame();
 					break;
+				case SDLK_SPACE:
+					NextTurn();
 				}
 				break;
 			case SDL_KEYUP:
