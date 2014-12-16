@@ -134,6 +134,8 @@ public:
 		m_pMap->Draw(m_pRenderer);
 		double Wind = RadToDeg(CPhysics::GetWind()->getSDLOrientation());
 		m_pBoussole->setAngle(Wind);
+		m_pBoussole->setWindSpeed(CPhysics::GetWind()->getNorme()*1000);
+		
 		m_pBoussole->Draw(m_pRenderer);
 		
 		m_pListeObjets->AllerDebut();
