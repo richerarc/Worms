@@ -93,7 +93,9 @@ public:
 				m_Trajectoire->WipeOut();
 			break;
 		case Chute:
-	
+			if (m_Trajectoire->GetRebonds() == 1){
+				int tamere = 0;
+			}
 			m_Trajectoire->UpdatePosition();
 			
 
@@ -103,7 +105,7 @@ public:
 				if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
 					double SpeedNorm = m_Trajectoire->GetActualSpeed()->getNorme();
 					double Slope = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
-					if (SpeedNorm < 0. || boBouncing){
+					if (SpeedNorm < 1. || boBouncing){
 						if (m_Trajectoire->GetRebonds() > 1){
 							int a = 0;
 						}

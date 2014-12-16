@@ -74,6 +74,11 @@ public:
 	 Return : Vecteur reprŽsentant la position au temps passŽ en paramtre
 	 */
 	void UpdatePosition(){
+		double acttestx = m_ActualPos->getX();
+		double acttesty = m_ActualPos->getY();
+		double nextestx = m_NextPos->getX();
+		double nextesty = m_NextPos->getY();
+		double norm = m_ActualSpeed->getNorme();
 		if ((m_TrajectoryTime->getElapsedTime() >= 1) && (!m_boStop)){
 			m_ActualPos->setX(m_NextPos->getX());
 			m_ActualPos->setY(m_NextPos->getY());
@@ -82,7 +87,11 @@ public:
 			double DeltaX = ((m_InitSpeed->getComposanteX()*dTimeVariation) + (DeltaT * m_Acceleration->getComposanteX()))/10000;
 			double DeltaY = ((m_InitSpeed->getComposanteY()*dTimeVariation) + (DeltaT * m_Acceleration->getComposanteY()))/10000;
 			m_NextPos->setX(m_ActualPos->getX() + DeltaX);
-			m_NextPos->setY(m_ActualPos->getY() + DeltaY);
+			if (rebonds <= 1)
+				m_NextPos->setY(m_ActualPos->getY() + DeltaY);
+			else{
+				m_NextPos->setY(m_ActualPos->getY() - DeltaY);
+			}
 
 			m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX() + m_Acceleration->getComposanteX()/dTimeVariation,
 										   m_InitSpeed->getComposanteY() + m_Acceleration->getComposanteY()/dTimeVariation);
@@ -92,7 +101,7 @@ public:
 				//	m_ActualSpeed->setComposanteXY((DeltaX + DeltaT * m_Acceleration->getComposanteX()) / dTimeVariation ,
 				//	(DeltaY + DeltaT * m_Acceleration->getComposanteY()) / dTimeVariation );
 
-			if (rebonds == 2){
+			if (rebonds == 5){
 				int i = 0;
 			}
 
@@ -163,9 +172,8 @@ public:
 		double tmpy = m_ActualSpeed->getComposanteY();
 		m_ActualSpeed->setComposanteXY(m_ActualSpeed->getComposanteX(),
 			(m_InitSpeed->getComposanteY() + m_Acceleration->getComposanteY()*m_TrajectoryTime->getElapsedTime()));
-
-
 		m_InitSpeed->setComposanteXY(m_ActualSpeed->getComposanteX(), -m_ActualSpeed->getComposanteY());
+		
 		unsigned int dTimeVariation = m_TrajectoryTime->getElapsedTime();
 		double DeltaT = 0.5 * dTimeVariation * dTimeVariation;
 		double DeltaX = ((m_InitSpeed->getComposanteX()*dTimeVariation) + (DeltaT * m_Acceleration->getComposanteX())) / 10000;
@@ -175,7 +183,6 @@ public:
 		m_NextPos->setXY(m_ActualPos->getX() + DeltaX,
 			m_ActualPos->getY() + DeltaY);
 		m_StartPos->setXY(m_ActualPos->getX(), m_ActualPos->getY());
-		m_ActualPos->setXY(m_StartPos->getX(), m_StartPos->getY());
 
 		m_Acceleration->setComposanteXY(m_Acceleration->getComposanteX() / 2, 1.6*m_Acceleration->getComposanteY());
 		//if (rebonds > 0){
