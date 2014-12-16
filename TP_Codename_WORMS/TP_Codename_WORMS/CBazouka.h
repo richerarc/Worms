@@ -24,6 +24,7 @@ private:
 	bool boCharging; // Booléen pour vérifier si le bazouka se prepare a lancer un missile
 	bool boIsRotated; // Booléen pour vérifier si le bazouka sera en rotation
 	bool boIsLaunch; // Booléen pour vérifier si le bazouka lance un missile
+	bool boHasLaunch; // Booléen pour vérifier si le bazouka a lancé un missile
 	unsigned int m_uiPower; // Représente le power du missile.
 	CPowerBar* m_PowerBar; // Représente une nouvelle barre de lancement
 	CWorm* m_Worm; // Représente un pointeur de worm afin d'obtenir sa position et ses states
@@ -189,21 +190,38 @@ public:
 				break;
 
 			case SDLK_SPACE:
-				boIsLaunch = true;
-				fPosXTempo = 53.9*cos(abs((int)DegToRad(iAngle - 15)));
-				fPosYTempo = 53.9*sin(abs((int)DegToRad(iAngle - 15)));
-				iPosXTampon = fPosXTempo;
-				iPosYTampon = fPosYTempo;
-				if (fPosXTempo > iPosXTampon + 0.5)
-					iPosXTampon++;
-				if (fPosYTempo > iPosYTampon + 0.5)
-					iPosYTampon++;
-				m_RectMissile.x = iPosXTampon;
-				m_RectMissile.y = iPosYTampon;
+				if (m_Worm->getWormState() == 6){
+					fPosYTempo = m_RectBazouka.y + (-40 * sin(DegToRad(iAngle)));
+					fPosXTempo = m_RectBazouka.x + (-1 * cos(DegToRad(iAngle)));
+					iPosXTampon = fPosXTempo;
+					iPosYTampon = fPosYTempo;
+					if (fPosXTempo > iPosXTampon + 0.5)
+						iPosXTampon++;
+					if (fPosYTempo > iPosYTampon + 0.5)
+						iPosYTampon++;
+					m_RectMissile.x = iPosXTampon;
+					m_RectMissile.y = iPosYTampon;
+					m_pMissile = new CMissiles(m_RectMissile, m_pTextureMissile, m_PowerBar->getPowerLevel(), iAngle,m_pExplosion, BazzRight);
+				}
+				if (m_Worm->getWormState() == 7){
+					fPosYTempo = m_RectBazouka.y + (40 * sin(DegToRad(iAngle)));
+					fPosXTempo = m_RectBazouka.x + (49 * cos(DegToRad(iAngle)));
+					iPosXTampon = fPosXTempo;
+					iPosYTampon = fPosYTempo;
+					if (fPosXTempo > iPosXTampon + 0.5)
+						iPosXTampon++;
+					if (fPosYTempo > iPosYTampon + 0.5)
+						iPosYTampon++;
+					m_RectMissile.x = iPosXTampon;
+					m_RectMissile.y = iPosYTampon;
+					m_pMissile = new CMissiles(m_RectMissile, m_pTextureMissile, m_PowerBar->getPowerLevel(), iAngle, m_pExplosion, BazzLeft);
 
-				m_pMissile = new CMissiles(m_RectMissile, m_pTextureMissile, m_PowerBar->getPowerLevel(),m_pExplosion);
+				}
+				boHasLaunch = true;
+
 				m_pMissile->Move();
 				m_PowerBar->setPowerLevel(m_uiPower);
+
 				break;
 			}
 			break;
@@ -211,6 +229,12 @@ public:
 			break;
 
 		}
+	}
+	int getWormState(){
+		return m_Worm->getWormState();
+	}
+	bool getIfLaunch(){
+		return boHasLaunch;
 	}
 };
 

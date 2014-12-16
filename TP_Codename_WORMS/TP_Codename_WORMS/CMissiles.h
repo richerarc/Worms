@@ -1,7 +1,6 @@
 #ifndef TP_Codename_WORMS_CMissiles_h
 #define TP_Codename_WORMS_CMissiles_h
-
-
+enum MissileStates { BazzLeft, BazzRight };
 /*!
 @CMissiles
 @Classe permettant la création d'un missile
@@ -9,25 +8,30 @@
 class CMissiles : public CObjets{
 private:
 	//Données membres:
-	bool boIsexploded; //Donnée représentant si l'objet est explosé (true) ou non (false)
-	C2DVector* m_pVectorVitesse;
-	C2DVector* m_pVectorAccel;
+	bool boIsexploded; //Donnée représentant si l'objet est explosé (true) ou non (false).
+	int m_iPower; // Donnée représentant le power du missile donné par le bazouka.
+	int m_iAngle; // Donnée représentant l'angle d'inclinaison du bazouka.
 public:
 
 
 	/*!
 	@method Constructeur.
 	@brief Initialise les données membres.
-	@param _iRayon: le rayond d'explosion de l'objet
 	@param _RectPos: la pos du rectangle de l'objet
-	@param _pTexture : texture de l'image à afficher
+	@param _Texture: la texture du missile
+	@param _iPower: le power du missile
+	@param _iAngle : l'angle d'inclinaison du missile
+	@param _Explosion: un pointeur vers la classe explosion
+	@param _uiMissileState: l'état du missile (gauche - droite)
 	@return Adresse mémoire de l'objet.
 	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
-	CMissiles(SDL_Rect _RectPos, SDL_Texture* _Texture, int _uiPower, CExplosion* _Explosion) :CObjets( _RectPos, _Texture, _Explosion){
+	CMissiles(SDL_Rect _RectPos, SDL_Texture* _Texture, int _iPower, int _iAngle, CExplosion* _Explosion, int _uiMissileState) :CObjets( _RectPos, _Texture, _Explosion){
 		boIsexploded = false;
-		m_pVectorVitesse = new C2DVector(_RectPos.x, _RectPos.y, 20, 20); // pas bon ça
-		m_pVectorAccel = new C2DVector(_RectPos.x, _RectPos.y, 35, 35); // pas bon ça aussi
+		m_iPower = _iPower;
+		m_iAngle = _iAngle;
+		m_Trajectoire = nullptr;
+		m_EntityState = _uiMissileState;
 	}
 
 	/*!
@@ -39,23 +43,24 @@ public:
 	}
 
 	void Move(){
-		switch (m_EntityState){
-		case Deplacement:
-			m_Trajectoire->UpdatePosition();
-			CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
-			if (temp != nullptr)
-			{
-				m_Trajectoire = (CPhysics::Propulsion(temp, m_pVectorVitesse, m_pVectorAccel));
-				m_RectPosition.y = temp->getY();
-				m_RectPosition.x = temp->getX();
-				delete temp;
+		if (m_Trajectoire == nullptr){
+			if (m_EntityState == BazzLeft){
+				if (m_iAngle<0)
+					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, 10 * m_iPower * cos(DegToRad(m_iAngle)), 10 * m_iPower* sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity())));
+				else
+					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, 10 * m_iPower * cos(DegToRad(m_iAngle)), 10 * m_iPower * sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity())));
 			}
-			else{
-				m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
-				m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+			if (m_EntityState == BazzRight){
+				if (m_iAngle>0)
+					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, -10 * m_iPower * cos(DegToRad(m_iAngle)), -10 * m_iPower * sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity())));
+				else
+					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, -10 * m_iPower * cos(DegToRad(m_iAngle)), -10 * m_iPower * sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity())));
 			}
-			break;
 		}
+		m_Trajectoire->UpdatePosition();
+		m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
+		m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+
 	}
 
 	/*!

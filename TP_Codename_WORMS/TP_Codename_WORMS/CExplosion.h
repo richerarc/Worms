@@ -89,7 +89,7 @@ public:
 	void setPositionXY(int _iX, int _iY){
 		m_RectDestination.x = _iX - m_iRadius;
 		m_RectDestination.y = _iY - m_iRadius;
-		m_pSprite->setSpritePos(_iX - (m_SpriteDimension.w / 2), _iY - (m_SpriteDimension.h-m_iRadius/3));
+		m_pSprite->setSpritePos(_iX - (m_pSprite->getW() / 2), _iY - (m_pSprite->getH()-m_iRadius/3));
 	}
 
 };

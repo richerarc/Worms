@@ -134,6 +134,10 @@ public:
 		m_currentFrame = 0;
 	}
 
+	int getH(){ return m_rSource.h; }
+
+	int getW(){ return m_rSource.w; }
+
 	int getCurrentAnimation(){ return m_currentAnimation; }
 
 	int getX(){ return m_rDest.x; }
