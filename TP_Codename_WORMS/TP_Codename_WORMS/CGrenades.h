@@ -118,9 +118,13 @@ public:
 						//}
 					}
 					else {
-
+						m_Trajectoire->Bounce(Slope);
+						boBouncing = true;
+						m_Trajectoire->GetTest()->Start();
+						/*
 						SDL_Rect Impact = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 };
-						m_Trajectoire->Bounce(CPhysics::EvaluateSlope(Impact));
+						m_Trajectoire->Bounce(0);
+						*/
 						/*
 						int iCollision = CPhysics::VerifyGroundCollision(m_RectPosition);
 						if (iCollision != NOCONTACT){

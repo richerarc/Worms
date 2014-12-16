@@ -152,34 +152,19 @@ public:
 		if (rebonds == 3){
 			int i = 0;
 		}
-		
+
 		double Slope1 = tan(_Slope);
 		double Slope2 = tan(m_ActualSpeed->getOrientation());
 		double AngleBetweenSlopes = atan((Slope1 - Slope2) / (1 + Slope1*Slope2));
-			//if (m_ActualSpeed->getOrientation() > M_PI/2)
-			//m_ActualSpeed->setOrientation(2 * (M_PI / 2 - _Slope) + AngleBetweenSlopes);
-			//else
-		if (_Slope == 0.0){
-			m_ActualSpeed->setOrientation(- m_ActualSpeed->getOrientation());//done
-		}
-		else{
-			if (_Slope < 0.0){
-				m_ActualSpeed->setOrientation(AngleBetweenSlopes + M_PI); //done
-			}
-			else {
-				m_ActualSpeed->setOrientation(AngleBetweenSlopes);
-			}
-		}
-		m_InitSpeed->setComposanteXY(30 * m_ActualSpeed->getComposanteX(), 30 * m_ActualSpeed->getComposanteY());
 
 		m_boStop = false;
 		m_boSliding = false;
 		double tmpx = m_ActualSpeed->getComposanteX();
 		double tmpy = m_ActualSpeed->getComposanteY();
 		m_ActualSpeed->setComposanteXY(m_ActualSpeed->getComposanteX(),
-				(m_InitSpeed->getComposanteY() + m_Acceleration->getComposanteY()*m_TrajectoryTime->getElapsedTime()));
+			(m_InitSpeed->getComposanteY() + m_Acceleration->getComposanteY()*m_TrajectoryTime->getElapsedTime()));
 
-		
+
 		m_InitSpeed->setComposanteXY(m_ActualSpeed->getComposanteX(), -m_ActualSpeed->getComposanteY());
 		unsigned int dTimeVariation = m_TrajectoryTime->getElapsedTime();
 		double DeltaT = 0.5 * dTimeVariation * dTimeVariation;
@@ -187,14 +172,14 @@ public:
 		double DeltaY = ((m_InitSpeed->getComposanteY()*dTimeVariation) + (DeltaT * m_Acceleration->getComposanteY())) / 10000;
 
 
-		m_NextPos->setXY(m_ActualPos->getX() + DeltaX ,
+		m_NextPos->setXY(m_ActualPos->getX() + DeltaX,
 			m_ActualPos->getY() + DeltaY);
 		m_StartPos->setXY(m_ActualPos->getX(), m_ActualPos->getY());
 		m_ActualPos->setXY(m_StartPos->getX(), m_StartPos->getY());
-		
+
 		m_Acceleration->setComposanteXY(m_Acceleration->getComposanteX() / 2, 1.6*m_Acceleration->getComposanteY());
 		//if (rebonds > 0){
-			//m_TrajectoryTime->Start();
+		//m_TrajectoryTime->Start();
 		//}
 		//m_TrajectoryTime->Start();
 		if (rebonds == 1){

@@ -240,7 +240,9 @@ public:
 	void Spawn(){
 
 		if (m_pListeObjets->Count() < m_pMap->getMine()){
-			m_pListeObjets->AjouterFin(new CMines({ ((rand() % (WIDTH - 10)) + 5), 5, 12, 8 }, m_Gestionaire->GetTexture("mine")->GetTexture(), m_pSmall_Explosion));
+			m_pListeObjets->AjouterFin(new CGrenades({ ((rand() % (WIDTH - 10)) + 5), 5, 17, 25 }, m_Gestionaire->GetTexture("grenade")->GetTexture(), m_pSmall_Explosion));
+
+			//m_pListeObjets->AjouterFin(new CMines({ ((rand() % (WIDTH - 10)) + 5), 5, 12, 8 }, m_Gestionaire->GetTexture("mine")->GetTexture(), m_pSmall_Explosion));
 		}
 
 		if (m_pListeObjets->Count() == m_pMap->getMine()){
