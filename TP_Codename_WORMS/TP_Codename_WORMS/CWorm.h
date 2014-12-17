@@ -247,7 +247,8 @@ public:
 
 
 	void Move(){
-		float ftemp = 0;
+		SDL_Rect RectCollision = { m_RectPosition.x, m_RectPosition.y / 2, m_RectPosition.w, m_RectPosition.h };
+		float ftemp = CPhysics::EvaluateSlope(RectCollision);
 		switch (m_EntityState) {
 			case JumpLeft:
 				if (m_Trajectoire == nullptr){

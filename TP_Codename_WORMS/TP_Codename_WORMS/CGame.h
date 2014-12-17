@@ -206,8 +206,8 @@ public:
 				case SDLK_ESCAPE:
 						PauseGame();
 					break;
-				case SDLK_SPACE:
-							//NextTurn();
+				case SDLK_t:
+							NextTurn();
 						break;
 				}
 				break;
