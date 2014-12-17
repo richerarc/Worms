@@ -12,7 +12,7 @@
 class CTeam{
 private:
 	string m_strTeamName;
-	CWorm* m_pTabWorm[6];
+	CListeDC<CWorm*>* m_pListWorm;
 	SDL_Color m_TeamColor;
 	unsigned int m_uiNbOfWorm;
 	unsigned int m_uiWormTurn;
@@ -30,6 +30,7 @@ public:
 	*/
 	CTeam(string _strTeamName, SDL_Texture* _WormRepo, SDL_Texture* _TexSprite, unsigned int _uiNbWorms, CFont* _Font, CExplosion* _Explosion ){
 		m_boFocus = false;
+		m_pListWorm = new CListeDC<CWorm*>();
 		m_uiWormTurn = 0;
 		m_TeamColor = { static_cast<Uint8>((SDL_GetTicks() - rand()) % 255 + 1), static_cast<Uint8>((rand() + SDL_GetTicks()) % 255 + 1), static_cast<Uint8>((SDL_GetTicks() * rand()) % 255 + 1), 255 };
 		m_strTeamName = _strTeamName;
@@ -40,11 +41,16 @@ public:
 		{
 			strNom.append(" ");
 			strNom.append(SDL_itoa(i, Buffer, 10));
-			m_pTabWorm[i] = new CWorm(strNom, _WormRepo, new CSprite("", _TexSprite, 10, 17, 80, -1), _Font, {rand() % WIDTH, -50, 30, 50 }, &m_TeamColor,_Explosion);
+			m_pListWorm->AjouterFin(new CWorm(strNom, _WormRepo, new CSprite("", _TexSprite, 10, 17, 80, -1), _Font, {rand() % WIDTH, -50, 30, 50 }, &m_TeamColor,_Explosion));
 			strNom.pop_back();
 			strNom.pop_back();
 		}
-		m_pTabWorm[0]->setFocus(true);
+		m_pListWorm->AllerDebut();
+		m_pListWorm->ObtenirElement()->setFocus(true);
+	}
+	
+	~CTeam(){
+		delete m_pListWorm;
 	}
 
 	/*!
@@ -53,15 +59,13 @@ public:
 	*/
 	void NextTurn(){
 		unsigned int temp = (m_uiWormTurn) % m_uiNbOfWorm;
-		if (m_pTabWorm[temp]->isFocused()){
-			m_pTabWorm[temp]->setFocus(false);
+		m_pListWorm->AllerA(temp);
+		if (m_pListWorm->ObtenirElement()->isFocused()){
+			m_pListWorm->ObtenirElement()->setFocus(false);
 		}
-		for (int i = temp + 1; i < temp + m_uiNbOfWorm; i ++)
-			if (m_pTabWorm[i]->getWormState() != Dead){
-				m_pTabWorm[ i % m_uiNbOfWorm]->setFocus(true);
-				m_uiWormTurn++;
-				break;
-			}
+		m_pListWorm->AllerA(temp + 1);
+		m_pListWorm->ObtenirElement()->setFocus(true);
+		m_uiWormTurn++;
 	}
 
 	/*!
@@ -72,21 +76,24 @@ public:
 	@discussion 
 	*/
 	void draw(SDL_Renderer* _Renderer){
+		m_pListWorm->AllerDebut();
 		for (int i = 0; i < m_uiNbOfWorm; i++){
-			if (m_pTabWorm[i]->getWormState() != Dead){
-				m_pTabWorm[i]->Draw(_Renderer);
-			}
+			m_pListWorm->ObtenirElement()->Draw(_Renderer);
+			m_pListWorm->AllerSuivant();
 		}
 		
 	}
 	
 	
 	void HandleEvent(SDL_Event _Event){
-		for (int i(0); i < m_uiNbOfWorm; i++)
-			if(m_pTabWorm[i]->isFocused()){
-				m_pTabWorm[i]->HandleEvent(_Event);
+		m_pListWorm->AllerDebut();
+		for (int i(0); i < m_uiNbOfWorm; i++){
+			if(m_pListWorm->ObtenirElement()->isFocused()){
+				m_pListWorm->ObtenirElement()->HandleEvent(_Event);
 				break;
 			}
+			m_pListWorm->AllerSuivant();
+		}
 	}
 
 	/*!
@@ -102,7 +109,14 @@ public:
 
 	string getTeamName(){ return m_strTeamName; }
 
-	CWorm* getPlayingWorm(){ return m_pTabWorm[m_uiWormTurn %  m_uiNbOfWorm]; }
+	CWorm* getPlayingWorm(){
+		m_pListWorm->AllerDebut();
+		for (int i = 0; i < m_uiNbOfWorm; i++){
+			if (m_pListWorm->ObtenirElement()->isFocused())
+				return m_pListWorm->ObtenirElement();
+		}
+		return nullptr;
+ 	}
 
 
 
