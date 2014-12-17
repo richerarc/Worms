@@ -14,7 +14,7 @@
 #define TP_Codename_WORMS_CWorm_h
 
 // Un worm possde dŽjˆ l'Žtat en chute, immobile, ou en dŽplacement, qu'il tient d'entity
-enum WormState {NoMotionLeft, NoMotionRight, MotionLeft, MotionRight, JumpLeft, JumpRight, UsingBazzLeft, UsingBazzRight, Damaged, Largage, SlideLeft, SlideRight, ChuteLeft, ChuteRight};
+enum WormState {NoMotionLeft, NoMotionRight, MotionLeft, MotionRight, JumpLeft, JumpRight, UsingBazzLeft, UsingBazzRight, Damaged, Largage, SlideLeft, SlideRight, ChuteLeft, ChuteRight, Dead};
 
 /*!
 @CWorm
@@ -128,62 +128,87 @@ public:
 	@method Draw
 	@param _Renderer : Renderer pour rendre la texture du Sprite
 	@return null
-	*/
+	 */
 	void Draw(SDL_Renderer * _Renderer){
 		Move();
-		m_lblNom->Draw(_Renderer);
-		SDL_SetRenderDrawColor(_Renderer, m_TeamColor->r, m_TeamColor->g, m_TeamColor->b, 200);
-		SDL_SetRenderDrawBlendMode(_Renderer, SDL_BLENDMODE_BLEND);
-		SDL_RenderFillRect(_Renderer, &m_BarredeVie);
-		switch (m_EntityState) {
-		case ChuteLeft:
-				if (m_pSprite->getCurrentAnimation() != 15)
-					m_pSprite->setCurrentAnimation(15);
-				m_pSprite->Render(0, 4, _Renderer);
-				break;
-		case ChuteRight:
-				if (m_pSprite->getCurrentAnimation() != 14)
-					m_pSprite->setCurrentAnimation(14);
-				m_pSprite->Render(0, 4, _Renderer);
-				break;
-		case JumpLeft:
-			if (m_pSprite->getCurrentAnimation() != 5)
-				m_pSprite->setCurrentAnimation(5);
-			m_pSprite->Render(_Renderer);
-			break;
-		case JumpRight:
-			if (m_pSprite->getCurrentAnimation() != 4)
-				m_pSprite->setCurrentAnimation(4);
-			m_pSprite->Render(_Renderer);
-			break;
-		case NoMotionLeft:
-			if (m_pSprite->getCurrentAnimation() != 1)
-				m_pSprite->setCurrentAnimation(1);
-			m_pSprite->Render(_Renderer, 0);
-			break;
-		case NoMotionRight:
-			if (m_pSprite->getCurrentAnimation() != 0)
-				m_pSprite->setCurrentAnimation(0);
-			m_pSprite->Render(_Renderer, 0);
-			break;
-		case Largage:
-			if (m_pSprite->getCurrentAnimation() != 10)
-				m_pSprite->setCurrentAnimation(10);
-			m_pSprite->Render(1, 4, _Renderer);
-			break;
-		case MotionLeft:
-			if (m_pSprite->getCurrentAnimation() != 3)
-				m_pSprite->setCurrentAnimation(3);
-			m_pSprite->Render(0, 4, _Renderer);
-			break;
-		case MotionRight:
-			if (m_pSprite->getCurrentAnimation() != 2)
-				m_pSprite->setCurrentAnimation(2);
-			m_pSprite->Render(0, 4, _Renderer);
-			break;
+		if (isOutOfBounds()){
+			m_EntityState = Dead;
 		}
-		if (m_boDrawRect)
-			SDL_RenderDrawRect(_Renderer, &m_RectPosition);
+		
+		if(m_iLife){
+			m_lblNom->Draw(_Renderer);
+			SDL_SetRenderDrawColor(_Renderer, m_TeamColor->r, m_TeamColor->g, m_TeamColor->b, 200);
+			SDL_SetRenderDrawBlendMode(_Renderer, SDL_BLENDMODE_BLEND);
+			SDL_RenderFillRect(_Renderer, &m_BarredeVie);
+			switch (m_EntityState) {
+				case ChuteLeft:
+					if (m_pSprite->getCurrentAnimation() != 15)
+						m_pSprite->setCurrentAnimation(15);
+					m_pSprite->Render(0, 4, _Renderer);
+					break;
+				case ChuteRight:
+					if (m_pSprite->getCurrentAnimation() != 14)
+						m_pSprite->setCurrentAnimation(14);
+					m_pSprite->Render(0, 4, _Renderer);
+					break;
+				case JumpLeft:
+					if (m_pSprite->getCurrentAnimation() != 5)
+						m_pSprite->setCurrentAnimation(5);
+					m_pSprite->Render(_Renderer);
+					break;
+				case JumpRight:
+					if (m_pSprite->getCurrentAnimation() != 4)
+						m_pSprite->setCurrentAnimation(4);
+					m_pSprite->Render(_Renderer);
+					break;
+				case NoMotionLeft:
+					if (m_pSprite->getCurrentAnimation() != 1)
+						m_pSprite->setCurrentAnimation(1);
+					m_pSprite->Render(_Renderer, 0);
+					break;
+				case NoMotionRight:
+					if (m_pSprite->getCurrentAnimation() != 0)
+						m_pSprite->setCurrentAnimation(0);
+					m_pSprite->Render(_Renderer, 0);
+					break;
+				case Largage:
+					if (m_pSprite->getCurrentAnimation() != 10)
+						m_pSprite->setCurrentAnimation(10);
+					m_pSprite->Render(1, 4, _Renderer);
+					break;
+				case MotionLeft:
+					if (m_pSprite->getCurrentAnimation() != 3)
+						m_pSprite->setCurrentAnimation(3);
+					m_pSprite->Render(0, 4, _Renderer);
+					break;
+				case MotionRight:
+					if (m_pSprite->getCurrentAnimation() != 2)
+						m_pSprite->setCurrentAnimation(2);
+					m_pSprite->Render(0, 4, _Renderer);
+					break;
+			}
+			if (m_boDrawRect)
+				SDL_RenderDrawRect(_Renderer, &m_RectPosition);
+		}
+		else{
+			if (m_pSprite->getCurrentAnimation() != 16){
+				m_pSprite->setCurrentAnimation(16);
+				m_pSprite->setNbLoop(0);
+			}
+			if (m_pSprite->AnimationIsOver()){
+				m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);
+				m_pExplosion->startExplosion();
+				m_pExplosion->ExplodeMap(_Renderer);
+				m_pExplosion->Draw(_Renderer);
+				if (m_pExplosion->IsDone()){
+					m_EntityState = Dead;
+				}
+			}
+			else{
+				m_pSprite->Render(_Renderer);
+			}
+		}
+		
 	}
 	//			Methode: RecieveDamage()
 	//			PARAM :

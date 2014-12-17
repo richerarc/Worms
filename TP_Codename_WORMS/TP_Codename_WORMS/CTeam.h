@@ -56,8 +56,12 @@ public:
 		if (m_pTabWorm[temp]->isFocused()){
 			m_pTabWorm[temp]->setFocus(false);
 		}
-		m_pTabWorm[(temp + 1) % m_uiNbOfWorm]->setFocus(true);
-		m_uiWormTurn++;
+		for (int i = temp + 1; i < temp + m_uiNbOfWorm; i ++)
+			if (m_pTabWorm[i]->getWormState() != Dead){
+				m_pTabWorm[ i % m_uiNbOfWorm]->setFocus(true);
+				m_uiWormTurn++;
+				break;
+			}
 	}
 
 	/*!
@@ -68,8 +72,12 @@ public:
 	@discussion 
 	*/
 	void draw(SDL_Renderer* _Renderer){
-		for (int i = 0; i < m_uiNbOfWorm; i++)
-			m_pTabWorm[i]->Draw(_Renderer);
+		for (int i = 0; i < m_uiNbOfWorm; i++){
+			if (m_pTabWorm[i]->getWormState() != Dead){
+				m_pTabWorm[i]->Draw(_Renderer);
+			}
+		}
+		
 	}
 	
 	

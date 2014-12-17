@@ -14,7 +14,6 @@ private:
 	SDL_Texture* m_Background;		// Background du champ de battaileé
 	SDL_Surface* m_Map;				// Champ de battaile.
 	SDL_Texture* m_MapConverted;	// Champ de battaile convertié
-	SDL_Surface* m_ExplosionMask;	// Masque d'explosion.
 	unsigned int m_uiGravity;		// Gravité du Champ de battaile.
 	unsigned int m_uiMaxWind;		// Vent maximum du Champ de battaile.
 	unsigned int m_uiNbrMine;		// Nombre de mines maximum du Champ de battaile

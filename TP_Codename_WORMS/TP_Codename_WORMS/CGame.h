@@ -26,7 +26,7 @@ private:
 	CTimer* DropperTimer;					// Indique le Temps avant de faire tomber les worms.
 	CWorm * ActiveWorm;
 	CJetPack * Jetpack;
-
+	bool boBegin;
 	/*
 	//Données test pour les explosions
 	
@@ -54,6 +54,7 @@ public:
 	*/
 	CGame(CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer, int _NbOfTeam, int _NbOfWormPerTeam, CGestionnaireRessources* _Gestionaire){
 		TurnTimer = new CTimer();
+		boBegin = false;
 		DropperTimer = new CTimer();
 		m_uiNbOfPlayingTeams = _NbOfTeam;
 		m_uiNbOfWormPerTeam = _NbOfWormPerTeam;
@@ -134,19 +135,24 @@ public:
 		m_pBoussole->setWindSpeed(CPhysics::GetWind()->getNorme()*1000);
 		
 		m_pBoussole->Draw(m_pRenderer);
-		
+		CObjets* ObjetTemp;
 		m_pListeObjets->AllerDebut();
 		for (int i = 0; i < m_pListeObjets->Count(); i++){
-			if (!m_pListeObjets->ObtenirElement()->IsExploded()){
-				m_pListeObjets->ObtenirElement()->Move();
-			}
-			
-			if (m_pListeObjets->ObtenirElement()->HasExploded()){
+			ObjetTemp = m_pListeObjets->ObtenirElement();
+			if (ObjetTemp->isOutOfBounds()){
 				m_pListeObjets->Retirer(true);
 			}
 			else{
-				m_pListeObjets->ObtenirElement()->Draw(m_pRenderer);
-				m_pListeObjets->AllerSuivant();
+				if (ObjetTemp->HasExploded()){
+					m_pListeObjets->Retirer(true);
+				}
+				else{
+					if (!ObjetTemp->IsExploded()){
+						ObjetTemp->Move();
+					}
+					ObjetTemp->Draw(m_pRenderer);
+					m_pListeObjets->AllerSuivant();
+				}
 			}
 			
 		}
@@ -271,13 +277,23 @@ public:
 	@method MainGame
 	@brief Fonction des appels qui ne sont pas du titre du render, du tigger d'event et tout et tout.
 	@param Aucun.
-	@return Aucun.
-	@discussion None.
-	*/
+	 @return Aucun.
+	 @discussion None.
+	 */
 	void MainGame(){
-		if (DropperTimer->IsElapsed() && (m_pListeTeam->Count() < m_uiNbOfPlayingTeams)){
-			DropperTimer->Start();
-			Spawn();
+		if (boBegin){	// Si le jeu ˆ commencŽ
+			if (ActiveWorm->getWormState() == Dead){
+				NextTurn();
+			}
+		}
+		else{	// sinon si il reste des truc ˆ spawn
+			if (DropperTimer->IsElapsed() && (m_pListeTeam->Count() < m_uiNbOfPlayingTeams)){
+				DropperTimer->Start();
+				Spawn();
+			}
+			else if (m_pListeTeam->Count() == m_uiNbOfPlayingTeams){
+				boBegin = true;
+			}
 		}
 	}
 
