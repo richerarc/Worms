@@ -9,7 +9,6 @@
 class CTrajectory{
 private:
 	CTimer* m_TrajectoryTime;
-	CTimer* m_Test;
 	CPosition* m_StartPos;
 	C2DVector* m_InitSpeed;
 	C2DVector* m_ActualSpeed;
@@ -24,14 +23,11 @@ public:
 		return rebonds;
 	}
 
-	CTimer* GetTest(){
-		return m_Test;
-	}
+
 	CTrajectory(CPosition* _StartPos, C2DVector* _Speed, C2DVector* _Acc){
 		m_boStop = false;
 		m_boSliding = false;
 		m_TrajectoryTime = new CTimer();
-		m_Test = new CTimer();
 		m_StartPos = _StartPos;
 		m_InitSpeed = _Speed;
 		m_ActualSpeed = _Speed;
@@ -40,7 +36,6 @@ public:
 		m_NextPos = new CPosition(m_ActualPos->getX(), m_ActualPos->getY());
 		m_Acceleration->setComposanteXY(m_Acceleration->getComposanteX()/42, m_Acceleration->getComposanteY() / 42);
 		m_TrajectoryTime->Start();
-		m_Test->Start();
 		rebonds = 0;
 	}
 	
@@ -74,11 +69,6 @@ public:
 	 Return : Vecteur reprŽsentant la position au temps passŽ en paramtre
 	 */
 	void UpdatePosition(){
-		double acttestx = m_ActualPos->getX();
-		double acttesty = m_ActualPos->getY();
-		double nextestx = m_NextPos->getX();
-		double nextesty = m_NextPos->getY();
-		double norm = m_ActualSpeed->getNorme();
 		if ((m_TrajectoryTime->getElapsedTime() >= 1) && (!m_boStop)){
 			m_ActualPos->setX(m_NextPos->getX());
 			m_ActualPos->setY(m_NextPos->getY());
@@ -151,16 +141,13 @@ public:
 	 Method : Bounce
 	 Brief : ProcŽdure qui ajuste la trajectoire suite ˆ un rebond
 	 Params :
-	 _Speed : Vitesse ˆ l'impact
-	 _SlopeAngle : Angle de la pente du point d'impact (en degrŽs)
+	 _Slope : Angle de la pente du point d'impact (en degrŽs)
 	 Discussion : Vitesse o le rebond n'arrive pas necessaire, ou ˆ vŽrifier ailleurs
 	 Was googled, tout sur internet est vrai plz?
 	 http://integraledesmaths.free.fr/idm/PagePrincipale.htm#http://integraledesmaths.free.fr/idm/GeoAPAngDro.htm
 	 */
 	void Bounce(double _Slope){
-		if (rebonds == 3){
-			int i = 0;
-		}
+		
 
 		double Slope1 = tan(_Slope);
 		double Slope2 = tan(m_ActualSpeed->getOrientation());
@@ -170,28 +157,29 @@ public:
 		m_boSliding = false;
 		double tmpx = m_ActualSpeed->getComposanteX();
 		double tmpy = m_ActualSpeed->getComposanteY();
-		m_ActualSpeed->setComposanteXY(m_ActualSpeed->getComposanteX(),
+		m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX() + m_Acceleration->getComposanteX()*m_TrajectoryTime->getElapsedTime(),
 			(m_InitSpeed->getComposanteY() + m_Acceleration->getComposanteY()*m_TrajectoryTime->getElapsedTime()));
-		m_InitSpeed->setComposanteXY(m_ActualSpeed->getComposanteX(), -m_ActualSpeed->getComposanteY());
-		
+		//if (){
+		//m_InitSpeed->setComposanteXY(m_ActualSpeed->getComposanteX(), m_ActualSpeed->getComposanteY());
+		if (_Slope == 0.0){
+			m_InitSpeed->setComposanteXY(m_ActualSpeed->getComposanteX(), -m_ActualSpeed->getComposanteY());
+			m_InitSpeed->setOrientation(m_InitSpeed->getOrientation() - (M_PI - 2 * AngleBetweenSlopes));
+		}
+		else{
+			m_InitSpeed->setComposanteXY(m_ActualSpeed->getComposanteX(), m_ActualSpeed->getComposanteY());
+			m_InitSpeed->setOrientation(m_InitSpeed->getOrientation() - (M_PI - 2 * AngleBetweenSlopes));
+			m_InitSpeed->setComposanteXY(-m_InitSpeed->getComposanteX(), -m_InitSpeed->getComposanteY());
+			m_InitSpeed->setComposanteXY(m_InitSpeed->getComposanteX() / 1.9, m_InitSpeed->getComposanteY() / 1.9);
+		}
 		unsigned int dTimeVariation = m_TrajectoryTime->getElapsedTime();
 		double DeltaT = 0.5 * dTimeVariation * dTimeVariation;
 		double DeltaX = ((m_InitSpeed->getComposanteX()*dTimeVariation) + (DeltaT * m_Acceleration->getComposanteX())) / 10000;
 		double DeltaY = ((m_InitSpeed->getComposanteY()*dTimeVariation) + (DeltaT * m_Acceleration->getComposanteY())) / 10000;
 
-
-		m_NextPos->setXY(m_ActualPos->getX() + DeltaX,
-			m_ActualPos->getY() + DeltaY);
+		m_NextPos->setXY(m_ActualPos->getX() + DeltaX,m_ActualPos->getY() + DeltaY);
 		m_StartPos->setXY(m_ActualPos->getX(), m_ActualPos->getY());
-
-		m_Acceleration->setComposanteXY(m_Acceleration->getComposanteX() / 2, 1.6*m_Acceleration->getComposanteY());
-		//if (rebonds > 0){
-		//m_TrajectoryTime->Start();
-		//}
-		//m_TrajectoryTime->Start();
-		if (rebonds == 1){
-			int i = 0;
-		}
+		if (_Slope == 0.0)
+			m_Acceleration->setComposanteXY(m_Acceleration->getComposanteX()/4, 1.6*m_Acceleration->getComposanteY());
 		rebonds++;
 	}
 	

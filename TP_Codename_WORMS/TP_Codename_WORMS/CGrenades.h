@@ -122,7 +122,6 @@ public:
 					else {
 						m_Trajectoire->Bounce(Slope);
 						boBouncing = true;
-						m_Trajectoire->GetTest()->Start();
 						/*
 						SDL_Rect Impact = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 };
 						m_Trajectoire->Bounce(0);
@@ -154,7 +153,7 @@ public:
 					if (boBouncing){
 						int dsfcghfbd = 4567932;
 					}
-					boBouncing = false;
+					//boBouncing = false;
 				}
 
 				m_RectPosition.y = temp->getY();
