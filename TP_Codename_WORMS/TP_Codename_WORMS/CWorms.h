@@ -260,13 +260,8 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("wormSprite", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[21].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("mine", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[17].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("grenade", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[25].c_str())));
-		m_Gestionaire->AjouterTexture(new CTexture("explosion2", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[22].c_str())));
-		m_Gestionaire->AjouterTexture(new CTexture("explosion1", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[23].c_str())));
-
-
-		/*Explosions*/
-		m_Gestionaire->AjouterSprite(new CSprite("bigex", m_Gestionaire->GetTexture("explosion1")->GetTexture(), 15, 1, 50, 1));
-		m_Gestionaire->AjouterSprite(new CSprite("smallex", m_Gestionaire->GetTexture("explosion2")->GetTexture(), 18, 1, 50, 1));
+		m_Gestionaire->AjouterTexture(new CTexture("SmallEx", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[22].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("BigEx", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[23].c_str())));
 
 		m_SaveFile->open(strFilePath[12].c_str());
 		

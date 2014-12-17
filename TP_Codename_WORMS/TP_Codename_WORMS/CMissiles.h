@@ -8,8 +8,7 @@ enum MissileStates { BazzLeft, BazzRight };
 class CMissiles : public CObjets{
 private:
 	//Données membres:
-	bool boHasExplosed; //Donnée représentant si l'objet a explosé
-	bool boIsexploded; //Donnée représentant si l'objet va explosé (true) ou non (false).
+	
 	int m_iPower; // Donnée représentant le power du missile donné par le bazouka.
 	int m_iAngle; // Donnée représentant l'angle d'inclinaison du bazouka.
 public:
@@ -27,10 +26,7 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
-	CMissiles(SDL_Rect _RectPos, SDL_Texture* _Texture, int _iPower, int _iAngle, CExplosion* _Explosion, int _uiMissileState) :CObjets(_RectPos, _Texture, _Explosion){
-		boIsexploded = false;
-		boHasExplosed = false;
-		m_iPower = _iPower;
+	CMissiles(SDL_Rect _RectPos, SDL_Texture* _Texture, int _iPower, int _iAngle, CExplosion* _Explosion, int _uiMissileState) :CObjets(_RectPos, _Texture, _Explosion){	m_iPower = _iPower;
 		m_iAngle = _iAngle;
 		m_Trajectoire = nullptr;
 		m_EntityState = _uiMissileState;
@@ -64,7 +60,7 @@ public:
 		CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
 		if (temp != nullptr){
 			if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY()))
-				boIsexploded = true;
+				m_boIsexploded = true;
 
 			m_RectPosition.y = temp->getY();
 			m_RectPosition.x = temp->getX();
@@ -83,7 +79,7 @@ public:
 */
 
 void Draw(SDL_Renderer* _pRenderer){
-	if (!boIsexploded){
+	if (!m_boIsexploded){
 		Move();
 		SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_RectPosition, DegToRad(m_Trajectoire->GetInitSpeed()->getOrientation()), NULL, SDL_FLIP_NONE);
 	}
@@ -93,7 +89,7 @@ void Draw(SDL_Renderer* _pRenderer){
 		m_pExplosion->Draw(_pRenderer);
 		if (m_pExplosion->IsDone()){
 			m_pExplosion->ExplodeMap(_pRenderer);
-			boHasExplosed = true;
+			m_boHasExplosed = true;
 		}
 
 
@@ -118,12 +114,8 @@ void setPos(int _ix, int _iy){
 	m_RectPosition.x = _ix;
 	m_RectPosition.y = _iy;
 }
-
-bool IsExploded(){
-	return boHasExplosed;
-}
 void setExplosion(bool _boSet){
-	boIsexploded = _boSet;
+	m_boIsexploded = _boSet;
 }
 
 

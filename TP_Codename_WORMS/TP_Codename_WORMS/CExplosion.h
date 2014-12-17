@@ -18,8 +18,12 @@ public:
 	@return Adresse mémoire de l'objet.
 	@discussion No discussion is needed.
 	*/
-	CExplosion(CSprite* _Sprite, int _Radius, CMap* _ActiveMap){
-		m_pSprite = _Sprite;
+	CExplosion(CTexture* _Texture, int _Radius, CMap* _ActiveMap){
+		if (!strcmp(_Texture->GetName(), "BigEx"))
+			m_pSprite = new CSprite("Explo", _Texture->GetTexture(), 15, 1, 50, 1);
+		else
+			m_pSprite = new CSprite("Explo", _Texture->GetTexture(), 18, 1, 50, 1);
+			
 		m_pSprite->setSpritePos(0, 0);
 		m_pMap = _ActiveMap;
 		m_iRadius = _Radius;
@@ -34,6 +38,7 @@ public:
 	@brief Permet de détruire les objets créés en mémoire
 	*/
 	~CExplosion(){
+		delete m_pSprite;
 	}
 
 	/*!

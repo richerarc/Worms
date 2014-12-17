@@ -9,9 +9,6 @@
 class CMines : public CObjets{
 private:
 
-	//Données membres:
-	bool boIsexploded; //Donnée représentant si l'objet est explosé (true) ou non (false)
-
 public:
 
 
@@ -26,7 +23,6 @@ public:
 	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
 	CMines(SDL_Rect _RectPos, SDL_Texture* _Texture, CExplosion* _Explosion) :CObjets(_RectPos, _Texture, _Explosion){
-		boIsexploded = false;
 	}
 
 	/*!
@@ -63,7 +59,7 @@ public:
 	@Permet de calculer les dommages subit par l'explosion
 	*/
 	void ReactToExplosion(int _iX, int _iY, int _iRayon){
-		boIsexploded = true;
+		m_boIsexploded = true;
 	}
 
 	/*!
@@ -71,12 +67,8 @@ public:
 	@brief Servent a acceder/modifier aux données membres.
 	*/
 
-	bool IsItexploded(){
-		return boIsexploded;
-	}
-
 	void setExplosion(bool _boSet){
-		boIsexploded = _boSet;
+		m_boIsexploded = _boSet;
 	}
 
 	void setPos(int _ix, int _iy){

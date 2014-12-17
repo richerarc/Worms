@@ -58,7 +58,10 @@ public:
 	 @return false : la minuterie n'est pas écoulée
 	 */
 	bool IsElapsed(){
-		return ((SDL_GetTicks() - m_uiTicks) >= m_uiTimeToElapse);
+		if (m_boIsStart)
+			return ((SDL_GetTicks() - m_uiTicks) >= m_uiTimeToElapse);
+		
+		return false;
 	}
 
 	/*!

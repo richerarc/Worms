@@ -61,7 +61,7 @@ public:
 
 	~CSprite(){
 		delete m_pTimer;
-		SDL_DestroyTexture(m_pTexture);
+			//SDL_DestroyTexture(m_pTexture);
 	}
 
 	/*!

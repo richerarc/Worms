@@ -26,8 +26,6 @@ private:
 	CTimer* DropperTimer;					// Indique le Temps avant de faire tomber les worms.
 	CWorm * ActiveWorm;
 	CJetPack * Jetpack;
-	CExplosion* m_pBig_Explosion;
-	CExplosion* m_pSmall_Explosion;
 
 	/*
 	//Données test pour les explosions
@@ -50,6 +48,9 @@ public:
 	@param  _Gestionaire : Gestionnaire de ressource
 	@return Adresse mémoire de l'objet.
 	@discussion Nuff said.
+	 			Pour crŽer:
+	 			Une grande explosion : new CExplosion(m_Gestionaire->GetTexture("BigEx"), 48, _Map);
+	 			Une petite explosion : new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 25, _Map);
 	*/
 	CGame(CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer, int _NbOfTeam, int _NbOfWormPerTeam, CGestionnaireRessources* _Gestionaire){
 		TurnTimer = new CTimer();
@@ -66,8 +67,6 @@ public:
 		CPhysics::Init(m_pMap->getMap(), m_pMap->getGravity(), m_pMap->getWind());
 		m_pListeTeam = new CListeDC<CTeam*>();
 		m_pListeObjets = new CListeDC<CObjets*>();
-		m_pBig_Explosion = new CExplosion(m_Gestionaire->GetSprite("bigex"), 48, _Map);
-		m_pSmall_Explosion = new CExplosion(m_Gestionaire->GetSprite("smallex"), 25, _Map);
 		Spawn();
 		DropperTimer->SetTimer(200);
 		DropperTimer->Start();
@@ -95,9 +94,6 @@ public:
 		CPhysics::Annihilate();
 		delete DropperTimer;
 		delete TurnTimer;
-	//	delete m_explode; // Test pour les explosions
-		delete m_pBig_Explosion;
-		delete m_pSmall_Explosion;
 		delete Jetpack;
 	}
 
@@ -141,9 +137,18 @@ public:
 		
 		m_pListeObjets->AllerDebut();
 		for (int i = 0; i < m_pListeObjets->Count(); i++){
-			m_pListeObjets->ObtenirElement()->Move();
-			m_pListeObjets->ObtenirElement()->Draw(m_pRenderer);
-			m_pListeObjets->AllerSuivant();
+			if (!m_pListeObjets->ObtenirElement()->IsExploded()){
+				m_pListeObjets->ObtenirElement()->Move();
+			}
+			
+			if (m_pListeObjets->ObtenirElement()->HasExploded()){
+				m_pListeObjets->Retirer(true);
+			}
+			else{
+				m_pListeObjets->ObtenirElement()->Draw(m_pRenderer);
+				m_pListeObjets->AllerSuivant();
+			}
+			
 		}
 		if ((m_pListeTeam != nullptr) && (m_pListeTeam->Count())){
 			m_pListeTeam->AllerDebut();
@@ -244,7 +249,7 @@ public:
 	void Spawn(){
 
 		if (m_pListeObjets->Count() < m_pMap->getMine()){
-			m_pListeObjets->AjouterFin(new CGrenades({ ((rand() % (WIDTH - 10)) + 5), 5, 17, 25 }, m_Gestionaire->GetTexture("grenade")->GetTexture(), m_pSmall_Explosion));
+			m_pListeObjets->AjouterFin(new CGrenades({ ((rand() % (WIDTH - 10)) + 5), 5, 17, 25 }, m_Gestionaire->GetTexture("grenade")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 25, m_pMap)));
 
 			//m_pListeObjets->AjouterFin(new CMines({ ((rand() % (WIDTH - 10)) + 5), 5, 12, 8 }, m_Gestionaire->GetTexture("mine")->GetTexture(), m_pSmall_Explosion));
 		}
@@ -254,7 +259,7 @@ public:
 				string temp("Team");
 				char buf[10];
 				temp.append(SDL_itoa(m_pListeObjets->Count() + 1, buf, 10));
-				m_pListeTeam->AjouterFin(new CTeam(temp, nullptr, m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontWorm"), m_pSmall_Explosion));
+				m_pListeTeam->AjouterFin(new CTeam(temp, nullptr, m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontWorm"), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 25, m_pMap)));
 				temp.pop_back();
 			}
 		}

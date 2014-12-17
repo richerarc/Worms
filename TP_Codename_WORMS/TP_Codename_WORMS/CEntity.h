@@ -29,7 +29,7 @@ public:
 	@discussion Intialise un objet qui subbit les forces gravitationnelles.
 	*/
 	CEntity(SDL_Rect _RectPos, SDL_Texture* _EntityTexture, CExplosion* _Explosion){
-		m_pExplosion = new CExplosion(_Explosion->getSprite(),_Explosion->getRadius(),_Explosion->getMap());
+		m_pExplosion = _Explosion;
 		m_RectPosition = _RectPos;
 		m_boFocus = false;
 		m_Trajectoire = nullptr;

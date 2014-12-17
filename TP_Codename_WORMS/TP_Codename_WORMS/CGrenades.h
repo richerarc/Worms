@@ -10,9 +10,7 @@ class CGrenades : public CObjets{
 private:
 	//Données membres:
 	CTimer* m_pTimer;	// Déclaration d'une nouvelle minuterie pour le temps à écouler avant l'explosion.
-	bool boIsexploded;	// Donnée représentant si l'objet est explosé (true) ou non (false)
 	bool boBouncing; //Nom assez explicite
-
 public:
 
 	/*!
@@ -25,9 +23,7 @@ public:
 	*/
 	CGrenades(SDL_Rect _RectPos, SDL_Texture* _Texture, CExplosion* _Explosion) :CObjets(_RectPos, _Texture, _Explosion){
 		m_pTimer = new CTimer();
-		m_pTimer->SetTimer(1000);
-		m_pTimer->Start();
-		boIsexploded = false;
+		m_pTimer->SetTimer(500);
 		boBouncing = false;
 	}
 
@@ -46,7 +42,18 @@ public:
 	@return null
 	*/
 	void Draw(SDL_Renderer* _pRenderer){
-		SDL_RenderCopy(_pRenderer, m_pTexture, NULL, &m_RectPosition);
+		if (!m_boIsexploded){
+			SDL_RenderCopy(_pRenderer, m_pTexture, NULL, &m_RectPosition);
+		}
+		else{
+			m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);
+			m_pExplosion->startExplosion();
+			m_pExplosion->ExplodeMap(_pRenderer);
+			m_pExplosion->Draw(_pRenderer);
+			if (m_pExplosion->IsDone()){
+				m_boHasExplosed = true;
+			}
+		}
 	}
 
 	/*!
@@ -55,9 +62,6 @@ public:
 	@return null
 	*/
 	void HandleEvent(SDL_Event _Event){
-		m_boFocus = true;
-		if (m_pTimer->IsElapsed())
-			boIsexploded = true;
 	}
 
 	/*!
@@ -71,13 +75,10 @@ public:
 	@method Acesseurs
 	@brief Servent a acceder/modifier aux données membres.
 	*/
-
-	bool IsItexploded(){
-		return boIsexploded;
-	}
+	
 
 	void setExplosion(bool _boSet){
-		boIsexploded = _boSet;
+		m_boIsexploded = _boSet;
 	}
 
 	void setPos(int _ix, int _iy){
@@ -87,6 +88,12 @@ public:
 
 
 	void Move(){
+		if (boBouncing && !m_pTimer->HasStarted()){
+			m_pTimer->Start();
+		}
+		if (m_pTimer->IsElapsed()){
+			m_boIsexploded = true;
+		}
 		switch (m_EntityState){
 		case Immobile:
 			if (m_Trajectoire->GetInitSpeed())
@@ -94,7 +101,7 @@ public:
 			break;
 		case Chute:
 			if (m_Trajectoire->GetRebonds() == 1){
-				int tamere = 0;
+				char* tamere = "en short";
 			}
 			m_Trajectoire->UpdatePosition();
 			

@@ -34,6 +34,7 @@ public:
 	CMap(string _Name, SDL_Texture* _Background, SDL_Surface* _Map, unsigned int _Gravity, unsigned int _MaxWind, unsigned int _NbrMine){
 		m_Background = _Background;
 		m_Map = _Map;
+		m_MapConverted = nullptr;
 		m_uiGravity = _Gravity;
 		m_uiMaxWind = _MaxWind;
 		m_uiNbrMine = _NbrMine;
@@ -50,15 +51,12 @@ public:
 	}
 
 	void ConvertMap(SDL_Renderer* _Renderer){
+		if (m_MapConverted != nullptr){
+			SDL_DestroyTexture(m_MapConverted);
+		}
 		m_MapConverted = SDL_CreateTextureFromSurface(_Renderer, m_Map);
 		m_boModified = false;
 	}
-
-	/*
-	void ExplodeMap(SDL_Renderer* _Renderer, CExplosion* _explosion){
-		
-	}
-	*/
 
 	/*!
 	@method Draw

@@ -99,7 +99,7 @@ public:
 		}
 		if ((m_pMissile != nullptr) && boIsLaunch){
 			m_pMissile->Draw(_pRenderer);
-			if (m_pMissile->IsExploded()){
+			if (m_pMissile->HasExploded()){
 				delete m_pMissile;
 				m_pMissile = nullptr;
 			}

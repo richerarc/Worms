@@ -9,6 +9,8 @@
 class CObjets : public CEntity{
 protected:
 	//Données membres:
+	bool m_boHasExplosed; //Donnée représentant si l'objet a explosé
+	bool m_boIsexploded; //Donnée représentant si l'objet va explosé (true) ou non (false).
 
 public:
 
@@ -21,7 +23,8 @@ public:
 	@discussion Classe héritant de CEntity, elle prend donc les paramètres de CEntity.
 	*/
 	CObjets(SDL_Rect _RectPos, SDL_Texture* _Texture, CExplosion* _Explosion) :CEntity(_RectPos, _Texture, _Explosion){
-		
+		m_boHasExplosed = false;
+		m_boIsexploded = false;
 	}
 
 	/*!
@@ -44,8 +47,8 @@ public:
 	@brief Permet de savoir si l'objet est explosé ou non.
 	@return bool.
 	*/
-	virtual bool IsExploded(){return false;};
-	
+	virtual bool IsExploded(){return m_boIsexploded;}
+	virtual bool HasExploded(){return m_boHasExplosed;}
 	virtual void Detonate(){}
 };
 
