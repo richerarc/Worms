@@ -88,23 +88,26 @@ public:
 				// Event In-Game.
 				if ((m_Game != nullptr) && m_Game->inGame()){
 					m_Game->HandleEvent(*m_pEvent);
-					if (m_pEvent->key.keysym.sym == SDLK_ESCAPE){
+					switch (m_pEvent->key.keysym.sym)
+					{
+					case SDLK_ESCAPE:
 						if (!m_MenuPause->IsActive()){
 							m_MenuPause->ActivateMenu();
 							m_boInMenu = true;
 						}
-					}
-					if (m_pEvent->key.keysym.sym == SDLK_m){		
+						break;
+					case SDLK_m:
 						if (!m_MenuWeapons->IsActive()){
 							m_MenuWeapons->ActivateMenu();
 							m_boInMenu = true;
 						}
-					}
-					if (m_pEvent->key.keysym.sym == SDLK_f){
+						break;
+					case SDLK_f:
 						m_boFPS = true;
-					}
-					if (m_pEvent->key.keysym.sym == SDLK_g){
+						break;
+					case SDLK_g:
 						m_boFPS = false;
+						break;
 					}
 				}
 			}
@@ -115,8 +118,8 @@ public:
 
 	static void Render(){
 		SDL_RenderClear(m_pWindow->getRenderer());
-			if ((m_Game != nullptr) && m_Game->inGame())
-				m_Game->Render();
+		if ((m_Game != nullptr) && m_Game->inGame())
+			m_Game->Render();
 		if (m_boFPS){
 			if (m_timerFPS->IsElapsed()){
 				m_timerFPS->Start();
@@ -124,7 +127,7 @@ public:
 				char buf[10];
 				m_strFPS.append(SDL_itoa(m_nbrFPS, buf, 10));
 				m_nbrFPS = 0;
-				}
+			}
 			m_Gestionaire->GetFont("FontMenu")->RenderText(m_pWindow->getRenderer(), m_strFPS.c_str(), 10, 10);
 		}
 		if (m_boInMenu){
@@ -152,7 +155,7 @@ public:
 		while (strPath[uiPosString] != '/'){
 			strPath.erase(uiPosString, 1);
 			uiPosString--;
-	}
+}
 #elif defined (_WIN32)
 		while (strPath[uiPosString] != '\\'){
 			strPath.erase(uiPosString, 1);
@@ -197,7 +200,7 @@ public:
 			"SpriteWpnBZK.png",
 			"SpriteWpnGND.png",
 			"SpriteWpnKNF.png"
-			
+
 		};
 		string strFilePath[31];
 		for (int i = 0; i < 31; i++){
@@ -264,9 +267,9 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("BigEx", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[23].c_str())));
 
 		m_SaveFile->open(strFilePath[12].c_str());
-		
 
-}
+
+		}
 
 	static void LoadData(){
 		string strReader, strObj, tabParam[4];
@@ -403,7 +406,7 @@ public:
 		//
 		// Initialisation du menu Weapons
 		//
-		m_MenuWeapons->AddElement(new CLabelImage("LblImgMenuWpn", "", m_Gestionaire->GetFont("FontMenu"), {WIDTH - 300, HEIGHT - 400, 300, 400},m_Gestionaire->GetTexture("MenuWeapons")->GetTexture()),WIDTH-100,HEIGHT-100,100,100);
+		m_MenuWeapons->AddElement(new CLabelImage("LblImgMenuWpn", "", m_Gestionaire->GetFont("FontMenu"), { WIDTH - 300, HEIGHT - 400, 300, 400 }, m_Gestionaire->GetTexture("MenuWeapons")->GetTexture()), WIDTH - 100, HEIGHT - 100, 100, 100);
 		m_MenuWeapons->AddElement(new CButton("btnWpnJP", "JetPack", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnJP")), 30, 30, 90, 90);
 		m_MenuWeapons->AddElement(new CButton("btnWpnBZK", "bazooka", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnBZK")), 180, 30, 90, 90);
 		m_MenuWeapons->AddElement(new CButton("btnWpnGND", "Grenade", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnGND")), 30, 180, 90, 90);
@@ -462,7 +465,7 @@ public:
 	}
 	static void BtnPlay(){
 		m_LastMapUsed = ((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId();
-		m_Game = new CGame(TabMap[m_LastMapUsed], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture(),m_Gestionaire->GetFont("FontWorm")), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire);
+		m_Game = new CGame(TabMap[m_LastMapUsed], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture(), m_Gestionaire->GetFont("FontWorm")), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire);
 		m_MenuNewGame->DeActivateMenu();
 		m_Game->Activate();
 		m_boInMenu = false;

@@ -16,7 +16,6 @@ private:
 	CPosition* m_ActualPos;
 	CPosition* m_NextPos;
 	bool m_boStop;
-	bool m_boSliding;
 	int rebonds;
 public:
 	int GetRebonds(){
@@ -26,7 +25,6 @@ public:
 
 	CTrajectory(CPosition* _StartPos, C2DVector* _Speed, C2DVector* _Acc){
 		m_boStop = false;
-		m_boSliding = false;
 		m_TrajectoryTime = new CTimer();
 		m_StartPos = _StartPos;
 		m_InitSpeed = _Speed;
@@ -85,29 +83,6 @@ public:
 
 			m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX() + m_Acceleration->getComposanteX()/dTimeVariation,
 										   m_InitSpeed->getComposanteY() + m_Acceleration->getComposanteY()/dTimeVariation);
-			
-			
-				//Le code ci-dessous est pour la vitesse actuelle
-				//	m_ActualSpeed->setComposanteXY((DeltaX + DeltaT * m_Acceleration->getComposanteX()) / dTimeVariation ,
-				//	(DeltaY + DeltaT * m_Acceleration->getComposanteY()) / dTimeVariation );
-
-			if (rebonds == 5){
-				int i = 0;
-			}
-
-
-
-			//m_ActualSpeed->setComposanteXY(sqrt(m_InitSpeed->getComposanteX()*m_InitSpeed->getComposanteX()+2*m_Acceleration->getComposanteX()*(m_NextPos->getX() - m_ActualPos->getX())),
-				//sqrt(m_InitSpeed->getComposanteY()*m_InitSpeed->getComposanteY() + 2 * m_Acceleration->getComposanteY()*(m_NextPos->getY() - m_ActualPos->getY())));
-
-
-			//m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX() + m_Acceleration->getComposanteX()/dTimeVariation,
-				//m_InitSpeed->getComposanteY() + m_Acceleration->getComposanteY()/dTimeVariation);
-			
-
-			//Le code ci-dessous est pour la vitesse actuelle
-			//m_ActualSpeed->setComposanteXY((DeltaX + DeltaT * m_Acceleration->getComposanteX()) / dTimeVariation ,
-				//(DeltaY + DeltaT * m_Acceleration->getComposanteY()) / dTimeVariation );
 		}
 	}
 	
@@ -154,7 +129,6 @@ public:
 		double AngleBetweenSlopes = atan((Slope1 - Slope2) / (1 + Slope1*Slope2));
 
 		m_boStop = false;
-		m_boSliding = false;
 		double tmpx = m_ActualSpeed->getComposanteX();
 		double tmpy = m_ActualSpeed->getComposanteY();
 		m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX() + m_Acceleration->getComposanteX()*m_TrajectoryTime->getElapsedTime(),
@@ -207,18 +181,6 @@ public:
 		m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX(), m_InitSpeed->getComposanteY());
 	}
 	
-	bool IsSliding(){
-		return m_boSliding;
-	}
-
-	void StartSlide(){
-		m_boSliding = true;
-	}
-
-	void StopSlide(){
-		m_boSliding = false;
-	}
-
 	void Stop(){
 		m_boStop = true;
 	}
@@ -246,5 +208,16 @@ public:
 		m_ActualPos->setY(_Y);
 	}
 
+	void SetInitSpeed(double _iX, double _iY){
+		m_InitSpeed->setComposanteXY(_iX,_iY);
+	}
 	
+
+	void SetAcceleration(double _iX, double _iY){
+		m_Acceleration->setComposanteXY(_iX, _iY);
+	}
+
+	C2DVector* GetAcceleration(){
+		return m_Acceleration;
+	}
 };

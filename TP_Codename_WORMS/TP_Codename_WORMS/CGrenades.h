@@ -112,55 +112,32 @@ public:
 				if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
 					double SpeedNorm = m_Trajectoire->GetActualSpeed()->getNorme();
 					double Slope = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
-					if (SpeedNorm < 1. || boBouncing){
-						if (m_Trajectoire->GetRebonds() > 1){
-							int a = 0;
+					if (boBouncing){
+						if (VerifySliding(Slope)){
+							UpdateSlidePosition();
 						}
-							//if (VerifySliding()){
+						else {
+							m_EntityState = Immobile;
+							boBouncing = false;
+						}
 							//UpdateSlidePosition();
 						//}
 						//else{
 							//double Slope = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
 							//if (Slope < M_PI / 4 && Slope > 0 || Slope < -M_PI / 4 && Slope < 0){
-						m_EntityState = Immobile;
-							//}
-						//}
 					}
 					else {
-						m_Trajectoire->Bounce(Slope);
-						boBouncing = true;
-						/*
-						SDL_Rect Impact = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 };
-						m_Trajectoire->Bounce(0);
-						*/
-						/*
-						int iCollision = CPhysics::VerifyGroundCollision(m_RectPosition);
-						if (iCollision != NOCONTACT){
-
-						m_Trajectoire->Bounce(Slope);
-						boBouncing = true;
-						m_Trajectoire->GetTest()->Start();
-						//m_Trajectoire->Restart();
-						
-							/*
-							int iCollision = CPhysics::VerifyGroundCollision(m_RectPosition);
-							if (iCollision != NOCONTACT){
-
-							if (iCollision == GROUND){
-							SDL_Rect* Impact = new SDL_Rect({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
-							m_Trajectoire->Bounce(CPhysics::EvaluateSlope(Impact));
-							delete Impact;
-							}
-							}
-							*/
+						if (VerifySliding(Slope)){
+							UpdateSlidePosition();
+						}
+						else{
+							m_Trajectoire->Bounce(Slope);
+							boBouncing = true;
+						}
 					}
 				}
 				else{
 					m_EntityState = Chute;
-					if (boBouncing){
-						int dsfcghfbd = 4567932;
-					}
-					//boBouncing = false;
 				}
 
 				m_RectPosition.y = temp->getY();
@@ -173,21 +150,6 @@ public:
 			}
 			break;
 		}
-		/*
-		int iCollision = CPhysics::VerifyGroundCollision(m_RectPosition);
-		if (iCollision != NOCONTACT){
-			if (iCollision == GROUND){
-				SDL_Rect* Impact = new SDL_Rect({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50});
-				m_Trajectoire->Bounce(CPhysics::EvaluateSlope(Impact));
-				delete Impact;
-			}
-		}
-		m_Trajectoire->UpdatePosition();
-		int iX = m_Trajectoire->GetActualPosition()->getX();
-		int iY = m_Trajectoire->GetActualPosition()->getY();
-		m_RectPosition.x = iX;
-		m_RectPosition.y = iY;
-		*/
 	}
 
 };
