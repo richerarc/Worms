@@ -200,7 +200,8 @@ public:
 						PauseGame();
 					break;
 				case SDLK_SPACE:
-					NextTurn();
+							//NextTurn();
+						break;
 				}
 				break;
 			case SDL_KEYUP:
