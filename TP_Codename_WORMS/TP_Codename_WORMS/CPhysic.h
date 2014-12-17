@@ -101,6 +101,8 @@ public:
 		switch (_Direction) {
 			case DOWN_UPLEFT:
 			case UP_DOWNRIGHT:
+			case GROUNDLEFT:
+			case CEILINGRIGHT:
 				for (int i = 0; i < _Rect->w; i++){
 					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] != TRANSPARENCY){
 						_Rect->y--;
@@ -112,6 +114,8 @@ public:
 				break;
 			case UP_DOWNLEFT:
 			case DOWN_UPRIGHT:
+			case CEILINGLEFT:
+			case GROUNDRIGHT:
 				for (int i = _Rect->w; i > 0; i--){
 					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] != TRANSPARENCY){
 						_Rect->y--;

@@ -263,6 +263,7 @@ public:
 					{
 						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
 							m_EntityState = NoMotionLeft;
+						//	CPhysics::HandleGroundCollision(&m_RectPosition,)
 							delete m_Trajectoire;
 							m_Trajectoire = nullptr;
 						}
