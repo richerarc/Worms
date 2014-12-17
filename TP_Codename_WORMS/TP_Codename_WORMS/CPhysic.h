@@ -1,8 +1,8 @@
-#define TRANSPARENCY 0 //16777215 //268435455
-#define GROUND 0x00000001
+#define TRANSPARENCY 0
+#define GROUND  0x00000001
 #define CEILING 0x00000010
-#define LEFT 0x00000100
-#define RIGHT 0x00001000
+#define LEFT    0x00000100
+#define RIGHT   0x00001000
 #define GROUNDLEFT (GROUND|LEFT)
 #define GROUNDRIGHT (GROUND|RIGHT)
 #define CEILINGLEFT (CEILING|LEFT)
@@ -12,13 +12,10 @@
 #define GROUNDCEILING (GROUND|CEILING)
 #define MOVING 420
 #define BLOCKED 666
-#define GAUCHEDROITE 1
-#define DROITEGAUCHE 2
-#define DROITE_HAUTDROITE 3
-#define HAUT_BASDROITE 4
-#define GAUCHE_HAUTDROITE 5
-#define HAUT_BASGAUCHE 6
-
+#define DOWN_UPRIGHT 12
+#define UP_DOWNRIGHT 13
+#define DOWN_UPLEFT 14
+#define UP_DOWNLEFT 15
 
 
 class CPhysics{
@@ -102,8 +99,8 @@ public:
 	
 	static void HandleGroundCollision(SDL_Rect* _Rect, int _Direction){
 		switch (_Direction) {
-			case GROUNDLEFT:
-			case CEILINGRIGHT:
+			case DOWN_UPLEFT:
+			case UP_DOWNRIGHT:
 				for (int i = 0; i < _Rect->w; i++){
 					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] != TRANSPARENCY){
 						_Rect->y--;
@@ -113,8 +110,8 @@ public:
 					}
 				}
 				break;
-			case CEILINGLEFT:
-			case GROUNDRIGHT:
+			case UP_DOWNLEFT:
+			case DOWN_UPRIGHT:
 				for (int i = _Rect->w; i > 0; i--){
 					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] != TRANSPARENCY){
 						_Rect->y--;
