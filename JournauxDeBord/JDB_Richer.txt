@@ -32,4 +32,6 @@ Mer. 26 nov. 18h58 : J'ai continuer sur la physics, puis j'ai ajouté que les wo
 
 Mar. 02 déc. 11h56 : (J'ai oublier de mettre a jour mon journal de bord jeudi et vendredi mais bon...) Les worms se déplace, et tombes un après les autres, il grimpes les pente mais ne les descendent pas encore TODO. (3hrs)
 
-Ven. 12 déc. 10h00 : GROS COMMIT DE JOURNAL (pour aucun raison assez valable pour être énoncé ici, je n'ai pas pris soin de remplir mon journal de bord dans les dernier jours. je m'en excuse) Voilà: après plusieurs heures de travail (mettons 20) les woms se déplace, détecte les colision, saute, chutes, et je commence à les faire slider. des changement sont à faire dans CPhysics, je risque de m'en occuper moi même par souci de sécurité (j'insère lol). 
+Ven. 12 déc. 10h00 : GROS COMMIT DE JOURNAL (pour aucun raison assez valable pour être énoncé ici, je n'ai pas pris soin de remplir mon journal de bord dans les dernier jours. je m'en excuse) Voilà: après plusieurs heures de travail (mettons 20) les woms se déplace, détecte les colision, saute, chutes, et je commence à les faire slider. des changement sont à faire dans CPhysics, je risque de m'en occuper moi même par souci de sécurité (j'insère lol).
+
+Lun. 16 déc. de 9h00 à 4h00 : On à travaillé touteles journé, on à bien avancé, les états des worms sont presque fini, le bazooka lance sont missile, les explosion sont ligit, le système de tout par tour fonctionne voilà. 
