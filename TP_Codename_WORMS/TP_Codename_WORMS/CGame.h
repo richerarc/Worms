@@ -184,11 +184,7 @@ public:
 			{
 			case SDL_MOUSEBUTTONDOWN:
 				if (_Event.button.button == SDL_BUTTON_LEFT){
-					/*
-					//Tests pour les expolsions
-					m_explode->setPositionXY(_Event.button.x, _Event.button.y);
-					boEx = true;
-					*/
+
 				}
 				break;
 
