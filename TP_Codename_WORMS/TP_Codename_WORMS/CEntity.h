@@ -223,7 +223,9 @@ public:
 	void setFocus(bool _Focus){
 		m_boFocus = _Focus;
 	}
-
+	unsigned int getRayon(){
+		return m_pExplosion->getRadius();
+	}
 	virtual void ReactToExplosion(int, int, int){};
 	virtual void HandleEvent(SDL_Event){};
 	

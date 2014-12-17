@@ -10,9 +10,6 @@ class CMines : public CObjets{
 private:
 
 public:
-
-
-
 	/*!
 	@method Constructeur.
 	@brief Initialise les données membres.
@@ -59,7 +56,43 @@ public:
 	@Permet de calculer les dommages subit par l'explosion
 	*/
 	void ReactToExplosion(int _iX, int _iY, int _iRayon){
-		m_boIsexploded = true;
+		//Objet a droite de l'explosion
+		if (m_RectPosition.x >= _iX && !m_boIsexploded){
+			if (m_RectPosition.y >= _iY && !m_boIsexploded){
+				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((m_RectPosition.y - _iY), 2))) < _iRayon)
+					m_boIsexploded = true;
+				else
+				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((m_RectPosition.y + 8 - _iY), 2))) < _iRayon)
+					m_boIsexploded = true;
+			}
+
+			if (m_RectPosition.y <= _iY && !m_boIsexploded){
+				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((_iY - m_RectPosition.y), 2))) < _iRayon)
+					m_boIsexploded = true;
+				else
+				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((_iY - m_RectPosition.y + 8), 2))) < _iRayon)
+					m_boIsexploded = true;
+			}
+
+		}
+		//Objet a gauche de l'explosion
+		if (m_RectPosition.x <= _iX && !m_boIsexploded){
+			if (m_RectPosition.y >= _iY && !m_boIsexploded){
+				if (sqrt((pow((_iX - m_RectPosition.x + 24), 2) + pow((m_RectPosition.y - _iY), 2))) < _iRayon)
+					m_boIsexploded = true;
+				else
+				if (sqrt((pow((_iX - m_RectPosition.x + 24), 2) + pow((m_RectPosition.y + 8 - _iY), 2))) < _iRayon)
+					m_boIsexploded = true;
+			}
+
+			if (m_RectPosition.y <= _iY && !m_boIsexploded){
+				if (sqrt((pow((_iX - m_RectPosition.x + 24), 2) + pow((_iY - m_RectPosition.y), 2))) < _iRayon)
+					m_boIsexploded = true;
+				else
+				if (sqrt((pow((_iX - m_RectPosition.x + 24), 2) + pow((_iY - m_RectPosition.y + 8), 2))) < _iRayon)
+					m_boIsexploded = true;
+			}
+		}
 	}
 
 	/*!

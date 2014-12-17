@@ -25,6 +25,7 @@ private:
 	bool boIsRotated; // Booléen pour vérifier si le bazouka sera en rotation
 	bool boIsLaunch; // Booléen pour vérifier si le bazouka lance un missile
 	bool boHasLaunch; // Booléen pour vérifier si le bazouka a lancé un missile
+	bool boMissileIsExploded; // Booléen pour savoir si le missile à explosé
 	unsigned int m_uiPower; // Représente le power du missile.
 	CPowerBar* m_PowerBar; // Représente une nouvelle barre de lancement
 	CWorm* m_Worm; // Représente un pointeur de worm afin d'obtenir sa position et ses states
@@ -34,6 +35,7 @@ private:
 	float fPosYTempo;
 	int iPosXTampon;
 	int iPosYTampon;
+	unsigned int m_uiRayon;
 public:
 	/*!
 	@Constructeur
@@ -53,6 +55,7 @@ public:
 		boCharging = false;
 		boIsRotated = false;
 		boIsLaunch = false;
+		boMissileIsExploded = false;
 		iAngle = 0;
 		m_uiPower = 0;
 		fPosXTempo = 0;
@@ -100,6 +103,7 @@ public:
 		if ((m_pMissile != nullptr) && boIsLaunch){
 			m_pMissile->Draw(_pRenderer);
 			if (m_pMissile->HasExploded()){
+				InitInfoMissile();
 				delete m_pMissile;
 				m_pMissile = nullptr;
 			}
@@ -111,11 +115,11 @@ public:
 	@param _Event : Un SDL_Event pour traiter les evenement
 	@return null
 	*/
-	void HandleEvent(SDL_Event* _Event){
-		switch (_Event->type)
+	void HandleEvent(SDL_Event _Event){
+		switch (_Event.type)
 		{
 		case SDL_KEYDOWN:
-			switch (_Event->key.keysym.sym)
+			switch (_Event.key.keysym.sym)
 			{
 			case SDLK_UP:
 				boIsRotated = true;
@@ -150,7 +154,7 @@ public:
 			break;
 
 		case SDL_KEYUP:
-			switch (_Event->key.keysym.sym)
+			switch (_Event.key.keysym.sym)
 			{
 
 			case SDLK_UP:
@@ -233,11 +237,34 @@ public:
 
 		}
 	}
+	/*!
+	@method InitInfoMissile
+	@brief: Permet d'acceder au information d'un missile explosé.
+	@param null 
+	@return null
+	*/
+	void InitInfoMissile(){
+		if (m_pMissile->IsExploded()){
+			boMissileIsExploded = true;
+			m_uiRayon = m_pMissile->getRayon();
+			m_RectMissile = m_pMissile->getPosition();
+
+		}
+	}
 	int getWormState(){
 		return m_Worm->getWormState();
 	}
 	bool getIfLaunch(){
 		return boHasLaunch;
+	}
+	bool MissileHasExploded(){
+		return boMissileIsExploded;
+	}
+	SDL_Rect MissilePos(){
+		return m_RectMissile;
+	}
+	int MissileRayon(){
+		return m_uiRayon;
 	}
 };
 

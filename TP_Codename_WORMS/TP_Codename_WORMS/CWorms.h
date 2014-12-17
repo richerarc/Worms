@@ -168,7 +168,7 @@ public:
 #elif defined (_WIN32)
 		strPath.append("\\");
 #endif
-		string FileName[31] = {
+		string FileName[33] = {
 			"Arpegius.ttf",
 			"Btn1.png",
 			"BtnL.png",
@@ -200,10 +200,12 @@ public:
 			"SpriteWpnBZK.png",
 			"SpriteWpnGND.png",
 			"SpriteWpnKNF.png"
+			"BazoukaDroite.png"
+			"Missile.png"
 
 		};
-		string strFilePath[31];
-		for (int i = 0; i < 31; i++){
+		string strFilePath[33];
+		for (int i = 0; i < 33; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
@@ -265,6 +267,8 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("grenade", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[25].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("SmallEx", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[22].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("BigEx", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[23].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("bazouka", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[31].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("missile", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[32].c_str())));
 
 		m_SaveFile->open(strFilePath[12].c_str());
 

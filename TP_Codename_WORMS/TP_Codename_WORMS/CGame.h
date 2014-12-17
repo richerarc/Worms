@@ -26,6 +26,7 @@ private:
 	CTimer* DropperTimer;					// Indique le Temps avant de faire tomber les worms.
 	CWorm * ActiveWorm;
 	CJetPack * Jetpack;
+	CBazouka* Bazouka;
 	bool boBegin;
 	/*
 	//Données test pour les explosions
@@ -73,6 +74,7 @@ public:
 		DropperTimer->Start();
 		ActiveWorm = nullptr;
 		Jetpack = nullptr;
+		Bazouka = nullptr;
 
 		/*
 		//Tests pour les expolsions
@@ -96,6 +98,7 @@ public:
 		delete DropperTimer;
 		delete TurnTimer;
 		delete Jetpack;
+		delete Bazouka;
 	}
 
 	/*!
@@ -133,7 +136,8 @@ public:
 		double Wind = RadToDeg(CPhysics::GetWind()->getSDLOrientation());
 		m_pBoussole->setAngle(Wind);
 		m_pBoussole->setWindSpeed(CPhysics::GetWind()->getNorme()*1000);
-		
+		if (Bazouka != nullptr)
+			Bazouka->Render(m_pRenderer);
 		m_pBoussole->Draw(m_pRenderer);
 		CObjets* ObjetTemp;
 		m_pListeObjets->AllerDebut();
@@ -237,7 +241,11 @@ public:
 			}
 			if (Jetpack != nullptr)
 				Jetpack->HandleEvent(_Event);
-
+			if (_Event.key.keysym.sym == SDLK_2 && ActiveWorm != nullptr){
+				Bazouka = new CBazouka(m_Gestionaire->GetTexture("bazouka")->GetTexture(), m_Gestionaire->GetTexture("missile")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("BigEx"), 48, m_pMap), ActiveWorm);
+			}
+			if (Bazouka != nullptr)
+				Bazouka->HandleEvent(_Event);
 		}
 	}
 
@@ -285,6 +293,7 @@ public:
 			if (ActiveWorm->getWormState() == Dead){
 				NextTurn();
 			}
+			
 		}
 		else{	// sinon si il reste des truc ˆ spawn
 			if (DropperTimer->IsElapsed() && (m_pListeTeam->Count() < m_uiNbOfPlayingTeams)){
@@ -297,6 +306,22 @@ public:
 		}
 	}
 
+	/*!
+	@method Verify Explosion
+	@brief Vérifier s'il y a une explosion de missile
+	@param Une pointeur de bazouka
+	@return Aucun.
+	@discussion None.
+	*/
+	void VerifyExplosion(CBazouka* pBazouka){
+		if (pBazouka->MissileHasExploded()){
+			for (int j = 0; j < m_pListeObjets->Count(); j++){
+				m_pListeObjets->AllerA(j);
+				m_pListeObjets->ObtenirElement()->ReactToExplosion(pBazouka->MissilePos().x, pBazouka->MissilePos().y, pBazouka->MissileRayon());
+			}
+		}
+
+	}
 	/*!
 	@method Acesseurs
 	@brief Servent à acceder/modifier aux données membres.
