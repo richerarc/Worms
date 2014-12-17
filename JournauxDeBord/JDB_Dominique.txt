@@ -44,3 +44,6 @@ Rebond maintenant fonctionnel (pour l'instant...) et j'ai commencé à coder le 
 9 déc : 9h00 à 4h10 (avec des pauses quand même ^_^)
 Le rebond avait finalement encore des erreurs qui ont été réglés (espérons). J'ai aussi commencé le slide, qui 
 semble assez bien avancé mais que je n'ai pas encore testé.
+
+15 et 16 déc : environ 8h30 à 4h00 pour les deux
+Le rebond était finalement catastrophique et à été refait, mais maintenant il est vraiment fonctionnel avec des petits bugs
