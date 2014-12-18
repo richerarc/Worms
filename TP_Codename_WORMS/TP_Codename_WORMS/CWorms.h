@@ -492,18 +492,6 @@ public:
 		m_MenuPause->DeActivateMenu();
 		m_Game->ResumeGame();
 	}
-	static void BtnWpnJP(){
-
-	}
-	static void BtnWpnBZK(){
-
-	}
-	static void BtnWpnGND(){
-
-	}
-	static void BtnWpnKNF(){
-
-	}
 
 };
 

@@ -338,7 +338,18 @@ public:
 	void ResumeGame(){ m_boPause = false;}
 	void setNbOfPlayingTeams(Uint8 _NbOfTeams){ m_uiNbOfPlayingTeams = _NbOfTeams; }
 
-
+	static void BtnWpnJP(){
+		
+	}
+	static void BtnWpnBZK(){
+		
+	}
+	static void BtnWpnGND(){
+		
+	}
+	static void BtnWpnKNF(){
+		
+	}
 
 
 };
