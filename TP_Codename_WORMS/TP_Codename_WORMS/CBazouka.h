@@ -36,6 +36,7 @@ private:
 	int iPosXTampon;
 	int iPosYTampon;
 	unsigned int m_uiRayon;
+	bool m_boInUse;
 public:
 	/*!
 	@Constructeur
@@ -44,9 +45,7 @@ public:
 	@param _pTexture : Texture de l'image à afficher. NOTE: LA TEXTURE loader doit être celle de droite.
 	*/
 	CBazouka(SDL_Texture* _pTextureBazouka, SDL_Texture* _pTextureMissile, CExplosion* _pExplosion, CWorm* _pWorm){
-		m_RectBazouka = _pWorm->getPosition();
-		m_RectBazouka.w = 52;
-		m_RectBazouka.h = 28;
+		m_RectBazouka = {0,0,0,0};
 		SDL_QueryTexture(_pTextureBazouka, NULL, NULL, &m_RectBazouka.w, &m_RectBazouka.h);//Texture du bazouka.
 		SDL_QueryTexture(_pTextureMissile, NULL, NULL, &m_RectMissile.w, &m_RectMissile.h);//Texture du missile.
 		m_pTextureBazouka = _pTextureBazouka;
@@ -77,6 +76,12 @@ public:
 		}
 	}
 
+	void setBazooka(){
+		m_RectBazouka.x = m_Worm->getPosition().x;
+		m_RectBazouka.y = m_Worm->getPosition().y;
+		m_PowerBar->SetPosition(m_RectBazouka.x, m_RectBazouka.y);
+	}
+	
 	/*!
 	@methodRender
 	@param _pRenderer : Renderer pour rendre la texture du bazouka
@@ -268,6 +273,14 @@ public:
 	}
 	int MissileRayon(){
 		return m_uiRayon;
+	}
+	
+	void setInUse(bool _bo){
+		m_boInUse = _bo;
+	}
+	
+	bool isInUse(){
+		return m_boInUse;
 	}
 };
 

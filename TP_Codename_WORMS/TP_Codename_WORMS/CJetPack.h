@@ -21,7 +21,7 @@ private:
 	C2DVector* m_pVecteur;		// Le pointeur de vecteur de déplacement
 	CTimer* m_pTimer;			// Une minuterie pour décrémenter le power à tous les "x" secondes
 	CWorm * Worm;
-
+	bool m_boInUse;
 
 public:
 
@@ -35,16 +35,22 @@ public:
 	*/
 	CJetPack(CWorm* _pWorm){
 		Worm = _pWorm;
-		m_RectJetPack = _pWorm->getPosition();
+		m_RectJetPack = {0,0,0,0};
 		m_pBarreGaz = new CPowerBar(m_RectSurface);
 		m_pBarreGaz->setPowerLevel(100);
 		m_iAngle = 0;
 		m_iNorme = 20;
-		m_pVecteur = new C2DVector(m_iNorme, m_iAngle, m_RectJetPack.x, m_RectJetPack.y);
+		m_pVecteur = nullptr;
 		boBarreGaz = false;
 		m_pTimer = new CTimer();
 		m_pTimer->SetTimer(100);
 
+	}
+	
+	void setJetPack(){
+		m_RectJetPack.x = Worm->getPosition().x;
+		m_RectJetPack.y = Worm->getPosition().y;
+		m_pBarreGaz->SetPosition(m_RectJetPack.x, m_RectJetPack.y);
 	}
 
 	/*!
@@ -147,7 +153,13 @@ public:
 		}
 	}
 	
+	void setInUse(bool _bo){
+		m_boInUse = _bo;
+	}
 	
+	bool isInUse(){
+		return m_boInUse;
+	}
 
 };
 
