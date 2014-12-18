@@ -50,7 +50,6 @@ private:
 	static CMenu* m_MenuPrincipal;					// Menu principal du jeu
 	static CMenu* m_MenuNewGame;					// Menu Nouvelle partie
 	static CMenu* m_MenuPause;						// Menu Pause
-	static CMenu* m_MenuNewTeam;					// Menu Création d'une nouvelle équipe.
 	static CMenu* m_MenuWeapons;					// Menu des Armes.
 	static CGame* m_Game;							// Jeux Principal
 	static SDL_Event* m_pEvent;						// Event SDL
@@ -68,6 +67,10 @@ public:
 
 	static void Start(){
 		while (m_boRun) {
+			if ((m_Game != nullptr) && !m_Game->inGame() && !m_MenuNewGame->IsActive() && !m_MenuPause->IsActive() && !m_MenuPrincipal->IsActive()){
+				m_MenuNewGame->ActivateMenu();
+				delete m_Game;
+			}
 			Render();
 			while (SDL_PollEvent(m_pEvent)) {
 				if (m_boInMenu){
@@ -75,8 +78,6 @@ public:
 						m_MenuPrincipal->HandleEvent(*m_pEvent);
 					else if (m_MenuNewGame->IsActive())
 						m_MenuNewGame->HandleEvent(*m_pEvent);
-					else if (m_MenuNewTeam->IsActive())
-						m_MenuNewTeam->HandleEvent(*m_pEvent);
 					else if (m_MenuPause->IsActive())
 						m_MenuPause->HandleEvent(*m_pEvent);
 					else if (m_MenuWeapons->IsActive())
@@ -134,8 +135,6 @@ public:
 				m_MenuPrincipal->Render();
 			else if (m_MenuNewGame->IsActive())
 				m_MenuNewGame->Render();
-			else if (m_MenuNewTeam->IsActive())
-				m_MenuNewTeam->Render();
 			else if (m_MenuPause->IsActive())
 				m_MenuPause->Render();
 			else if (m_MenuWeapons->IsActive())
@@ -329,7 +328,6 @@ public:
 		delete m_MenuPrincipal;
 		delete m_MenuNewGame;
 		delete m_MenuPause;
-		delete m_MenuNewTeam;
 		delete m_MenuWeapons;
 		delete m_Game;
 		delete m_pEvent;
@@ -345,7 +343,6 @@ public:
 		m_MenuPrincipal = new CMenu(m_pWindow->getRenderer(), { 0, 0, WIDTH, HEIGHT });
 		m_MenuNewGame = new CMenu(m_pWindow->getRenderer(), { 0, 0, WIDTH, HEIGHT });
 		m_MenuPause = new CMenu(m_pWindow->getRenderer(), { (WIDTH / 4), (HEIGHT / 4), (WIDTH / 2), (HEIGHT / 2) });
-		m_MenuNewTeam = new CMenu(m_pWindow->getRenderer(), { 0, 0, WIDTH, HEIGHT });
 		m_MenuWeapons = new CMenu(m_pWindow->getRenderer(), { WIDTH - 300, HEIGHT - 300, 300, 300 });
 		m_pEvent = new SDL_Event();
 		m_Gestionaire = new CGestionnaireRessources();
@@ -435,10 +432,6 @@ public:
 		m_MenuNewGame->DeActivateMenu();
 		m_MenuPrincipal->ActivateMenu();
 	}
-	static void BtnCancelNT(){
-		m_MenuNewTeam->DeActivateMenu();
-		m_MenuNewGame->ActivateMenu();
-	}
 	static void BtnMapNext(){
 		string tempName("Map : "), tempWind("Wind : ");
 		int ID = ((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId();
@@ -505,7 +498,6 @@ CWindow* CWorms::m_pWindow = nullptr;
 CMenu* CWorms::m_MenuPrincipal = nullptr;
 CMenu* CWorms::m_MenuNewGame = nullptr;
 CMenu* CWorms::m_MenuPause = nullptr;
-CMenu* CWorms::m_MenuNewTeam = nullptr;
 CMenu* CWorms::m_MenuWeapons = nullptr;
 CGame* CWorms::m_Game = nullptr;
 bool CWorms::m_boInMenu = true;

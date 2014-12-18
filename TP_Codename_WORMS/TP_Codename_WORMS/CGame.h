@@ -106,21 +106,17 @@ public:
 	@brief Change le focus des équipes pour le changement de tour.
 	*/
 	void NextTurn(){
+		m_pListeTeam->AllerDebut();
+		for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
+			if (!m_pListeTeam->Count()){
+				m_boInPlay = false;
+			}
+		}
 		unsigned int uitemp = m_uiTeamTurn % m_uiNbOfPlayingTeams;
 		m_pListeTeam->AllerA(uitemp);
 		if (m_pListeTeam->ObtenirElement()->IsFocused()) {
 			m_pListeTeam->ObtenirElement()->NextTurn();
 			m_pListeTeam->ObtenirElement()->setFocus(false);
-		}
-		for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
-			m_pListeTeam->AllerA(i);
-			if (m_pListeTeam->ObtenirElement()->IsFocused()){
-				for (int k = 0; k < m_uiNbOfWormPerTeam; k++){
-					ActiveWorm = m_pListeTeam->ObtenirElement()->getPlayingWorm();
-					break;
-				}
-				break;
-			}
 		}
 		m_pListeTeam->AllerA((uitemp + 1) % m_uiNbOfPlayingTeams);
 		m_pListeTeam->ObtenirElement()->setFocus(true);
