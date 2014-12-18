@@ -189,6 +189,25 @@ public:
 				m_pListeTeam->AllerSuivant();
 			}
 		}
+		
+		if (ActiveWorm != nullptr){
+			switch (ActiveWorm->getWormState()) {
+				case JetpackLeftFly:
+				case JetpackLeftNoFly:
+				case JetpackRightFly:
+				case JetpackRightNoFly:
+					m_pJetpack->Render(m_pRenderer);
+					break;
+				case UsingBazzLeft:
+				case UsingBazzRight:
+					m_pBazouka->Render(m_pRenderer);
+					break;
+				case GrenadeLaunchLeft:
+				case GrenadeLaunchRight:
+					
+					break;
+			}
+		}
 	}
 
 	/*!
@@ -223,15 +242,29 @@ public:
 			case SDL_KEYUP:
 				break;
 			}
-			if (m_pListeTeam != nullptr){
-				m_pListeTeam->AllerDebut();
-				for (int i(0); i < m_pListeTeam->Count(); i++){
-					if (m_pListeTeam->ObtenirElement()->IsFocused()){
-						m_pListeTeam->ObtenirElement()->HandleEvent(_Event);
+			if (ActiveWorm != nullptr){
+				switch (ActiveWorm->getWormState()) {
+					case JetpackLeftFly:
+					case JetpackLeftNoFly:
+					case JetpackRightFly:
+					case JetpackRightNoFly:
+						m_pJetpack->HandleEvent(_Event);
 						break;
-					}
-					else
-						m_pListeTeam->AllerSuivant();
+					case UsingBazzLeft:
+					case UsingBazzRight:
+						m_pBazouka->HandleEvent(_Event);
+						break;
+					case GrenadeLaunchLeft:
+					case GrenadeLaunchRight:
+						
+						break;
+					case KnifeLeft:
+					case KnifeRight:
+						
+						break;
+					default:
+						ActiveWorm->HandleEvent(_Event);
+						break;
 				}
 			}
 		}
