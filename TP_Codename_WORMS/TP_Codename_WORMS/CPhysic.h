@@ -1,4 +1,4 @@
-#define TRANSPARENCY 0
+﻿#define TRANSPARENCY 0
 #define GROUND  0x00000001
 #define CEILING 0x00000010
 #define LEFT    0x00000100
@@ -135,16 +135,6 @@ public:
 	 @brief Vérifie si deux rect se touche
 	 @param _Collider: Le rect en mouvement
 	 @param _Collidee: Le rect immobile .
-	 @return NOCONTACT : Le rectangle ne touche é rien
-	 @return GROUND : Le rectangle touche au sol
-	 @return LEFT : Le rectangle touche le terrain é gauche
-	 @return RIGHT : Le rectangle touche le terrain é droite
-	 @return CEILING : Le rectangle touche le plafond
-	 @return GROUNDLEFT : Le rectangle touche le sol et la gauche
-	 @return GROUNDRIGHT : Le rectangle touche le sol et la droite
-	 @return CEILINGLEFT : Le rectangle touche le plafond et la gauche
-	 @return CEILINGRIGHT : Le rectangle touche le plafond et la droite
-	 @return GROUNDCEILING : Le rectangle touche au plafond et au sol
 	 @discussion Aucune.
 	 */
 	static CPosition* verifyGroundCollision(SDL_Rect _Rect){
@@ -494,12 +484,12 @@ public:
 	
 	/*!
 	 @method Move
-	 @brief  Fonction qui ajuste la position suite é un mouvement sans accélération
-	 @param _Rect : Rectangle se déplaéant
-	 @param _Direction : Bool de la direction empruntée (true = gauche, false = droite))
-	 @return BLOCKED: Si l'entité est pognée
-	 @return MOVING: Si l'entité peut continuer
-	 @discussion Ne déplace actuellement que d'un pixel sur l'axe X, é changer si voulu La hauteur (en pixels) d'une pente "escaladable" en y sera é déterminer (actuellement 3 pixels)
+	 @brief  Fonction qui ajuste la position suite � un mouvement sans acc�l�ration
+	 @param _Rect : Rectangle se d�pla�ant
+	 @param _Direction : int de la direction emprunt�e.
+	 @return BLOCKED: Si l'entit� est pogn�e
+	 @return MOVING: Si l'entit� peut continuer
+	 @discussion Ne d�place actuellement que d'un pixel sur l'axe X, � changer si voulu La hauteur (en pixels) d'une pente "escaladable" en y sera � d�terminer (actuellement 3 pixels)
 	 */
 	static int Move(SDL_Rect* _Rect, int _Direction){
 		if (_Direction == LEFT){
