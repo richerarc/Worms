@@ -119,14 +119,22 @@ public:
 				if (boGaz)
 				break;
 			case SDLK_LEFT:
-				break;
+				if (!boGaz){
+					C2DVector * Vector = new C2DVector(0, 0, -1., 0.);
+					Worm->getTrajectoire()->AddAcceleration(Vector);
+					delete Vector;
+				}
 				boGaz = true;
 				if (m_pBarreGaz->getPower() <= 0){
 					boGaz = false;
+					C2DVector * Vector = new C2DVector(0, 0, 1., 0.);
+					Worm->getTrajectoire()->AddAcceleration(Vector);
+					delete Vector;
 				}
 				else{
 					m_pBarreGaz->PowerDown();
 				}
+				break;
 			case SDLK_RIGHT:
 				boGaz = true;
 				if (m_pBarreGaz->getPower() <= 0){
