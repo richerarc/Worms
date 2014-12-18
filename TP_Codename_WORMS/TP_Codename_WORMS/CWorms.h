@@ -493,16 +493,20 @@ public:
 		m_Game->ResumeGame();
 	}
 	static void BtnWpnJP(){
-
+		//Choisir l'Arme....
+		m_MenuWeapons->DeActivateMenu();
 	}
 	static void BtnWpnBZK(){
-
+		//Choisir l'Arme....
+		m_MenuWeapons->DeActivateMenu();
 	}
 	static void BtnWpnGND(){
-
+		//Choisir l'Arme....
+		m_MenuWeapons->DeActivateMenu();
 	}
 	static void BtnWpnKNF(){
-
+		//Choisir l'Arme....
+		m_MenuWeapons->DeActivateMenu();
 	}
 
 };
