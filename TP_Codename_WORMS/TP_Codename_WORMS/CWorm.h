@@ -276,16 +276,17 @@ public:
 			ftemp = CPhysics::EvaluateSlope(RectCollision);
 			dbl = RadToDeg(ftemp);
 		}
-
-		double PotentialSlide = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
-		if (VerifySliding(PotentialSlide)){
-			if (PotentialSlide < 0)
+		if (VerifySliding(DegToRad(dbl))){
+			if (dbl < 0)
 				m_EntityState = SlideLeft;
 			else 
 				m_EntityState = SlideRight;
 		}
 		switch (m_EntityState) {
 		case SlideLeft:
+			if (m_Trajectoire == nullptr){
+				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, -2., 2.), new C2DVector(m_RectPosition.x, m_RectPosition.y,0.0,CPhysics::GetGravity()));	
+			}
 			m_Trajectoire->UpdatePosition();
 			if (VerifySliding(CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 }))){
 				CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
@@ -296,6 +297,9 @@ public:
 			
 			break;
 		case SlideRight:
+			if (m_Trajectoire == nullptr){
+				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, 2., 2.), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.0, CPhysics::GetGravity()));
+			}
 			m_Trajectoire->UpdatePosition();
 			if (VerifySliding(CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 }))){
 				CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
