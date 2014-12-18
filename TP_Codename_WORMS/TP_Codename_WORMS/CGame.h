@@ -91,7 +91,7 @@ public:
 		DropperTimer->Start();
 		ActiveWorm = nullptr;
 		Jetpack = new CJetPack(ActiveWorm);
-		Bazouka = new CBazouka(m_Gestionaire->GetTexture("bazouka")->GetTexture(), m_Gestionaire->GetTexture("missile")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("bigex"), 40, m_pMap), ActiveWorm);
+		Bazouka = new CBazouka(m_Gestionaire->GetTexture("bazouka")->GetTexture(), m_Gestionaire->GetTexture("missile")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("BigEx"), 40, m_pMap), ActiveWorm);
 	}
 
 	/*!
@@ -262,12 +262,17 @@ public:
 	@discussion None.
 	*/
 	void MainGame(){
+		
 		if (boBegin){	// Si le jeu ˆ commenc
 			EnterrerLesMorts();
 			if ((ActiveWorm->getWormState() == Dead) || (ActiveWorm->isOutOfBounds())){
 				NextTurn();
 			}
 		}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		else{	// sinon si il reste des truc ˆ spawn
 			if (DropperTimer->IsElapsed() && (m_pListeTeam->Count() < m_uiNbOfPlayingTeams)){
 				DropperTimer->Start();
