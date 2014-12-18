@@ -14,10 +14,10 @@ CWorm * ActiveWorm;
 
 static void BtnWpnJP(){
 	if((ActiveWorm->getWormState() == NoMotionLeft)){
-		ActiveWorm->setWormState(JetpackLeft);
+		ActiveWorm->setWormState(JetpackLeftNoFly);
 	}
 	else{
-		ActiveWorm->setWormState(JetpackRight);
+		ActiveWorm->setWormState(JetpackRightNoFly);
 	}
 }
 
@@ -288,7 +288,7 @@ public:
 				switch (ActiveWorm->getWormState()) {
 					case UsingBazzLeft:
 					case UsingBazzRight:
-						if (m_pBazouka->isInUse()){
+						if (m_pBazouka->isInUse() && m_pBazouka->MissileHasExploded()){
 							if (ActiveWorm->getWormState() == UsingBazzRight){
 								ActiveWorm->setWormState(NoMotionRight);
 							}
@@ -301,10 +301,10 @@ public:
 							m_pBazouka->setInUse(true);
 						}
 						break;
-					case JetpackLeft:
-					case JetpackRight:
-						if (m_pJetpack->isInUse()){
-							if (ActiveWorm->getWormState() == JetpackLeft){
+					case JetpackLeftNoFly:
+					case JetpackRightNoFly:
+						if (m_pJetpack->isInUse() && m_pJetpack->isLanded()){
+							if (ActiveWorm->getWormState() == JetpackRightNoFly){
 								ActiveWorm->setWormState(NoMotionRight);
 							}
 							else{

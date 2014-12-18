@@ -198,6 +198,10 @@ public:
 	bool isInUse(){
 		return m_boInUse;
 	}
+	
+	bool isLanded(){
+		return (m_pBarreGaz->getPower() == 0);
+	}
 
 
 };
