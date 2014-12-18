@@ -21,6 +21,7 @@ private:
 	C2DVector* m_pVecteur;		// Le pointeur de vecteur de déplacement
 	CTimer* m_pTimer;			// Une minuterie pour décrémenter le power à tous les "x" secondes
 	CWorm * Worm;
+	bool boGaz;
 
 
 public:
@@ -44,6 +45,7 @@ public:
 		boBarreGaz = false;
 		m_pTimer = new CTimer();
 		m_pTimer->SetTimer(100);
+		boGaz = false;
 
 	}
 
@@ -77,7 +79,7 @@ public:
 		_RectPosInitiale->y += m_iNorme * sin(_Angle);
 		m_RectJetPack = _RectPosInitiale;
 		}*/
-	
+
 	/*!
 	 @method HandleEvent
 	 @param _Event : Un SDL_Event pour traiter les evenement
@@ -88,66 +90,67 @@ public:
 	}
 	void HandleEvent(SDL_Event _Event){
 		switch (_Event.type) {
-			case SDL_KEYDOWN:
-				switch (_Event.key.keysym.sym){
-						int right, left, up;
-					case SDLK_LEFT:
-							//Vérifier si le timer à été partie, sinon, le partir
-						if (!m_pTimer->HasStarted()){
-							m_pTimer->Start();
-						}
-							//Déplacer la position du rect selon un angle de 180degree ou pi radian
-						left = m_RectJetPack.x;
-						left--;
-						m_RectJetPack.x = left;
-						cout << "LEFT. X = " << Worm->getPosition().x << " Y = " << Worm->getPosition().y << endl;
-						RefreshPosWorm(Worm);
-							//Vérifier si le timer est déclancher, si oui, décrémenter le power et repartir le timer
-						if (m_pTimer->IsElapsed()){
-							if (m_pBarreGaz->getPower() != 0){
-								m_pBarreGaz->PowerDown();
-								m_pTimer->Start();
-							}
-						}
-						break;
-					case SDLK_UP:
-						if (!m_pTimer->HasStarted()){
-							m_pTimer->Start();
-						}
-						up = m_RectJetPack.y;
-						up-= 2;
-						m_RectJetPack.y = up;
-						cout << "UP. X = " << Worm->getPosition().x << " Y = " << Worm->getPosition().y << endl;
-						RefreshPosWorm(Worm);
-						if (m_pTimer->IsElapsed()){
-							if (m_pBarreGaz->getPower() != 0){
-								m_pBarreGaz->PowerDown();
-								m_pTimer->Start();
-							}
-						}
-						break;
-					case SDLK_RIGHT:
-						if (!m_pTimer->HasStarted()){
-							m_pTimer->Start();
-						}
-						if (m_pTimer->IsElapsed()){
-							if (m_pBarreGaz->getPower() != 0){
-								m_pBarreGaz->PowerDown();
-								m_pTimer->Start();
-							}
-							right = m_RectJetPack.x;
-							right++;
-							m_RectJetPack.x = right;
-							cout << "RIGHT. X = " << Worm->getPosition().x << " Y = " << Worm->getPosition().y << endl;
-							RefreshPosWorm(Worm);
-						}
-						break;
+		case SDL_KEYDOWN:
+			switch (_Event.key.keysym.sym){
+				int right, left, up;
+			case SDLK_UP:
+				if (!boGaz){
+					C2DVector * Vector = new C2DVector(0,0,0.,1.);
+					Worm->getTrajectoire()->AddAcceleration(Vector);
+					delete Vector;
+				}
+
+				boGaz = true;
+				if (m_pBarreGaz->getPower() <= 0){
+					boGaz = false;
+					C2DVector * Vector = new C2DVector(0, 0, 0., -1.);
+					Worm->getTrajectoire()->AddAcceleration(Vector);
+					delete Vector;
+				}
+				else{
+					m_pBarreGaz->PowerDown();
+				}
+				if (boGaz)
+				break;
+			case SDLK_LEFT:
+				break;
+				boGaz = true;
+				if (m_pBarreGaz->getPower() <= 0){
+					boGaz = false;
+				}
+				else{
+					m_pBarreGaz->PowerDown();
+				}
+			case SDLK_RIGHT:
+				boGaz = true;
+				if (m_pBarreGaz->getPower() <= 0){
+					boGaz = false;
+				}
+				else{
+					m_pBarreGaz->PowerDown();
 				}
 				break;
+			}
+			break;
+
+		case SDL_KEYUP:
+			switch (_Event.key.keysym.sym){
+			case(SDLK_UP) :
+				boGaz = false;
+				break;
+
+			case(SDLK_LEFT) :
+				boGaz = false;
+				break;
+
+			case(SDLK_RIGHT) :
+				boGaz = false;
+				break;
+			}
+			break;
 		}
+
 	}
-	
-	
 
 };
 
