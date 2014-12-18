@@ -349,7 +349,7 @@ public:
 		m_MenuPrincipal = new CMenu(m_pWindow->getRenderer(), { 0, 0, WIDTH, HEIGHT });
 		m_MenuNewGame = new CMenu(m_pWindow->getRenderer(), { 0, 0, WIDTH, HEIGHT });
 		m_MenuPause = new CMenu(m_pWindow->getRenderer(), { (WIDTH / 4), (HEIGHT / 4), (WIDTH / 2), (HEIGHT / 2) });
-		m_MenuWeapons = new CMenu(m_pWindow->getRenderer(), { WIDTH - 300, HEIGHT - 300, 300, 300 });
+		m_MenuWeapons = new CMenu(m_pWindow->getRenderer(), { WIDTH - 100, HEIGHT - 100, 100, 100 });
 		m_pEvent = new SDL_Event();
 		m_Gestionaire = new CGestionnaireRessources();
 		m_timerFPS = new CTimer();
@@ -412,10 +412,10 @@ public:
 		// Initialisation du menu Weapons
 		//
 		m_MenuWeapons->AddElement(new CLabelImage("LblImgMenuWpn", "", m_Gestionaire->GetFont("FontMenu"), { WIDTH - 300, HEIGHT - 400, 300, 400 }, m_Gestionaire->GetTexture("MenuWeapons")->GetTexture()), WIDTH - 100, HEIGHT - 100, 100, 100);
-		m_MenuWeapons->AddElement(new CButton("btnWpnJP", "JetPack", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnJP")), 30, 30, 90, 90);
-		m_MenuWeapons->AddElement(new CButton("btnWpnBZK", "bazooka", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnBZK")), 180, 30, 90, 90);
-		m_MenuWeapons->AddElement(new CButton("btnWpnGND", "Grenade", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnGND")), 30, 180, 90, 90);
-		m_MenuWeapons->AddElement(new CButton("btnWpnKNF", "Knife", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnKNF")), 180, 180, 90, 90);
+		m_MenuWeapons->AddElement(new CButton("btnWpnJP", "", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnJP")), 0, 0, 50, 50);
+		m_MenuWeapons->AddElement(new CButton("btnWpnBZK", "", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnBZK")), 50, 0, 50, 50);
+		m_MenuWeapons->AddElement(new CButton("btnWpnGND", "", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnGND")), 0, 50, 50, 50);
+		m_MenuWeapons->AddElement(new CButton("btnWpnKNF", "", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnKNF")), 50, 50, 50, 50);
 		m_MenuWeapons->getElement("btnWpnJP")->OnClickAction = BtnWpnJP;
 		m_MenuWeapons->getElement("btnWpnBZK")->OnClickAction = BtnWpnBZK;
 		m_MenuWeapons->getElement("btnWpnGND")->OnClickAction = BtnWpnGND;
