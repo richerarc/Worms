@@ -213,7 +213,8 @@ public:
 			"SpriteWpnGND.png",
 			"SpriteWpnKNF.png",
 			"BazoukaDroite.png",
-			"Missile.png"
+			"Missile.png".
+			"Caisse.png"
 
 		};
 		string strFilePath[33];
@@ -281,6 +282,7 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("BigEx", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[23].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("bazouka", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[31].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("missile", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[32].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("caisse", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[33].c_str())));
 
 		m_SaveFile->open(strFilePath[12].c_str());
 

@@ -8,9 +8,6 @@
 */
 class CCaisses : public CObjets{
 private:
-	//Données membres:
-	bool boIsexploded;//Donnée représentant si l'objet est explosé (true) ou non (false).
-
 public:
 
 	/*!
@@ -23,7 +20,6 @@ public:
 	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets.
 	*/
 	CCaisses(SDL_Rect _RectPos, SDL_Texture* _Texture, CExplosion* _Explosion) :CObjets(_RectPos, _Texture, _Explosion){
-		boIsexploded = false;
 	}
 
 	/*!
@@ -40,7 +36,23 @@ public:
 	@return null
 	*/
 	void Draw(SDL_Renderer* _pRenderer){
-		SDL_RenderCopy(_pRenderer, m_pTexture, NULL, &m_RectPosition);
+		if (!m_boIsexploded){
+			if ((!m_Angle) && (m_EntityState == Immobile))
+				m_Angle = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, m_RectPosition.h });
+			SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_RectPosition, RadToDeg(m_Angle), NULL, SDL_FLIP_NONE);
+		}
+		else{
+			m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);
+			m_pExplosion->startExplosion();
+			m_pExplosion->ExplodeMap(_pRenderer);
+			m_pExplosion->Draw(_pRenderer);
+			if (m_pExplosion->IsDone()){
+				m_boHasExplosed = true;
+			}
+		}
+
+
+
 	}
 
 	/*!
@@ -50,7 +62,7 @@ public:
 	*/
 	void HandleEvent(SDL_Event _Event){
 		m_boFocus = true;
-	
+
 	}
 
 	/*!
@@ -63,11 +75,74 @@ public:
 	@discussion Aucune.
 	*/
 	void ReactToExplosion(int _iX, int _iY, int _iRayon){
-		boIsexploded = true;
+		//Objet a droite de l'explosion
+		if (m_RectPosition.x >= _iX && !m_boIsexploded){
+			if (m_RectPosition.y >= _iY && !m_boIsexploded){
+				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((m_RectPosition.y - _iY), 2))) < _iRayon)
+					m_boIsexploded = true;
+				else
+				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((m_RectPosition.y + 30 - _iY), 2))) < _iRayon)
+					m_boIsexploded = true;
+			}
+
+			if (m_RectPosition.y <= _iY && !m_boIsexploded){
+				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((_iY - m_RectPosition.y), 2))) < _iRayon)
+					m_boIsexploded = true;
+				else
+				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((_iY - m_RectPosition.y + 30), 2))) < _iRayon)
+					m_boIsexploded = true;
+			}
+
+		}
+		//Objet a gauche de l'explosion
+		if (m_RectPosition.x <= _iX && !m_boIsexploded){
+			if (m_RectPosition.y >= _iY && !m_boIsexploded){
+				if (sqrt((pow((_iX - m_RectPosition.x + 30), 2) + pow((m_RectPosition.y - _iY), 2))) < _iRayon)
+					m_boIsexploded = true;
+				else
+				if (sqrt((pow((_iX - m_RectPosition.x + 30), 2) + pow((m_RectPosition.y + 30 - _iY), 2))) < _iRayon)
+					m_boIsexploded = true;
+			}
+
+			if (m_RectPosition.y <= _iY && !m_boIsexploded){
+				if (sqrt((pow((_iX - m_RectPosition.x + 30), 2) + pow((_iY - m_RectPosition.y), 2))) < _iRayon)
+					m_boIsexploded = true;
+				else
+				if (sqrt((pow((_iX - m_RectPosition.x + 30), 2) + pow((_iY - m_RectPosition.y + 30), 2))) < _iRayon)
+					m_boIsexploded = true;
+			}
+		}
 	}
 
+
 	void Move(){
-		
+
+		switch (m_EntityState) {
+		case Immobile:
+			if (m_Trajectoire->GetInitSpeed())
+				m_Trajectoire->WipeOut();
+			break;
+		case Chute:
+			m_Trajectoire->UpdatePosition();
+
+			CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+			if (temp != nullptr)
+			{
+				if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY()))
+					m_EntityState = Immobile;
+				else
+					m_EntityState = Chute;
+
+				m_RectPosition.y = temp->getY();
+				m_RectPosition.x = temp->getX();
+				delete temp;
+			}
+			else{
+				m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
+				m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+			}
+			break;
+		}
 	}
 
 	/*!
@@ -82,28 +157,28 @@ public:
 			_pWorm->SetLife(_pWorm->getLife() + (_pWorm->getLife() * 25 / 100));
 		else
 			_pWorm->SetLife(100);
-		
+
 	}
 
 	/*!
 	@method Accesseurs
 	@brief Permet d'acceder aux données membres.
 	*/
-
-	bool IsItexploded(){
-		return boIsexploded;
+	void VerifyWormsCollision(CWorm* _pWorm){
+		if (_pWorm->getPosition().x == m_RectPosition.x && _pWorm->getPosition().y == m_RectPosition.y)
+			GiveLife(_pWorm);
 	}
+
 
 	void setExplosion(bool _boSet){
-		boIsexploded = _boSet;
+		m_boIsexploded = _boSet;
 	}
-
 	void setPos(int _ix, int _iy){
 		m_RectPosition.x = _ix;
 		m_RectPosition.y = _iy;
 	}
 
-	
+
 
 
 };

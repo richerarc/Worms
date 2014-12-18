@@ -231,7 +231,7 @@ public:
 
 		if (m_pListeObjets->Count() < m_pMap->getMine()){
 			m_pListeObjets->AjouterFin(new CGrenades({ ((rand() % (WIDTH - 10)) + 5), 5, 17, 25 }, m_Gestionaire->GetTexture("grenade")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 25, m_pMap)));
-
+			//m_pListeObjets->AjouterDebut(new CCaisses({((rand() % (WIDTH - 10)) + 5), 30, 30 }, m_Gestionaire->GetTexture("caisse")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 45, m_pMap)));
 			//m_pListeObjets->AjouterFin(new CMines({ ((rand() % (WIDTH - 10)) + 5), 5, 12, 8 }, m_Gestionaire->GetTexture("mine")->GetTexture(), m_pSmall_Explosion));
 		}
 
@@ -300,21 +300,47 @@ public:
 	}
 
 	/*!
-	@method Verify Explosion
-	@brief Vérifier s'il y a une explosion de missile
+	@method Verify global Explosion
+	@brief Vérifier s'il y a des explosions en chaîne
 	@param Une pointeur de bazouka
 	@return Aucun.
 	@discussion None.
 	*/
-	void VerifyExplosion(CBazouka* pBazouka){
-		if (pBazouka->MissileHasExploded()){
-			for (int j = 0; j < m_pListeObjets->Count(); j++){
-				m_pListeObjets->AllerA(j);
-				m_pListeObjets->ObtenirElement()->ReactToExplosion(pBazouka->MissilePos().x, pBazouka->MissilePos().y, pBazouka->MissileRayon());
+	void VerifyGlobalExplosion(CBazouka* pBazouka){
+		if (pBazouka != nullptr){
+			if (pBazouka->MissileHasExploded()){
+				for (int j = 0; j < m_pListeObjets->Count(); j++){
+					m_pListeObjets->AllerA(j);
+					m_pListeObjets->ObtenirElement()->ReactToExplosion(pBazouka->MissilePos().x, pBazouka->MissilePos().y, pBazouka->MissileRayon());
+				}
 			}
 		}
-
+		else{
+			CObjets* pTemp;
+			for (int i = 0; i < m_pListeObjets->Count(); i++){
+				m_pListeObjets->AllerA(i);
+				if (m_pListeObjets->ObtenirElement()->IsExploded()){
+					pTemp = m_pListeObjets->ObtenirElement();
+					for (int j = 0; j < m_pListeObjets->Count(); j++){
+						m_pListeObjets->AllerA(j);
+						m_pListeObjets->ObtenirElement()->ReactToExplosion(pTemp->getPosition().x, pTemp->getPosition().y, pTemp->getRayon());
+					}
+				}
+			}
+		}
 	}
+	/*!
+	@method Verify Caisse contact
+	@brief Vérifier s'il y a un worm en contact avec une caisse
+	@param Une pointeur de caisse
+	@return Aucun.
+	@discussion None.
+	*/
+	void VerifyCaisseContact(CCaisses* pCaisses){
+		if (pCaisses != nullptr)
+			pCaisses->VerifyWormsCollision(ActiveWorm);
+	}
+
 	/*!
 	@method Acesseurs
 	@brief Servent à acceder/modifier aux données membres.

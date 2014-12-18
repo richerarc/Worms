@@ -35,10 +35,20 @@ public:
 	@return null
 	*/
 	void Draw(SDL_Renderer* _pRenderer){
-			//SDL_RenderCopy(_pRenderer, m_pTexture, NULL, &m_RectPosition);
-		if ((!m_Angle) && (m_EntityState == Immobile))
-			m_Angle = CPhysics::EvaluateSlope({m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, m_RectPosition.h});
-		SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_RectPosition, RadToDeg(m_Angle), NULL, SDL_FLIP_NONE);
+		if (!m_boIsexploded){
+			if ((!m_Angle) && (m_EntityState == Immobile))
+				m_Angle = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, m_RectPosition.h });
+			SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_RectPosition, RadToDeg(m_Angle), NULL, SDL_FLIP_NONE);
+		}
+		else{
+			m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);
+			m_pExplosion->startExplosion();
+			m_pExplosion->ExplodeMap(_pRenderer);
+			m_pExplosion->Draw(_pRenderer);
+			if (m_pExplosion->IsDone()){
+				m_boHasExplosed = true;
+			}
+		}
 	}
 
 	/*!
