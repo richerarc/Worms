@@ -130,7 +130,8 @@ public:
 	@return null
 	 */
 	void Draw(SDL_Renderer * _Renderer){
-		Move();
+		if ((m_EntityState != NoMotionLeft) && (m_EntityState != NoMotionRight))
+			Move();
 		if (isOutOfBounds()){
 			m_EntityState = Dead;
 		}
@@ -247,14 +248,20 @@ public:
 
 
 	void Move(){
-		SDL_Rect RectCollision = { m_RectPosition.x, m_RectPosition.y / 2, m_RectPosition.w, m_RectPosition.h };
-		float ftemp = CPhysics::EvaluateSlope(RectCollision);
+		float ftemp = 0;
+		double dbl = 0;
+		if (m_EntityState != Largage){
+			SDL_Rect RectCollision = { m_RectPosition.x,  m_RectPosition.y + m_RectPosition.h/2, m_RectPosition.w, m_RectPosition.h };
+			ftemp = CPhysics::EvaluateSlope(RectCollision);
+		    dbl =RadToDeg(ftemp);
+		}
+
 		switch (m_EntityState) {
 			case JumpLeft:
 				if (m_Trajectoire == nullptr){
 					m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
-													new C2DVector(m_RectPosition.x, m_RectPosition.y, -25.f, -75.f),
-													new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX() / 4, CPhysics::GetGravity() + CPhysics::GetWind()->getComposanteY() / 4));
+													new C2DVector(m_RectPosition.x, m_RectPosition.y, -15.f, -85.f),
+													new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.f, CPhysics::GetGravity()));
 				}
 				else{
 					m_Trajectoire->UpdatePosition();
@@ -284,8 +291,8 @@ public:
 			case JumpRight:
 				if (m_Trajectoire == nullptr){
 					m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
-													new C2DVector(m_RectPosition.x, m_RectPosition.y, 25.f, -75.f),
-													new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX() / 4, CPhysics::GetGravity() + CPhysics::GetWind()->getComposanteY() / 4));
+													new C2DVector(m_RectPosition.x, m_RectPosition.y, 15.f, -85.f),
+													new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.f, CPhysics::GetGravity()));
 				}
 				else{
 					m_Trajectoire->UpdatePosition();

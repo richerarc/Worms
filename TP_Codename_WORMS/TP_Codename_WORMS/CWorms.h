@@ -31,9 +31,7 @@
 #include "CGrenades.h"
 #include "CCaisses.h"
 #include "CCaisseSoin.h"
-
 #include "CTeam.h"
-
 #include "CBoussole.h"
 #include "CPowerBar.h"
 #include "CBazouka.h"
