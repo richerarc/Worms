@@ -116,7 +116,7 @@ public:
 			m_pListeTeam->AllerA((uitemp + 1) % m_uiNbOfPlayingTeams);
 			m_pListeTeam->ObtenirElement()->setFocus(true);
 			m_uiTeamTurn++;
-			if ((ActiveWorm != nullptr) && (ActiveWorm->getWormState() == Dead)){
+			if ((ActiveWorm != nullptr) && (ActiveWorm->getWormState() == Dead) && (ActiveWorm->getLife() == 0)){
 				delete ActiveWorm;
 				ActiveWorm = nullptr;
 			}
