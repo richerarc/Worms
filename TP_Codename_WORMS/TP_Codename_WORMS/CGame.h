@@ -12,7 +12,7 @@
 
 enum Tools{ Knife = 42, JetPack = 51, Bazooka = 69, Grenade = 666 };
 
-unsigned int uiCurrentTool;
+unsigned int uiCurrentTool(0);
 
 static void BtnWpnJP(){
 	uiCurrentTool = JetPack;
@@ -90,8 +90,8 @@ public:
 		DropperTimer->SetTimer(200);
 		DropperTimer->Start();
 		ActiveWorm = nullptr;
-		Jetpack = nullptr;
-		Bazouka = nullptr;
+		Jetpack = new CJetPack(ActiveWorm);
+		Bazouka = new CBazouka(m_Gestionaire->GetTexture("bazouka")->GetTexture(), m_Gestionaire->GetTexture("missile")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("bigex"), 40, m_pMap), ActiveWorm);
 	}
 
 	/*!
