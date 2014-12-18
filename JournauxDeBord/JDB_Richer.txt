@@ -36,4 +36,6 @@ Ven. 12 déc. 10h00 : GROS COMMIT DE JOURNAL (pour aucun raison assez valable po
 
 Mar. 16 déc. de 9h00 à 4h00 : On à travaillé touteles journé, on à bien avancé, les états des worms sont presque fini, le bazooka lance sont missile, les explosion sont ligit, le système de tout par tour fonctionne voilà. 
 
-Mer. 17 déc de 13h00 à 7h00 : on continue d’avancé, les grenade explose avec le timbre, les mine aussi en contact avec une autre explosion.
+Mer. 17 déc de 13h00 à 7h00 : on continue d’avancé, les grenade explose avec le timer, les mine aussi en contact avec une autre explosion.
+
+Mer. 17 déc de 21h00 à 00h42 : Le tour par tour marche!!!!!! j’ai aussi réglé presque tout ce qui causait des bad accès. maintenant, je commence l’interaction entre les mines et les worms!
