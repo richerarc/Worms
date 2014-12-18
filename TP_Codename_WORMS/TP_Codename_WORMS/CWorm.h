@@ -14,7 +14,7 @@
 #define TP_Codename_WORMS_CWorm_h
 
 // Un worm possède déjà l'état en chute, immobile, ou en déplacement, qu'il tient d'entity
-enum WormState { NoMotionLeft, NoMotionRight, MotionLeft, MotionRight, JumpLeft, JumpRight, UsingBazzLeft, UsingBazzRight, Damaged, Largage, SlideLeft, SlideRight, ChuteLeft, ChuteRight, Dead, Jetpack };
+enum WormState { NoMotionLeft, NoMotionRight, MotionLeft, MotionRight, JumpLeft, JumpRight, UsingBazzLeft, UsingBazzRight, Damaged, Largage, SlideLeft, SlideRight, ChuteLeft, ChuteRight, Dead, JetpackLeft, JetpackRight };
 
 /*!
 @CWorm
@@ -116,6 +116,12 @@ public:
 						m_EntityState = JumpLeft;
 					else if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight))
 						m_EntityState = JumpRight;
+					break;
+				case SDLK_j:
+					if (m_EntityState == NoMotionLeft)
+						m_EntityState = JetpackLeft;
+					else if (m_EntityState == NoMotionRight)
+						m_EntityState = JetpackRight;
 					break;
 				}
 				break;
