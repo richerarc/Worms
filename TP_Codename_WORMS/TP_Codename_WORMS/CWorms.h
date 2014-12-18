@@ -106,6 +106,11 @@ public:
 							m_MenuWeapons->ActivateMenu();
 							m_boInMenu = true;
 						}
+						else
+						{
+							m_MenuWeapons->DeActivateMenu();
+							m_boInMenu = false;
+						}
 						break;
 					case SDL_SCANCODE_F:
 						m_boFPS = true;
@@ -465,7 +470,7 @@ public:
 	}
 	static void BtnPlay(){
 		m_LastMapUsed = ((CSlideShow*)m_MenuNewGame->getElement("SSMap"))->getCurrentSlideId();
-		m_Game = new CGame(TabMap[m_LastMapUsed], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture(), m_Gestionaire->GetFont("FontWorm")), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire);
+		m_Game = new CGame(TabMap[m_LastMapUsed], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture(), m_Gestionaire->GetFont("FontWorm")), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire, m_MenuWeapons);
 		m_MenuNewGame->DeActivateMenu();
 		m_Game->Activate();
 		m_boInMenu = false;
@@ -474,7 +479,7 @@ public:
 		m_Game->DeActivate();
 		delete m_Game;
 		m_Game = nullptr;
-		m_Game = new CGame(TabMap[m_LastMapUsed], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture(), m_Gestionaire->GetFont("FontWorm")), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire);
+		m_Game = new CGame(TabMap[m_LastMapUsed], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture(), m_Gestionaire->GetFont("FontWorm")), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire,m_MenuWeapons);
 		m_MenuPause->DeActivateMenu();
 		m_Game->Activate();
 		m_boInMenu = false;
