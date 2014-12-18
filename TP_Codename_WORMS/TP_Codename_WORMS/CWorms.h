@@ -180,7 +180,7 @@ public:
 #elif defined (_WIN32)
 		strPath.append("\\");
 #endif
-		string FileName[33] = {
+		string FileName[34] = {
 			"Arpegius.ttf",
 			"Btn1.png",
 			"BtnL.png",
@@ -213,12 +213,12 @@ public:
 			"SpriteWpnGND.png",
 			"SpriteWpnKNF.png",
 			"BazoukaDroite.png",
-			"Missile.png".
+			"Missile.png",
 			"Caisse.png"
 
 		};
-		string strFilePath[33];
-		for (int i = 0; i < 33; i++){
+		string strFilePath[34];
+		for (int i = 0; i < 34; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
