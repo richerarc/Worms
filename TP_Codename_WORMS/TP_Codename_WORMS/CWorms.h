@@ -202,8 +202,8 @@ public:
 			"SpriteWpnJP.png",
 			"SpriteWpnBZK.png",
 			"SpriteWpnGND.png",
-			"SpriteWpnKNF.png"
-			"BazoukaDroite.png"
+			"SpriteWpnKNF.png",
+			"BazoukaDroite.png",
 			"Missile.png"
 
 		};
@@ -411,7 +411,6 @@ public:
 		//
 		// Initialisation du menu Weapons
 		//
-		m_MenuWeapons->AddElement(new CLabelImage("LblImgMenuWpn", "", m_Gestionaire->GetFont("FontMenu"), { WIDTH - 300, HEIGHT - 400, 300, 400 }, m_Gestionaire->GetTexture("MenuWeapons")->GetTexture()), WIDTH - 100, HEIGHT - 100, 100, 100);
 		m_MenuWeapons->AddElement(new CButton("btnWpnJP", "", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnJP")), 0, 0, 50, 50);
 		m_MenuWeapons->AddElement(new CButton("btnWpnBZK", "", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnBZK")), 50, 0, 50, 50);
 		m_MenuWeapons->AddElement(new CButton("btnWpnGND", "", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnGND")), 0, 50, 50, 50);
