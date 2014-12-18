@@ -116,8 +116,10 @@ public:
 			m_pListeTeam->AllerA((uitemp + 1) % m_uiNbOfPlayingTeams);
 			m_pListeTeam->ObtenirElement()->setFocus(true);
 			m_uiTeamTurn++;
-			if (ActiveWorm != nullptr)
+			if ((ActiveWorm != nullptr) && (ActiveWorm->getWormState() == Dead)){
 				delete ActiveWorm;
+				ActiveWorm = nullptr;
+			}
 			ActiveWorm = m_pListeTeam->ObtenirElement()->getPlayingWorm();
 		}
 		CPhysics::RedefineWind();
@@ -182,39 +184,39 @@ public:
 	}
 	
 	/*!
-	@method HandleEvent
-	@brief Gère les events SDL
-	@param _Event: Event SDL.
-	@return Aucun
-	@discussion None.
-	*/
+	 @method HandleEvent
+	 @brief Gère les events SDL
+	 @param _Event: Event SDL.
+	 @return Aucun
+	 @discussion None.
+	 */
 	void HandleEvent(SDL_Event _Event){
 		if (!m_boPause){
-
+			
 			switch (_Event.type)
 			{
-			case SDL_MOUSEBUTTONDOWN:
-				if (_Event.button.button == SDL_BUTTON_LEFT){
-
-				}
-				break;
-
-
-			case SDL_KEYDOWN:
-				switch (_Event.key.keysym.scancode) 
-				{
-				case SDL_SCANCODE_ESCAPE:
-						PauseGame();
+				case SDL_MOUSEBUTTONDOWN:
+					if (_Event.button.button == SDL_BUTTON_LEFT){
+						
+					}
 					break;
-				case SDL_SCANCODE_T:
-							NextTurn();
+					
+					
+				case SDL_KEYDOWN:
+					switch (_Event.key.keysym.scancode)
+				{
+					case SDL_SCANCODE_ESCAPE:
+						PauseGame();
+						break;
+					case SDL_SCANCODE_T:
+						NextTurn();
 						break;
 				}
-				break;
-			case SDL_KEYUP:
-				break;
+					break;
+				case SDL_KEYUP:
+					break;
 			}
-
+			
 			if (m_pListeTeam != nullptr){
 				m_pListeTeam->AllerDebut();
 				for (int i(0); i < m_pListeTeam->Count(); i++){

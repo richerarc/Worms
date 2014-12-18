@@ -59,7 +59,7 @@ public:
 	@brief Change le focus des Worms pour le tour suivant.
 	*/
 	void NextTurn(){
-		if (m_pListWorm->Count()){
+		if (m_pListWorm->Count() > 1){
 			unsigned int temp = (m_uiWormTurn) % m_uiNbOfWorm;
 			m_pListWorm->AllerA(temp);
 			if (m_pListWorm->ObtenirElement()->isFocused()){
