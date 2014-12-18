@@ -120,6 +120,7 @@ public:
 				delete ActiveWorm;
 			ActiveWorm = m_pListeTeam->ObtenirElement()->getPlayingWorm();
 		}
+		CPhysics::RedefineWind();
 	}
 
 	/*!
