@@ -116,7 +116,8 @@ public:
 			m_pListeTeam->AllerA((uitemp + 1) % m_uiNbOfPlayingTeams);
 			m_pListeTeam->ObtenirElement()->setFocus(true);
 			m_uiTeamTurn++;
-			delete ActiveWorm;
+			if (ActiveWorm != nullptr)
+				delete ActiveWorm;
 			ActiveWorm = m_pListeTeam->ObtenirElement()->getPlayingWorm();
 		}
 	}
@@ -224,16 +225,6 @@ public:
 						m_pListeTeam->AllerSuivant();
 				}
 			}
-			if (_Event.key.keysym.sym == SDLK_1 && ActiveWorm != nullptr){
-				Jetpack = new CJetPack(ActiveWorm);
-			}
-			if (Jetpack != nullptr)
-				Jetpack->HandleEvent(_Event);
-			if (_Event.key.keysym.sym == SDLK_2 && ActiveWorm != nullptr){
-				Bazouka = new CBazouka(m_Gestionaire->GetTexture("bazouka")->GetTexture(), m_Gestionaire->GetTexture("missile")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("BigEx"), 48, m_pMap), ActiveWorm);
-			}
-			if (Bazouka != nullptr)
-				Bazouka->HandleEvent(_Event);
 		}
 	}
 
