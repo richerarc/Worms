@@ -93,32 +93,36 @@ public:
 				// Event In-Game.
 				if ((m_Game != nullptr) && m_Game->inGame()){
 					m_Game->HandleEvent(*m_pEvent);
-					switch (m_pEvent->key.keysym.scancode)
+					switch (m_pEvent->type)
 					{
-					case SDL_SCANCODE_ESCAPE:
-						if (!m_MenuPause->IsActive()){
-							m_MenuPause->ActivateMenu();
-							m_boInMenu = true;
-						}
-						break;
-					case SDL_SCANCODE_M:
-						if (!m_MenuWeapons->IsActive()){
-							m_MenuWeapons->ActivateMenu();
-							m_boInMenu = true;
-						}
-						else
-						{
-							m_MenuWeapons->DeActivateMenu();
-							m_boInMenu = false;
-						}
-						break;
-					case SDL_SCANCODE_F:
-						m_boFPS = true;
-						break;
-					case SDL_SCANCODE_G:
-						m_boFPS = false;
-						break;
+						case SDL_KEYUP:
+							switch (m_pEvent->key.keysym.scancode) {
+								case SDL_SCANCODE_ESCAPE:
+									if (!m_MenuPause->IsActive()){
+										m_MenuPause->ActivateMenu();
+										m_boInMenu = true;
+									}
+									else{
+										m_MenuPause->DeActivateMenu();
+										m_boInMenu = false;
+									}
+									break;
+								case SDL_SCANCODE_M:
+									if (!m_MenuWeapons->IsActive()){
+										m_MenuWeapons->ActivateMenu();
+										m_boInMenu = true;
+									}
+									else{
+										m_MenuWeapons->DeActivateMenu();
+										m_boInMenu = false;
+									}
+									break;
+								case SDL_SCANCODE_F:
+									m_boFPS = !m_boFPS;
+									break;
+							}
 					}
+					break;
 				}
 			}
 			if (m_Game != nullptr)
