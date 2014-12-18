@@ -24,6 +24,7 @@ private:
 	bool m_boPause;							// Indique si le jeu est en pause.
 	CTimer* TurnTimer;						// Indique le temps d'un tour.
 	CTimer* DropperTimer;					// Indique le Temps avant de faire tomber les worms.
+	CMenu* m_MenuArme;
 	CWorm * ActiveWorm;
 	CJetPack * Jetpack;
 	CBazouka* Bazouka;
@@ -53,8 +54,9 @@ public:
 	 			Une grande explosion : new CExplosion(m_Gestionaire->GetTexture("BigEx"), 48, _Map);
 	 			Une petite explosion : new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 25, _Map);
 	*/
-	CGame(CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer, int _NbOfTeam, int _NbOfWormPerTeam, CGestionnaireRessources* _Gestionaire){
+	CGame(CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer, int _NbOfTeam, int _NbOfWormPerTeam, CGestionnaireRessources* _Gestionaire, CMenu* _MenuArme){
 		TurnTimer = new CTimer();
+		m_MenuArme = _MenuArme;
 		boBegin = false;
 		DropperTimer = new CTimer();
 		m_uiNbOfPlayingTeams = _NbOfTeam;
