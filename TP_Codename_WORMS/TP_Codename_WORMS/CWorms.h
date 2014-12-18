@@ -47,14 +47,14 @@
 class CWorms {
 private:
 	static CWindow* m_pWindow;						// Fenêtre principale de l'application.
+	static bool m_boRun;							// Indique si le jeu est en terminé ou non.
 	static CMenu* m_MenuPrincipal;					// Menu principal du jeu
 	static CMenu* m_MenuNewGame;					// Menu Nouvelle partie
 	static CMenu* m_MenuPause;						// Menu Pause
 	static CMenu* m_MenuWeapons;					// Menu des Armes.
+	static bool m_boInMenu;							// Indique si on se trouve dans un menu.
 	static CGame* m_Game;							// Jeux Principal
 	static SDL_Event* m_pEvent;						// Event SDL
-	static bool m_boRun;							// Indique si le jeu est en terminé ou non.
-	static bool m_boInMenu;							// Indique si on se trouve dans un menu.
 	static CGestionnaireRessources* m_Gestionaire;	// Gestionnaire de Resource pour le Worms
 	static CMap* TabMap[5];
 	static fstream* m_SaveFile;
@@ -494,13 +494,13 @@ public:
 };
 
 // Initialisation des données membre statique
+bool CWorms::m_boInMenu = true;
 CWindow* CWorms::m_pWindow = nullptr;
 CMenu* CWorms::m_MenuPrincipal = nullptr;
 CMenu* CWorms::m_MenuNewGame = nullptr;
 CMenu* CWorms::m_MenuPause = nullptr;
 CMenu* CWorms::m_MenuWeapons = nullptr;
 CGame* CWorms::m_Game = nullptr;
-bool CWorms::m_boInMenu = true;
 SDL_Event* CWorms::m_pEvent = nullptr;
 CGestionnaireRessources* CWorms::m_Gestionaire = nullptr;
 bool CWorms::m_boRun = true;
