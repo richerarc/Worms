@@ -18,7 +18,6 @@ private:
 	bool boBarreGaz;			// Booléen pour vérifier si la barre de lancement sera afficher
 	double m_iAngle;			// L'angle d'orientation du vecteur de déplacement
 	double m_iNorme;			// La norme du vecteur de déplacement
-	C2DVector* m_pVecteur;		// Le pointeur de vecteur de déplacement
 	CTimer* m_pTimer;			// Une minuterie pour décrémenter le power à tous les "x" secondes
 	CWorm * Worm;
 	bool m_boInUse;
@@ -41,7 +40,6 @@ public:
 		m_pBarreGaz->setPowerLevel(100);
 		m_iAngle = 0;
 		m_iNorme = 20;
-		m_pVecteur = nullptr;
 		boBarreGaz = false;
 		m_pTimer = new CTimer();
 		m_pTimer->SetTimer(100);
@@ -98,7 +96,6 @@ public:
 		switch (_Event.type) {
 		case SDL_KEYDOWN:
 			switch (_Event.key.keysym.sym){
-				int right, left, up;
 			case SDLK_UP:
 				if (!boGaz){
 					C2DVector * Vector = new C2DVector(0,0,0.,1.);
