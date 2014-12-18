@@ -187,9 +187,11 @@ public:
 		if (!m_boPause){
 			switch (_Event.type)
 			{
-			case SDL_MOUSEBUTTONDOWN:
+			case SDL_MOUSEBUTTONUP:
 				if (_Event.button.button == SDL_BUTTON_LEFT){
-
+					if (m_MenuWeapons->IsActive()){
+						m_MenuWeapons->DeActivateMenu();
+					}
 				}
 				break;
 			case SDL_KEYDOWN:
