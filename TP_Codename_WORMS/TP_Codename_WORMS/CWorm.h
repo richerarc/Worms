@@ -141,6 +141,12 @@ public:
 			m_EntityState = Dead;
 			m_iLife = 0;
 		}
+		if (((m_EntityState == JumpLeft) || (m_EntityState == JumpRight)) && (m_pSprite->getNbrOfLoop() != 2)){
+			m_pSprite->setNbLoop(2);
+		}
+		else{
+			m_pSprite->setNbLoop(-1);
+		}
 
 		if (m_iLife){
 			m_lblNom->Draw(_Renderer);

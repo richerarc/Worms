@@ -147,5 +147,7 @@ public:
 	int getY(){ return m_rDest.y; }
 
 	SDL_Rect getRectSource(){ return m_rSource; }
+	
+	unsigned int getNbrOfLoop(){return m_uinbLoop;}
 
 };
