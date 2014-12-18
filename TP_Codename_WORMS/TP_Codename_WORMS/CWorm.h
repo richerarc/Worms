@@ -250,8 +250,9 @@ public:
 	void Move(){
 		float ftemp = 0;
 		double dbl = 0;
+		SDL_Rect RectCollision;
 		if (m_EntityState != Largage){
-			SDL_Rect RectCollision = { m_RectPosition.x,  m_RectPosition.y + m_RectPosition.h/2, m_RectPosition.w, m_RectPosition.h };
+			RectCollision = { m_RectPosition.x,  m_RectPosition.y + m_RectPosition.h/2, m_RectPosition.w, m_RectPosition.h };
 			ftemp = CPhysics::EvaluateSlope(RectCollision);
 		    dbl =RadToDeg(ftemp);
 		}
@@ -319,7 +320,19 @@ public:
 				}
 				break;
 			case MotionRight:
-				
+
+				//SI ON MONTE
+				if (dbl < 0){
+					RectCollision = { m_RectPosition.x + m_RectPosition.w, m_RectPosition.y, m_RectPosition.w, m_RectPosition.h };
+					ftemp = RadToDeg(CPhysics::EvaluateSlope(RectCollision));
+					//Si l'angle maximum est atteint alors on tomble forcément bloqué.
+					if (ftemp < -60){
+						if (CPhysics::Move(&m_RectPosition, RIGHT) == MOVING){
+							CPhysics::HandleGroundCollision(&m_RectPosition, CEILINGRIGHT);
+							setPosXY(m_RectPosition.x, m_RectPosition.y);
+						}
+					}
+				}
 					// TODO Ajuster la largeur du rect pour la slope
 				ftemp = CPhysics::EvaluateSlope({m_RectPosition.x + m_RectPosition.w - (m_RectPosition.h / 8), m_RectPosition.y + (3 * m_RectPosition.h / 4), m_RectPosition.h / 4, m_RectPosition.h / 4});
 				if (ftemp <= 0){

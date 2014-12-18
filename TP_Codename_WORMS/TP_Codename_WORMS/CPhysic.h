@@ -135,16 +135,6 @@ public:
 	 @brief V�rifie si deux rect se touche
 	 @param _Collider: Le rect en mouvement
 	 @param _Collidee: Le rect immobile .
-	 @return NOCONTACT : Le rectangle ne touche � rien
-	 @return GROUND : Le rectangle touche au sol
-	 @return LEFT : Le rectangle touche le terrain � gauche
-	 @return RIGHT : Le rectangle touche le terrain � droite
-	 @return CEILING : Le rectangle touche le plafond
-	 @return GROUNDLEFT : Le rectangle touche le sol et la gauche
-	 @return GROUNDRIGHT : Le rectangle touche le sol et la droite
-	 @return CEILINGLEFT : Le rectangle touche le plafond et la gauche
-	 @return CEILINGRIGHT : Le rectangle touche le plafond et la droite
-	 @return GROUNDCEILING : Le rectangle touche au plafond et au sol
 	 @discussion Aucune.
 	 */
 	static CPosition* verifyGroundCollision(SDL_Rect _Rect){
@@ -496,7 +486,7 @@ public:
 	 @method Move
 	 @brief  Fonction qui ajuste la position suite � un mouvement sans acc�l�ration
 	 @param _Rect : Rectangle se d�pla�ant
-	 @param _Direction : Bool de la direction emprunt�e (true = gauche, false = droite))
+	 @param _Direction : int de la direction emprunt�e.
 	 @return BLOCKED: Si l'entit� est pogn�e
 	 @return MOVING: Si l'entit� peut continuer
 	 @discussion Ne d�place actuellement que d'un pixel sur l'axe X, � changer si voulu La hauteur (en pixels) d'une pente "escaladable" en y sera � d�terminer (actuellement 3 pixels)
