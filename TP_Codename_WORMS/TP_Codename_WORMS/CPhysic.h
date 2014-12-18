@@ -16,6 +16,7 @@
 #define UP_DOWNRIGHT 13
 #define DOWN_UPLEFT 14
 #define UP_DOWNLEFT 15
+#define NOANGLE 0x11111111
 
 
 class CPhysics{
@@ -433,6 +434,8 @@ public:
 				}
 			}
 		}
+		if (!(PointsSignificatifs - 1))
+			return NOANGLE;
 		double Angle = atan(Slope / (PointsSignificatifs - 1));
 		return Angle;
 	}

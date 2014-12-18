@@ -362,10 +362,9 @@ public:
 			}
 			break;
 		case MotionLeft:
-
 			//Si on Monte
 			if (dbl >= 0){
-				RectCollision = { m_RectPosition.x - m_RectPosition.w / 2, m_RectPosition.y + m_RectPosition.h / 4 * 3, m_RectPosition.w / 2, m_RectPosition.h / 2 };
+				RectCollision = { m_RectPosition.x - m_RectPosition.w / 2, m_RectPosition.y + m_RectPosition.h / 4 * 3, m_RectPosition.w / 2+5, m_RectPosition.h / 2 };
 				ftemp = RadToDeg(CPhysics::EvaluateSlope(RectCollision)); SDL_RenderDrawRect(_renderer, &RectCollision);
 				if (ftemp > 60){
 					break;
@@ -393,7 +392,6 @@ public:
 					}
 				}
 			}
-
 			break;
 		case ChuteRight:
 			if (m_Trajectoire == nullptr){
