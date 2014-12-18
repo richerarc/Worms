@@ -492,7 +492,6 @@ public:
 		m_MenuPause->DeActivateMenu();
 		m_Game->ResumeGame();
 	}
-
 };
 
 // Initialisation des données membre statique
