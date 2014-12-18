@@ -9,6 +9,27 @@
 @class CGame.h
 @discussion Classe qui représente une partie.
 */
+
+enum Tools{ Knife = 42, JetPack = 51, Bazooka = 69, Grenade = 666 };
+
+unsigned int uiCurrentTool;
+
+static void BtnWpnJP(){
+	uiCurrentTool = JetPack;
+}
+
+static void BtnWpnBZK(){
+	uiCurrentTool = Bazooka;
+}
+
+static void BtnWpnGND(){
+	uiCurrentTool = Grenade;
+}
+
+static void BtnWpnKNF(){
+	uiCurrentTool = Knife;
+}
+
 class CGame{
 private:
 	Uint8 m_uiTeamTurn;						// Indique a quelle équipe de jouer.
@@ -24,19 +45,12 @@ private:
 	bool m_boPause;							// Indique si le jeu est en pause.
 	CTimer* TurnTimer;						// Indique le temps d'un tour.
 	CTimer* DropperTimer;					// Indique le Temps avant de faire tomber les worms.
-	CMenu* m_MenuArme;
+	CMenu* m_MenuWeapons;
 	CWorm * ActiveWorm;
 	CJetPack * Jetpack;
 	CBazouka* Bazouka;
 	bool boBegin;
-	/*
-	//Données test pour les explosions
-	
-	CExplosion* m_explode;
-	bool boEx;
 
-	*/
-	
 public:
 
 	/*!
@@ -45,18 +59,19 @@ public:
 	@param _Map : Le champ de battaile à jouer.
 	@param _Boussole : La boussole.
 	@param _Renderer: Le rendu de la fenetre.
-	@param _NbOfTeam : Combien d'équipe pour un partie. 
+	@param _NbOfTeam : Combien d'équipe pour un partie.
 	@param _NbOfWormPerTeam : Combien de Worm par équipe
 	@param  _Gestionaire : Gestionnaire de ressource
 	@return Adresse mémoire de l'objet.
 	@discussion Nuff said.
-	 			Pour crŽer:
-	 			Une grande explosion : new CExplosion(m_Gestionaire->GetTexture("BigEx"), 48, _Map);
-	 			Une petite explosion : new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 25, _Map);
 	*/
-	CGame(CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer, int _NbOfTeam, int _NbOfWormPerTeam, CGestionnaireRessources* _Gestionaire, CMenu* _MenuArme){
+	CGame(CMap* _Map, CBoussole* _Boussole, SDL_Renderer* _Renderer, int _NbOfTeam, int _NbOfWormPerTeam, CGestionnaireRessources* _Gestionaire, CMenu* _MenuWeapons){
 		TurnTimer = new CTimer();
-		m_MenuArme = _MenuArme;
+		m_MenuWeapons = _MenuWeapons;
+		m_MenuWeapons->getElement("btnWpnJP")->OnClickAction = BtnWpnJP;
+		m_MenuWeapons->getElement("btnWpnBZK")->OnClickAction = BtnWpnBZK;
+		m_MenuWeapons->getElement("btnWpnGND")->OnClickAction = BtnWpnGND;
+		m_MenuWeapons->getElement("btnWpnKNF")->OnClickAction = BtnWpnKNF;
 		boBegin = false;
 		DropperTimer = new CTimer();
 		m_uiNbOfPlayingTeams = _NbOfTeam;
@@ -77,16 +92,8 @@ public:
 		ActiveWorm = nullptr;
 		Jetpack = nullptr;
 		Bazouka = nullptr;
-
-		/*
-		//Tests pour les expolsions
-		
-		m_explode = new CExplosion(m_Gestionaire->GetSprite("smallex"), 25, _Map);
-		boEx = false;
-
-		*/
 	}
-	
+
 	/*!
 	@method Destructeur.
 	@brief Destroy.
@@ -135,7 +142,7 @@ public:
 		m_pMap->Draw(m_pRenderer);
 		double Wind = RadToDeg(CPhysics::GetWind()->getSDLOrientation());
 		m_pBoussole->setAngle(Wind);
-		m_pBoussole->setWindSpeed(CPhysics::GetWind()->getNorme()*1000);
+		m_pBoussole->setWindSpeed(CPhysics::GetWind()->getNorme() * 1000);
 		if (Bazouka != nullptr)
 			Bazouka->Render(m_pRenderer);
 		m_pBoussole->Draw(m_pRenderer);
@@ -158,33 +165,17 @@ public:
 					m_pListeObjets->AllerSuivant();
 				}
 			}
-			
 		}
 		if ((m_pListeTeam != nullptr) && (m_pListeTeam->Count())){
 			m_pListeTeam->AllerDebut();
-			
+
 			for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
 				m_pListeTeam->ObtenirElement()->draw(m_pRenderer);
 				m_pListeTeam->AllerSuivant();
 			}
-		}	
-
-		/*
-
-		//Tests pour les explosions
-
-		if (m_explode->IsDone()){ 
-			boEx = false;
-			m_explode->ExplodeMap(m_pRenderer);
 		}
-		if (boEx){
-			m_explode->startExplosion();
-			m_explode->Draw(m_pRenderer);
-		}
-	*/
-
 	}
-	
+
 	/*!
 	 @method HandleEvent
 	 @brief Gère les events SDL
@@ -194,35 +185,31 @@ public:
 	 */
 	void HandleEvent(SDL_Event _Event){
 		if (!m_boPause){
-			
 			switch (_Event.type)
 			{
-				case SDL_MOUSEBUTTONDOWN:
-					if (_Event.button.button == SDL_BUTTON_LEFT){
-						
-					}
-					break;
-					
-					
-				case SDL_KEYDOWN:
-					switch (_Event.key.keysym.scancode)
-				{
-					case SDL_SCANCODE_ESCAPE:
-						PauseGame();
-						break;
-					case SDL_SCANCODE_T:
-						NextTurn();
-						break;
+			case SDL_MOUSEBUTTONDOWN:
+				if (_Event.button.button == SDL_BUTTON_LEFT){
+
 				}
+				break;
+			case SDL_KEYDOWN:
+				switch (_Event.key.keysym.scancode)
+				{
+				case SDL_SCANCODE_ESCAPE:
+					PauseGame();
 					break;
-				case SDL_KEYUP:
+				case SDL_SCANCODE_T:
+					NextTurn();
 					break;
+				}
+				break;
+			case SDL_KEYUP:
+				break;
 			}
-			
 			if (m_pListeTeam != nullptr){
 				m_pListeTeam->AllerDebut();
 				for (int i(0); i < m_pListeTeam->Count(); i++){
-					if(m_pListeTeam->ObtenirElement()->IsFocused()){
+					if (m_pListeTeam->ObtenirElement()->IsFocused()){
 						m_pListeTeam->ObtenirElement()->HandleEvent(_Event);
 						break;
 					}
@@ -269,9 +256,9 @@ public:
 	@method MainGame
 	@brief Fonction des appels qui ne sont pas du titre du render, du tigger d'event et tout et tout.
 	@param Aucun.
-	 @return Aucun.
-	 @discussion None.
-	 */
+	@return Aucun.
+	@discussion None.
+	*/
 	void MainGame(){
 		if (boBegin){	// Si le jeu ˆ commencŽ
 			EnterrerLesMorts();
@@ -289,7 +276,7 @@ public:
 			}
 		}
 	}
-	
+
 	void EnterrerLesMorts(){
 		m_pListeTeam->AllerDebut();
 		for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
@@ -330,26 +317,15 @@ public:
 
 	CWorm* getActiveWorm(){ return ActiveWorm; }
 	Uint8 getNbOfPlayingTeams(){ return m_uiNbOfPlayingTeams; }
-	bool inGame(){return m_boInPlay;}
+	bool inGame(){ return m_boInPlay; }
 
-	void Activate(){m_boInPlay = true;}
-	void DeActivate(){m_boInPlay = false;}
-	void PauseGame(){ m_boPause = true;}
-	void ResumeGame(){ m_boPause = false;}
+	void Activate(){ m_boInPlay = true; }
+	void DeActivate(){ m_boInPlay = false; }
+	void PauseGame(){ m_boPause = true; }
+	void ResumeGame(){ m_boPause = false; }
 	void setNbOfPlayingTeams(Uint8 _NbOfTeams){ m_uiNbOfPlayingTeams = _NbOfTeams; }
 
-	static void BtnWpnJP(){
-		
-	}
-	static void BtnWpnBZK(){
-		
-	}
-	static void BtnWpnGND(){
-		
-	}
-	static void BtnWpnKNF(){
-		
-	}
+
 
 
 };

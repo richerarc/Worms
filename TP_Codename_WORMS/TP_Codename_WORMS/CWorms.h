@@ -424,10 +424,7 @@ public:
 		m_MenuWeapons->AddElement(new CButton("btnWpnBZK", "", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnBZK")), 50, 0, 50, 50);
 		m_MenuWeapons->AddElement(new CButton("btnWpnGND", "", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnGND")), 0, 50, 50, 50);
 		m_MenuWeapons->AddElement(new CButton("btnWpnKNF", "", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnKNF")), 50, 50, 50, 50);
-		m_MenuWeapons->getElement("btnWpnJP")->OnClickAction = BtnWpnJP;
-		m_MenuWeapons->getElement("btnWpnBZK")->OnClickAction = BtnWpnBZK;
-		m_MenuWeapons->getElement("btnWpnGND")->OnClickAction = BtnWpnGND;
-		m_MenuWeapons->getElement("btnWpnKNF")->OnClickAction = BtnWpnKNF;
+
 
 		m_MenuWeapons->setBackground(m_Gestionaire->GetTexture("MenuWeapons")->GetTexture());
 	}
