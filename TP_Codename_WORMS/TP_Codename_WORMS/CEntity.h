@@ -166,18 +166,11 @@ public:
 			}
 			
 			m_RectPosition.x = m_RectPosition.x + iDecalage;
-			//m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
-			C2DVector* TmpSpeed = new C2DVector(m_Trajectoire->GetActualSpeed()->getXDebut(),
-				m_Trajectoire->GetActualSpeed()->getYDebut(),
-				m_Trajectoire->GetActualSpeed()->getNorme() * cos(dStartSlope),
+			m_Trajectoire->GetActualSpeed()->setComposanteXY(m_Trajectoire->GetActualSpeed()->getNorme() * cos(dStartSlope),
 				m_Trajectoire->GetActualSpeed()->getNorme() * sin(dStartSlope));
-			m_Trajectoire->setActualSpeed(TmpSpeed);
-			m_Trajectoire->GetActualSpeed()->setOrientation(dStartSlope);
-			m_Trajectoire->SetInitSpeed(m_Trajectoire->GetActualSpeed()->getComposanteX()*1.,
-				m_Trajectoire->GetActualSpeed()->getComposanteY()*1.);
-			//m_Trajectoire->SetAcceleration(0.0, 0.0);
-			m_Trajectoire->AddAcceleration(m_Trajectoire->GetAcceleration());
-			m_Trajectoire->GetAcceleration()->setOrientation(dStartSlope);
+			m_Trajectoire->GetInitSpeed()->setOrientation(dStartSlope + M_PI);
+			m_Trajectoire->GetAcceleration()->setOrientation(dStartSlope + M_PI);
+			m_Trajectoire->GetAcceleration()->setNorme(m_Trajectoire->GetAcceleration()->getNorme()/1.1);
 		}
 		else{
 			for (int i = 0; i < m_RectPosition.w; i++){
@@ -191,20 +184,13 @@ public:
 			}
 			
 			m_RectPosition.x = m_RectPosition.x - iDecalage;
-			//m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
-			C2DVector* TmpSpeed = new C2DVector(m_RectPosition.x, m_RectPosition.x,
-				m_Trajectoire->GetActualSpeed()->getNorme() * cos(dStartSlope),
+			m_Trajectoire->GetActualSpeed()->setComposanteXY(m_Trajectoire->GetActualSpeed()->getNorme() * cos(dStartSlope),
 				m_Trajectoire->GetActualSpeed()->getNorme() * sin(dStartSlope));
-			m_Trajectoire->setActualSpeed(TmpSpeed);
-			m_Trajectoire->GetActualSpeed()->setOrientation(dStartSlope);
-			m_Trajectoire->SetInitSpeed(m_Trajectoire->GetActualSpeed()->getComposanteX()*1.0,
-				m_Trajectoire->GetActualSpeed()->getComposanteY()*1.0);
-			//m_Trajectoire->SetAcceleration(0.0, 0.0);
-			m_Trajectoire->AddAcceleration(m_Trajectoire->GetAcceleration());
+			m_Trajectoire->GetInitSpeed()->setOrientation(dStartSlope);
 			m_Trajectoire->GetAcceleration()->setOrientation(dStartSlope);
+			m_Trajectoire->GetAcceleration()->setNorme(m_Trajectoire->GetAcceleration()->getNorme()/1.1);
 		}
 		m_Trajectoire->SetActualPos(m_RectPosition.x, m_RectPosition.y);
-		//CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
 		test++;
 	}
 

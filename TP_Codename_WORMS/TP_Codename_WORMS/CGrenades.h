@@ -118,6 +118,7 @@ public:
 					if (boBouncing){
 						if (VerifySliding(Slope)){
 							UpdateSlidePosition();
+							//boBouncing = false;
 						}
 						else {
 							m_EntityState = Immobile;
