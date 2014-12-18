@@ -270,6 +270,7 @@ public:
 			ftemp = CPhysics::EvaluateSlope(RectCollision);
 			dbl = RadToDeg(ftemp);
 		}
+
 		double PotentialSlide = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
 		if (VerifySliding(PotentialSlide)){
 			if (PotentialSlide < 0)
