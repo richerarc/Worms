@@ -49,7 +49,8 @@ public:
 
 	}
 	
-	void setJetPack(){
+	void setJetPack(CWorm* _ActualWorm){
+		Worm = _ActualWorm;
 		m_RectJetPack.x = Worm->getPosition().x;
 		m_RectJetPack.y = Worm->getPosition().y;
 		m_pBarreGaz->SetPosition(m_RectJetPack.x, m_RectJetPack.y);
