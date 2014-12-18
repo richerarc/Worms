@@ -103,12 +103,7 @@ public:
 				m_Trajectoire->WipeOut();
 			break;
 		case Chute:
-			if (m_Trajectoire->GetRebonds() == 1){
-				char* tamere = "en short";
-			}
 			m_Trajectoire->UpdatePosition();
-			
-
 			CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
 			if (temp != nullptr)
 			{
@@ -118,17 +113,11 @@ public:
 					if (boBouncing){
 						if (VerifySliding(Slope)){
 							UpdateSlidePosition();
-							//boBouncing = false;
 						}
 						else {
 							m_EntityState = Immobile;
 							boBouncing = false;
 						}
-							//UpdateSlidePosition();
-						//}
-						//else{
-							//double Slope = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
-							//if (Slope < M_PI / 4 && Slope > 0 || Slope < -M_PI / 4 && Slope < 0){
 					}
 					else {
 						if (VerifySliding(Slope)){
