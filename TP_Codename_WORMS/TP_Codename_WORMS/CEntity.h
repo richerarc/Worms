@@ -131,12 +131,12 @@ public:
 		}
 		else {
 			if (_Angle > 0.0){
-				if (_Angle > M_PI/4){
+				if (_Angle > M_PI/3){
 					return true;
 				}
 			}
 			else{
-				if (_Angle < -M_PI / 4){
+				if (_Angle < -M_PI / 3){
 					return true;
 				}
 			}
