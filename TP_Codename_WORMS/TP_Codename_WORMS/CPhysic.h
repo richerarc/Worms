@@ -25,11 +25,11 @@ private:
 	static int m_MaxSpeed;				// La vitesse maximum
 	static int m_MaxWindSpeed;			// Le vent maximum
 	static SDL_Surface * m_Map;			// Le Cham de battaile ou la physique aura son effet.
-	
-	
-	
+
+
+
 public:
-	
+
 	/*!
 	 @method Init.
 	 @brief Initialise les données membres.
@@ -47,7 +47,7 @@ public:
 		m_MaxWindSpeed = _maxWind;
 		RedefineWind();
 	}
-	
+
 	/*!
 	 @method Annihilate.
 	 @brief Agit comme un destructeur, met tout a nullptr
@@ -61,7 +61,7 @@ public:
 		delete m_Wind;
 		m_Wind = nullptr;
 	}
-	
+
 	/*!
 	 @method RedefineWind
 	 @brief  Permet de changer aleatoirement la direction du vent.
@@ -76,7 +76,7 @@ public:
 		double angle = (rand() % 360);
 		m_Wind->setOrientation(DegToRad(angle));
 	}
-	
+
 	/*!
 	 @method Verify collision
 	 @brief Vérifie si deux rect se touche
@@ -94,42 +94,42 @@ public:
 		}
 		return false;
 	}
-	
-	
-	
+
+
+
 	static void HandleGroundCollision(SDL_Rect* _Rect, int _Direction){
 		switch (_Direction) {
-			case DOWN_UPLEFT:
-			case UP_DOWNRIGHT:
-			case GROUNDLEFT:
-			case CEILINGRIGHT:
-				for (int i = 0; i < _Rect->w; i++){
-					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] != TRANSPARENCY){
-						_Rect->y--;
-					}
-					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] == TRANSPARENCY){
-						_Rect->y++;
-					}
+		case UP_DOWNLEFT:
+		case DOWN_UPRIGHT:
+		case CEILINGLEFT:
+		case GROUNDRIGHT:
+			for (int i = 0; i < _Rect->w; i++){
+				while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] != TRANSPARENCY){
+					_Rect->y--;
 				}
-				break;
-			case UP_DOWNLEFT:
-			case DOWN_UPRIGHT:
-			case CEILINGLEFT:
-			case GROUNDRIGHT:
-				for (int i = _Rect->w; i > 0; i--){
-					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] != TRANSPARENCY){
-						_Rect->y--;
-					}
-					while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] == TRANSPARENCY){
-						_Rect->y++;
-					}
+				while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] == TRANSPARENCY){
+					_Rect->y++;
 				}
-				break;
+			}
+			break;
+		case DOWN_UPLEFT:
+		case UP_DOWNRIGHT:
+		case GROUNDLEFT:
+		case CEILINGRIGHT:
+			for (int i = _Rect->w; i > 0; i--){
+				while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] != TRANSPARENCY){
+					_Rect->y--;
+				}
+				while (((unsigned int*)m_Map->pixels)[(m_Map->w * (_Rect->y + _Rect->h)) + _Rect->x + i] == TRANSPARENCY){
+					_Rect->y++;
+				}
+			}
+			break;
 		}
 	}
-	
-	
-	
+
+
+
 	/*!
 	 @method VerifyGroudColision
 	 @brief Vérifie si deux rect se touche
@@ -147,7 +147,7 @@ public:
 		}
 		return nullptr;
 	}
-	
+
 	/*!
 	 @method VerifyNextPosition
 	 @brief Vérifie la position prochaine pour les collisions.
@@ -160,7 +160,7 @@ public:
 	 */
 	static CPosition* VerifyNextPosition(CTrajectory* _Trajectoire, SDL_Rect _EntityRect){
 		C2DVector* pVector = new C2DVector((int)_Trajectoire->GetActualPosition()->getX(), (int)_Trajectoire->GetActualPosition()->getY(), (int)_Trajectoire->getNextPos()->getX(), (int)_Trajectoire->getNextPos()->getY());
-			//BIG BANANA TRIP
+		//BIG BANANA TRIP
 		if (pVector->getNorme()){
 			CPosition* CollisionPosition = new CPosition(0.0, 0.0);
 			pVector->Normalize();
@@ -168,11 +168,11 @@ public:
 			dblX = pVector->getComposanteX() + pVector->getXStart();
 			dblY = pVector->getComposanteY() + pVector->getYStart();
 			int temp = 0;
-			
-				//x>0 y>0
+
+			//x>0 y>0
 			if (((pVector->getComposanteX()) > 0) && (pVector->getComposanteY() > 0)){
 				while ((pVector->getXEnd() >= pVector->getXStart()) &&
-					   (pVector->getYEnd() >= pVector->getYStart()))
+					(pVector->getYEnd() >= pVector->getYStart()))
 				{
 					for (int i = 0; i < _EntityRect.w; i++){
 						temp = (m_Map->w * ((int)dblY + _EntityRect.h)) + ((int)dblX + i);
@@ -188,7 +188,7 @@ public:
 					}
 					for (int i = 0; i < _EntityRect.h; i++){
 						temp = (m_Map->w * ((int)+i)) + ((int)dblX + _EntityRect.w);
-						if ( temp >= 0){
+						if (temp >= 0){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
@@ -203,11 +203,11 @@ public:
 					pVector->setDOUBLE_XY_START(dblX, dblY);
 				}
 			}
-			
-				//x<0 y>0
+
+			//x<0 y>0
 			if (((pVector->getComposanteX()) < 0) && (pVector->getComposanteY() > 0)){
 				while ((pVector->getXEnd() <= pVector->getXStart()) &&
-					   (pVector->getYEnd() >= pVector->getYStart()))
+					(pVector->getYEnd() >= pVector->getYStart()))
 				{
 					for (int i = 0; i < _EntityRect.w; i++){
 						temp = (m_Map->w * ((int)dblY + _EntityRect.h)) + ((int)dblX + i);
@@ -238,11 +238,11 @@ public:
 					pVector->setDOUBLE_XY_START(dblX, dblY);
 				}
 			}
-			
-				//x>0 y<0
+
+			//x>0 y<0
 			if (((pVector->getComposanteX()) > 0) && (pVector->getComposanteY() < 0)){
 				while ((pVector->getXEnd() >= pVector->getXStart()) &&
-					   (pVector->getYEnd() <= pVector->getYStart()))
+					(pVector->getYEnd() <= pVector->getYStart()))
 				{
 					for (int i = 0; i < _EntityRect.w; i++){
 						temp = (m_Map->w * ((int)dblY)) + ((int)dblX + i);
@@ -273,11 +273,11 @@ public:
 					pVector->setDOUBLE_XY_START(dblX, dblY);
 				}
 			}
-			
-				//x<0 y<0
+
+			//x<0 y<0
 			if (((pVector->getComposanteX()) < 0) && (pVector->getComposanteY() < 0)){
 				while ((pVector->getXEnd() <= pVector->getXStart()) &&
-					   (pVector->getYEnd() <= pVector->getYStart()))
+					(pVector->getYEnd() <= pVector->getYStart()))
 				{
 					for (int i = 0; i < _EntityRect.w; i++){
 						temp = (m_Map->w * ((int)dblY)) + ((int)dblX + i);
@@ -308,8 +308,8 @@ public:
 					pVector->setDOUBLE_XY_START(dblX, dblY);
 				}
 			}
-			
-				//x=0 y>0
+
+			//x=0 y>0
 			if (((pVector->getComposanteX()) == 0) && (pVector->getComposanteY() > 0)){
 				while (pVector->getYEnd() >= pVector->getYStart())
 				{
@@ -330,8 +330,8 @@ public:
 					pVector->setDOUBLE_XY_START(dblX, dblY);
 				}
 			}
-			
-				//x=0 y<0
+
+			//x=0 y<0
 			if (((pVector->getComposanteX()) == 0) && (pVector->getComposanteY() < 0)){
 				while (pVector->getYEnd() <= pVector->getYStart())
 				{
@@ -352,8 +352,8 @@ public:
 					pVector->setDOUBLE_XY_START(dblX, dblY);
 				}
 			}
-			
-				//x>0 y=0
+
+			//x>0 y=0
 			if (((pVector->getComposanteX()) > 0) && (pVector->getComposanteY() == 0)){
 				while (pVector->getXEnd() >= pVector->getXStart())
 				{
@@ -374,8 +374,8 @@ public:
 					pVector->setDOUBLE_XY_START(dblX, dblY);
 				}
 			}
-			
-				//x<0 y=0
+
+			//x<0 y=0
 			if (((pVector->getComposanteX()) < 0) && (pVector->getComposanteY() == 0)){
 				while (pVector->getXEnd() <= pVector->getXStart())
 				{
@@ -403,7 +403,7 @@ public:
 		delete pVector;
 		return nullptr;
 	}
-	
+
 	/*!
 	 @method Evaluate Slope
 	 @brief  Fonction qui retourne la pente (en degrés) é partir d'une section de la map
@@ -418,7 +418,7 @@ public:
 		double PointsSignificatifs = 0;
 		for (int x = _Rect.x; x < _Rect.x + _Rect.w; x++){
 			for (int y = _Rect.y; y < _Rect.y + _Rect.h; y++){
-				if (((unsigned int*)m_Map->pixels)[m_Map->w * (y)+x] >TRANSPARENCY){
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (y)+x] > TRANSPARENCY){
 					if (((unsigned int*)m_Map->pixels)[m_Map->w * (y + 1) + x] == 0
 						|| ((unsigned int*)m_Map->pixels)[m_Map->w * (y - 1) + x] == 0){
 						double TmpY = y;
@@ -436,7 +436,7 @@ public:
 		double Angle = atan(Slope / (PointsSignificatifs - 1));
 		return Angle;
 	}
-	
+
 	/*
 	 Method : VerifyIfSliding
 	 Brief : Fonction qui retourne la trajectoire d'une chose en train de glisser par rapport au terrain
@@ -452,7 +452,7 @@ public:
 		}
 		return (iNbrPixels < _Rect->w / 2);//On suppose qu'é 50% du rect en contact avec le sol, aucune glissade ne survient
 	}
-	
+
 	/*!
 	 @method Propulsion
 	 @brief  Retourne une trajectoire selon un vitesse de départ et un accélération
@@ -465,7 +465,7 @@ public:
 	static CTrajectory* Propulsion(CPosition* _PosInit, C2DVector* _Vit, C2DVector* _Acc){
 		return new CTrajectory(_PosInit, _Vit, *_Acc + m_Wind);
 	}
-	
+
 	/*!
 	 @method Slide
 	 @brief  Fonction qui fait glisser si la pente est trop grande
@@ -474,14 +474,14 @@ public:
 	 */
 	/*static CTrajectory * Slide(CEntity* _Entity){
 		SDL_Rect* TmpRect = new SDL_Rect({ _Entity->getPosition().x, _Entity->getPosition().y + _Entity->getPosition().h
-	 , 50, _Entity->getPosition().w }); //Le 50 est arbitraire because or reasons
+		, 50, _Entity->getPosition().w }); //Le 50 est arbitraire because or reasons
 		double AngleDePente = CPhysics::EvaluateSlope(TmpRect);
 		if (_Entity->getTrajectoire() != nullptr){
 		}
 		else{
 		}
-	 }*/
-	
+		}*/
+
 	/*!
 	 @method Move
 	 @brief  Fonction qui ajuste la position suite � un mouvement sans acc�l�ration
@@ -518,7 +518,7 @@ public:
 		}
 		return NULL;
 	}
-	
+
 	/*!
 	 @method Acesseurs
 	 @brief Servent a acceder/modifier aux données membres.
