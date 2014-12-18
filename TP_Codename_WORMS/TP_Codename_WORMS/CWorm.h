@@ -294,7 +294,8 @@ public:
 				setPosXY(temp->getX(), temp->getY());
 				delete temp;
 			}
-			
+			else
+				m_EntityState = Immobile;
 			break;
 		case SlideRight:
 			if (m_Trajectoire == nullptr){
@@ -307,6 +308,8 @@ public:
 				setPosXY(temp->getX(), temp->getY());
 				delete temp;
 			}
+			else
+				m_EntityState = Immobile;
 			break;
 		case JumpLeft:
 			if (m_Trajectoire == nullptr){
