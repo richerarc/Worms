@@ -8,7 +8,10 @@ public:
 	}
 
 	~CTexture(){
-		SDL_DestroyTexture(m_pTexture);
+		if (m_pTexture != nullptr){
+			SDL_DestroyTexture(m_pTexture);
+			m_pTexture = nullptr;
+		}
 	}
 
 	SDL_Texture* GetTexture(){

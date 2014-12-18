@@ -60,8 +60,10 @@ public:
 	}
 
 	~CSprite(){
-		delete m_pTimer;
-			//SDL_DestroyTexture(m_pTexture);
+		if (m_pTimer != nullptr){
+			delete m_pTimer;
+			m_pTimer = nullptr;
+		}
 	}
 
 	/*!

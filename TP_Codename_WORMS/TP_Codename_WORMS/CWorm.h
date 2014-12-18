@@ -27,7 +27,6 @@ private:
 	CSprite* m_pSprite;//Sprite du worm
 	CLabel* m_lblNom;
 	SDL_Rect m_BarredeVie;
-	C2DVector* m_Deplacement;
 	SDL_Color* m_TeamColor;
 	bool m_boDrawRect;
 public:
@@ -53,7 +52,6 @@ public:
 		m_BarredeVie.y = _RectPos.y;
 		m_lblNom = new CLabel("", m_strName.c_str(), _Font, SDL_Rect{ _RectPos.x, _RectPos.y - 18, 50, 10 });
 		m_EntityState = Largage;
-		m_Deplacement = new C2DVector(m_RectPosition.x, m_RectPosition.y, 0, 0);
 		m_boDrawRect = false;
 		m_pSprite->Start();
 
@@ -64,7 +62,14 @@ public:
 	@Permet de détruire les objets créés en mémoire
 	*/
 	~CWorm(){
-		delete m_pSprite;
+		if (m_pSprite != nullptr){
+			delete m_pSprite;
+			m_pSprite = nullptr;
+		}
+		if (m_lblNom != nullptr){
+			delete m_lblNom;
+			m_lblNom = nullptr;
+		}
 	}
 
 	/*!
@@ -134,6 +139,7 @@ public:
 			Move();
 		if (isOutOfBounds()){
 			m_EntityState = Dead;
+			m_iLife = 0;
 		}
 		
 		if(m_iLife){
@@ -191,7 +197,7 @@ public:
 			if (m_boDrawRect)
 				SDL_RenderDrawRect(_Renderer, &m_RectPosition);
 		}
-		else{
+		else if (m_EntityState != Dead){
 			if (m_pSprite->getCurrentAnimation() != 16){
 				m_pSprite->setCurrentAnimation(16);
 				m_pSprite->setNbLoop(0);

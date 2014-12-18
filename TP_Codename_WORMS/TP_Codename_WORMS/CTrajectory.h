@@ -39,11 +39,13 @@ public:
 	
 		//Destructeur...
 	~CTrajectory(){
-		if (m_StartPos){
+		if (m_StartPos != nullptr){
 			if (m_ActualPos == m_StartPos)
 				m_ActualPos = nullptr;
-			else
+			else{
 				delete m_ActualPos;
+				m_ActualPos = nullptr;
+			}
 			delete m_StartPos;
 		}
 		m_StartPos = nullptr;

@@ -23,7 +23,10 @@ public:
 	}
 
 	~CSound(){
-		Mix_FreeMusic(m_pSound);
+		if (m_pSound != nullptr){
+			Mix_FreeMusic(m_pSound);
+			m_pSound = nullptr;
+		}
 	}
 
 	/*!

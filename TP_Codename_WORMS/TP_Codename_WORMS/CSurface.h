@@ -8,7 +8,10 @@ public:
 	}
 
 	~CSurface(){
-		SDL_FreeSurface(m_pSurface);
+		if (m_pSurface != nullptr){
+			SDL_FreeSurface(m_pSurface);
+			m_pSurface = nullptr;
+		}
 	}
 
 	SDL_Surface* getSurface(){

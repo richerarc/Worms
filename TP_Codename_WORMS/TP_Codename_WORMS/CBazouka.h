@@ -71,7 +71,10 @@ public:
 	@Permet de détruire les objets créés en mémoire
 	*/
 	~CBazouka(){
-		delete m_PowerBar;
+		if (m_PowerBar != nullptr){
+			delete m_PowerBar;
+			m_PowerBar = nullptr;
+		}
 	}
 
 	/*!

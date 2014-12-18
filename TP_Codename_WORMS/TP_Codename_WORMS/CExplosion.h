@@ -38,7 +38,10 @@ public:
 	@brief Permet de détruire les objets créés en mémoire
 	*/
 	~CExplosion(){
-		delete m_pSprite;
+		if (m_pSprite != nullptr){
+			delete m_pSprite;
+			m_pSprite = nullptr;
+		}
 	}
 
 	/*!
@@ -88,7 +91,6 @@ public:
 	int getY(){	return m_RectDestination.y; }
 	int getRadius(){ return m_iRadius; }
 	CMap* getMap(){ return m_pMap; }
-	CSprite* getSprite(){ return m_pSprite; }
 
 	void setActiveMap(CMap* _Activemap){ m_pMap = _Activemap; }
 	void setPositionXY(int _iX, int _iY){

@@ -33,7 +33,10 @@ public:
 	@discussion He is dead.
 	*/
 	~CGrenades(){
-		delete m_pTimer;
+		if (m_pTimer != nullptr){
+			delete m_pTimer;
+			m_pTimer = nullptr;
+		}
 	}
 
 	/*!

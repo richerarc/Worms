@@ -30,8 +30,14 @@ public:
 	*/
 	~CFont(){
 		TTF_CloseFont(m_pFont);
-		SDL_DestroyTexture(m_pTexture);
-		SDL_FreeSurface(m_pSurface);
+		if (m_pTexture != nullptr){
+			SDL_DestroyTexture(m_pTexture);
+			m_pTexture = nullptr;
+		}
+		if (m_pSurface != nullptr){
+			SDL_FreeSurface(m_pSurface);
+			m_pSurface= nullptr;
+		}
 	}
 
 	/*!

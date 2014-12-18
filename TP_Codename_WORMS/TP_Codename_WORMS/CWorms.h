@@ -68,8 +68,14 @@ public:
 	static void Start(){
 		while (m_boRun) {
 			if ((m_Game != nullptr) && !m_Game->inGame() && !m_MenuNewGame->IsActive() && !m_MenuPause->IsActive() && !m_MenuPrincipal->IsActive()){
-				m_MenuNewGame->ActivateMenu();
+				const SDL_MessageBoxButtonData buttons[] = {{0, 0, "Let's play again" }};
+				const SDL_MessageBoxColorScheme colorScheme = {{{100, 100, 100}, {0, 0, 0}, {0, 0, 0}, {200, 200, 200}}};
+				const SDL_MessageBoxData messageboxdata = {SDL_MESSAGEBOX_INFORMATION,NULL,"Victory!!!!!!!!!!!", "a team made ​​Honor the Kiezer!", SDL_arraysize(buttons), buttons, &colorScheme};
+				SDL_ShowMessageBox(&messageboxdata, nullptr);
 				delete m_Game;
+				m_Game = nullptr;
+				m_MenuPrincipal->ActivateMenu();
+				m_boInMenu = true;
 			}
 			Render();
 			while (SDL_PollEvent(m_pEvent)) {

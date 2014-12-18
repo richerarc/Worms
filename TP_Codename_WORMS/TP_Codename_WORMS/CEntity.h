@@ -46,10 +46,14 @@ public:
 	@brief Permet de détruire les objets créés en mémoire
 	*/
 	~CEntity(){
-		if (m_Trajectoire)
+		if (m_Trajectoire != nullptr){
 			delete m_Trajectoire;
-		m_Trajectoire = nullptr;
-		delete m_pExplosion;
+			m_Trajectoire = nullptr;
+		}
+		if (m_pExplosion != nullptr){
+			delete m_pExplosion;
+			m_pExplosion = nullptr;
+		}
 	}
 
 	/*!

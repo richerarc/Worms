@@ -106,21 +106,19 @@ public:
 	@brief Change le focus des équipes pour le changement de tour.
 	*/
 	void NextTurn(){
-		m_pListeTeam->AllerDebut();
-		for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
-			if (!m_pListeTeam->Count()){
-				m_boInPlay = false;
+		if (m_boInPlay){
+			unsigned int uitemp = m_uiTeamTurn % m_uiNbOfPlayingTeams;
+			m_pListeTeam->AllerA(uitemp);
+			if (m_pListeTeam->ObtenirElement()->IsFocused()) {
+				m_pListeTeam->ObtenirElement()->NextTurn();
+				m_pListeTeam->ObtenirElement()->setFocus(false);
 			}
+			m_pListeTeam->AllerA((uitemp + 1) % m_uiNbOfPlayingTeams);
+			m_pListeTeam->ObtenirElement()->setFocus(true);
+			m_uiTeamTurn++;
+			delete ActiveWorm;
+			ActiveWorm = m_pListeTeam->ObtenirElement()->getPlayingWorm();
 		}
-		unsigned int uitemp = m_uiTeamTurn % m_uiNbOfPlayingTeams;
-		m_pListeTeam->AllerA(uitemp);
-		if (m_pListeTeam->ObtenirElement()->IsFocused()) {
-			m_pListeTeam->ObtenirElement()->NextTurn();
-			m_pListeTeam->ObtenirElement()->setFocus(false);
-		}
-		m_pListeTeam->AllerA((uitemp + 1) % m_uiNbOfPlayingTeams);
-		m_pListeTeam->ObtenirElement()->setFocus(true);
-		m_uiTeamTurn++;
 	}
 
 	/*!
@@ -265,7 +263,7 @@ public:
 				string temp("Team");
 				char buf[10];
 				temp.append(SDL_itoa(m_pListeObjets->Count() + 1, buf, 10));
-				m_pListeTeam->AjouterFin(new CTeam(temp, nullptr, m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontWorm"), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 25, m_pMap)));
+				m_pListeTeam->AjouterFin(new CTeam(temp, nullptr, m_Gestionaire->GetTexture("wormSprite")->GetTexture(), m_uiNbOfWormPerTeam, m_Gestionaire->GetFont("FontWorm"), m_Gestionaire->GetTexture("SmallEx"), m_pMap));
 				temp.pop_back();
 			}
 		}
@@ -286,10 +284,10 @@ public:
 	 */
 	void MainGame(){
 		if (boBegin){	// Si le jeu ˆ commencŽ
-			if (ActiveWorm->getWormState() == Dead){
+			EnterrerLesMorts();
+			if ((ActiveWorm->getWormState() == Dead) || (ActiveWorm->isOutOfBounds())){
 				NextTurn();
 			}
-			
 		}
 		else{	// sinon si il reste des truc ˆ spawn
 			if (DropperTimer->IsElapsed() && (m_pListeTeam->Count() < m_uiNbOfPlayingTeams)){
@@ -298,6 +296,23 @@ public:
 			}
 			else if (m_pListeTeam->Count() == m_uiNbOfPlayingTeams){
 				boBegin = true;
+			}
+		}
+	}
+	
+	void EnterrerLesMorts(){
+		m_pListeTeam->AllerDebut();
+		for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
+			if (m_pListeTeam->ObtenirElement()->isDefeated()){
+				m_pListeTeam->Retirer(true);
+				m_uiNbOfPlayingTeams--;
+				if (m_uiNbOfPlayingTeams <= 1){
+					m_boInPlay = false;
+				}
+				else{
+					m_pListeTeam->AllerPrecedent();
+					m_pListeTeam->ObtenirElement()->setFocus(true);
+				}
 			}
 		}
 	}
