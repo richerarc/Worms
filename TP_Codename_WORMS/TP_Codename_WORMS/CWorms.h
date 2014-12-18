@@ -277,8 +277,8 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("wormSprite", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[21].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("mine", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[17].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("grenade", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[25].c_str())));
-		m_Gestionaire->AjouterTexture(new CTexture("smallex", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[22].c_str())));
-		m_Gestionaire->AjouterTexture(new CTexture("bigex", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[23].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("SmallEx", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[22].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("BigEx", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[23].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("bazouka", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[31].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("missile", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[32].c_str())));
 

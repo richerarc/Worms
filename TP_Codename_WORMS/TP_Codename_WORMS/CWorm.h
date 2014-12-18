@@ -360,7 +360,7 @@ public:
 		case MotionRight:
 			//SI ON MONTE
 			if (dbl <= 0){
-				RectCollision = { m_RectPosition.x + m_RectPosition.w, m_RectPosition.y + m_RectPosition.h / 4 * 3, m_RectPosition.w / 2, m_RectPosition.h / 2 };
+				RectCollision = { m_RectPosition.x + m_RectPosition.w, m_RectPosition.y + m_RectPosition.h / 4 * 3, m_RectPosition.w / 2, m_RectPosition.h / 2-5 };
 				ftemp = RadToDeg(CPhysics::EvaluateSlope(RectCollision)); SDL_RenderDrawRect(_renderer, &RectCollision);
 				//Si l'angle maximum est atteint alors on tomble forcément bloqué.
 				if (ftemp < -60){
@@ -392,7 +392,7 @@ public:
 
 			//Si on Monte
 			if (dbl >= 0){
-				RectCollision = { m_RectPosition.x - m_RectPosition.w / 2, m_RectPosition.y + m_RectPosition.h / 4 * 3, m_RectPosition.w / 2, m_RectPosition.h / 2 };
+				RectCollision = { m_RectPosition.x - m_RectPosition.w / 2, m_RectPosition.y + m_RectPosition.h / 4 * 3, m_RectPosition.w / 2, m_RectPosition.h / 2+5 };
 				ftemp = RadToDeg(CPhysics::EvaluateSlope(RectCollision)); SDL_RenderDrawRect(_renderer, &RectCollision);
 				if (ftemp > 60){
 					break;
