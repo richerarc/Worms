@@ -199,12 +199,12 @@ public:
 
 
 			case SDL_KEYDOWN:
-				switch (_Event.key.keysym.sym) 
+				switch (_Event.key.keysym.scancode) 
 				{
-				case SDLK_ESCAPE:
+				case SDL_SCANCODE_ESCAPE:
 						PauseGame();
 					break;
-				case SDLK_t:
+				case SDL_SCANCODE_T:
 							NextTurn();
 						break;
 				}
@@ -213,12 +213,6 @@ public:
 				break;
 			}
 
-
-			switch (_Event.key.keysym.sym) {
-				case SDLK_ESCAPE:
-					PauseGame();
-					break;
-			}
 			if (m_pListeTeam != nullptr){
 				m_pListeTeam->AllerDebut();
 				for (int i(0); i < m_pListeTeam->Count(); i++){

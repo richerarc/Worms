@@ -93,24 +93,24 @@ public:
 				// Event In-Game.
 				if ((m_Game != nullptr) && m_Game->inGame()){
 					m_Game->HandleEvent(*m_pEvent);
-					switch (m_pEvent->key.keysym.sym)
+					switch (m_pEvent->key.keysym.scancode)
 					{
-					case SDLK_ESCAPE:
+					case SDL_SCANCODE_ESCAPE:
 						if (!m_MenuPause->IsActive()){
 							m_MenuPause->ActivateMenu();
 							m_boInMenu = true;
 						}
 						break;
-					case SDLK_m:
+					case SDL_SCANCODE_M:
 						if (!m_MenuWeapons->IsActive()){
 							m_MenuWeapons->ActivateMenu();
 							m_boInMenu = true;
 						}
 						break;
-					case SDLK_f:
+					case SDL_SCANCODE_F:
 						m_boFPS = true;
 						break;
-					case SDLK_g:
+					case SDL_SCANCODE_G:
 						m_boFPS = false;
 						break;
 					}
