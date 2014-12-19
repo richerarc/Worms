@@ -100,7 +100,8 @@ public:
 			case SDLK_UP:
 				if (!boGaz){
 					C2DVector * Vector = new C2DVector(0,0,0.,1.);
-					Worm->getTrajectoire()->AddAcceleration(Vector);
+					if (Worm->getTrajectoire() != nullptr)
+						Worm->getTrajectoire()->AddAcceleration(Vector);
 					delete Vector;
 					if ((Worm->getWormState() == NoMotionLeft) || (Worm->getWormState() == JetpackLeftNoFly))
 						Worm->setWormState(JetpackLeftFly);
@@ -112,7 +113,8 @@ public:
 				if (m_pBarreGaz.h <= 0){
 					boGaz = false;
 					C2DVector * Vector = new C2DVector(0, 0, 0., -1.);
-					Worm->getTrajectoire()->AddAcceleration(Vector);
+					if (Worm->getTrajectoire() != nullptr)
+						Worm->getTrajectoire()->AddAcceleration(Vector);
 					delete Vector;
 					if ((Worm->getWormState() == NoMotionLeft) || (Worm->getWormState() == JetpackLeftFly))
 						Worm->setWormState(JetpackLeftNoFly);
@@ -127,7 +129,8 @@ public:
 			case SDLK_LEFT:
 				if (!boGaz){
 					C2DVector * Vector = new C2DVector(0, 0, -1., 0.);
-					Worm->getTrajectoire()->AddAcceleration(Vector);
+					if (Worm->getTrajectoire() != nullptr)
+						Worm->getTrajectoire()->AddAcceleration(Vector);
 					delete Vector;
 					Worm->setWormState(JetpackLeftFly);
 				}
@@ -135,7 +138,8 @@ public:
 				if (m_pBarreGaz.h <= 0){
 					boGaz = false;
 					C2DVector * Vector = new C2DVector(0, 0, 1., 0.);
-					Worm->getTrajectoire()->AddAcceleration(Vector);
+					if (Worm->getTrajectoire() != nullptr)
+						Worm->getTrajectoire()->AddAcceleration(Vector);
 					delete Vector;
 					Worm->setWormState(JetpackLeftNoFly);
 				}
@@ -146,7 +150,8 @@ public:
 			case SDLK_RIGHT:
 				if (!boGaz){
 					C2DVector * Vector = new C2DVector(0, 0, 1., 0.);
-					Worm->getTrajectoire()->AddAcceleration(Vector);
+					if (Worm->getTrajectoire() != nullptr)
+						Worm->getTrajectoire()->AddAcceleration(Vector);
 					delete Vector;
 					Worm->setWormState(JetpackRightFly);
 				}
@@ -154,7 +159,8 @@ public:
 				if (m_pBarreGaz.h <= 0){
 					boGaz = false;
 					C2DVector * Vector = new C2DVector(0, 0, -1., 0.);
-					Worm->getTrajectoire()->AddAcceleration(Vector);
+					if (Worm->getTrajectoire() != nullptr)
+						Worm->getTrajectoire()->AddAcceleration(Vector);
 					delete Vector;
 					Worm->setWormState(JetpackRightNoFly);
 				}
