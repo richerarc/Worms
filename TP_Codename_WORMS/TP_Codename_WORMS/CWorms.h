@@ -35,6 +35,7 @@
 #include "CBoussole.h"
 #include "CPowerBar.h"
 #include "CBazouka.h"
+#include "CGrenadeLauncher.h"
 #include "CJetPack.h"
 #include "CGame.h"
 
@@ -179,7 +180,7 @@ public:
 #elif defined (_WIN32)
 		strPath.append("\\");
 #endif
-		string FileName[34] = {
+		string FileName[35] = {
 			"Arpegius.ttf",
 			"Btn1.png",
 			"BtnL.png",
@@ -213,11 +214,12 @@ public:
 			"SpriteWpnKNF.png",
 			"BazoukaDroite.png",
 			"Missile.png",
-			"Caisse.png"
+			"Caisse.png",
+			"lancepatatedroite.png"
 
 		};
-		string strFilePath[34];
-		for (int i = 0; i < 34; i++){
+		string strFilePath[35];
+		for (int i = 0; i < 35; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
@@ -280,8 +282,10 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("SmallEx", IMG_LoadTexture(m_pWindow->getRenderer(),strFilePath[22].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("BigEx", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[23].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("bazouka", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[31].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("grenadelauncher", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[34].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("missile", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[32].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("caisse", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[33].c_str())));
+
 
 		m_SaveFile->open(strFilePath[12].c_str());
 
