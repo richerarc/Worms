@@ -50,6 +50,8 @@ public:
 	virtual bool IsExploded(){return m_boIsexploded;}
 	virtual bool HasExploded(){return m_boHasExplosed;}
 	virtual void Detonate(){}
+	
+	CExplosion* getExplosion(){return m_pExplosion;}
 };
 
 #endif
