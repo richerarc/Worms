@@ -28,7 +28,7 @@ public:
 		m_TrajectoryTime = new CTimer();
 		m_StartPos = _StartPos;
 		m_InitSpeed = _Speed;
-		m_ActualSpeed = _Speed;
+		m_ActualSpeed = new C2DVector(_Speed->getXDebut(),_Speed->getYDebut(),_Speed->getComposanteX(),_Speed->getComposanteY());
 		m_Acceleration = _Acc;
 		m_ActualPos = new CPosition(m_StartPos->getX(),m_StartPos->getY());
 		m_NextPos = new CPosition(m_ActualPos->getX(), m_ActualPos->getY());
@@ -129,23 +129,24 @@ public:
 		double Slope1 = tan(_Slope);
 		double Slope2 = tan(m_ActualSpeed->getOrientation());
 		double AngleBetweenSlopes = atan((Slope1 - Slope2) / (1 + Slope1*Slope2));
-
 		m_boStop = false;
 		double tmpx = m_ActualSpeed->getComposanteX();
 		double tmpy = m_ActualSpeed->getComposanteY();
 		m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX() + m_Acceleration->getComposanteX()*m_TrajectoryTime->getElapsedTime(),
 			(m_InitSpeed->getComposanteY() + m_Acceleration->getComposanteY()*m_TrajectoryTime->getElapsedTime()));
-		//if (){
-		//m_InitSpeed->setComposanteXY(m_ActualSpeed->getComposanteX(), m_ActualSpeed->getComposanteY());
+
 		if (_Slope == 0.0){
 			m_InitSpeed->setComposanteXY(m_ActualSpeed->getComposanteX(), -m_ActualSpeed->getComposanteY());
-			m_InitSpeed->setOrientation(m_InitSpeed->getOrientation() - (M_PI - 2 * AngleBetweenSlopes));
 		}
 		else{
 			m_InitSpeed->setComposanteXY(m_ActualSpeed->getComposanteX(), m_ActualSpeed->getComposanteY());
-			m_InitSpeed->setOrientation(m_InitSpeed->getOrientation() - (M_PI - 2 * AngleBetweenSlopes));
-			m_InitSpeed->setComposanteXY(-m_InitSpeed->getComposanteX(), -m_InitSpeed->getComposanteY());
-			m_InitSpeed->setComposanteXY(m_InitSpeed->getComposanteX() / 1.9, m_InitSpeed->getComposanteY() / 1.9);
+			if (m_ActualSpeed->getComposanteX() < 0){
+				m_InitSpeed->setOrientation(m_InitSpeed->getOrientation()+5*M_PI/4);
+			}
+			else{
+				m_InitSpeed->setOrientation(M_PI + m_InitSpeed->getOrientation() + (M_PI / 4 - AngleBetweenSlopes));
+			}
+			m_InitSpeed->setComposanteXY(m_InitSpeed->getComposanteX() / 1.3, m_InitSpeed->getComposanteY() / 1.3);
 		}
 		unsigned int dTimeVariation = m_TrajectoryTime->getElapsedTime();
 		double DeltaT = 0.5 * dTimeVariation * dTimeVariation;
