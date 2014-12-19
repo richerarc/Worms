@@ -9,6 +9,7 @@
  @class CJetPack
  @discussion Classe permettant l'affichage et l'utilisation du JetPack
  */
+CTrajectory * Trajectory;
 class CJetPack{
 private:
 	//Données membres:
@@ -34,8 +35,8 @@ public:
 	*/
 	CJetPack(CWorm* _pWorm){
 		Worm = _pWorm;
-		m_RectJetPack = {0,0,0,0};
-		m_pBarreGaz = {0,0,5,50};
+		m_RectJetPack = { 0, 0, 0, 0 };
+		m_pBarreGaz = { 0, 0, 5, 50 };
 		m_iAngle = 0;
 		m_iNorme = 20;
 		boBarreGaz = false;
@@ -44,7 +45,7 @@ public:
 		boGaz = false;
 
 	}
-	
+
 	void setJetPack(CWorm* _ActualWorm){
 		Worm = _ActualWorm;
 		m_RectJetPack.x = Worm->getPosition().x;
@@ -90,45 +91,63 @@ public:
 	 @param _Event : Un SDL_Event pour traiter les evenement
 	 @return null
 	 */
-	void RefreshPosWorm(CWorm* _pWorm){
-		_pWorm->setPosXY(m_RectJetPack.x, m_RectJetPack.y);
+	void MoveWorm(){
+		Worm->getTrajectoire()->UpdatePosition();
 	}
+
 	void HandleEvent(SDL_Event _Event){
 		switch (_Event.type) {
 		case SDL_KEYDOWN:
 			switch (_Event.key.keysym.sym){
+
 			case SDLK_UP:
+				if (Worm != nullptr)
+					if(Trajectory == nullptr)Trajectory = new CTrajectory(new CPosition(Worm->getPosition().x, Worm->getPosition().y), new C2DVector(Worm->getPosition().x, Worm->getPosition().y, 0., 39.), new C2DVector(Worm->getPosition().x, Worm->getPosition().y, 0., 300.));
+
 				if (!boGaz){
-					C2DVector * Vector = new C2DVector(0,0,0.,10.);
+					C2DVector * Vector = new C2DVector(0, 0, 0., 10.);
 					if (Worm->getTrajectoire() != nullptr)
 						Worm->getTrajectoire()->AddAcceleration(Vector);
+					else
+						Worm->setTrajectory(Trajectory);
+					Worm->getTrajectoire()->UpdatePosition();
+
 					delete Vector;
+					//delete Trajectory;
 					if ((Worm->getWormState() == NoMotionLeft) || (Worm->getWormState() == JetpackLeftNoFly))
 						Worm->setWormState(JetpackLeftFly);
 					else if ((Worm->getWormState() == NoMotionRight) || (Worm->getWormState() == JetpackRightNoFly))
 						Worm->setWormState(JetpackRightFly);
 				}
-
-				Worm->setPosXY(Worm->getPosition().x, Worm->getPosition().y - 1);
-				m_pBarreGaz.y--;
+				Worm->setTrajectory(Trajectory);
 
 				boGaz = true;
+
 				if (m_pBarreGaz.h <= 0){
 					boGaz = false;
 					C2DVector * Vector = new C2DVector(0, 0, 0., -10.);
 					if (Worm->getTrajectoire() != nullptr)
 						Worm->getTrajectoire()->AddAcceleration(Vector);
+					else{
+
+					}
 					delete Vector;
+
 					if ((Worm->getWormState() == NoMotionLeft) || (Worm->getWormState() == JetpackLeftFly))
 						Worm->setWormState(JetpackLeftNoFly);
+
 					else if ((Worm->getWormState() == NoMotionRight) || (Worm->getWormState() == JetpackRightFly))
 						Worm->setWormState(JetpackRightNoFly);
 				}
+
 				else{
 					m_pBarreGaz.h--;
 				}
+
 				if (boGaz)
-				break;
+					break;
+
+
 			case SDLK_LEFT:
 				if (!boGaz){
 					C2DVector * Vector = new C2DVector(0, 0, -10., 0.);
@@ -199,15 +218,15 @@ public:
 
 	}
 
-	
+
 	void setInUse(bool _bo){
 		m_boInUse = _bo;
 	}
-	
+
 	bool isInUse(){
 		return m_boInUse;
 	}
-	
+
 	bool isLanded(){
 		return (!m_pBarreGaz.h);
 	}

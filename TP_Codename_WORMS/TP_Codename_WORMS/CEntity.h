@@ -150,6 +150,10 @@ public:
 	Params :
 	Return : Position de l'entité à ce moment
 	*/
+	void setTrajectory(CTrajectory* _Trajectoire){
+		m_Trajectoire = _Trajectoire;
+	}
+
 	void UpdateSlidePosition(){
 		double dStartSlope = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
 		bool boOnGround = false;

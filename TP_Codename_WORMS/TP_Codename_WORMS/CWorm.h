@@ -79,8 +79,8 @@ public:
 	 @ReactToExplosion
 	 @Permet de calculer les dommages subit par l'explosion
 	 */
-	void ReactToExplosion(int _iX, int _iY, int _Rayon){
-
+	void ReactToExplosion(CExplosion * _Explosion){
+		RecieveDamage(_Explosion, false);
 	}
 
 	/*!
