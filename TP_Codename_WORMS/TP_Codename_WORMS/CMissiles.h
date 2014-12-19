@@ -122,6 +122,9 @@ void setExplosion(bool _boSet){
 	m_boIsexploded = _boSet;
 }
 
+bool IsExploding(){
+	return m_boIsexploded;
+}
 
 };
 

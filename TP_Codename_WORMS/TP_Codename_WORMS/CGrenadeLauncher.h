@@ -215,7 +215,7 @@ public:
 						iPosYTampon++;
 					m_RectGrenade.x = iPosXTampon;
 					m_RectGrenade.y = iPosYTampon;
-					m_pGrenade = new CGrenades(m_RectGrenade, m_pTextureGrenade, m_pExplosion, CPhysics::Propulsion((new CPosition((double)m_RectGrenade.x, (double)m_RectGrenade.y)), (new C2DVector(m_RectGrenade.x, m_RectGrenade.y, 3 * m_PowerBar->getPower() *cos(DegToRad(iAngle)), 5 * m_PowerBar->getPower() * sin(DegToRad(iAngle)))), (new C2DVector(m_RectGrenade.x, m_RectGrenade.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity()))));
+					m_pGrenade = new CGrenades(m_RectGrenade, m_pTextureGrenade, m_pExplosion, CPhysics::Propulsion((new CPosition((double)m_RectGrenade.x, (double)m_RectGrenade.y)), (new C2DVector(m_RectGrenade.x, m_RectGrenade.y, -3 * (int)m_PowerBar->getPower() * cos(DegToRad(iAngle)), -5 * (int)m_PowerBar->getPower() * sin(DegToRad(iAngle)))), (new C2DVector(m_RectGrenade.x, m_RectGrenade.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity()))));
 					
 
 					}
@@ -230,7 +230,7 @@ public:
 						iPosYTampon++;
 					m_RectGrenade.x = iPosXTampon;
 					m_RectGrenade.y = iPosYTampon;
-					m_pGrenade = new CGrenades(m_RectGrenade, m_pTextureGrenade, m_pExplosion, CPhysics::Propulsion((new CPosition((double)m_RectGrenade.x, (double)m_RectGrenade.y)), (new C2DVector(m_RectGrenade.x, m_RectGrenade.y, -3 * m_PowerBar->getPower() * cos(DegToRad(iAngle)), -5 * m_PowerBar->getPower() * sin(DegToRad(iAngle)))), (new C2DVector(m_RectGrenade.x, m_RectGrenade.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity()))));
+					m_pGrenade = new CGrenades(m_RectGrenade, m_pTextureGrenade, m_pExplosion, CPhysics::Propulsion((new CPosition((double)m_RectGrenade.x, (double)m_RectGrenade.y)), (new C2DVector(m_RectGrenade.x, m_RectGrenade.y, 3 * (int)m_PowerBar->getPower() * cos(DegToRad(iAngle)), 5 * (int)m_PowerBar->getPower() * sin(DegToRad(iAngle)))), (new C2DVector(m_RectGrenade.x, m_RectGrenade.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity()))));
 				}
 				boHasLaunch = true;
 				

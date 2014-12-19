@@ -90,7 +90,7 @@ public:
 	//Power en pourcentage
 	unsigned int getPowerLevel(){
 		unsigned int temp = m_uiPower * 2;
-		m_uiPower = 0;
+//		m_uiPower = 0;
 		return temp;
 	}
 	//Power en entier

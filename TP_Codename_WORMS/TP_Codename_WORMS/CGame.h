@@ -109,7 +109,7 @@ public:
 		DropperTimer->Start();
 		ActiveWorm = nullptr;
 		m_pJetpack = new CJetPack(ActiveWorm);
-		m_pBazouka = new CBazouka(m_Gestionaire->GetTexture("bazouka")->GetTexture(), m_Gestionaire->GetTexture("missile")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("BigEx"), 40, m_pMap), ActiveWorm);
+		m_pBazouka = new CBazouka(m_Gestionaire->GetTexture("bazouka")->GetTexture(), m_Gestionaire->GetTexture("missile")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("BigEx"), 60, m_pMap), ActiveWorm);
 		m_pLauncher = new CGrenadeLauncher(m_Gestionaire->GetTexture("launcher")->GetTexture(), m_Gestionaire->GetTexture("grenade")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 40, m_pMap), ActiveWorm);
 	}
 
@@ -283,9 +283,7 @@ public:
 	void Spawn(){
 
 		if (m_pListeObjets->Count() < m_pMap->getMine()){
-				//m_pListeObjets->AjouterFin(new CGrenades({ ((rand() % (WIDTH - 10)) + 5), 5, 17, 25 }, m_Gestionaire->GetTexture("grenade")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 25, m_pMap)));
-			//m_pListeObjets->AjouterDebut(new CCaisses({((rand() % (WIDTH - 10)) + 5), 30, 30 }, m_Gestionaire->GetTexture("caisse")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 45, m_pMap)));
-			m_pListeObjets->AjouterFin(new CMines({ ((rand() % (WIDTH - 10)) + 5), 5, 12, 8 }, m_Gestionaire->GetTexture("mine")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 45, m_pMap)));
+			m_pListeObjets->AjouterFin(new CMines({ ((rand() % (WIDTH - 10)) + 5), 5, 12, 8 }, m_Gestionaire->GetTexture("mine")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 50, m_pMap)));
 		}
 
 		if (m_pListeObjets->Count() == m_pMap->getMine()){
@@ -419,7 +417,7 @@ public:
 	@discussion None.
 	*/
 	void VerifyGlobalExplosion(){
-		if (m_pBazouka != nullptr){
+		if ((m_pBazouka != nullptr) && (m_pBazouka->isInUse())){
 			if (m_pBazouka->MissileHasExploded()){
 				for (int j = 0; j < m_pListeObjets->Count(); j++){
 					m_pListeObjets->AllerA(j);
@@ -427,6 +425,10 @@ public:
 					if (m_pListeObjets->ObtenirElement()->IsExploded()){
 						CEntity::m_uiCurrentNbrOfEntityExplosed++;
 					}
+				}
+				for (int i = 0; i < m_pListeTeam->Count(); i++) {
+					m_pListeTeam->AllerA(i);
+					m_pListeTeam->ObtenirElement()->ReactToExplosion(m_pBazouka->getExplosion());
 				}
 				CEntity::m_uiTotalNbrOfEntityExplosed++;
 			}
@@ -443,6 +445,10 @@ public:
 						if (m_pListeObjets->ObtenirElement()->IsExploded()){
 							CEntity::m_uiCurrentNbrOfEntityExplosed++;
 						}
+					}
+					for (int i = 0; i < m_pListeTeam->Count(); i++) {
+						m_pListeTeam->AllerA(i);
+						m_pListeTeam->ObtenirElement()->ReactToExplosion(pTemp->getExplosion());
 					}
 					CEntity::m_uiTotalNbrOfEntityExplosed++;
 				}

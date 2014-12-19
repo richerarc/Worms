@@ -26,7 +26,9 @@ public:
 		m_pTimer->SetTimer(500);
 		boBouncing = false;
 		delete m_Trajectoire;
+		m_Trajectoire = nullptr;
 		m_Trajectoire = _Trajectory;
+		m_EntityState = Chute;
 	}
 
 	/*!
@@ -140,7 +142,7 @@ public:
 
 				m_RectPosition.y = temp->getY();
 				m_RectPosition.x = temp->getX();
-				delete temp;
+		//		delete temp;
 			}
 			else{
 				m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();

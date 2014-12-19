@@ -285,6 +285,13 @@ public:
 	bool MissileHasExploded(){
 		return boMissileIsExploded;
 	}
+	
+	bool MissileWillExplode(){
+		if (m_pMissile)
+			return m_pMissile->IsExploding();
+		return true;
+	}
+	
 	SDL_Rect MissilePos(){
 		return m_RectMissile;
 	}
@@ -313,6 +320,7 @@ public:
 	}
 	
 	bool MissileExplosing(){return m_pExplosion->HasStarted();}
+	CExplosion* getExplosion(){return m_pExplosion;}
 };
 
 #endif

@@ -37,6 +37,7 @@ public:
 	*/
 	void Draw(SDL_Renderer* _pRenderer){
 		if (!m_boIsexploded){
+			Move();
 			if ((!m_Angle) && (m_EntityState == Immobile))
 				m_Angle = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, m_RectPosition.h });
 			SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_RectPosition, RadToDeg(m_Angle), NULL, SDL_FLIP_NONE);
@@ -64,7 +65,6 @@ public:
 	*/
 	void HandleEvent(SDL_Event _Event){
 		m_boFocus = true;
-
 	}
 
 	/*!
@@ -82,14 +82,17 @@ public:
 			if (m_RectPosition.y >= _iY && !m_boIsexploded){
 				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((m_RectPosition.y - _iY), 2))) < _iRayon)
 					m_boIsexploded = true;
-				else if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((m_RectPosition.y + 30 - _iY), 2))) < _iRayon)
-					m_boIsexploded = true;
 			}
-
 			if (m_RectPosition.y <= _iY && !m_boIsexploded){
 				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((_iY - m_RectPosition.y), 2))) < _iRayon)
 					m_boIsexploded = true;
-				else if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((_iY - m_RectPosition.y + 30), 2))) < _iRayon)
+			}
+			if (m_RectPosition.y + 30 >= _iY && !m_boIsexploded){
+				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow(((m_RectPosition.y + 30) - _iY), 2))) < _iRayon)
+					m_boIsexploded = true;
+			}
+			if (m_RectPosition.y + 30 <= _iY && !m_boIsexploded){
+				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((_iY - (m_RectPosition.y + 30)), 2))) < _iRayon)
 					m_boIsexploded = true;
 			}
 
@@ -99,50 +102,22 @@ public:
 			if (m_RectPosition.y >= _iY && !m_boIsexploded){
 				if (sqrt((pow((_iX - m_RectPosition.x + 30), 2) + pow((m_RectPosition.y - _iY), 2))) < _iRayon)
 					m_boIsexploded = true;
-				else if (sqrt((pow((_iX - m_RectPosition.x + 30), 2) + pow((m_RectPosition.y + 30 - _iY), 2))) < _iRayon)
+			}
+			if (m_RectPosition.y <= _iY && !m_boIsexploded){
+				if (sqrt((pow((_iX - m_RectPosition.x + 30), 2) + pow((m_RectPosition.y + 30 - _iY), 2))) < _iRayon)
 					m_boIsexploded = true;
 			}
-
-			if (m_RectPosition.y <= _iY && !m_boIsexploded){
+			if (m_RectPosition.y + 30 >= _iY && !m_boIsexploded){
 				if (sqrt((pow((_iX - m_RectPosition.x + 30), 2) + pow((_iY - m_RectPosition.y), 2))) < _iRayon)
 					m_boIsexploded = true;
-				else if (sqrt((pow((_iX - m_RectPosition.x + 30), 2) + pow((_iY - m_RectPosition.y + 30), 2))) < _iRayon)
+			}
+			if (m_RectPosition.y + 30 <= _iY && !m_boIsexploded){
+				if (sqrt((pow((_iX - m_RectPosition.x + 30), 2) + pow((_iY - m_RectPosition.y + 30), 2))) < _iRayon)
 					m_boIsexploded = true;
 			}
 		}
 	}
-
-
-	void Move(){
-
-		switch (m_EntityState) {
-		case Immobile:
-			if (m_Trajectoire->GetInitSpeed())
-				m_Trajectoire->WipeOut();
-			break;
-		case Chute:
-			m_Trajectoire->UpdatePosition();
-
-			CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
-			if (temp != nullptr)
-			{
-				if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY()))
-					m_EntityState = Immobile;
-				else
-					m_EntityState = Chute;
-
-				m_RectPosition.y = temp->getY();
-				m_RectPosition.x = temp->getX();
-				delete temp;
-			}
-			else{
-				m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
-				m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
-			}
-			break;
-		}
-	}
-
+	
 	/*!
 	@method GiveLife
 	@brief Calculer le nombre de point de vie rendu au worm.

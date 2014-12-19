@@ -127,6 +127,18 @@ public:
 		return m_bodefeated;
 	}
 	
+	/*!
+	 @Méthode:
+	 @ReactToExplosion
+	 @Permet de calculer les dommages subit par l'explosion
+	 */
+	void ReactToExplosion(CExplosion * _Explosion){
+		for (int i = 0; i < m_pListWorm->Count(); i++){
+			m_pListWorm->AllerA(i);
+			m_pListWorm->ObtenirElement()->ReactToExplosion(_Explosion);
+		}
+	}
+	
 	void EnterrerLesMorts(){
 		if (!m_pListWorm->Count()){
 			m_bodefeated = true;
