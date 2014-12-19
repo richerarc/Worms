@@ -322,7 +322,9 @@ public:
 	void Move(SDL_Renderer* _renderer){
 		float ftemp = 0;
 		double dbl = 0;
+		int i = 0;
 		SDL_Rect RectCollision;
+		SDL_Rect RectTemp;
 		if (m_EntityState != Largage){
 			RectCollision = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h / 2, m_RectPosition.w, m_RectPosition.h };
 			ftemp = CPhysics::EvaluateSlope(RectCollision);
@@ -413,11 +415,12 @@ public:
 					{
 
 						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
-							m_EntityState = NoMotionLeft;
+							m_EntityState = ChuteLeft;
 							delete m_Trajectoire;
 							m_Trajectoire = nullptr;
+							i = 5;
 						}
-						setPosXY(temp->getX(), temp->getY());
+						setPosXY(temp->getX() + i, temp->getY());
 						delete temp;
 					}
 					else{
@@ -446,11 +449,12 @@ public:
 					if (temp != nullptr)
 					{
 						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
-							m_EntityState = NoMotionRight;
+							m_EntityState = ChuteRight;
 							delete m_Trajectoire;
 							m_Trajectoire = nullptr;
+							i = 5;
 						}
-						setPosXY(temp->getX(), temp->getY());
+						setPosXY(temp->getX() - i, temp->getY());
 						delete temp;
 					}
 					else{
@@ -543,51 +547,71 @@ public:
 
 			break;
 		case ChuteRight:
-			if (m_Trajectoire == nullptr){
-				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
-					new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.f, 0.f),
-					new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX() / 4, CPhysics::GetGravity() + CPhysics::GetWind()->getComposanteY() / 4));
-			}
-			else {
-				m_Trajectoire->UpdatePosition();
-				CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
-				if (temp != nullptr)
-				{
-					if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
-						m_EntityState = NoMotionRight;
-						delete m_Trajectoire;
-						m_Trajectoire = nullptr;
+			RectTemp = { m_RectPosition.x - 1, m_RectPosition.y + m_RectPosition.h + 1, m_RectPosition.w, 1 };
+			if (!CPhysics::verifyGroundCollision(RectTemp)){
+				if (m_Trajectoire == nullptr){
+					m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
+						new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.f, 0.f),
+						new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX() / 4, CPhysics::GetGravity() + CPhysics::GetWind()->getComposanteY() / 4));
+				}
+				else {
+					m_Trajectoire->UpdatePosition();
+					CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+					if (temp != nullptr)
+					{
+						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
+							m_EntityState = NoMotionRight;
+							delete m_Trajectoire;
+							m_Trajectoire = nullptr;
+						}
+						setPosXY(temp->getX(), temp->getY());
+						delete temp;
 					}
-					setPosXY(temp->getX(), temp->getY());
-					delete temp;
+					else{
+						setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
+					}
 				}
-				else{
-					setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
+			}
+			else{
+				if (m_Trajectoire != nullptr){ 
+					delete m_Trajectoire; 
+					m_Trajectoire = nullptr;
 				}
+					m_EntityState = NoMotionRight;
 			}
 			break;
 		case ChuteLeft:
-			if (m_Trajectoire == nullptr){
-				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
-					new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.f, 0.f),
-					new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX() / 4, CPhysics::GetGravity() + CPhysics::GetWind()->getComposanteY() / 4));
-			}
-			else {
-				m_Trajectoire->UpdatePosition();
-				CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
-				if (temp != nullptr)
-				{
-					if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
-						m_EntityState = NoMotionLeft;
-						delete m_Trajectoire;
-						m_Trajectoire = nullptr;
+			RectTemp = { m_RectPosition.x + 1, m_RectPosition.y + m_RectPosition.h + 1, m_RectPosition.w, 1 };
+			if (!CPhysics::verifyGroundCollision(RectTemp)){
+				if (m_Trajectoire == nullptr){
+					m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
+						new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.f, 0.f),
+						new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX() / 4, CPhysics::GetGravity() + CPhysics::GetWind()->getComposanteY() / 4));
+				}
+				else {
+					m_Trajectoire->UpdatePosition();
+					CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+					if (temp != nullptr)
+					{
+						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
+							m_EntityState = NoMotionLeft;
+							delete m_Trajectoire;
+							m_Trajectoire = nullptr;
+						}
+						setPosXY(temp->getX(), temp->getY());
+						delete temp;
 					}
-					setPosXY(temp->getX(), temp->getY());
-					delete temp;
+					else{
+						setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
+					}
 				}
-				else{
-					setPosXY(m_Trajectoire->GetActualPosition()->getX(), m_Trajectoire->GetActualPosition()->getY());
+			}
+			else{
+				if (m_Trajectoire != nullptr){
+					delete m_Trajectoire;
+					m_Trajectoire = nullptr;
 				}
+				m_EntityState = NoMotionLeft;
 			}
 			break;
 		case Largage:
