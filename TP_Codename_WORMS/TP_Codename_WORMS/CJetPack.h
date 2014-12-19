@@ -122,7 +122,7 @@ public:
 						Worm->setWormState(JetpackRightNoFly);
 				}
 				else{
-					m_pBarreGaz.y--;
+					m_pBarreGaz.h--;
 				}
 				if (boGaz)
 				break;
