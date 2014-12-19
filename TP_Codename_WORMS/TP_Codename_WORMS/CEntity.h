@@ -227,7 +227,7 @@ public:
 	virtual void HandleEvent(SDL_Event){};
 	
 	virtual bool isOutOfBounds(){
-		if ((m_RectPosition.x < 0) || (m_RectPosition.x > WIDTH) || (m_RectPosition.y > HEIGHT)){
+		if ((m_RectPosition.x < 0) || ((m_RectPosition.x + m_RectPosition.w) > WIDTH) || ((m_RectPosition.y + m_RectPosition.h) > HEIGHT)){
 			return true;
 		}
 		return false;

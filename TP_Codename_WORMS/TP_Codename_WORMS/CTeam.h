@@ -157,7 +157,7 @@ public:
 					}
 				}
 				else{
-					m_pListWorm->Retirer(false);
+					m_pListWorm->Retirer(true);
 				}
 			}
 			else{
