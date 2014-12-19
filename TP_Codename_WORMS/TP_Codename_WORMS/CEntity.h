@@ -220,10 +220,7 @@ public:
 	virtual void HandleEvent(SDL_Event){};
 	
 	virtual bool isOutOfBounds(){
-		if ((m_RectPosition.x < 0) || (m_RectPosition.x > WIDTH) || (m_RectPosition.y > HEIGHT)){
-			return true;
-		}
-		return false;
+		return ((m_RectPosition.x < 0) || (m_RectPosition.x > WIDTH) || (m_RectPosition.y > HEIGHT));
 	}
 
 };
