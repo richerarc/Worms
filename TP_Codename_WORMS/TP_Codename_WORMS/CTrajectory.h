@@ -223,4 +223,8 @@ public:
 	C2DVector* GetAcceleration(){
 		return m_Acceleration;
 	}
+
+	double getSpeedMagnitude(){
+		return m_ActualSpeed->getNorme();
+	}
 };
