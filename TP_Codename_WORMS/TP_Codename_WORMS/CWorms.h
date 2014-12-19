@@ -63,6 +63,7 @@ private:
 	static int m_nbrFPS;
 	static bool m_boFPS;
 	static CTimer* m_timerFPS;
+	static string strFilePath[34];
 public:
 	static void Start(){
 		while (m_boRun) {
@@ -216,7 +217,7 @@ public:
 			"Caisse.png"
 
 		};
-		string strFilePath[34];
+			//string strFilePath[34];
 		for (int i = 0; i < 34; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
@@ -263,14 +264,14 @@ public:
 
 		/* Map et leur background */
 		m_Gestionaire->AjouterSurface(new CSurface("map1", IMG_Load(strFilePath[4].c_str())));
-		m_Gestionaire->AjouterTexture(new CTexture("background1", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[5].c_str())));
 		m_Gestionaire->AjouterSurface(new CSurface("map2", IMG_Load(strFilePath[6].c_str())));
-		m_Gestionaire->AjouterTexture(new CTexture("background2", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[7].c_str())));
 		m_Gestionaire->AjouterSurface(new CSurface("map3", IMG_Load(strFilePath[8].c_str())));
-		m_Gestionaire->AjouterTexture(new CTexture("background3", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[9].c_str())));
 		m_Gestionaire->AjouterSurface(new CSurface("map4", IMG_Load(strFilePath[10].c_str())));
-		m_Gestionaire->AjouterTexture(new CTexture("background4", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[11].c_str())));
 		m_Gestionaire->AjouterSurface(new CSurface("map5", IMG_Load(strFilePath[19].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("background1", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[5].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("background2", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[7].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("background3", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[9].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("background4", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[11].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("background5", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[20].c_str())));
 		/* The potato is a lie */
 		m_Gestionaire->AjouterTexture(new CTexture("worm", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[16].c_str())));
@@ -319,19 +320,19 @@ public:
 				}
 				switch (itterMap) {
 				case 0:
-					TabMap[itterMap] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background1")->GetTexture(), m_Gestionaire->GetSurface("map1")->getSurface(), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
+					TabMap[0] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background1")->GetTexture(), IMG_Load(strFilePath[4].c_str()), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
 					break;
 				case 1:
-					TabMap[itterMap] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background2")->GetTexture(), m_Gestionaire->GetSurface("map2")->getSurface(), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
+					TabMap[1] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background2")->GetTexture(), IMG_Load(strFilePath[6].c_str()), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
 					break;
 				case 2:
-					TabMap[itterMap] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background3")->GetTexture(), m_Gestionaire->GetSurface("map3")->getSurface(), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
+					TabMap[2] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background3")->GetTexture(), IMG_Load(strFilePath[8].c_str()), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
 					break;
 				case 3:
-					TabMap[itterMap] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background4")->GetTexture(), m_Gestionaire->GetSurface("map4")->getSurface(), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
+					TabMap[3] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background4")->GetTexture(), IMG_Load(strFilePath[10].c_str()), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
 					break;
 				case 4:
-					TabMap[itterMap] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background5")->GetTexture(), m_Gestionaire->GetSurface("map5")->getSurface(), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
+					TabMap[4] = new CMap(tabParam[0], m_Gestionaire->GetTexture("background5")->GetTexture(), IMG_Load(strFilePath[19].c_str()), SDL_atoi(tabParam[1].c_str()), SDL_atoi(tabParam[2].c_str()), SDL_atoi(tabParam[3].c_str()));
 					break;
 				}
 				itterMap++;
@@ -427,6 +428,15 @@ public:
 		m_MenuWeapons->AddElement(new CButton("btnWpnKNF", "", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnKNF")), 50, 50, 50, 50);
 		m_MenuWeapons->setBackground(m_Gestionaire->GetTexture("MenuWeapons")->GetTexture());
 	}
+	
+	static void ReloadMap(){
+			TabMap[0]->ReloadMap(IMG_Load(strFilePath[4].c_str()), m_pWindow->getRenderer());
+			TabMap[1]->ReloadMap(IMG_Load(strFilePath[6].c_str()), m_pWindow->getRenderer());
+			TabMap[2]->ReloadMap(IMG_Load(strFilePath[8].c_str()), m_pWindow->getRenderer());
+			TabMap[3]->ReloadMap(IMG_Load(strFilePath[10].c_str()), m_pWindow->getRenderer());
+			TabMap[4]->ReloadMap(IMG_Load(strFilePath[19].c_str()), m_pWindow->getRenderer());
+	}
+	
 
 	//
 	// Définition des action de chaque bouton dans les menu.
@@ -463,7 +473,7 @@ public:
 	static void BtnMainMenu(){
 		m_Game->DeActivate();
 		delete m_Game;
-
+		ReloadMap();
 		m_Game = nullptr;
 		m_MenuPrincipal->ActivateMenu();
 		m_boInMenu = true;
@@ -479,6 +489,7 @@ public:
 		m_Game->DeActivate();
 		delete m_Game;
 		m_Game = nullptr;
+		ReloadMap();
 		m_Game = new CGame(TabMap[m_LastMapUsed], new CBoussole(m_Gestionaire->GetTexture("fleche")->GetTexture(), m_Gestionaire->GetFont("FontWorm")), m_pWindow->getRenderer(), SDL_atoi(m_MenuNewGame->getElement("SSNbrTeam")->getText().c_str()), SDL_atoi(m_MenuNewGame->getElement("SSNbrWorm")->getText().c_str()), m_Gestionaire,m_MenuWeapons);
 		m_MenuPause->DeActivateMenu();
 		m_Game->Activate();
@@ -508,3 +519,4 @@ string CWorms::m_strFPS = "FPS:";
 int CWorms::m_nbrFPS = 0;
 bool CWorms::m_boFPS = false;
 CTimer* CWorms::m_timerFPS = nullptr;
+string CWorms::strFilePath[34] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
