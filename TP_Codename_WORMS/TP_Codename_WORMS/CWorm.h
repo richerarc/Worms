@@ -319,21 +319,21 @@ public:
 		if (m_EntityState != Largage){
 			RectCollision = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h / 2, m_RectPosition.w, m_RectPosition.h };
 			ftemp = CPhysics::EvaluateSlope(RectCollision);
+			SDL_RenderDrawRect(_renderer, &RectCollision);
 			dbl = RadToDeg(ftemp);
 		}
-		if (VerifySliding(DegToRad(dbl))){
-			if (dbl < 0)
+			if (dbl < -60)
 				m_EntityState = SlideLeft;
-			else 
+			else if (dbl > 60)
 				m_EntityState = SlideRight;
-		}
+		
 		switch (m_EntityState) {
 		case SlideLeft:
 			if (m_Trajectoire == nullptr){
 				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, -2., 2.), new C2DVector(m_RectPosition.x, m_RectPosition.y,0.0,CPhysics::GetGravity()));	
 			}
 			m_Trajectoire->UpdatePosition();
-			if (VerifySliding(CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 }))){
+			if (VerifySliding(CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h / 2, m_RectPosition.w, m_RectPosition.h }))){
 				CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
 				UpdateSlidePosition();
 				setPosXY(temp->getX(), temp->getY());
@@ -347,7 +347,7 @@ public:
 				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, 2., 2.), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.0, CPhysics::GetGravity()));
 			}
 			m_Trajectoire->UpdatePosition();
-			if (VerifySliding(CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 }))){
+			if (VerifySliding(CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h / 2, m_RectPosition.w, m_RectPosition.h }))){
 				CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
 				UpdateSlidePosition();
 				setPosXY(temp->getX(), temp->getY());
@@ -417,17 +417,23 @@ public:
 			}
 			break;
 		case MotionRight:
+
 			//SI ON MONTE
 			if (dbl <= 0){
-				RectCollision = { m_RectPosition.x + m_RectPosition.w, m_RectPosition.y + m_RectPosition.h / 4 * 3, m_RectPosition.w / 2, m_RectPosition.h / 2-5 };
-				ftemp = RadToDeg(CPhysics::EvaluateSlope(RectCollision)); SDL_RenderDrawRect(_renderer, &RectCollision);
+				RectCollision = { m_RectPosition.x + m_RectPosition.w-2, m_RectPosition.y + m_RectPosition.h / 4 * 3, m_RectPosition.w / 2, m_RectPosition.h / 2-5 };
+				ftemp = RadToDeg(CPhysics::EvaluateSlope(RectCollision));
+
+				SDL_RenderDrawRect(_renderer, &RectCollision);
 				//Si l'angle maximum est atteint alors on tomble forcément bloqué.
+				if (ftemp == NOANGLE){
+					break;
+				}
 				if (ftemp < -60){
 					break;
 				}
 				if (ftemp >= -60){
 					if (CPhysics::Move(&m_RectPosition, RIGHT) == MOVING){
-						CPhysics::HandleGroundCollision(&m_RectPosition, DOWN_UPRIGHT);
+						CPhysics::HandleGroundCollisionTest(&m_RectPosition, DOWN_UPRIGHT,ftemp);
 						setPosXY(m_RectPosition.x, m_RectPosition.y);
 					}
 				}
@@ -435,7 +441,8 @@ public:
 			// Si on descends
 			else if (dbl > 0){
 				RectCollision = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w + ((3 / 4)*m_RectPosition.w), m_RectPosition.h / 2 };
-				ftemp = RadToDeg(CPhysics::EvaluateSlope(RectCollision)); SDL_RenderDrawRect(_renderer, &RectCollision);
+				ftemp = RadToDeg(CPhysics::EvaluateSlope(RectCollision));
+				SDL_RenderDrawRect(_renderer, &RectCollision);
 				if (ftemp > 60){
 					m_EntityState = NoMotionRight;//slIDErIGHT
 				}
@@ -451,8 +458,12 @@ public:
 
 			//Si on Monte
 			if (dbl >= 0){
-				RectCollision = { m_RectPosition.x - m_RectPosition.w / 2, m_RectPosition.y + m_RectPosition.h / 4 * 3, m_RectPosition.w / 2, m_RectPosition.h / 2+5 };
-				ftemp = RadToDeg(CPhysics::EvaluateSlope(RectCollision)); SDL_RenderDrawRect(_renderer, &RectCollision);
+				RectCollision = { m_RectPosition.x - m_RectPosition.w / 2, m_RectPosition.y + m_RectPosition.h / 4 * 3, m_RectPosition.w / 2, m_RectPosition.h / 2-5 };
+				ftemp = RadToDeg(CPhysics::EvaluateSlope(RectCollision));
+				SDL_RenderDrawRect(_renderer, &RectCollision);
+				if (ftemp == NOANGLE){
+					break;
+				}
 				if (ftemp > 60){
 					break;
 				}
@@ -467,10 +478,12 @@ public:
 			//Si on Descends
 			else if (dbl < 0){
 				RectCollision = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w + ((3 / 4)*m_RectPosition.w), m_RectPosition.h / 2 };
-				ftemp = RadToDeg(CPhysics::EvaluateSlope(RectCollision)); SDL_RenderDrawRect(_renderer, &RectCollision);
+				ftemp = RadToDeg(CPhysics::EvaluateSlope(RectCollision)); 
+				SDL_RenderDrawRect(_renderer, &RectCollision);
 				//Si l'angle maximum est atteint alors on tomble forcément bloqué.
 				if (ftemp < -60){
-					m_EntityState = NoMotionLeft;//SlideLeft;
+					m_EntityState = SlideLeft;
+					break;
 				}
 				if (ftemp > -60){
 					if (CPhysics::Move(&m_RectPosition, LEFT) == MOVING){
