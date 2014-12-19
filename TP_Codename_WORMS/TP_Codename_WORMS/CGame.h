@@ -280,9 +280,9 @@ public:
 	void Spawn(){
 
 		if (m_pListeObjets->Count() < m_pMap->getMine()){
-			m_pListeObjets->AjouterFin(new CGrenades({ ((rand() % (WIDTH - 10)) + 5), 5, 17, 25 }, m_Gestionaire->GetTexture("grenade")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 25, m_pMap)));
+				//m_pListeObjets->AjouterFin(new CGrenades({ ((rand() % (WIDTH - 10)) + 5), 5, 17, 25 }, m_Gestionaire->GetTexture("grenade")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 25, m_pMap)));
 			//m_pListeObjets->AjouterDebut(new CCaisses({((rand() % (WIDTH - 10)) + 5), 30, 30 }, m_Gestionaire->GetTexture("caisse")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 45, m_pMap)));
-			//m_pListeObjets->AjouterFin(new CMines({ ((rand() % (WIDTH - 10)) + 5), 5, 12, 8 }, m_Gestionaire->GetTexture("mine")->GetTexture(), m_pSmall_Explosion));
+			m_pListeObjets->AjouterFin(new CMines({ ((rand() % (WIDTH - 10)) + 5), 5, 12, 8 }, m_Gestionaire->GetTexture("mine")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 45, m_pMap)));
 		}
 
 		if (m_pListeObjets->Count() == m_pMap->getMine()){
@@ -312,6 +312,7 @@ public:
 	void MainGame(){
 		
 		if (boBegin){	// Si le jeu ˆ commencŽ
+			VerifyGlobalExplosion();
 			EnterrerLesMorts();
 			if ((ActiveWorm->getWormState() == Dead) || (ActiveWorm->isOutOfBounds())){
 				NextTurn();
@@ -398,12 +399,12 @@ public:
 	@return Aucun.
 	@discussion None.
 	*/
-	void VerifyGlobalExplosion(CBazouka* pBazouka){
-		if (pBazouka != nullptr){
-			if (pBazouka->MissileHasExploded()){
+	void VerifyGlobalExplosion(){
+		if (m_pBazouka != nullptr){
+			if (m_pBazouka->MissileHasExploded()){
 				for (int j = 0; j < m_pListeObjets->Count(); j++){
 					m_pListeObjets->AllerA(j);
-					m_pListeObjets->ObtenirElement()->ReactToExplosion(pBazouka->MissilePos().x, pBazouka->MissilePos().y, pBazouka->MissileRayon());
+					m_pListeObjets->ObtenirElement()->ReactToExplosion(m_pBazouka->MissilePos().x, m_pBazouka->MissilePos().y, m_pBazouka->MissileRayon());
 				}
 			}
 		}
