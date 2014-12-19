@@ -87,7 +87,7 @@ public:
 		m_MenuWeapons = _MenuWeapons;
 		m_MenuWeapons->getElement("btnWpnJP")->OnClickAction = BtnWpnJP;
 		m_MenuWeapons->getElement("btnWpnBZK")->OnClickAction = BtnWpnBZK;
-		m_MenuWeapons->getElement("btnWpnGND")->OnClickAction = BtnWpnGND;
+		m_MenuWeapons->getElement("btnWpnGNDL")->OnClickAction = BtnWpnGND;
 		m_MenuWeapons->getElement("btnWpnKNF")->OnClickAction = BtnWpnKNF;
 		boBegin = false;
 		DropperTimer = new CTimer();

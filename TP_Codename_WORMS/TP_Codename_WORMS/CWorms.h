@@ -210,7 +210,7 @@ public:
 			"WeaponMenu.png",
 			"SpriteWpnJP.png",
 			"SpriteWpnBZK.png",
-			"SpriteWpnGNDL.png",
+			"SpriteWpnGND.png",
 			"SpriteWpnKNF.png",
 			"BazoukaDroite.png",
 			"Missile.png",
