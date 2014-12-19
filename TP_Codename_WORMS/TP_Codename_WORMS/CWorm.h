@@ -172,14 +172,14 @@ public:
 			Move(_Renderer);
 		//if (isOutOfBounds()){
 		if ((m_RectPosition.x < 0) || (m_RectPosition.x > WIDTH) || (m_RectPosition.y > HEIGHT)){
-	 		m_EntityState = Dead;
+			m_EntityState = Dead;
 			m_iLife = 0;
 		}
 		if (((m_EntityState == JumpLeft) || (m_EntityState == JumpRight)) && (m_pSprite->getNbrOfLoop() != 2)){
 			m_pSprite->setNbLoop(2);
 		}
-		else if(m_EntityState != Dead){
- 			m_pSprite->setNbLoop(-1);
+		else if (m_EntityState != Dead){
+			m_pSprite->setNbLoop(-1);
 		}
 
 		if (m_iLife){
@@ -331,13 +331,14 @@ public:
 		}
 		if (dbl < -60)
 			m_EntityState = SlideLeft;
-		else if (dbl > 60)
+		else if (dbl > 60){
 			m_EntityState = SlideRight;
+		}
 
 		switch (m_EntityState) {
 		case SlideLeft:
 			if (m_Trajectoire == nullptr){
-				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, -2., 2.), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.0, CPhysics::GetGravity()));
+				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, -1500., 2.), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.0, 10*CPhysics::GetGravity()));
 			}
 			m_Trajectoire->UpdatePosition();
 			if (VerifySliding(CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h / 2, m_RectPosition.w, m_RectPosition.h }))){
@@ -356,12 +357,15 @@ public:
 
 				delete temp;
 			}
-			else
+			else{
 				m_EntityState = ChuteLeft;
+				delete m_Trajectoire;
+				m_Trajectoire = nullptr;
+			}
 			break;
 		case SlideRight:
 			if (m_Trajectoire == nullptr){
-				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, 2., 2.), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.0, CPhysics::GetGravity()));
+				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, 1500., 2.), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.0, 10*CPhysics::GetGravity()));
 			}
 			m_Trajectoire->UpdatePosition();
 			if (VerifySliding(CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h / 2, m_RectPosition.w, m_RectPosition.h }))){
@@ -379,8 +383,11 @@ public:
 				}
 				delete temp;
 			}
-			else
+			else{
 				m_EntityState = ChuteRight;
+				delete m_Trajectoire;
+				m_Trajectoire = nullptr;
+			}
 			break;
 		case JumpLeft:
 
@@ -484,7 +491,7 @@ public:
 				RectCollision = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w + ((3 / 4)*m_RectPosition.w), m_RectPosition.h / 2 };
 				ftemp = RadToDeg(CPhysics::EvaluateSlope(RectCollision));
 				SDL_RenderDrawRect(_renderer, &RectCollision);
-				if (ftemp > 60){
+				if (ftemp > 60 && ftemp != (NOANGLE)){
 					m_EntityState = SlideRight;//slIDErIGHT
 				}
 				if (ftemp < 60){
@@ -621,6 +628,9 @@ public:
 		return m_EntityState;
 	}
 	void setWormState(int _EntityState){
+		if (_EntityState == SlideRight){
+			int tamere = 9;
+		}
 		m_EntityState = _EntityState;
 	}
 };
