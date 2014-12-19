@@ -99,7 +99,7 @@ public:
 
 
 
-	static void HandleGroundCollisionTest(SDL_Rect* _Rect, int _Direction, double _Angle){
+	static void HandleGroundCollisionTest(SDL_Rect* _Rect, int _Direction,double _Angle){
 		if (_Angle != 0){
 			switch (_Direction) {
 			case UP_DOWNLEFT:
@@ -169,24 +169,20 @@ public:
 
 	/*!
 	 @method VerifyGroudColision
-	 @brief Vérifie si un rect est en collision avec le sol
-	 @param _Rect: Le rect a vérifier.
-	 @return true si il y a collision.
-	 @return false si il y a pas de collision.
+	 @brief Vérifie si deux rect se touche
+	 @param _Collider: Le rect en mouvement
+	 @param _Collidee: Le rect immobile .
+	 @discussion Aucune.
 	 */
-	static bool verifyGroundCollision(SDL_Rect _Rect){
-		int temp = 0;
+	static CPosition* verifyGroundCollision(SDL_Rect _Rect){
 		for (int i = 0; i < _Rect.h; i++){
 			for (int j = 0; j < _Rect.w; j++) {
-				temp = (m_Map->w * (_Rect.y + i) + _Rect.x + j);
-				if (temp > 0){
-					if (((unsigned int*)m_Map->pixels)[temp] != TRANSPARENCY){
-						return true;
-					}
+				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect.y + i) + _Rect.x + j] != TRANSPARENCY){
+					return new CPosition(_Rect.x + j, _Rect.y + i);
 				}
 			}
 		}
-		return false;
+		return nullptr;
 	}
 
 	/*!
@@ -217,7 +213,7 @@ public:
 				{
 					for (int i = 0; i < _EntityRect.w; i++){
 						temp = (m_Map->w * ((int)dblY + _EntityRect.h)) + ((int)dblX + i);
-						if ((temp >= 0) && (temp <= (m_Map->w*m_Map->h))){
+						if ((temp >= 0)){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;

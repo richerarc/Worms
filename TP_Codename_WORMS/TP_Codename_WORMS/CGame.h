@@ -66,9 +66,8 @@ private:
 	CMenu* m_MenuWeapons;
 	CJetPack * m_pJetpack;
 	CBazouka* m_pBazouka;
-	CGrenadeLauncher* m_pGrenadeLauncher;
 	bool boBegin;
-	unsigned int m_iuNbrOfExplosion;
+
 public:
 
 	/*!
@@ -88,7 +87,7 @@ public:
 		m_MenuWeapons = _MenuWeapons;
 		m_MenuWeapons->getElement("btnWpnJP")->OnClickAction = BtnWpnJP;
 		m_MenuWeapons->getElement("btnWpnBZK")->OnClickAction = BtnWpnBZK;
-		m_MenuWeapons->getElement("btnWpnGNDL")->OnClickAction = BtnWpnGND;
+		m_MenuWeapons->getElement("btnWpnGND")->OnClickAction = BtnWpnGND;
 		m_MenuWeapons->getElement("btnWpnKNF")->OnClickAction = BtnWpnKNF;
 		boBegin = false;
 		DropperTimer = new CTimer();
@@ -110,7 +109,6 @@ public:
 		ActiveWorm = nullptr;
 		m_pJetpack = new CJetPack(ActiveWorm);
 		m_pBazouka = new CBazouka(m_Gestionaire->GetTexture("bazouka")->GetTexture(), m_Gestionaire->GetTexture("missile")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("BigEx"), 40, m_pMap), ActiveWorm);
-		m_pGrenadeLauncher = new CGrenadeLauncher(m_Gestionaire->GetTexture("grenadelauncher")->GetTexture(), m_Gestionaire->GetTexture("grenade")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("BigEx"), 40, m_pMap), ActiveWorm);
 	}
 
 	/*!
@@ -127,7 +125,6 @@ public:
 		delete TurnTimer;
 		delete m_pJetpack;
 		delete m_pBazouka;
-		delete m_pGrenadeLauncher;
 	}
 
 	/*!
@@ -207,7 +204,7 @@ public:
 					break;
 				case GrenadeLaunchLeft:
 				case GrenadeLaunchRight:
-					m_pGrenadeLauncher->Render(m_pRenderer);
+					
 					break;
 			}
 		}
@@ -259,7 +256,7 @@ public:
 						break;
 					case GrenadeLaunchLeft:
 					case GrenadeLaunchRight:
-						m_pGrenadeLauncher->HandleEvent(_Event);
+						
 						break;
 					case KnifeLeft:
 					case KnifeRight:
@@ -283,8 +280,9 @@ public:
 	void Spawn(){
 
 		if (m_pListeObjets->Count() < m_pMap->getMine()){
+			m_pListeObjets->AjouterFin(new CGrenades({ ((rand() % (WIDTH - 10)) + 5), 5, 17, 25 }, m_Gestionaire->GetTexture("grenade")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 25, m_pMap)));
 			//m_pListeObjets->AjouterDebut(new CCaisses({((rand() % (WIDTH - 10)) + 5), 30, 30 }, m_Gestionaire->GetTexture("caisse")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 45, m_pMap)));
-			m_pListeObjets->AjouterFin(new CMines({ ((rand() % (WIDTH - 10)) + 5), 5, 12, 8 }, m_Gestionaire->GetTexture("mine")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 45, m_pMap)));
+			//m_pListeObjets->AjouterFin(new CMines({ ((rand() % (WIDTH - 10)) + 5), 5, 12, 8 }, m_Gestionaire->GetTexture("mine")->GetTexture(), m_pSmall_Explosion));
 		}
 
 		if (m_pListeObjets->Count() == m_pMap->getMine()){
@@ -314,10 +312,6 @@ public:
 	void MainGame(){
 		
 		if (boBegin){	// Si le jeu ˆ commencŽ
-			if (CEntity::m_uiTotalNbrOfEntityExplosed != CEntity::m_uiCurrentNbrOfEntityExplosed){
-				VerifyGlobalExplosion();
-			}
-			
 			EnterrerLesMorts();
 			if ((ActiveWorm->getWormState() == Dead) || (ActiveWorm->isOutOfBounds())){
 				NextTurn();
@@ -360,20 +354,6 @@ public:
 						break;
 					case GrenadeLaunchLeft:
 					case GrenadeLaunchRight:
-						if (m_pGrenadeLauncher->isInUse() && m_pGrenadeLauncher->GrenadeHasExploded()){
-							if (ActiveWorm->getWormState() == GrenadeLaunchRight){
-								ActiveWorm->setWormState(NoMotionRight);
-							}
-							else{
-								ActiveWorm->setWormState(NoMotionLeft);
-							}
-							m_pGrenadeLauncher->setInUse(false);
-							m_pGrenadeLauncher->reset();
-						}
-						else{
-							m_pGrenadeLauncher->setGrenadeLauncher(ActiveWorm);
-							m_pGrenadeLauncher->setInUse(true);
-						}
 						break;
 						
 				}
@@ -418,17 +398,13 @@ public:
 	@return Aucun.
 	@discussion None.
 	*/
-	void VerifyGlobalExplosion(){
-		if (m_pBazouka != nullptr){
-			if (m_pBazouka->MissileHasExploded()){
+	void VerifyGlobalExplosion(CBazouka* pBazouka){
+		if (pBazouka != nullptr){
+			if (pBazouka->MissileHasExploded()){
 				for (int j = 0; j < m_pListeObjets->Count(); j++){
 					m_pListeObjets->AllerA(j);
-					m_pListeObjets->ObtenirElement()->ReactToExplosion(m_pBazouka->MissilePos().x, m_pBazouka->MissilePos().y, m_pBazouka->MissileRayon());
-					if (m_pListeObjets->ObtenirElement()->IsExploded()){
-						CEntity::m_uiCurrentNbrOfEntityExplosed++;
-					}
+					m_pListeObjets->ObtenirElement()->ReactToExplosion(pBazouka->MissilePos().x, pBazouka->MissilePos().y, pBazouka->MissileRayon());
 				}
-				CEntity::m_uiTotalNbrOfEntityExplosed++;
 			}
 		}
 		else{
@@ -440,11 +416,7 @@ public:
 					for (int j = 0; j < m_pListeObjets->Count(); j++){
 						m_pListeObjets->AllerA(j);
 						m_pListeObjets->ObtenirElement()->ReactToExplosion(pTemp->getPosition().x, pTemp->getPosition().y, pTemp->getRayon());
-						if (m_pListeObjets->ObtenirElement()->IsExploded()){
-							CEntity::m_uiCurrentNbrOfEntityExplosed++;
-						}
 					}
-					CEntity::m_uiTotalNbrOfEntityExplosed++;
 				}
 			}
 		}

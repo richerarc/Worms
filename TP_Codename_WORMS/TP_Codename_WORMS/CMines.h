@@ -43,11 +43,10 @@ public:
 		else{
 			m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);
 			m_pExplosion->startExplosion();
+			m_pExplosion->ExplodeMap(_pRenderer);
 			m_pExplosion->Draw(_pRenderer);
 			if (m_pExplosion->IsDone()){
 				m_boHasExplosed = true;
-				m_pExplosion->ExplodeMap(_pRenderer);
-				CEntity::m_uiCurrentNbrOfEntityExplosed++;
 			}
 		}
 	}
@@ -72,13 +71,16 @@ public:
 			if (m_RectPosition.y >= _iY && !m_boIsexploded){
 				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((m_RectPosition.y - _iY), 2))) < _iRayon)
 					m_boIsexploded = true;
-				else if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((m_RectPosition.y + 8 - _iY), 2))) < _iRayon)
+				else
+				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((m_RectPosition.y + 8 - _iY), 2))) < _iRayon)
 					m_boIsexploded = true;
 			}
+
 			if (m_RectPosition.y <= _iY && !m_boIsexploded){
 				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((_iY - m_RectPosition.y), 2))) < _iRayon)
 					m_boIsexploded = true;
-				else if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((_iY - m_RectPosition.y + 8), 2))) < _iRayon)
+				else
+				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((_iY - m_RectPosition.y + 8), 2))) < _iRayon)
 					m_boIsexploded = true;
 			}
 
@@ -86,16 +88,18 @@ public:
 		//Objet a gauche de l'explosion
 		if (m_RectPosition.x <= _iX && !m_boIsexploded){
 			if (m_RectPosition.y >= _iY && !m_boIsexploded){
-				if (sqrt((pow((_iX - m_RectPosition.x + 12), 2) + pow((m_RectPosition.y - _iY), 2))) < _iRayon)
+				if (sqrt((pow((_iX - m_RectPosition.x + 24), 2) + pow((m_RectPosition.y - _iY), 2))) < _iRayon)
 					m_boIsexploded = true;
-				else if (sqrt((pow((_iX - m_RectPosition.x + 12), 2) + pow((m_RectPosition.y + 8 - _iY), 2))) < _iRayon)
+				else
+				if (sqrt((pow((_iX - m_RectPosition.x + 24), 2) + pow((m_RectPosition.y + 8 - _iY), 2))) < _iRayon)
 					m_boIsexploded = true;
 			}
 
 			if (m_RectPosition.y <= _iY && !m_boIsexploded){
-				if (sqrt((pow((_iX - m_RectPosition.x + 12), 2) + pow((_iY - m_RectPosition.y), 2))) < _iRayon)
+				if (sqrt((pow((_iX - m_RectPosition.x + 24), 2) + pow((_iY - m_RectPosition.y), 2))) < _iRayon)
 					m_boIsexploded = true;
-				else if (sqrt((pow((_iX - m_RectPosition.x + 12), 2) + pow((_iY - m_RectPosition.y + 8), 2))) < _iRayon)
+				else
+				if (sqrt((pow((_iX - m_RectPosition.x + 24), 2) + pow((_iY - m_RectPosition.y + 8), 2))) < _iRayon)
 					m_boIsexploded = true;
 			}
 		}

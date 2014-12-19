@@ -8,6 +8,7 @@ enum MissileStates { LaunchLeft = 1000, LaunchRight = 1001 };
 class CMissiles : public CObjets{
 private:
 	//Données membres:
+	
 	int m_iPower; // Donnée représentant le power du missile donné par le bazouka.
 	int m_iAngle; // Donnée représentant l'angle d'inclinaison du bazouka.
 public:
@@ -39,25 +40,19 @@ public:
 	~CMissiles(){
 		m_iAngle = 0;
 	}
-	/*!
-	@method Move
-	@brief Faire le déplacement du missile
-	@param null.
-	@return null.
-	*/
-	void Move(){
 
+	void Move(){
 		if (m_Trajectoire == nullptr){
 			if (m_EntityState == LaunchLeft){
-				/*if (m_iAngle<0)
+				if (m_iAngle<0)
 					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, 3 * m_iPower * cos(DegToRad(m_iAngle)), 5 * m_iPower* sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity())));
-				else*/
+				else
 					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, 3 * m_iPower * cos(DegToRad(m_iAngle)), 5 * m_iPower * sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity())));
 			}
 			if (m_EntityState == LaunchRight){
-				/*if (m_iAngle>0)
+				if (m_iAngle>0)
 					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, -3 * m_iPower * cos(DegToRad(m_iAngle)), -5 * m_iPower * sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity())));
-				else*/
+				else
 					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, -3 * m_iPower * cos(DegToRad(m_iAngle)), -5 * m_iPower * sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity())));
 			}
 		}
@@ -103,9 +98,8 @@ void Draw(SDL_Renderer* _pRenderer){
 		if (m_pExplosion->IsDone()){
 			m_pExplosion->ExplodeMap(_pRenderer);
 			m_boHasExplosed = true;
-			m_pExplosion->ExplodeMap(_pRenderer);
-			CEntity::m_uiCurrentNbrOfEntityExplosed++;
 		}
+
 
 	}
 }
@@ -132,7 +126,7 @@ void setExplosion(bool _boSet){
 	m_boIsexploded = _boSet;
 }
 
-	
+
 };
 
 #endif

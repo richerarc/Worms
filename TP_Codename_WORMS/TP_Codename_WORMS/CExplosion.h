@@ -98,9 +98,9 @@ public:
 		m_RectDestination.y = _iY - m_iRadius;
 		m_pSprite->setSpritePos(_iX - (m_pSprite->getW() / 2), _iY - (m_pSprite->getH()-m_iRadius/3));
 	}
-	CPosition * getPosition(){return new CPosition(m_RectDestination.x + m_iRadius, m_RectDestination.y + m_iRadius);}
-	
-	bool HasStarted(){return m_pSprite->isActif();}
+	CPosition * getPosition(){
+		return new CPosition(m_RectDestination.x + m_iRadius, m_RectDestination.y + m_iRadius);
+	}
 
 };
 
