@@ -323,6 +323,7 @@ public:
 		float ftemp = 0;
 		double dbl = 0;
 		int i = 0;
+		unsigned int uiTempsDeChute = 0;
 		SDL_Rect RectCollision;
 		SDL_Rect RectTemp;
 		if (m_EntityState != Largage){
@@ -561,6 +562,9 @@ public:
 					{
 						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
 							m_EntityState = NoMotionRight;
+							uiTempsDeChute = m_Trajectoire->getSpeedMagnitude();
+							if (uiTempsDeChute >= 50)
+								SetLife( m_iLife - (uiTempsDeChute / 5));
 							delete m_Trajectoire;
 							m_Trajectoire = nullptr;
 						}
@@ -595,6 +599,9 @@ public:
 					{
 						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
 							m_EntityState = NoMotionLeft;
+							uiTempsDeChute = m_Trajectoire->getSpeedMagnitude();
+							if (uiTempsDeChute >= 50)
+								SetLife(m_iLife - (uiTempsDeChute / 5));
 							delete m_Trajectoire;
 							m_Trajectoire = nullptr;
 						}
