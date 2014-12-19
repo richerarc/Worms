@@ -209,7 +209,7 @@ public:
 			"WeaponMenu.png",
 			"SpriteWpnJP.png",
 			"SpriteWpnBZK.png",
-			"SpriteWpnGND.png",
+			"SpriteWpnGNDL.png",
 			"SpriteWpnKNF.png",
 			"BazoukaDroite.png",
 			"Missile.png",
@@ -233,7 +233,7 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("MenuWeapons", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[26].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("WpnJP", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[27].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("WpnBZK", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[28].c_str())));
-		m_Gestionaire->AjouterTexture(new CTexture("WpnGND", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[29].c_str())));
+		m_Gestionaire->AjouterTexture(new CTexture("WpnGNDL", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[29].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("WpnKNF", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[30].c_str())));
 
 		/* Sprite pour le menu principal */
@@ -258,7 +258,7 @@ public:
 		/*Sprite pour le menu Weapons*/
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteWpnJP", m_Gestionaire->GetTexture("WpnJP")->GetTexture(), 2, 1, 0, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteWpnBZK", m_Gestionaire->GetTexture("WpnBZK")->GetTexture(), 2, 1, 0, 0));
-		m_Gestionaire->AjouterSprite(new CSprite("SpriteWpnGND", m_Gestionaire->GetTexture("WpnGND")->GetTexture(), 2, 1, 0, 0));
+		m_Gestionaire->AjouterSprite(new CSprite("SpriteWpnGNDL", m_Gestionaire->GetTexture("WpnGNDL")->GetTexture(), 2, 1, 0, 0));
 		m_Gestionaire->AjouterSprite(new CSprite("SpriteWpnKNF", m_Gestionaire->GetTexture("WpnKNF")->GetTexture(), 2, 1, 0, 0));
 
 		/* Map et leur background */
@@ -423,7 +423,7 @@ public:
 		//
 		m_MenuWeapons->AddElement(new CButton("btnWpnJP", "", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnJP")), 0, 0, 50, 50);
 		m_MenuWeapons->AddElement(new CButton("btnWpnBZK", "", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnBZK")), 50, 0, 50, 50);
-		m_MenuWeapons->AddElement(new CButton("btnWpnGND", "", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnGND")), 0, 50, 50, 50);
+		m_MenuWeapons->AddElement(new CButton("btnWpnGNDL", "", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnGNDL")), 0, 50, 50, 50);
 		m_MenuWeapons->AddElement(new CButton("btnWpnKNF", "", m_Gestionaire->GetFont("FontMenu"), { 0, 0, 100, 100 }, m_Gestionaire->GetSprite("SpriteWpnKNF")), 50, 50, 50, 50);
 		m_MenuWeapons->setBackground(m_Gestionaire->GetTexture("MenuWeapons")->GetTexture());
 	}
