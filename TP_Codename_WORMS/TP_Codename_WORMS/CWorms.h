@@ -64,7 +64,6 @@ private:
 	static bool m_boFPS;
 	static CTimer* m_timerFPS;
 public:
-
 	static void Start(){
 		while (m_boRun) {
 			if ((m_Game != nullptr) && !m_Game->inGame() && !m_MenuNewGame->IsActive() && !m_MenuPause->IsActive() && !m_MenuPrincipal->IsActive()){

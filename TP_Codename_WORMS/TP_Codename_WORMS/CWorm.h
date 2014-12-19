@@ -482,7 +482,8 @@ public:
 				SDL_RenderDrawRect(_renderer, &RectCollision);
 				//Si l'angle maximum est atteint alors on tomble forcément bloqué.
 				if (ftemp < -60){
-					m_EntityState = NoMotionLeft;//SlideLeft;
+					m_EntityState = SlideLeft;
+					break;
 				}
 				if (ftemp > -60){
 					if (CPhysics::Move(&m_RectPosition, LEFT) == MOVING){
