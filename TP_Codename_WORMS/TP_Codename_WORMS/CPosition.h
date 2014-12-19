@@ -63,7 +63,7 @@ public:
 	float ClaculateDistance(CPosition * _ComparePosition){
 		return sqrt(pow(m_iX - _ComparePosition->getX(), 2)*pow(m_iY - _ComparePosition->getY(), 2));
 	}
-	float ClaculateDistance( float _X, float _Y){
+	int ClaculateDistance( float _X, float _Y){
 		return sqrt(pow(m_iX - _X, 2)*pow(m_iY - _Y, 2));
 	}
 	bool getState(){ return m_boState; }

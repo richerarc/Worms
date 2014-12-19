@@ -106,10 +106,11 @@ public:
 		}
 		switch (m_EntityState){
 		case Immobile:
-			if (m_Trajectoire->GetInitSpeed())
-				m_Trajectoire->WipeOut();
 			break;
 		case Chute:
+			if (m_Trajectoire == nullptr){
+				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.f,0.f), new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity()));
+			}
 			m_Trajectoire->UpdatePosition();
 			CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
 			if (temp != nullptr)
@@ -124,6 +125,8 @@ public:
 						else {
 							m_EntityState = Immobile;
 							boBouncing = false;
+							delete m_Trajectoire;
+							m_Trajectoire = nullptr;
 						}
 					}
 					else {
