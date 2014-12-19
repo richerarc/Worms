@@ -170,15 +170,16 @@ public:
 	void Draw(SDL_Renderer * _Renderer){
 		if ((m_EntityState != NoMotionLeft) && (m_EntityState != NoMotionRight))
 			Move(_Renderer);
-		if (isOutOfBounds()){
-			m_EntityState = Dead;
+		//if (isOutOfBounds()){
+		if ((m_RectPosition.x < 0) || (m_RectPosition.x > WIDTH) || (m_RectPosition.y > HEIGHT)){
+	 		m_EntityState = Dead;
 			m_iLife = 0;
 		}
 		if (((m_EntityState == JumpLeft) || (m_EntityState == JumpRight)) && (m_pSprite->getNbrOfLoop() != 2)){
 			m_pSprite->setNbLoop(2);
 		}
-		else{
-			m_pSprite->setNbLoop(-1);
+		else if(m_EntityState != Dead){
+ 			m_pSprite->setNbLoop(-1);
 		}
 
 		if (m_iLife){
