@@ -109,6 +109,9 @@ public:
 						Worm->setWormState(JetpackRightFly);
 				}
 
+				Worm->setPosXY(Worm->getPosition().x, Worm->getPosition().y - 1);
+				m_pBarreGaz.y--;
+
 				boGaz = true;
 				if (m_pBarreGaz.h <= 0){
 					boGaz = false;
