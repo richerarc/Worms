@@ -20,7 +20,9 @@ protected:
 	int test;
 
 public:
-
+	static unsigned int m_uiTotalNbrOfEntityExplosed;
+	static unsigned int m_uiCurrentNbrOfEntityExplosed;
+	
 	/*!
 	@method Constructeur.
 	@brief Initialise les données membres.
@@ -220,12 +222,10 @@ public:
 	virtual void HandleEvent(SDL_Event){};
 	
 	virtual bool isOutOfBounds(){
-		if ((m_RectPosition.x < 0) || (m_RectPosition.x > WIDTH) || (m_RectPosition.y > HEIGHT)){
-			return true;
-		}
-		return false;
+		return ((m_RectPosition.x < 0) || (m_RectPosition.x > WIDTH) || (m_RectPosition.y > HEIGHT));
 	}
 
 };
-
+unsigned int CEntity::m_uiTotalNbrOfEntityExplosed = 0;
+unsigned int CEntity::m_uiCurrentNbrOfEntityExplosed = 0;
 #endif

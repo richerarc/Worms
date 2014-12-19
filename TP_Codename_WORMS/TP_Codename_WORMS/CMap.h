@@ -92,4 +92,26 @@ public:
 	SDL_Surface* getMap(){
 		return m_Map;
 	}
+	
+	void ReloadMap(SDL_Surface* _Map, SDL_Renderer* _renderer){
+		if(m_Map != nullptr){
+			SDL_FreeSurface(m_Map);
+		}
+		m_Map = _Map;
+		if (m_MapConverted != nullptr){
+			SDL_DestroyTexture(m_MapConverted);
+		}
+		m_MapConverted = SDL_CreateTextureFromSurface(_renderer, m_Map);
+	}
 };
+
+
+
+
+
+
+
+
+
+
+

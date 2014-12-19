@@ -48,6 +48,8 @@ public:
 			m_pExplosion->Draw(_pRenderer);
 			if (m_pExplosion->IsDone()){
 				m_boHasExplosed = true;
+				m_pExplosion->ExplodeMap(_pRenderer);
+				CEntity::m_uiCurrentNbrOfEntityExplosed++;
 			}
 		}
 
