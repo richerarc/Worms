@@ -98,8 +98,9 @@ void Draw(SDL_Renderer* _pRenderer){
 		if (m_pExplosion->IsDone()){
 			m_pExplosion->ExplodeMap(_pRenderer);
 			m_boHasExplosed = true;
+			m_pExplosion->ExplodeMap(_pRenderer);
+			CEntity::m_uiCurrentNbrOfEntityExplosed++;
 		}
-
 
 	}
 }
@@ -126,7 +127,7 @@ void setExplosion(bool _boSet){
 	m_boIsexploded = _boSet;
 }
 
-
+	
 };
 
 #endif

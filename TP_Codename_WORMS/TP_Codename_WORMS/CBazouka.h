@@ -63,6 +63,7 @@ public:
 		m_PowerBar = new CPowerBar(m_RectBazouka);
 		m_PowerBar->setPowerLevel(m_uiPower);
 		m_Worm = _pWorm;
+		m_uiRayon = m_pExplosion->getRadius();
 	}
 
 	/*!
@@ -298,6 +299,8 @@ public:
 	bool isInUse(){
 		return m_boInUse;
 	}
+	
+	bool MissileExplosing(){return m_pExplosion->HasStarted();}
 	
 	void reset(){
 		boCharging = false;

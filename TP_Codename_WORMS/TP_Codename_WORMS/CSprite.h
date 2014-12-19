@@ -149,5 +149,7 @@ public:
 	SDL_Rect getRectSource(){ return m_rSource; }
 	
 	unsigned int getNbrOfLoop(){return m_uinbLoop;}
+	
+	bool isActif(){return m_boActif;}
 
 };

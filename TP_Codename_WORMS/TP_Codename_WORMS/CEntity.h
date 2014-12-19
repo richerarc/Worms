@@ -20,7 +20,9 @@ protected:
 	int test;
 
 public:
-
+	static unsigned int m_uiTotalNbrOfEntityExplosed;
+	static unsigned int m_uiCurrentNbrOfEntityExplosed;
+	
 	/*!
 	@method Constructeur.
 	@brief Initialise les données membres.
@@ -224,5 +226,6 @@ public:
 	}
 
 };
-
+unsigned int CEntity::m_uiTotalNbrOfEntityExplosed = 0;
+unsigned int CEntity::m_uiCurrentNbrOfEntityExplosed = 0;
 #endif
