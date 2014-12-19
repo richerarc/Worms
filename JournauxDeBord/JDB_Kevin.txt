@@ -94,15 +94,26 @@
 		  destructeur alors elle cause des fuites de mémoires.
 		  Total d'heures pour aujourdhui: 4h.
 
-22:40 2014-12-15: J'ai patenté la classe CExplosion aujourd'hui. Elle est maitenant terminé elle éclate la map, Jai aussi refait le code que richer avait 
-		  commencé pour l'implémentation d'une classe CExplosion qui était loin d'être terminé, alors j'ai du retoucher toutes les classes  héritant
-		  de CEntity et toutes leur instanciations. Cela vas certainement créé beaucoup de conflit lors du merge, car j'ai du jouer dans environ une
-	          demi-douzaine de classe. J'ai également travailler dans CWorms et CGame. Justement, dans CGame les fonctions "MainGame" et "Spawn"
-	          Sont SHADY AS FUCK je ne sais absolument pas si celui qui la fait ou modifié savait ce qu'il faisait (bug de création d'équipe Non-stop)
+22:40 2014-12-15: J'ai patenté la classe CExplosion aujourd'hui. Elle est maitenant terminé elle éclate la map, Jai aussi refait
+                  le code que richer avait commencé pour l'implémentation d'une classe CExplosion qui était loin d'être terminé,
+                  alors j'ai du retoucher toutes les classes  héritant de CEntity et toutes leur instanciations. Cela va certainement
+                  créé beaucoup de conflit lors du merge, car j'ai du jouer dans environ une demi-douzaine de classe. J'ai également 
+                  travailler dans CWorms et CGame. Justement, dans CGame les fonctions "MainGame" et "Spawn" Sont SHADY AS FUCK je 
+                  ne sais absolument pas si celui qui la fait ou modifié savait ce qu'il faisait (bug de création d'équipe Non-stop)
 		  Deplus, j'ai fais quelques commentaires ici et là.
 		  Total d'heures pour aujourdhui: 3h.
 
-23:00 2014-12-17: Aujourdhui nous avons travailler sur les explosions. Richer m'As demander de continuer son move pour qu'il passe a autre chose. Je comprends
-		  Fuckall dans le move qu'il a fait... Et pourquoi CPhysics as une fonctiton move? C'Est aps ledgit.
-		  Temps pour aujourd'hui: 2h
+23:00 2014-12-17: Aujourdhui nous avons travailler sur les explosions. Richer m'As demander de continuer son move pour qu'il passe a 
+                  autre chose. Je comprends Fuckall dans le move qu'il a fait... Et pourquoi CPhysics as une fonctiton move? C'Est pas 
+                  ledgit.
+		  Temps pour aujourd'hui: 4h
 
+
+21:27 2014-12-18: Aujourd'hui j'ai "terminer" le move des Worm avec richer avant l'examen. Il reste encore un peu de patching à 
+                  faire pour le rendre fluide. On as du presque completement changer la fonction move alors ça demande pas mal de 
+                  temps. Et c'est vraiment aps évident a débugger comme c'Est dans un envoronnement graphique alors c'Est plus 
+                  demandant coté compréension et temps. Comme je ne pourrai pas programmer de la fin de semaine, demain c'est la 
+                  journée fatidique, un dernier rush pour en faire le plus possible. Il reste beaucoup à faire ,mais si on s'y met,
+                  je suis certain qu'on peur arriver à quelque chose de "jouable". Il serait plaisant d'avoir fait tout les 
+                  exigences pour arriver à mettre un peu de nous mêmes comme de la musique.
+                  Total d'heure pour aujourdhui 4h.
