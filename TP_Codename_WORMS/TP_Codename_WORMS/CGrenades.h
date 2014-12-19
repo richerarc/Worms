@@ -21,10 +21,12 @@ public:
 	@param _pTexture : texture de l'image à afficher	@return Adresse mémoire de l'objet.
 	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets.
 	*/
-	CGrenades(SDL_Rect _RectPos, SDL_Texture* _Texture, CExplosion* _Explosion) :CObjets(_RectPos, _Texture, _Explosion){
+	CGrenades(SDL_Rect _RectPos, SDL_Texture* _Texture, CExplosion* _Explosion, CTrajectory* _Trajectory) :CObjets(_RectPos, _Texture, _Explosion){
 		m_pTimer = new CTimer();
 		m_pTimer->SetTimer(500);
 		boBouncing = false;
+		delete m_Trajectoire;
+		m_Trajectoire = _Trajectory;
 	}
 
 	/*!
@@ -46,6 +48,7 @@ public:
 	*/
 	void Draw(SDL_Renderer* _pRenderer){
 		if (!m_boIsexploded){
+			Move();
 			SDL_RenderCopy(_pRenderer, m_pTexture, NULL, &m_RectPosition);
 		}
 		else{

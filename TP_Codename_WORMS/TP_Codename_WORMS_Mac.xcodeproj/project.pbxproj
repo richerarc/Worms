@@ -68,6 +68,7 @@
 		F9C1D2CB1A12901C00AF2F13 /* CMines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMines.h; path = TP_Codename_WORMS/CMines.h; sourceTree = SOURCE_ROOT; };
 		F9C1D2CC1A12901C00AF2F13 /* CMissiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMissiles.h; path = TP_Codename_WORMS/CMissiles.h; sourceTree = SOURCE_ROOT; };
 		F9C1D2CD1A12901C00AF2F13 /* CObjets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CObjets.h; path = TP_Codename_WORMS/CObjets.h; sourceTree = SOURCE_ROOT; };
+		F9CB31A01A44B48600D68484 /* CGrenadeLauncher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGrenadeLauncher.h; path = TP_Codename_WORMS/CGrenadeLauncher.h; sourceTree = SOURCE_ROOT; };
 		F9EB8F2A1A1685FC00B210DD /* CExplosion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CExplosion.h; path = TP_Codename_WORMS/CExplosion.h; sourceTree = SOURCE_ROOT; };
 		F9EB8F2B1A1685FC00B210DD /* CGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGame.h; path = TP_Codename_WORMS/CGame.h; sourceTree = SOURCE_ROOT; };
 		F9EB8F2C1A16889E00B210DD /* SavedData.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SavedData.dat; path = Debug/Ressources/SavedData.dat; sourceTree = SOURCE_ROOT; };
@@ -117,6 +118,7 @@
 		CB81A5C819FF1E6800935BA4 /* TP_Codename_WORMS_Mac */ = {
 			isa = PBXGroup;
 			children = (
+				F9CB31A01A44B48600D68484 /* CGrenadeLauncher.h */,
 				F98148681A27D76100C4161A /* C2DVector.h */,
 				CBC529791A268A76000C4FA6 /* SpriteSheetFinal.png */,
 				F93E3BEC1A260B3F00015363 /* CBazouka.h */,

@@ -66,6 +66,7 @@ private:
 	CMenu* m_MenuWeapons;
 	CJetPack * m_pJetpack;
 	CBazouka* m_pBazouka;
+	CGrenadeLauncher* m_pLauncher;
 	bool boBegin;
 
 public:
@@ -109,6 +110,7 @@ public:
 		ActiveWorm = nullptr;
 		m_pJetpack = new CJetPack(ActiveWorm);
 		m_pBazouka = new CBazouka(m_Gestionaire->GetTexture("bazouka")->GetTexture(), m_Gestionaire->GetTexture("missile")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("BigEx"), 40, m_pMap), ActiveWorm);
+		m_pLauncher = new CGrenadeLauncher(m_Gestionaire->GetTexture("launcher")->GetTexture(), m_Gestionaire->GetTexture("grenade")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 40, m_pMap), ActiveWorm);
 	}
 
 	/*!
@@ -125,6 +127,7 @@ public:
 		delete TurnTimer;
 		delete m_pJetpack;
 		delete m_pBazouka;
+		delete m_pLauncher;
 	}
 
 	/*!
@@ -204,7 +207,7 @@ public:
 					break;
 				case GrenadeLaunchLeft:
 				case GrenadeLaunchRight:
-					
+					m_pLauncher->Render(m_pRenderer);
 					break;
 			}
 		}
@@ -256,7 +259,7 @@ public:
 						break;
 					case GrenadeLaunchLeft:
 					case GrenadeLaunchRight:
-						
+						m_pLauncher->HandleEvent(_Event);
 						break;
 					case KnifeLeft:
 					case KnifeRight:
@@ -280,9 +283,9 @@ public:
 	void Spawn(){
 
 		if (m_pListeObjets->Count() < m_pMap->getMine()){
-			m_pListeObjets->AjouterFin(new CGrenades({ ((rand() % (WIDTH - 10)) + 5), 5, 17, 25 }, m_Gestionaire->GetTexture("grenade")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 25, m_pMap)));
+				//m_pListeObjets->AjouterFin(new CGrenades({ ((rand() % (WIDTH - 10)) + 5), 5, 17, 25 }, m_Gestionaire->GetTexture("grenade")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 25, m_pMap)));
 			//m_pListeObjets->AjouterDebut(new CCaisses({((rand() % (WIDTH - 10)) + 5), 30, 30 }, m_Gestionaire->GetTexture("caisse")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 45, m_pMap)));
-			//m_pListeObjets->AjouterFin(new CMines({ ((rand() % (WIDTH - 10)) + 5), 5, 12, 8 }, m_Gestionaire->GetTexture("mine")->GetTexture(), m_pSmall_Explosion));
+			m_pListeObjets->AjouterFin(new CMines({ ((rand() % (WIDTH - 10)) + 5), 5, 12, 8 }, m_Gestionaire->GetTexture("mine")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 45, m_pMap)));
 		}
 
 		if (m_pListeObjets->Count() == m_pMap->getMine()){
@@ -354,6 +357,20 @@ public:
 						break;
 					case GrenadeLaunchLeft:
 					case GrenadeLaunchRight:
+						if (m_pLauncher->isInUse() && m_pLauncher->GrenadeHasExploded()){
+							if (ActiveWorm->getWormState() == GrenadeLaunchRight){
+								ActiveWorm->setWormState(NoMotionRight);
+							}
+							else{
+								ActiveWorm->setWormState(NoMotionLeft);
+							}
+							m_pLauncher->setInUse(false);
+							m_pLauncher->reset();
+						}
+						else{
+							m_pLauncher->setGrenadeLauncher(ActiveWorm);
+							m_pLauncher->setInUse(true);
+						}
 						break;
 						
 				}

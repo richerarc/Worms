@@ -35,6 +35,7 @@
 #include "CBoussole.h"
 #include "CPowerBar.h"
 #include "CBazouka.h"
+#include "CGrenadeLauncher.h"
 #include "CJetPack.h"
 #include "CGame.h"
 
@@ -63,7 +64,7 @@ private:
 	static int m_nbrFPS;
 	static bool m_boFPS;
 	static CTimer* m_timerFPS;
-	static string strFilePath[34];
+	static string strFilePath[35];
 public:
 	static void Start(){
 		while (m_boRun) {
@@ -180,7 +181,7 @@ public:
 #elif defined (_WIN32)
 		strPath.append("\\");
 #endif
-		string FileName[34] = {
+		string FileName[35] = {
 			"Arpegius.ttf",
 			"Btn1.png",
 			"BtnL.png",
@@ -214,11 +215,11 @@ public:
 			"SpriteWpnKNF.png",
 			"BazoukaDroite.png",
 			"Missile.png",
-			"Caisse.png"
-
+			"Caisse.png",
+			"lancepatatedroite.png"
 		};
 			//string strFilePath[34];
-		for (int i = 0; i < 34; i++){
+		for (int i = 0; i < 35; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
@@ -283,7 +284,7 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("bazouka", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[31].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("missile", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[32].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("caisse", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[33].c_str())));
-
+		m_Gestionaire->AjouterTexture(new CTexture("launcher", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[34].c_str())));
 		m_SaveFile->open(strFilePath[12].c_str());
 
 
@@ -519,4 +520,4 @@ string CWorms::m_strFPS = "FPS:";
 int CWorms::m_nbrFPS = 0;
 bool CWorms::m_boFPS = false;
 CTimer* CWorms::m_timerFPS = nullptr;
-string CWorms::strFilePath[34] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
+string CWorms::strFilePath[35] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
