@@ -13,12 +13,10 @@ class CJetPack{
 private:
 	//Données membres:
 	SDL_Rect m_RectJetPack;
-	SDL_Rect m_RectSurface;		// La pos du rectangle de la surface de la barre de gaz
-	CPowerBar* m_pBarreGaz;		// Surface de la barre de lancement.
+	SDL_Rect m_pBarreGaz;		// Surface de la barre de lancement.
 	bool boBarreGaz;			// Booléen pour vérifier si la barre de lancement sera afficher
 	double m_iAngle;			// L'angle d'orientation du vecteur de déplacement
 	double m_iNorme;			// La norme du vecteur de déplacement
-	C2DVector* m_pVecteur;		// Le pointeur de vecteur de déplacement
 	CTimer* m_pTimer;			// Une minuterie pour décrémenter le power à tous les "x" secondes
 	CWorm * Worm;
 	bool m_boInUse;
@@ -37,11 +35,9 @@ public:
 	CJetPack(CWorm* _pWorm){
 		Worm = _pWorm;
 		m_RectJetPack = {0,0,0,0};
-		m_pBarreGaz = new CPowerBar(m_RectSurface);
-		m_pBarreGaz->setPowerLevel(100);
+		m_pBarreGaz = {0,0,5,50};
 		m_iAngle = 0;
 		m_iNorme = 20;
-		m_pVecteur = nullptr;
 		boBarreGaz = false;
 		m_pTimer = new CTimer();
 		m_pTimer->SetTimer(100);
@@ -49,10 +45,12 @@ public:
 
 	}
 	
-	void setJetPack(){
+	void setJetPack(CWorm* _ActualWorm){
+		Worm = _ActualWorm;
 		m_RectJetPack.x = Worm->getPosition().x;
 		m_RectJetPack.y = Worm->getPosition().y;
-		m_pBarreGaz->SetPosition(m_RectJetPack.x, m_RectJetPack.y);
+		m_pBarreGaz.x = Worm->getPosition().x - 5;
+		m_pBarreGaz.y = Worm->getPosition().y;
 	}
 
 	/*!
@@ -69,7 +67,8 @@ public:
 	@return null
 	*/
 	void Render(SDL_Renderer* _pRenderer){
-		m_pBarreGaz->Draw(_pRenderer);
+		SDL_SetRenderDrawColor(_pRenderer, (250 - (m_pBarreGaz.h * 5)), (m_pBarreGaz.h * 5), 0, 255);
+		SDL_RenderFillRect(_pRenderer, &m_pBarreGaz);
 	}
 
 	/*!
@@ -98,23 +97,30 @@ public:
 		switch (_Event.type) {
 		case SDL_KEYDOWN:
 			switch (_Event.key.keysym.sym){
-				int right, left, up;
 			case SDLK_UP:
 				if (!boGaz){
 					C2DVector * Vector = new C2DVector(0,0,0.,1.);
 					Worm->getTrajectoire()->AddAcceleration(Vector);
 					delete Vector;
+					if ((Worm->getWormState() == NoMotionLeft) || (Worm->getWormState() == JetpackLeftNoFly))
+						Worm->setWormState(JetpackLeftFly);
+					else if ((Worm->getWormState() == NoMotionRight) || (Worm->getWormState() == JetpackRightNoFly))
+						Worm->setWormState(JetpackRightFly);
 				}
 
 				boGaz = true;
-				if (m_pBarreGaz->getPower() <= 0){
+				if (m_pBarreGaz.h <= 0){
 					boGaz = false;
 					C2DVector * Vector = new C2DVector(0, 0, 0., -1.);
 					Worm->getTrajectoire()->AddAcceleration(Vector);
 					delete Vector;
+					if ((Worm->getWormState() == NoMotionLeft) || (Worm->getWormState() == JetpackLeftFly))
+						Worm->setWormState(JetpackLeftNoFly);
+					else if ((Worm->getWormState() == NoMotionRight) || (Worm->getWormState() == JetpackRightFly))
+						Worm->setWormState(JetpackRightNoFly);
 				}
 				else{
-					m_pBarreGaz->PowerDown();
+					m_pBarreGaz.y--;
 				}
 				if (boGaz)
 				break;
@@ -123,25 +129,37 @@ public:
 					C2DVector * Vector = new C2DVector(0, 0, -1., 0.);
 					Worm->getTrajectoire()->AddAcceleration(Vector);
 					delete Vector;
+					Worm->setWormState(JetpackLeftFly);
 				}
 				boGaz = true;
-				if (m_pBarreGaz->getPower() <= 0){
+				if (m_pBarreGaz.h <= 0){
 					boGaz = false;
 					C2DVector * Vector = new C2DVector(0, 0, 1., 0.);
 					Worm->getTrajectoire()->AddAcceleration(Vector);
 					delete Vector;
+					Worm->setWormState(JetpackLeftNoFly);
 				}
 				else{
-					m_pBarreGaz->PowerDown();
+					m_pBarreGaz.h--;
 				}
 				break;
 			case SDLK_RIGHT:
+				if (!boGaz){
+					C2DVector * Vector = new C2DVector(0, 0, 1., 0.);
+					Worm->getTrajectoire()->AddAcceleration(Vector);
+					delete Vector;
+					Worm->setWormState(JetpackRightFly);
+				}
 				boGaz = true;
-				if (m_pBarreGaz->getPower() <= 0){
+				if (m_pBarreGaz.h <= 0){
 					boGaz = false;
+					C2DVector * Vector = new C2DVector(0, 0, -1., 0.);
+					Worm->getTrajectoire()->AddAcceleration(Vector);
+					delete Vector;
+					Worm->setWormState(JetpackRightNoFly);
 				}
 				else{
-					m_pBarreGaz->PowerDown();
+					m_pBarreGaz.h--;
 				}
 				break;
 			}
@@ -151,14 +169,20 @@ public:
 			switch (_Event.key.keysym.sym){
 			case(SDLK_UP) :
 				boGaz = false;
+				if ((Worm->getWormState() == NoMotionLeft) || (Worm->getWormState() == JetpackLeftFly))
+					Worm->setWormState(JetpackLeftNoFly);
+				else if ((Worm->getWormState() == NoMotionRight) || (Worm->getWormState() == JetpackRightFly))
+					Worm->setWormState(JetpackRightNoFly);
 				break;
 
 			case(SDLK_LEFT) :
 				boGaz = false;
+				Worm->setWormState(JetpackLeftNoFly);
 				break;
 
 			case(SDLK_RIGHT) :
 				boGaz = false;
+				Worm->setWormState(JetpackRightNoFly);
 				break;
 			}
 			break;
@@ -173,6 +197,10 @@ public:
 	
 	bool isInUse(){
 		return m_boInUse;
+	}
+	
+	bool isLanded(){
+		return (!m_pBarreGaz.h);
 	}
 
 

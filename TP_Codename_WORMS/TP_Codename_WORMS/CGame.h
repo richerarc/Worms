@@ -10,24 +10,42 @@
 @discussion Classe qui représente une partie.
 */
 
-enum Tools{ Knife = 42, JetPack = 51, Bazooka = 69, Grenade = 666 };
-
-unsigned int uiCurrentTool(0);
+CWorm * ActiveWorm;
 
 static void BtnWpnJP(){
-	uiCurrentTool = JetPack;
+	if((ActiveWorm->getWormState() == NoMotionLeft)){
+		ActiveWorm->setWormState(JetpackLeftNoFly);
+	}
+	else{
+		ActiveWorm->setWormState(JetpackRightNoFly);
+	}
 }
 
 static void BtnWpnBZK(){
-	uiCurrentTool = Bazooka;
+	if((ActiveWorm->getWormState() == NoMotionLeft)){
+		ActiveWorm->setWormState(UsingBazzLeft);
+	}
+	else{
+		ActiveWorm->setWormState(UsingBazzRight);
+	}
 }
 
 static void BtnWpnGND(){
-	uiCurrentTool = Grenade;
+	if((ActiveWorm->getWormState() == NoMotionLeft)){
+		ActiveWorm->setWormState(GrenadeLaunchLeft);
+	}
+	else{
+		ActiveWorm->setWormState(GrenadeLaunchRight);
+	}
 }
 
 static void BtnWpnKNF(){
-	uiCurrentTool = Knife;
+	if((ActiveWorm->getWormState() == NoMotionLeft)){
+		ActiveWorm->setWormState(KnifeLeft);
+	}
+	else{
+		ActiveWorm->setWormState(KnifeRight);
+	}
 }
 
 class CGame{
@@ -46,9 +64,8 @@ private:
 	CTimer* TurnTimer;						// Indique le temps d'un tour.
 	CTimer* DropperTimer;					// Indique le Temps avant de faire tomber les worms.
 	CMenu* m_MenuWeapons;
-	CWorm * ActiveWorm;
-	CJetPack * Jetpack;
-	CBazouka* Bazouka;
+	CJetPack * m_pJetpack;
+	CBazouka* m_pBazouka;
 	bool boBegin;
 
 public:
@@ -90,8 +107,8 @@ public:
 		DropperTimer->SetTimer(200);
 		DropperTimer->Start();
 		ActiveWorm = nullptr;
-		Jetpack = new CJetPack(ActiveWorm);
-		Bazouka = new CBazouka(m_Gestionaire->GetTexture("bazouka")->GetTexture(), m_Gestionaire->GetTexture("missile")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("BigEx"), 40, m_pMap), ActiveWorm);
+		m_pJetpack = new CJetPack(ActiveWorm);
+		m_pBazouka = new CBazouka(m_Gestionaire->GetTexture("bazouka")->GetTexture(), m_Gestionaire->GetTexture("missile")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("BigEx"), 40, m_pMap), ActiveWorm);
 	}
 
 	/*!
@@ -106,8 +123,8 @@ public:
 		CPhysics::Annihilate();
 		delete DropperTimer;
 		delete TurnTimer;
-		delete Jetpack;
-		delete Bazouka;
+		delete m_pJetpack;
+		delete m_pBazouka;
 	}
 
 	/*!
@@ -172,6 +189,25 @@ public:
 				m_pListeTeam->AllerSuivant();
 			}
 		}
+		
+		if (ActiveWorm != nullptr){
+			switch (ActiveWorm->getWormState()) {
+				case JetpackLeftFly:
+				case JetpackLeftNoFly:
+				case JetpackRightFly:
+				case JetpackRightNoFly:
+					m_pJetpack->Render(m_pRenderer);
+					break;
+				case UsingBazzLeft:
+				case UsingBazzRight:
+					m_pBazouka->Render(m_pRenderer);
+					break;
+				case GrenadeLaunchLeft:
+				case GrenadeLaunchRight:
+					
+					break;
+			}
+		}
 	}
 
 	/*!
@@ -206,15 +242,29 @@ public:
 			case SDL_KEYUP:
 				break;
 			}
-			if (m_pListeTeam != nullptr){
-				m_pListeTeam->AllerDebut();
-				for (int i(0); i < m_pListeTeam->Count(); i++){
-					if (m_pListeTeam->ObtenirElement()->IsFocused()){
-						m_pListeTeam->ObtenirElement()->HandleEvent(_Event);
+			if (ActiveWorm != nullptr){
+				switch (ActiveWorm->getWormState()) {
+					case JetpackLeftFly:
+					case JetpackLeftNoFly:
+					case JetpackRightFly:
+					case JetpackRightNoFly:
+						m_pJetpack->HandleEvent(_Event);
 						break;
-					}
-					else
-						m_pListeTeam->AllerSuivant();
+					case UsingBazzLeft:
+					case UsingBazzRight:
+						m_pBazouka->HandleEvent(_Event);
+						break;
+					case GrenadeLaunchLeft:
+					case GrenadeLaunchRight:
+						
+						break;
+					case KnifeLeft:
+					case KnifeRight:
+						
+						break;
+					default:
+						ActiveWorm->HandleEvent(_Event);
+						break;
 				}
 			}
 		}
@@ -265,6 +315,45 @@ public:
 			EnterrerLesMorts();
 			if ((ActiveWorm->getWormState() == Dead) || (ActiveWorm->isOutOfBounds())){
 				NextTurn();
+			}
+			else{
+				
+				switch (ActiveWorm->getWormState()) {
+					case UsingBazzLeft:
+					case UsingBazzRight:
+						if (m_pBazouka->isInUse() && m_pBazouka->MissileHasExploded()){
+							if (ActiveWorm->getWormState() == UsingBazzRight){
+								ActiveWorm->setWormState(NoMotionRight);
+							}
+							else{
+								ActiveWorm->setWormState(NoMotionLeft);
+							}
+						}
+						else{
+							m_pBazouka->setBazooka(ActiveWorm);
+							m_pBazouka->setInUse(true);
+						}
+						break;
+					case JetpackLeftNoFly:
+					case JetpackRightNoFly:
+						if (m_pJetpack->isInUse() && m_pJetpack->isLanded()){
+							if (ActiveWorm->getWormState() == JetpackRightNoFly){
+								ActiveWorm->setWormState(NoMotionRight);
+							}
+							else{
+								ActiveWorm->setWormState(NoMotionLeft);
+							}
+						}
+						else{
+							m_pJetpack->setJetPack(ActiveWorm);
+							m_pJetpack->setInUse(true);
+						}
+						break;
+					case GrenadeLaunchLeft:
+					case GrenadeLaunchRight:
+						break;
+						
+				}
 			}
 		}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

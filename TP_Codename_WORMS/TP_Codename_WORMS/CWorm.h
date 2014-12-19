@@ -14,7 +14,9 @@
 #define TP_Codename_WORMS_CWorm_h
 
 // Un worm possde dŽjˆ l'Žtat en chute, immobile, ou en dŽplacement, qu'il tient d'entity
-enum WormState { NoMotionLeft, NoMotionRight, MotionLeft, MotionRight, JumpLeft, JumpRight, UsingBazzLeft, UsingBazzRight, Damaged, Largage, SlideLeft, SlideRight, ChuteLeft, ChuteRight, Dead, JetpackLeft, JetpackRight };
+
+enum WormState { NoMotionLeft, NoMotionRight, MotionLeft, MotionRight, JumpLeft, JumpRight, UsingBazzLeft, UsingBazzRight, Damaged, Largage, SlideLeft, SlideRight, ChuteLeft, ChuteRight, Dead, GrenadeLaunchLeft, GrenadeLaunchRight, KnifeLeft, KnifeRight, JetpackLeftFly, JetpackLeftNoFly, JetpackRightFly, JetpackRightNoFly };
+
 
 /*!
 @CWorm
@@ -90,42 +92,65 @@ public:
 		if ((m_EntityState != JumpLeft) && (m_EntityState != JumpRight) && (m_EntityState != Largage)) {
 			switch (_Event.type) {
 			case SDL_KEYDOWN:
-				switch (_Event.key.keysym.sym){
-				case SDLK_g:
-					m_boDrawRect = false;
+					switch (_Event.key.keysym.sym){
+						case SDLK_g:
+							m_boDrawRect = false;
+							break;
+						case SDLK_f:
+							m_boDrawRect = true;
+							break;
+						case SDLK_1:
+							if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight)){
+								m_EntityState = UsingBazzRight;
+							}
+							else{
+								m_EntityState = UsingBazzLeft;
+							}
+							break;
+						case SDLK_2:
+							if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight)){
+								m_EntityState = GrenadeLaunchRight;
+							}
+							else{
+								m_EntityState = GrenadeLaunchLeft;
+							}
+							break;
+						case SDLK_3:
+							if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight)){
+								m_EntityState = KnifeRight;
+							}
+							else{
+								m_EntityState = KnifeLeft;
+							}
+							break;
+						case SDLK_4:
+							if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight)){
+								m_EntityState = JetpackRightNoFly;
+							}
+							else{
+								m_EntityState = JetpackLeftNoFly;
+							}
+							break;
+						case SDLK_UP:
+						case SDLK_w:
+							break;
+						case SDLK_LEFT:
+						case SDLK_a:
+							m_EntityState = MotionLeft;
+							break;
+						case SDLK_RIGHT:
+						case SDLK_d:
+							m_EntityState = MotionRight;
+							break;
+						case SDLK_SPACE:
+							if ((m_EntityState == NoMotionLeft) || (m_EntityState == MotionLeft))
+								m_EntityState = JumpLeft;
+							else if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight))
+								m_EntityState = JumpRight;
+							break;
+					}
 					break;
-				case SDLK_f:
-					m_boDrawRect = true;
-					break;
-				case SDLK_1:
-
-					break;
-				case SDLK_UP:
-				case SDLK_w:
-					break;
-				case SDLK_LEFT:
-				case SDLK_a:
-					m_EntityState = MotionLeft;
-					break;
-				case SDLK_RIGHT:
-				case SDLK_d:
-					m_EntityState = MotionRight;
-					break;
-				case SDLK_SPACE:
-					if ((m_EntityState == NoMotionLeft) || (m_EntityState == MotionLeft))
-						m_EntityState = JumpLeft;
-					else if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight))
-						m_EntityState = JumpRight;
-					break;
-				case SDLK_j:
-					if (m_EntityState == NoMotionLeft)
-						m_EntityState = JetpackLeft;
-					else if (m_EntityState == NoMotionRight)
-						m_EntityState = JetpackRight;
-					break;
-				}
-				break;
-			case SDL_KEYUP:
+				case SDL_KEYUP:
 				if (m_EntityState == MotionLeft)
 					m_EntityState = NoMotionLeft;
 				else if (m_EntityState == MotionRight)
@@ -206,6 +231,26 @@ public:
 				if (m_pSprite->getCurrentAnimation() != 2)
 					m_pSprite->setCurrentAnimation(2);
 				m_pSprite->Render(0, 4, _Renderer);
+				break;
+			case JetpackRightFly:
+				if (m_pSprite->getCurrentAnimation() != 10)
+					m_pSprite->setCurrentAnimation(10);
+				m_pSprite->Render(1, 4, _Renderer);
+				break;
+			case JetpackRightNoFly:
+				if (m_pSprite->getCurrentAnimation() != 10)
+					m_pSprite->setCurrentAnimation(10);
+				m_pSprite->Render(0, 1, _Renderer);
+				break;
+			case JetpackLeftFly:
+				if (m_pSprite->getCurrentAnimation() != 11)
+					m_pSprite->setCurrentAnimation(11);
+				m_pSprite->Render(1, 4, _Renderer);
+				break;
+			case JetpackLeftNoFly:
+				if (m_pSprite->getCurrentAnimation() != 11)
+					m_pSprite->setCurrentAnimation(11);
+				m_pSprite->Render(0, 1, _Renderer);
 				break;
 			}
 			if (m_boDrawRect)
@@ -294,7 +339,8 @@ public:
 				setPosXY(temp->getX(), temp->getY());
 				delete temp;
 			}
-			
+			else
+				m_EntityState = Immobile;
 			break;
 		case SlideRight:
 			if (m_Trajectoire == nullptr){
@@ -307,6 +353,8 @@ public:
 				setPosXY(temp->getX(), temp->getY());
 				delete temp;
 			}
+			else
+				m_EntityState = Immobile;
 			break;
 		case JumpLeft:
 			if (m_Trajectoire == nullptr){

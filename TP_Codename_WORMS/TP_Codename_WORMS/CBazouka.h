@@ -76,7 +76,8 @@ public:
 		}
 	}
 
-	void setBazooka(){
+	void setBazooka(CWorm* _ActualWorm){
+		m_Worm = _ActualWorm;
 		m_RectBazouka.x = m_Worm->getPosition().x;
 		m_RectBazouka.y = m_Worm->getPosition().y;
 		m_PowerBar->SetPosition(m_RectBazouka.x, m_RectBazouka.y);
