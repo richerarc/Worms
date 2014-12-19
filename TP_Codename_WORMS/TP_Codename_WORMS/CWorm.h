@@ -91,7 +91,7 @@ public:
 	 @return null
 	 */
 	void HandleEvent(SDL_Event _Event){
-		if ((m_EntityState != JumpLeft) && (m_EntityState != JumpRight) && (m_EntityState != Largage)) {
+		if (!((m_EntityState == JumpLeft) || (m_EntityState == JumpRight) || (m_EntityState == Largage) || (m_EntityState == ChuteLeft) || (m_EntityState == ChuteRight))) {
 			switch (_Event.type) {
 			case SDL_KEYDOWN:
 				switch (_Event.key.keysym.sym){
@@ -499,8 +499,10 @@ public:
 				}
 				else if (ftemp >= -60){
 					if (CPhysics::Move(&m_RectPosition, RIGHT) == MOVING){
-						if (!CPhysics::verifyGroundCollision({ m_RectPosition.x - 1, m_RectPosition.y + m_RectPosition.h + 1, m_RectPosition.w, 1 }));
-						CPhysics::HandleGroundCollision(&m_RectPosition, DOWN_UPRIGHT);
+						if (!CPhysics::verifyGroundCollision({ m_RectPosition.x + 1, m_RectPosition.y + m_RectPosition.h + 1, m_RectPosition.w, 1 }))
+							m_EntityState = ChuteRight;
+						else
+							CPhysics::HandleGroundCollision(&m_RectPosition, DOWN_UPRIGHT);
 						setPosXY(m_RectPosition.x, m_RectPosition.y);
 					}
 				}
@@ -512,9 +514,9 @@ public:
 				SDL_RenderDrawRect(_renderer, &RectCollision);
 
 				if (ftemp > 60 && ftemp != (NOANGLE)){
-					m_EntityState = SlideRight;//slIDErIGHT
+					m_EntityState = SlideRight;
 				}
-				if (ftemp < 60){
+				else if (ftemp < 60){
 					if (CPhysics::Move(&m_RectPosition, RIGHT) == MOVING){
 						CPhysics::HandleGroundCollision(&m_RectPosition, CEILINGRIGHT);
 						setPosXY(m_RectPosition.x, m_RectPosition.y);
@@ -540,7 +542,10 @@ public:
 				}
 				else if (ftemp <= 60){
 					if (CPhysics::Move(&m_RectPosition, LEFT) == MOVING){
-						CPhysics::HandleGroundCollision(&m_RectPosition, DOWN_UPLEFT);
+						if (!CPhysics::verifyGroundCollision({ m_RectPosition.x - 1, m_RectPosition.y + m_RectPosition.h + 1, m_RectPosition.w, 1 }))
+							m_EntityState = ChuteLeft;
+						else
+							CPhysics::HandleGroundCollision(&m_RectPosition, DOWN_UPLEFT);
 						setPosXY(m_RectPosition.x, m_RectPosition.y);
 					}
 				}
@@ -556,14 +561,13 @@ public:
 					m_EntityState = SlideLeft;
 					break;
 				}
-				if (ftemp > -60){
+				else if (ftemp > -60){
 					if (CPhysics::Move(&m_RectPosition, LEFT) == MOVING){
-						CPhysics::HandleGroundCollision(&m_RectPosition, UP_DOWNLEFT);
+							CPhysics::HandleGroundCollision(&m_RectPosition, UP_DOWNLEFT);
 						setPosXY(m_RectPosition.x, m_RectPosition.y);
 					}
 				}
 			}
-
 			break;
 		case ChuteRight:
 			RectTemp = { m_RectPosition.x - 1, m_RectPosition.y + m_RectPosition.h + 1, m_RectPosition.w, 1 };
