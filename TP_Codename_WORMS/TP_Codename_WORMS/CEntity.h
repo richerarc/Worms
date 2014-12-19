@@ -156,7 +156,7 @@ public:
 		int iDecalage = 0;
 		if (dStartSlope < 0){
 			for (int i = 0; i < m_RectPosition.w; i++){
-				if (((unsigned int*)CPhysics::GetMap()->pixels)[CPhysics::GetMap()->w * (m_RectPosition.y + m_RectPosition.h-1) + m_RectPosition.x + i + iDecalage] > TRANSPARENCY && !boOnGround){
+				if (((unsigned int*)CPhysics::GetMap()->pixels)[CPhysics::GetMap()->w * (m_RectPosition.y + m_RectPosition.h-1) + m_RectPosition.x + i - iDecalage] > TRANSPARENCY && !boOnGround){
 					iDecalage++;
 				}
 				else {
@@ -174,7 +174,7 @@ public:
 		}
 		else{
 			for (int i = 0; i < m_RectPosition.w; i++){
-				if (((unsigned int*)CPhysics::GetMap()->pixels)[CPhysics::GetMap()->w * (m_RectPosition.y + m_RectPosition.h-1) + m_RectPosition.x + i - iDecalage] > TRANSPARENCY && !boOnGround){
+				if (((unsigned int*)CPhysics::GetMap()->pixels)[CPhysics::GetMap()->w * (m_RectPosition.y + m_RectPosition.h-1) + m_RectPosition.x + i + iDecalage] > TRANSPARENCY && !boOnGround){
 					iDecalage++;
 				}
 				else {

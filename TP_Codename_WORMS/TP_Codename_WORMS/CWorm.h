@@ -335,12 +335,22 @@ public:
 			m_Trajectoire->UpdatePosition();
 			if (VerifySliding(CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h / 2, m_RectPosition.w, m_RectPosition.h }))){
 				CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
-				UpdateSlidePosition();
-				setPosXY(temp->getX(), temp->getY());
+				if (temp != nullptr){
+					if (((int)temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) && ((int)temp->getY() != (int)m_Trajectoire->getNextPos()->getY() )){
+						m_EntityState = NoMotionLeft;
+						delete m_Trajectoire;
+						m_Trajectoire = nullptr;
+					}
+					else{
+						UpdateSlidePosition();
+						setPosXY(temp->getX(), temp->getY());
+					}
+				}
+
 				delete temp;
 			}
 			else
-				m_EntityState = Immobile;
+				m_EntityState = ChuteLeft;
 			break;
 		case SlideRight:
 			if (m_Trajectoire == nullptr){
@@ -349,12 +359,21 @@ public:
 			m_Trajectoire->UpdatePosition();
 			if (VerifySliding(CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h / 2, m_RectPosition.w, m_RectPosition.h }))){
 				CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
-				UpdateSlidePosition();
-				setPosXY(temp->getX(), temp->getY());
+				if (temp != nullptr){
+					if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) && (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
+						m_EntityState = NoMotionRight;
+						delete m_Trajectoire;
+						m_Trajectoire = nullptr;
+					}
+					else{
+						UpdateSlidePosition();
+						setPosXY(temp->getX(), temp->getY());
+					}
+				}
 				delete temp;
 			}
 			else
-				m_EntityState = Immobile;
+				m_EntityState = ChuteRight;
 			break;
 		case JumpLeft:
 			if (m_Trajectoire == nullptr){
@@ -433,7 +452,7 @@ public:
 				}
 				if (ftemp >= -60){
 					if (CPhysics::Move(&m_RectPosition, RIGHT) == MOVING){
-						CPhysics::HandleGroundCollisionTest(&m_RectPosition, DOWN_UPRIGHT,ftemp);
+						CPhysics::HandleGroundCollision(&m_RectPosition, DOWN_UPRIGHT);
 						setPosXY(m_RectPosition.x, m_RectPosition.y);
 					}
 				}
@@ -444,7 +463,7 @@ public:
 				ftemp = RadToDeg(CPhysics::EvaluateSlope(RectCollision));
 				SDL_RenderDrawRect(_renderer, &RectCollision);
 				if (ftemp > 60){
-					m_EntityState = NoMotionRight;//slIDErIGHT
+					m_EntityState = SlideRight;//slIDErIGHT
 				}
 				if (ftemp < 60){
 					if (CPhysics::Move(&m_RectPosition, RIGHT) == MOVING){
