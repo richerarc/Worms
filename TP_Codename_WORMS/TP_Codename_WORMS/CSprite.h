@@ -150,4 +150,5 @@ public:
 	
 	unsigned int getNbrOfLoop(){return m_uinbLoop;}
 
+	bool isActif(){return m_boActif;}
 };

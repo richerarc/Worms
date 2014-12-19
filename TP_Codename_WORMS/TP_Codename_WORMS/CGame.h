@@ -315,6 +315,9 @@ public:
 	void MainGame(){
 		
 		if (boBegin){	// Si le jeu ˆ commencŽ
+			if (CEntity::m_uiTotalNbrOfEntityExplosed != CEntity::m_uiCurrentNbrOfEntityExplosed){
+				VerifyGlobalExplosion();
+			}
 			EnterrerLesMorts();
 			if ((ActiveWorm->getWormState() == Dead) || (ActiveWorm->isOutOfBounds())){
 				NextTurn();
@@ -415,13 +418,17 @@ public:
 	@return Aucun.
 	@discussion None.
 	*/
-	void VerifyGlobalExplosion(CBazouka* pBazouka){
-		if (pBazouka != nullptr){
-			if (pBazouka->MissileHasExploded()){
+	void VerifyGlobalExplosion(){
+		if (m_pBazouka != nullptr){
+			if (m_pBazouka->MissileHasExploded()){
 				for (int j = 0; j < m_pListeObjets->Count(); j++){
 					m_pListeObjets->AllerA(j);
-					m_pListeObjets->ObtenirElement()->ReactToExplosion(pBazouka->MissilePos().x, pBazouka->MissilePos().y, pBazouka->MissileRayon());
+					m_pListeObjets->ObtenirElement()->ReactToExplosion(m_pBazouka->MissilePos().x, m_pBazouka->MissilePos().y, m_pBazouka->MissileRayon());
+					if (m_pListeObjets->ObtenirElement()->IsExploded()){
+						CEntity::m_uiCurrentNbrOfEntityExplosed++;
+					}
 				}
+				CEntity::m_uiTotalNbrOfEntityExplosed++;
 			}
 		}
 		else{
@@ -433,10 +440,15 @@ public:
 					for (int j = 0; j < m_pListeObjets->Count(); j++){
 						m_pListeObjets->AllerA(j);
 						m_pListeObjets->ObtenirElement()->ReactToExplosion(pTemp->getPosition().x, pTemp->getPosition().y, pTemp->getRayon());
+						if (m_pListeObjets->ObtenirElement()->IsExploded()){
+							CEntity::m_uiCurrentNbrOfEntityExplosed++;
+						}
 					}
+					CEntity::m_uiTotalNbrOfEntityExplosed++;
 				}
 			}
 		}
+		
 	}
 	/*!
 	@method Verify Caisse contact
@@ -464,8 +476,4 @@ public:
 	void PauseGame(){ m_boPause = true; }
 	void ResumeGame(){ m_boPause = false; }
 	void setNbOfPlayingTeams(Uint8 _NbOfTeams){ m_uiNbOfPlayingTeams = _NbOfTeams; }
-
-
-
-
 };

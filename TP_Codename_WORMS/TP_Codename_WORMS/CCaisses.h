@@ -48,6 +48,8 @@ public:
 			m_pExplosion->Draw(_pRenderer);
 			if (m_pExplosion->IsDone()){
 				m_boHasExplosed = true;
+				m_pExplosion->ExplodeMap(_pRenderer);
+				CEntity::m_uiCurrentNbrOfEntityExplosed++;
 			}
 		}
 
@@ -80,16 +82,14 @@ public:
 			if (m_RectPosition.y >= _iY && !m_boIsexploded){
 				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((m_RectPosition.y - _iY), 2))) < _iRayon)
 					m_boIsexploded = true;
-				else
-				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((m_RectPosition.y + 30 - _iY), 2))) < _iRayon)
+				else if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((m_RectPosition.y + 30 - _iY), 2))) < _iRayon)
 					m_boIsexploded = true;
 			}
 
 			if (m_RectPosition.y <= _iY && !m_boIsexploded){
 				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((_iY - m_RectPosition.y), 2))) < _iRayon)
 					m_boIsexploded = true;
-				else
-				if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((_iY - m_RectPosition.y + 30), 2))) < _iRayon)
+				else if (sqrt((pow((m_RectPosition.x - _iX), 2) + pow((_iY - m_RectPosition.y + 30), 2))) < _iRayon)
 					m_boIsexploded = true;
 			}
 
@@ -99,16 +99,14 @@ public:
 			if (m_RectPosition.y >= _iY && !m_boIsexploded){
 				if (sqrt((pow((_iX - m_RectPosition.x + 30), 2) + pow((m_RectPosition.y - _iY), 2))) < _iRayon)
 					m_boIsexploded = true;
-				else
-				if (sqrt((pow((_iX - m_RectPosition.x + 30), 2) + pow((m_RectPosition.y + 30 - _iY), 2))) < _iRayon)
+				else if (sqrt((pow((_iX - m_RectPosition.x + 30), 2) + pow((m_RectPosition.y + 30 - _iY), 2))) < _iRayon)
 					m_boIsexploded = true;
 			}
 
 			if (m_RectPosition.y <= _iY && !m_boIsexploded){
 				if (sqrt((pow((_iX - m_RectPosition.x + 30), 2) + pow((_iY - m_RectPosition.y), 2))) < _iRayon)
 					m_boIsexploded = true;
-				else
-				if (sqrt((pow((_iX - m_RectPosition.x + 30), 2) + pow((_iY - m_RectPosition.y + 30), 2))) < _iRayon)
+				else if (sqrt((pow((_iX - m_RectPosition.x + 30), 2) + pow((_iY - m_RectPosition.y + 30), 2))) < _iRayon)
 					m_boIsexploded = true;
 			}
 		}

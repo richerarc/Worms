@@ -63,6 +63,7 @@ public:
 		m_PowerBar = new CPowerBar(m_RectBazouka);
 		m_PowerBar->setPowerLevel(m_uiPower);
 		m_Worm = _pWorm;
+		m_uiRayon = m_pExplosion->getRadius();
 	}
 
 	/*!
@@ -310,6 +311,8 @@ public:
 		fPosYTempo = 0;
 		m_flipType = SDL_FLIP_NONE;
 	}
+	
+	bool MissileExplosing(){return m_pExplosion->HasStarted();}
 };
 
 #endif
