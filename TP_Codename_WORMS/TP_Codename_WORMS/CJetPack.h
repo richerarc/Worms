@@ -99,7 +99,7 @@ public:
 			switch (_Event.key.keysym.sym){
 			case SDLK_UP:
 				if (!boGaz){
-					C2DVector * Vector = new C2DVector(0,0,0.,1.);
+					C2DVector * Vector = new C2DVector(0,0,0.,10.);
 					if (Worm->getTrajectoire() != nullptr)
 						Worm->getTrajectoire()->AddAcceleration(Vector);
 					delete Vector;
@@ -115,7 +115,7 @@ public:
 				boGaz = true;
 				if (m_pBarreGaz.h <= 0){
 					boGaz = false;
-					C2DVector * Vector = new C2DVector(0, 0, 0., -1.);
+					C2DVector * Vector = new C2DVector(0, 0, 0., -10.);
 					if (Worm->getTrajectoire() != nullptr)
 						Worm->getTrajectoire()->AddAcceleration(Vector);
 					delete Vector;
@@ -131,7 +131,7 @@ public:
 				break;
 			case SDLK_LEFT:
 				if (!boGaz){
-					C2DVector * Vector = new C2DVector(0, 0, -1., 0.);
+					C2DVector * Vector = new C2DVector(0, 0, -10., 0.);
 					if (Worm->getTrajectoire() != nullptr)
 						Worm->getTrajectoire()->AddAcceleration(Vector);
 					delete Vector;
@@ -140,7 +140,7 @@ public:
 				boGaz = true;
 				if (m_pBarreGaz.h <= 0){
 					boGaz = false;
-					C2DVector * Vector = new C2DVector(0, 0, 1., 0.);
+					C2DVector * Vector = new C2DVector(0, 0, 10., 0.);
 					if (Worm->getTrajectoire() != nullptr)
 						Worm->getTrajectoire()->AddAcceleration(Vector);
 					delete Vector;
@@ -152,7 +152,7 @@ public:
 				break;
 			case SDLK_RIGHT:
 				if (!boGaz){
-					C2DVector * Vector = new C2DVector(0, 0, 1., 0.);
+					C2DVector * Vector = new C2DVector(0, 0, 10., 0.);
 					if (Worm->getTrajectoire() != nullptr)
 						Worm->getTrajectoire()->AddAcceleration(Vector);
 					delete Vector;
@@ -161,7 +161,7 @@ public:
 				boGaz = true;
 				if (m_pBarreGaz.h <= 0){
 					boGaz = false;
-					C2DVector * Vector = new C2DVector(0, 0, -1., 0.);
+					C2DVector * Vector = new C2DVector(0, 0, -10., 0.);
 					if (Worm->getTrajectoire() != nullptr)
 						Worm->getTrajectoire()->AddAcceleration(Vector);
 					delete Vector;

@@ -50,7 +50,7 @@ public:
 			delete m_Trajectoire;
 			m_Trajectoire = nullptr;
 		}
-		if (m_pExplosion != nullptr){
+		if ((m_pExplosion != nullptr) && !((m_EntityState == 1000) || (m_EntityState == 1001))){
 			delete m_pExplosion;
 			m_pExplosion = nullptr;
 		}

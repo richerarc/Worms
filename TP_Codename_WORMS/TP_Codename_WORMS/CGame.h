@@ -328,6 +328,8 @@ public:
 							else{
 								ActiveWorm->setWormState(NoMotionLeft);
 							}
+							m_pBazouka->setInUse(false);
+							m_pBazouka->reset();
 						}
 						else{
 							m_pBazouka->setBazooka(ActiveWorm);
@@ -343,6 +345,7 @@ public:
 							else{
 								ActiveWorm->setWormState(NoMotionLeft);
 							}
+							m_pJetpack->setInUse(false);
 						}
 						else{
 							m_pJetpack->setJetPack(ActiveWorm);

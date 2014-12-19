@@ -1,6 +1,6 @@
 #ifndef TP_Codename_WORMS_CMissiles_h
 #define TP_Codename_WORMS_CMissiles_h
-enum MissileStates { BazzLeft, BazzRight };
+enum MissileStates { LaunchLeft = 1000, LaunchRight = 1001 };
 /*!
 @CMissiles
 @Classe permettant la création d'un missile
@@ -38,37 +38,39 @@ public:
 	@discussion He is dead.
 	*/
 	~CMissiles(){
+		m_iAngle = 0;
 	}
 
 	void Move(){
 		if (m_Trajectoire == nullptr){
-			if (m_EntityState == BazzLeft){
+			if (m_EntityState == LaunchLeft){
 				if (m_iAngle<0)
-					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, 10 * m_iPower * cos(DegToRad(m_iAngle)), 10 * m_iPower* sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity())));
+					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, 3 * m_iPower * cos(DegToRad(m_iAngle)), 5 * m_iPower* sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity())));
 				else
-					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, 10 * m_iPower * cos(DegToRad(m_iAngle)), 10 * m_iPower * sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity())));
+					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, 3 * m_iPower * cos(DegToRad(m_iAngle)), 5 * m_iPower * sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity())));
 			}
-			if (m_EntityState == BazzRight){
+			if (m_EntityState == LaunchRight){
 				if (m_iAngle>0)
-					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, -10 * m_iPower * cos(DegToRad(m_iAngle)), -10 * m_iPower * sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity())));
+					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, -3 * m_iPower * cos(DegToRad(m_iAngle)), -5 * m_iPower * sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity())));
 				else
-					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, -10 * m_iPower * cos(DegToRad(m_iAngle)), -10 * m_iPower * sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetGravity())));
+					m_Trajectoire = CPhysics::Propulsion((new CPosition((double)m_RectPosition.x, (double)m_RectPosition.y)), (new C2DVector(m_RectPosition.x, m_RectPosition.y, -3 * m_iPower * cos(DegToRad(m_iAngle)), -5 * m_iPower * sin(DegToRad(m_iAngle)))), (new C2DVector(m_RectPosition.x, m_RectPosition.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity())));
 			}
-		}
-
-		m_Trajectoire->UpdatePosition();
-		CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
-		if (temp != nullptr){
-			if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY()))
-				m_boIsexploded = true;
-
-			m_RectPosition.y = temp->getY();
-			m_RectPosition.x = temp->getX();
-
 		}
 		else{
-			m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
-			m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+			m_Trajectoire->UpdatePosition();
+			CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
+			if (temp != nullptr){
+				if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY()))
+					m_boIsexploded = true;
+				
+				m_RectPosition.y = temp->getY();
+				m_RectPosition.x = temp->getX();
+				
+			}
+			else{
+				m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
+				m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
+			}
 		}
 	}
 
@@ -81,7 +83,13 @@ public:
 void Draw(SDL_Renderer* _pRenderer){
 	if (!m_boIsexploded){
 		Move();
-		SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_RectPosition, DegToRad(m_Trajectoire->GetInitSpeed()->getOrientation()), NULL, SDL_FLIP_NONE);
+		if (m_EntityState == LaunchRight){
+			SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_RectPosition, -RadToDeg(m_Trajectoire->GetActualSpeed()->getSDLOrientation()), NULL, SDL_FLIP_NONE);
+		}
+		else{
+			SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_RectPosition, -RadToDeg(m_Trajectoire->GetActualSpeed()->getSDLOrientation()), NULL, SDL_FLIP_HORIZONTAL);
+		}
+		
 	}
 	else{
 		m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);

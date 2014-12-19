@@ -208,11 +208,15 @@ public:
 				m_pSprite->Render(_Renderer);
 				break;
 			case NoMotionLeft:
+			case UsingBazzLeft:
+			case GrenadeLaunchLeft:
 				if (m_pSprite->getCurrentAnimation() != 1)
 					m_pSprite->setCurrentAnimation(1);
 				m_pSprite->Render(_Renderer, 0);
 				break;
 			case NoMotionRight:
+			case UsingBazzRight:
+			case GrenadeLaunchRight:
 				if (m_pSprite->getCurrentAnimation() != 0)
 					m_pSprite->setCurrentAnimation(0);
 				m_pSprite->Render(_Renderer, 0);

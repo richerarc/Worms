@@ -59,10 +59,10 @@ public:
 		m_uiPower = 0;
 		fPosXTempo = 0;
 		fPosYTempo = 0;
+		m_flipType = SDL_FLIP_NONE;
 		m_PowerBar = new CPowerBar(m_RectBazouka);
 		m_PowerBar->setPowerLevel(m_uiPower);
 		m_Worm = _pWorm;
-		m_flipType = SDL_FLIP_NONE;
 	}
 
 	/*!
@@ -79,7 +79,7 @@ public:
 	void setBazooka(CWorm* _ActualWorm){
 		m_Worm = _ActualWorm;
 		m_RectBazouka.x = m_Worm->getPosition().x;
-		m_RectBazouka.y = m_Worm->getPosition().y;
+		m_RectBazouka.y = m_Worm->getPosition().y + 20;
 		m_PowerBar->SetPosition(m_RectBazouka.x, m_RectBazouka.y);
 	}
 	
@@ -110,6 +110,7 @@ public:
 			m_PowerBar->Draw(_pRenderer);
 		}
 		if ((m_pMissile != nullptr) && boIsLaunch){
+			
 			m_pMissile->Draw(_pRenderer);
 			if (m_pMissile->HasExploded()){
 				InitInfoMissile();
@@ -134,11 +135,11 @@ public:
 				boIsRotated = true;
 				if (m_Worm->getWormState() == UsingBazzRight){
 					if (iAngle != -90)
-						iAngle -= 2;
+						iAngle -= 4;
 				}
 				if (m_Worm->getWormState() == UsingBazzLeft){
 					if (iAngle != 90)
-						iAngle += 2;
+						iAngle += 4;
 				}
 				break;
 
@@ -146,16 +147,15 @@ public:
 				boIsRotated = true;
 				if (m_Worm->getWormState() == UsingBazzRight){
 					if (iAngle != 90)
-						iAngle += 2;
+						iAngle += 4;
 				}
 				if (m_Worm->getWormState() == UsingBazzLeft){
 					if (iAngle != -90)
-						iAngle -= 2;
+						iAngle -= 4;
 				}
 				break;
 
 			case SDLK_SPACE:
-				m_PowerBar->SetPosition(m_RectBazouka.x, m_RectBazouka.y);
 				boCharging = true;
 				m_PowerBar->PowerUp();
 				break;
@@ -204,46 +204,61 @@ public:
 						break;
 					}
 				}
-				break;
-
-			case SDLK_SPACE:
-				boIsLaunch = true;
-				if (m_Worm->getWormState() == UsingBazzLeft){
-					fPosYTempo = m_RectBazouka.y + (-20 * sin(DegToRad(iAngle)));
-					fPosXTempo = m_RectBazouka.x + (-20 * cos(DegToRad(iAngle)));
-					iPosXTampon = fPosXTempo;
-					iPosYTampon = fPosYTempo;
-					if (fPosXTempo > iPosXTampon + 0.5)
-						iPosXTampon++;
-					if (fPosYTempo > iPosYTampon + 0.5)
-						iPosYTampon++;
-					m_RectMissile.x = iPosXTampon;
-					m_RectMissile.y = iPosYTampon;
-					m_pMissile = new CMissiles(m_RectMissile, m_pTextureMissile, m_PowerBar->getPowerLevel(), iAngle, m_pExplosion, BazzRight);
-				}
-				if (m_Worm->getWormState() == UsingBazzRight){
-					fPosYTempo = m_RectBazouka.y + (40 * sin(DegToRad(iAngle)));
-					fPosXTempo = m_RectBazouka.x + (49 * cos(DegToRad(iAngle)));
-					iPosXTampon = fPosXTempo;
-					iPosYTampon = fPosYTempo;
-					if (fPosXTempo > iPosXTampon + 0.5)
-						iPosXTampon++;
-					if (fPosYTempo > iPosYTampon + 0.5)
-						iPosYTampon++;
-					m_RectMissile.x = iPosXTampon;
-					m_RectMissile.y = iPosYTampon;
-					m_pMissile = new CMissiles(m_RectMissile, m_pTextureMissile, m_PowerBar->getPowerLevel(), iAngle, m_pExplosion, BazzLeft);
-
-				}
-				boHasLaunch = true;
-				m_PowerBar->setPowerLevel(m_uiPower);
-
-				break;
+					break;
+					
+				case SDLK_SPACE:
+					boIsLaunch = true;
+					if (m_Worm->getWormState() == UsingBazzLeft){
+						fPosYTempo = m_RectBazouka.y + (-20 * sin(DegToRad(iAngle)));
+						fPosXTempo = m_RectBazouka.x + (-20 * cos(DegToRad(iAngle)));
+						iPosXTampon = fPosXTempo;
+						iPosYTampon = fPosYTempo;
+						if (fPosXTempo > iPosXTampon + 0.5)
+							iPosXTampon++;
+						if (fPosYTempo > iPosYTampon + 0.5)
+							iPosYTampon++;
+						m_RectMissile.x = iPosXTampon;
+						m_RectMissile.y = iPosYTampon;
+						m_pMissile = new CMissiles(m_RectMissile, m_pTextureMissile, m_PowerBar->getPowerLevel(), iAngle, m_pExplosion, LaunchRight);
+					}
+					if (m_Worm->getWormState() == UsingBazzRight){
+						fPosYTempo = m_RectBazouka.y + (40 * sin(DegToRad(iAngle)));
+						fPosXTempo = m_RectBazouka.x + (49 * cos(DegToRad(iAngle)));
+						iPosXTampon = fPosXTempo;
+						iPosYTampon = fPosYTempo;
+						if (fPosXTempo > iPosXTampon + 0.5)
+							iPosXTampon++;
+						if (fPosYTempo > iPosYTampon + 0.5)
+							iPosYTampon++;
+						m_RectMissile.x = iPosXTampon;
+						m_RectMissile.y = iPosYTampon;
+						m_pMissile = new CMissiles(m_RectMissile, m_pTextureMissile, m_PowerBar->getPowerLevel(), iAngle, m_pExplosion, LaunchLeft);
+						
+					}
+					boHasLaunch = true;
+					m_PowerBar->setPowerLevel(m_uiPower);
+					
+					break;
+				case SDLK_LEFT:
+					if (m_flipType != SDL_FLIP_HORIZONTAL){
+						m_Worm->setWormState(UsingBazzLeft);
+						m_flipType = SDL_FLIP_HORIZONTAL;
+						iAngle = -iAngle;
+					}
+					break;
+				case SDLK_RIGHT:
+					if (m_flipType != SDL_FLIP_NONE){
+						m_Worm->setWormState(UsingBazzRight);
+						m_flipType = SDL_FLIP_NONE;
+						iAngle = -iAngle;
+					}
+					
+					break;
 			}
-			break;
-		default:
-			break;
-
+				break;
+			default:
+				break;
+				
 		}
 	}
 	/*!
@@ -282,6 +297,18 @@ public:
 	
 	bool isInUse(){
 		return m_boInUse;
+	}
+	
+	void reset(){
+		boCharging = false;
+		boIsRotated = false;
+		boIsLaunch = false;
+		boMissileIsExploded = false;
+		iAngle = 0;
+		m_uiPower = 0;
+		fPosXTempo = 0;
+		fPosYTempo = 0;
+		m_flipType = SDL_FLIP_NONE;
 	}
 };
 
