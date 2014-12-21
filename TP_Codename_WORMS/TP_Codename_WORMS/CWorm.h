@@ -296,13 +296,17 @@ public:
 
 			double Distance = _Explosion->getPosition()->ClaculateDistance((m_RectPosition.x + (m_RectPosition.w / 2)), (m_RectPosition.y + (m_RectPosition.h / 2)));
 			if ((Distance <= _Explosion->getRadius())){
-				m_iLife -= 100 - 115 * (Distance / _Explosion->getRadius());
+				if (Distance > 20)
+					m_iLife -= 100 - 100 * (Distance / _Explosion->getRadius());
+				else m_iLife = 0;
 			}
 		}
-		if (m_iLife > 0)
+		if (m_iLife > 1)
 			m_BarredeVie.w = m_iLife / 2;
-		else
+		else{
 			m_BarredeVie.w = 0;
+			m_iLife = 0;
+		}
 	}
 
 	/*!

@@ -60,11 +60,11 @@ public:
 	//retour: float (Distance entre deux points.
 	//Parametres: Soit un CPosition * ou des valeurs de x et y
 
-	float ClaculateDistance(CPosition * _ComparePosition){
-		return sqrt(pow(m_iX - _ComparePosition->getX(), 2)*pow(m_iY - _ComparePosition->getY(), 2));
+	double ClaculateDistance(CPosition * _ComparePosition){
+		return sqrt(pow(m_iX - _ComparePosition->getX(), 2)+pow(m_iY - _ComparePosition->getY(), 2));
 	}
-	int ClaculateDistance( float _X, float _Y){
-		return sqrt(pow(m_iX - _X, 2)*pow(m_iY - _Y, 2));
+	double ClaculateDistance( float _X, float _Y){
+		return sqrt(pow(m_iX - _X, 2)+pow(m_iY - _Y, 2));
 	}
 	bool getState(){ return m_boState; }
 	void setState(bool _boState){ m_boState = _boState; }

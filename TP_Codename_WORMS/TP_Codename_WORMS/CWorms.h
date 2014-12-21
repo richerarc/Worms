@@ -75,6 +75,7 @@ public:
 				SDL_ShowMessageBox(&messageboxdata, nullptr);
 				delete m_Game;
 				m_Game = nullptr;
+				ReloadMap();
 				m_MenuPrincipal->ActivateMenu();
 				m_boInMenu = true;
 			}
