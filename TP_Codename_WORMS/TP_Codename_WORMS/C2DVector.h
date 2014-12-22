@@ -134,7 +134,7 @@ public:
 	double getYEnd(){ return m_YEnd; }
 	double getXStart(){ return m_XStart; }
 	double getYStart(){ return m_YStart; }
-	double getNorme(){ return m_Norme; }
+	double getNorme(){ return sqrt(pow(m_ComposanteX, 2) + pow(m_ComposanteY, 2)); }
 	double getOrientation(){ return m_Orientation; }
 	double getComposanteX(){ return m_ComposanteX; }
 	double getComposanteY(){ return m_ComposanteY; }

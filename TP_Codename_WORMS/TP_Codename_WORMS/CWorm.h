@@ -636,7 +636,7 @@ public:
 							m_EntityState = NoMotionRight;
 							uiTempsDeChute = m_Trajectoire->getSpeedMagnitude();
 							if (uiTempsDeChute >= 50)
-								SetLife(m_iLife - (uiTempsDeChute / 5));
+								SetLife(m_iLife - (uiTempsDeChute / 10));
 							delete m_Trajectoire;
 							m_Trajectoire = nullptr;
 						}
@@ -674,7 +674,7 @@ public:
 							m_EntityState = NoMotionLeft;
 							uiTempsDeChute = m_Trajectoire->getSpeedMagnitude();
 							if (uiTempsDeChute >= 50)
-								SetLife(m_iLife - (uiTempsDeChute / 5));
+								SetLife(m_iLife - (uiTempsDeChute / 10));
 							delete m_Trajectoire;
 							m_Trajectoire = nullptr;
 						}
