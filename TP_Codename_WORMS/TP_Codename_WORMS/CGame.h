@@ -262,10 +262,6 @@ public:
 					case GrenadeLaunchRight:
 						m_pLauncher->HandleEvent(_Event);
 						break;
-					case KnifeLeft:
-					case KnifeRight:
-						
-						break;
 					default:
 						ActiveWorm->HandleEvent(_Event);
 						break;
@@ -301,6 +297,7 @@ public:
 			m_pListeTeam->AllerDebut();
 			m_pListeTeam->ObtenirElement()->setFocus(true);
 			ActiveWorm = m_pListeTeam->ObtenirElement()->getPlayingWorm();
+			ActiveWorm->setPlaystate(true);
 		}
 	}
 
@@ -376,17 +373,25 @@ public:
 						break;
 					case KnifeLeft:
 					case KnifeRight:
-						CTeam* TeamTemp;
-						m_pListeTeam->AllerDebut();
-						for (int i = 0; i < m_pListeTeam->Count(); i++) {
-							TeamTemp = m_pListeTeam->ObtenirElement();
-							for (int j = 0; j < TeamTemp->getListeWorm()->Count(); j++){
-								TeamTemp->getListeWorm()->AllerA(j);
-								if (CPhysics::VerifyCollision(ActiveWorm->getPosition(), TeamTemp->getListeWorm()->ObtenirElement()->getPosition())){
-									TeamTemp->getListeWorm()->ObtenirElement()->RecieveDamage(nullptr, true);
+						if (ActiveWorm->KnifeDone()){
+							CTeam* TeamTemp;
+							m_pListeTeam->AllerDebut();
+							for (int i = 0; i < m_pListeTeam->Count(); i++) {
+								TeamTemp = m_pListeTeam->ObtenirElement();
+								for (int j = 0; j < TeamTemp->getListeWorm()->Count(); j++){
+									TeamTemp->getListeWorm()->AllerA(j);
+									if (!TeamTemp->getListeWorm()->ObtenirElement()->isPlaying()){
+										if (CPhysics::VerifyCollision(ActiveWorm->getPosition(), TeamTemp->getListeWorm()->ObtenirElement()->getPosition())){
+											TeamTemp->getListeWorm()->ObtenirElement()->RecieveDamage(nullptr, true);
+										}
+									}
 								}
+								m_pListeTeam->AllerSuivant();
 							}
-							m_pListeTeam->AllerSuivant();
+							if (ActiveWorm->getWormState() == KnifeLeft)
+								ActiveWorm->setWormState(NoMotionLeft);
+							else
+								ActiveWorm->setWormState(NoMotionRight);
 						}
 						break;
 						

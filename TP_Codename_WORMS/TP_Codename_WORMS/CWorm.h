@@ -190,7 +190,9 @@ public:
 			m_pSprite->setNbLoop(-1);
 			m_boKnifeDone = false;
 		}
-
+		if (m_boKnifeDone){
+			m_boKnifeDone = false;
+		}
 		if (m_iLife > 1){
 			m_lblNom->Draw(_Renderer);
 			SDL_SetRenderDrawColor(_Renderer, m_TeamColor->r, m_TeamColor->g, m_TeamColor->b, 200);
@@ -366,7 +368,6 @@ public:
 		unsigned int uiTempsDeChute = 0;
 		SDL_Rect RectCollision;
 		SDL_Rect RectTemp;
-		SDL_Rect rect;
 		if (m_EntityState != Largage){
 			RectCollision = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h / 2, m_RectPosition.w, m_RectPosition.h };
 			ftemp = CPhysics::EvaluateSlope(RectCollision);

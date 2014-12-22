@@ -88,8 +88,8 @@ public:
 	 @discussion Aucune.
 	 */
 	static bool VerifyCollision(SDL_Rect _Collider, SDL_Rect _Collidee){
-		if ((_Collider.x + _Collider.w > _Collidee.x) || (_Collider.x < _Collidee.x + _Collidee.w)){
-			if ((_Collider.y + _Collider.h > _Collidee.y) || (_Collider.y < _Collidee.y + _Collidee.h)){
+		if ((_Collider.x + _Collider.w >= _Collidee.x) && (_Collider.x <= _Collidee.x + _Collidee.w)){
+			if ((_Collider.y + _Collider.h >= _Collidee.y) && (_Collider.y <= _Collidee.y + _Collidee.h)){
 				return true;
 			}
 		}
