@@ -220,8 +220,8 @@ public:
 
 					}
 				if (m_Worm->getWormState() == GrenadeLaunchRight){
-					fPosYTempo = m_RectGL.y + (40 * sin(DegToRad(iAngle)));
-					fPosXTempo = m_RectGL.x + (49 * cos(DegToRad(iAngle)));
+					fPosYTempo = m_RectGL.y + (26 * sin(DegToRad(iAngle)));
+					fPosXTempo = m_RectGL.x + (45 * cos(DegToRad(iAngle)));
 					iPosXTampon = fPosXTempo;
 					iPosYTampon = fPosYTempo;
 					if (fPosXTempo > iPosXTampon + 0.5)
@@ -269,7 +269,7 @@ public:
 			boGrenadeIsExploded = true;
 			m_uiRayon = m_pGrenade->getRayon();
 			m_RectGrenade = m_pGrenade->getPosition();
-
+			m_pGrenade->setState(LaunchLeft);
 		}
 	}
 	int getWormState(){

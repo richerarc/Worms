@@ -373,6 +373,13 @@ public:
 							m_pLauncher->setInUse(true);
 						}
 						break;
+					case KnifeLeft:
+					case KnifeRight:
+						m_pListeTeam->AllerDebut();
+						for (int i = 0; i < m_pListeTeam->Count(); i++) {
+							
+						}
+						break;
 						
 				}
 			}

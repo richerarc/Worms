@@ -83,8 +83,8 @@ public:
 				m_NextPos->setY(m_ActualPos->getY() - DeltaY);
 			}
 
-			m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX() + m_Acceleration->getComposanteX()/dTimeVariation,
-										   m_InitSpeed->getComposanteY() + m_Acceleration->getComposanteY()/dTimeVariation);
+			m_ActualSpeed->setComposanteXY(m_InitSpeed->getComposanteX() + m_Acceleration->getComposanteX()*dTimeVariation,
+										   m_InitSpeed->getComposanteY() + m_Acceleration->getComposanteY()*dTimeVariation);
 		}
 	}
 	

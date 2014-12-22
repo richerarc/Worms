@@ -113,7 +113,9 @@ public:
 		if ((m_pMissile != nullptr) && boIsLaunch){
 			
 			m_pMissile->Draw(_pRenderer);
-			if (m_pMissile->HasExploded()){
+			if (m_pMissile->HasExploded() || m_pMissile->isOutOfBounds()){
+				if (m_pMissile->isOutOfBounds())
+					m_pMissile->setExplosion(true);
 				InitInfoMissile();
 				delete m_pMissile;
 				m_pMissile = nullptr;

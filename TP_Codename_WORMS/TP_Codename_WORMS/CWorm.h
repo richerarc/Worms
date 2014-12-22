@@ -32,6 +32,7 @@ private:
 	SDL_Color* m_TeamColor;
 	bool m_boDrawRect;
 	double 	m_dblYinitial;
+	bool m_boKnifeDone;
 public:
 
 	/*!
@@ -56,8 +57,10 @@ public:
 		m_lblNom = new CLabel("", m_strName.c_str(), _Font, SDL_Rect{ _RectPos.x, _RectPos.y - 18, 50, 10 });
 		m_EntityState = Largage;
 		m_boDrawRect = false;
-		m_pSprite->Start();
 		m_dblYinitial = 0;
+		m_boKnifeDone = false;
+		m_pSprite->Start();
+		
 
 	}
 
@@ -83,6 +86,10 @@ public:
 	 */
 	void ReactToExplosion(CExplosion * _Explosion){
 		RecieveDamage(_Explosion, false);
+		if (m_EntityState == NoMotionLeft)
+			m_EntityState = ChuteLeft;
+		else
+			m_EntityState = ChuteRight;
 	}
 
 	/*!
@@ -174,19 +181,38 @@ public:
 			m_EntityState = Dead;
 			m_iLife = 0;
 		}
-		if (((m_EntityState == JumpLeft) || (m_EntityState == JumpRight)) && (m_pSprite->getNbrOfLoop() != 2)){
+		if (((m_EntityState == JumpLeft) || (m_EntityState == JumpRight) || (m_EntityState == KnifeLeft) || (m_EntityState == KnifeRight)) && (m_pSprite->getNbrOfLoop() != 2)){
 			m_pSprite->setNbLoop(2);
 		}
 		else{
 			m_pSprite->setNbLoop(-1);
+			m_boKnifeDone = false;
 		}
 
-		if (m_iLife){
+		if (m_iLife > 1){
 			m_lblNom->Draw(_Renderer);
 			SDL_SetRenderDrawColor(_Renderer, m_TeamColor->r, m_TeamColor->g, m_TeamColor->b, 200);
 			SDL_SetRenderDrawBlendMode(_Renderer, SDL_BLENDMODE_BLEND);
 			SDL_RenderFillRect(_Renderer, &m_BarredeVie);
 			switch (m_EntityState) {
+			case KnifeLeft:
+					if (m_pSprite->getCurrentAnimation() != 13)
+						m_pSprite->setCurrentAnimation(13);
+					m_pSprite->Render(_Renderer);
+					if (m_pSprite->AnimationIsOver()){
+						m_boKnifeDone = true;
+						setPosXY(m_RectPosition.x, m_RectPosition.y);
+					}
+					break;
+			case KnifeRight:
+					if (m_pSprite->getCurrentAnimation() != 12)
+						m_pSprite->setCurrentAnimation(12);
+					m_pSprite->Render(_Renderer);
+					if (m_pSprite->AnimationIsOver()){
+						m_boKnifeDone = true;
+						setPosXY(m_RectPosition.x, m_RectPosition.y);
+					}
+					break;
 			case ChuteLeft:
 			case SlideLeft:
 				if (m_pSprite->getCurrentAnimation() != 15)
@@ -268,6 +294,7 @@ public:
 				m_pSprite->setNbLoop(0);
 			}
 			if (m_pSprite->AnimationIsOver()){
+				setPosXY(m_RectPosition.x, m_RectPosition.y);
 				m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);
 				m_pExplosion->startExplosion();
 				m_pExplosion->ExplodeMap(_Renderer);
@@ -314,8 +341,13 @@ public:
 	*/
 
 	void SetLife(int _iLifeActuelle){
-		m_iLife = _iLifeActuelle;
-		m_BarredeVie.w = _iLifeActuelle / 2;
+		if (_iLifeActuelle < 1){
+			m_iLife = 0;
+		}
+		else{
+			m_iLife = _iLifeActuelle;
+			m_BarredeVie.w = _iLifeActuelle / 2;
+		}
 	}
 
 	int getLife(){ return m_iLife; }
@@ -699,6 +731,10 @@ public:
 	}
 	void setWormState(int _EntityState){
 		m_EntityState = _EntityState;
+	}
+	
+	bool KnifeDone(){
+		return m_boKnifeDone;
 	}
 };
 #endif
