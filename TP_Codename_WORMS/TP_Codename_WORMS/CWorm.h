@@ -223,6 +223,7 @@ public:
 			case SlideLeft:
 				if (m_pSprite->getCurrentAnimation() != 15)
 					m_pSprite->setCurrentAnimation(15);
+				m_pSprite->setNbLoop(-1);
 				m_pSprite->Render(0, 4, _Renderer);
 				break;
 			case ChuteRight:
