@@ -35,6 +35,7 @@ private:
 	bool m_boKnifeDone;
 	bool m_boPlaying;
 	bool m_boDamaged ;
+	double iAnglebitch;
 public:
 
 	/*!
@@ -64,7 +65,7 @@ public:
 		m_boPlaying = false;
 		m_boDamaged = false;
 		m_pSprite->Start();
-		
+		iAnglebitch = 0;
 
 	}
 
@@ -224,13 +225,16 @@ public:
 				if (m_pSprite->getCurrentAnimation() != 15)
 					m_pSprite->setCurrentAnimation(15);
 				m_pSprite->setNbLoop(-1);
-				m_pSprite->Render(0, 4, _Renderer);
+				iAnglebitch -= 0.3;
+				m_pSprite->Render(0, 4, _Renderer,iAnglebitch);
 				break;
 			case ChuteRight:
 			case SlideRight:
 				if (m_pSprite->getCurrentAnimation() != 14)
 					m_pSprite->setCurrentAnimation(14);
-				m_pSprite->Render(0, 4, _Renderer);
+				//m_pSprite->Render(0, 4, _Renderer);
+				iAnglebitch += 0.5;
+				m_pSprite->Render(0, 4, _Renderer, iAnglebitch);
 				break;
 			case JumpLeft:
 				if (m_pSprite->getCurrentAnimation() != 5)

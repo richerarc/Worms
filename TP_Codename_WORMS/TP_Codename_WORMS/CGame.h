@@ -331,10 +331,12 @@ public:
 						if (m_pBazouka->isInUse() && m_pBazouka->MissileHasExploded()){
 							if (ActiveWorm->getWormState() == UsingBazzRight){
 								ActiveWorm->setWormState(NoMotionRight);
+								
 							}
 							else{
 								ActiveWorm->setWormState(NoMotionLeft);
 							}
+							NextTurn();
 							m_pBazouka->setInUse(false);
 							m_pBazouka->reset();
 						}
@@ -352,6 +354,7 @@ public:
 							else{
 								ActiveWorm->setWormState(NoMotionLeft);
 							}
+							NextTurn();
 							m_pJetpack->setInUse(false);
 						}
 						else{
@@ -368,6 +371,7 @@ public:
 							else{
 								ActiveWorm->setWormState(NoMotionLeft);
 							}
+							NextTurn();
 							m_pLauncher->setInUse(false);
 							m_pLauncher->reset();
 						}
@@ -397,6 +401,7 @@ public:
 								ActiveWorm->setWormState(NoMotionLeft);
 							else
 								ActiveWorm->setWormState(NoMotionRight);
+							NextTurn();
 						}
 						break;
 						
