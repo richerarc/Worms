@@ -300,12 +300,17 @@ public:
 				m_pSprite->setNbLoop(0);
 			}
 			if (m_pSprite->WormAnimationIsOver()){
-				setPosXY(m_RectPosition.x, m_RectPosition.y);
-				m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);
-				m_pExplosion->startExplosion();
-				m_pExplosion->ExplodeMap(_Renderer);
+				m_boIsexploded = true;
+			}
+			if(m_boIsexploded){
+				if (!m_pExplosion->HasStarted()){
+					setPosXY(m_RectPosition.x, m_RectPosition.y);
+					m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);
+					m_pExplosion->startExplosion();
+				}
 				m_pExplosion->Draw(_Renderer);
 				if (m_pExplosion->IsDone()){
+					m_pExplosion->ExplodeMap(_Renderer);
 					m_EntityState = Dead;
 				}
 			}

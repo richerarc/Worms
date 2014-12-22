@@ -18,7 +18,8 @@ protected:
 	float m_Angle;
 	CExplosion* m_pExplosion;  // Nuclear DATA
 	int test;
-
+	bool m_boHasExplosed; //Donnée représentant si l'objet a explosé
+	bool m_boIsexploded; //Donnée représentant si l'objet va explosé (true) ou non (false).
 public:
 
 	static unsigned int m_uiTotalNbrOfEntityExplosed;
@@ -42,6 +43,8 @@ public:
 		m_Trajectoire = CPhysics::Propulsion(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.f, 2.f), new C2DVector(m_RectPosition.x, m_RectPosition.y, double(0), double(CPhysics::GetGravity())));
 		m_Angle = 0;
 		test = 0;
+		m_boHasExplosed = false;
+		m_boIsexploded = false;
 	}
 
 	/*!
@@ -227,12 +230,14 @@ public:
 	virtual void HandleEvent(SDL_Event){};
 	
 	virtual bool isOutOfBounds(){
-		if ((m_RectPosition.x < 0) || ((m_RectPosition.x + m_RectPosition.w) > WIDTH) || ((m_RectPosition.y + m_RectPosition.h) > HEIGHT)){
+		if ((m_RectPosition.x + m_RectPosition.w <= 0) || (m_RectPosition.x >= WIDTH) || (m_RectPosition.y >= HEIGHT)){
 			return true;
 			m_EntityState = 1240;
 		}
 		return false;
 	}
+	virtual bool IsExploded(){return m_boIsexploded;}
+	virtual bool HasExploded(){return m_boHasExplosed;}
 
 };
 unsigned int CEntity::m_uiTotalNbrOfEntityExplosed = 0;
