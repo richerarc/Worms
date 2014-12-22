@@ -238,6 +238,9 @@ public:
 		return m_Acceleration;
 	}
 
+	void AddSpeed(C2DVector* _Speed){
+		m_InitSpeed = m_InitSpeed->operator+(_Speed);
+	}
 	
 	double getSpeedMagnitude(){ return  m_ActualSpeed->getNorme(); }
 
