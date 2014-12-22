@@ -367,7 +367,7 @@ public:
 		SDL_Rect RectCollision;
 		SDL_Rect RectTemp;
 		SDL_Rect rect;
-		if (m_EntityState != Largage){
+		if (!(m_EntityState == Largage || m_EntityState == JetpackLeftNoFly || m_EntityState == JetpackRightNoFly || m_EntityState == JetpackLeftFly || m_EntityState == JetpackRightFly || m_EntityState == ChuteLeft || m_EntityState == ChuteRight)){
 			RectCollision = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h / 2, m_RectPosition.w, m_RectPosition.h };
 			ftemp = CPhysics::EvaluateSlope(RectCollision);
 			SDL_RenderDrawRect(_renderer, &RectCollision);
