@@ -519,7 +519,6 @@ public:
 				RectCollision = { m_RectPosition.x+10, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w + ((3 / 4)*m_RectPosition.w), m_RectPosition.h / 2 };
 				ftemp = RadToDeg(CPhysics::EvaluateSlope(RectCollision));
 				SDL_RenderDrawRect(_renderer, &RectCollision);
-				SDL_RenderPresent(_renderer);
 
 				if (ftemp > 60 && ftemp != (NOANGLE)){
 					m_EntityState = SlideRight;
