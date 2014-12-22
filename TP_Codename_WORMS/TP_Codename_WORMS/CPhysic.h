@@ -217,7 +217,7 @@ public:
 				{
 					for (int i = 0; i < _EntityRect.w; i++){
 						temp = (m_Map->w * ((int)dblY + _EntityRect.h)) + ((int)dblX + i);
-						if ((temp >= 0)){
+						if ((temp >= 0) && (temp <= ((WIDTH * HEIGHT) + WIDTH))){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
@@ -229,7 +229,7 @@ public:
 					}
 					for (int i = 0; i < _EntityRect.h; i++){
 						temp = (m_Map->w * ((int)+i)) + ((int)dblX + _EntityRect.w);
-						if (temp >= 0){
+						if ((temp >= 0) && (temp <= ((WIDTH * HEIGHT) + WIDTH))){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
@@ -252,7 +252,7 @@ public:
 				{
 					for (int i = 0; i < _EntityRect.w; i++){
 						temp = (m_Map->w * ((int)dblY + _EntityRect.h)) + ((int)dblX + i);
-						if (temp >= 0){
+						if ((temp >= 0) && (temp <= ((WIDTH * HEIGHT) + WIDTH))){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
@@ -264,7 +264,7 @@ public:
 					}
 					for (int i = 0; i < _EntityRect.h; i++){
 						temp = (m_Map->w * ((int)dblY + i)) + ((int)dblX);
-						if (temp >= 0){
+						if ((temp >= 0) && (temp <= ((WIDTH * HEIGHT) + WIDTH))){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
@@ -287,7 +287,7 @@ public:
 				{
 					for (int i = 0; i < _EntityRect.w; i++){
 						temp = (m_Map->w * ((int)dblY)) + ((int)dblX + i);
-						if (temp >= 0){
+						if ((temp >= 0) && (temp <= ((WIDTH * HEIGHT) + WIDTH))){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
@@ -299,7 +299,7 @@ public:
 					}
 					for (int i = 0; i < _EntityRect.h; i++){
 						temp = (m_Map->w * ((int)dblY + i)) + ((int)dblX + _EntityRect.w);
-						if (temp >= 0){
+						if ((temp >= 0) && (temp <= ((WIDTH * HEIGHT) + WIDTH))){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
@@ -322,7 +322,7 @@ public:
 				{
 					for (int i = 0; i < _EntityRect.w; i++){
 						temp = (m_Map->w * ((int)dblY)) + ((int)dblX + i);
-						if (temp >= 0){
+						if ((temp >= 0) && (temp <= ((WIDTH * HEIGHT) + WIDTH))){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
@@ -334,7 +334,7 @@ public:
 					}
 					for (int i = 0; i < _EntityRect.h; i++){
 						temp = (m_Map->w * ((int)dblY + i)) + ((int)dblX);
-						if (temp >= 0){
+						if ((temp >= 0) && (temp <= ((WIDTH * HEIGHT) + WIDTH))){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
@@ -356,7 +356,7 @@ public:
 				{
 					for (int i = 0; i < _EntityRect.w; i++){
 						temp = (m_Map->w * ((int)dblY + _EntityRect.h)) + ((int)dblX + i);
-						if (temp >= 0){
+						if ((temp >= 0) && (temp <= ((WIDTH * HEIGHT) + WIDTH))){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
@@ -378,7 +378,7 @@ public:
 				{
 					for (int i = 0; i < _EntityRect.w; i++){
 						temp = (m_Map->w * ((int)dblY)) + ((int)dblX + i);
-						if (temp >= 0){
+						if ((temp >= 0) && (temp <= ((WIDTH * HEIGHT) + WIDTH))){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
@@ -400,7 +400,7 @@ public:
 				{
 					for (int i = 0; i < _EntityRect.h; i++){
 						temp = (m_Map->w * ((int)dblY + i)) + ((int)dblX + _EntityRect.w);
-						if (temp >= 0){
+						if ((temp >= 0) && (temp <= ((WIDTH * HEIGHT) + WIDTH))){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
@@ -422,7 +422,7 @@ public:
 				{
 					for (int i = 0; i < _EntityRect.h; i++){
 						temp = (m_Map->w * ((int)dblY + i)) + ((int)dblX);
-						if (temp >= 0){
+						if ((temp >= 0) && (temp <= ((WIDTH * HEIGHT) + WIDTH))){
 							if (((unsigned int*)m_Map->pixels)[temp] > TRANSPARENCY){
 								CollisionPosition->setXY(dblX, dblY);
 								delete pVector;
