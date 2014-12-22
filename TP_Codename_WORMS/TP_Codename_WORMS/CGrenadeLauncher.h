@@ -110,8 +110,10 @@ public:
 		if ((m_pGrenade != nullptr) && boIsLaunch){
 
 			m_pGrenade->Draw(_pRenderer);
-			if (m_pGrenade->HasExploded()){
+			if (m_pGrenade->HasExploded() || m_pGrenade->isOutOfBounds()){
 				InitInfoGrenade();
+				if (m_pGrenade->isOutOfBounds())
+					m_pGrenade->setExplosion(true);
 				delete m_pGrenade;
 				m_pGrenade = nullptr;
 			}

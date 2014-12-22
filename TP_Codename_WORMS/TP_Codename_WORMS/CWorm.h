@@ -33,6 +33,7 @@ private:
 	bool m_boDrawRect;
 	double 	m_dblYinitial;
 	bool m_boKnifeDone;
+	bool m_boPlaying;
 public:
 
 	/*!
@@ -59,6 +60,7 @@ public:
 		m_boDrawRect = false;
 		m_dblYinitial = 0;
 		m_boKnifeDone = false;
+		m_boPlaying = false;
 		m_pSprite->Start();
 		
 
@@ -316,7 +318,7 @@ public:
 	//				_Knife : Booléen qui détermine si le dégât est causé par l'arme Couteau.
 
 	void RecieveDamage(CExplosion * _Explosion, bool _Knife){
-		if (_Knife){
+		if (_Knife && ((m_EntityState != KnifeRight) || (m_EntityState != KnifeLeft)) && !m_boPlaying){
 			m_iLife -= 30;
 		}
 		else if (_Explosion != nullptr){
@@ -735,6 +737,13 @@ public:
 	
 	bool KnifeDone(){
 		return m_boKnifeDone;
+	}
+	
+	bool isPlaying(){
+		return m_boPlaying;
+	}
+	void setPlaystate(bool _boPlaying){
+		m_boPlaying = _boPlaying;
 	}
 };
 #endif

@@ -150,6 +150,7 @@ public:
 				ActiveWorm = nullptr;
 			}
 			ActiveWorm = m_pListeTeam->ObtenirElement()->getPlayingWorm();
+			ActiveWorm->setPlaystate(true);
 		}
 		CPhysics::RedefineWind();
 	}
@@ -375,9 +376,17 @@ public:
 						break;
 					case KnifeLeft:
 					case KnifeRight:
+						CTeam* TeamTemp;
 						m_pListeTeam->AllerDebut();
 						for (int i = 0; i < m_pListeTeam->Count(); i++) {
-							
+							TeamTemp = m_pListeTeam->ObtenirElement();
+							for (int j = 0; j < TeamTemp->getListeWorm()->Count(); j++){
+								TeamTemp->getListeWorm()->AllerA(j);
+								if (CPhysics::VerifyCollision(ActiveWorm->getPosition(), TeamTemp->getListeWorm()->ObtenirElement()->getPosition())){
+									TeamTemp->getListeWorm()->ObtenirElement()->RecieveDamage(nullptr, true);
+								}
+							}
+							m_pListeTeam->AllerSuivant();
 						}
 						break;
 						
