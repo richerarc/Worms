@@ -42,7 +42,7 @@ public:
 		{
 			strNom.append(" ");
 			strNom.append(SDL_itoa(i, Buffer, 10));
-			m_pListWorm->AjouterFin(new CWorm(strNom, _WormRepo, new CSprite("", _TexSprite, 10, 17, 80, -1), _Font, {rand() % WIDTH, -50, 30, 50 }, &m_TeamColor, new CExplosion(_TextureExplosion, 25, _Map)));
+			m_pListWorm->AjouterFin(new CWorm(strNom, _WormRepo, new CSprite("", _TexSprite, 10, 17, 80, -1), _Font, {rand() % WIDTH, -50, 30, 50 }, &m_TeamColor, new CExplosion(_TextureExplosion, 50, _Map)));
 			strNom.pop_back();
 			strNom.pop_back();
 		}
@@ -151,18 +151,35 @@ public:
 		m_pListWorm->AllerDebut();
 		for(int i = 0; i < m_pListWorm->Count(); i++){
 			if (m_pListWorm->ObtenirElement()->getWormState() == Dead){
-				if (m_pListWorm->ObtenirElement()->isFocused()){
-					m_pListWorm->Retirer(false);
-					if (m_pListWorm->Count()){
-						m_pListWorm->AllerPrecedent();
-						m_pListWorm->ObtenirElement()->setFocus(true);
+				if (!m_pListWorm->ObtenirElement()->isPlaying()){
+					if (m_pListWorm->ObtenirElement()->isFocused()){
+						m_pListWorm->Retirer(true);
+						if (m_pListWorm->Count()){
+							m_pListWorm->AllerPrecedent();
+							m_pListWorm->ObtenirElement()->setFocus(true);
+						}
+						else{
+							m_bodefeated = true;
+						}
 					}
 					else{
-						m_bodefeated = true;
+						m_pListWorm->Retirer(true);
 					}
 				}
 				else{
-					m_pListWorm->Retirer(true);
+					if (m_pListWorm->ObtenirElement()->isFocused()){
+						m_pListWorm->Retirer(false);
+						if (m_pListWorm->Count()){
+							m_pListWorm->AllerPrecedent();
+							m_pListWorm->ObtenirElement()->setFocus(true);
+						}
+						else{
+							m_bodefeated = true;
+						}
+					}
+					else{
+						m_pListWorm->Retirer(true);
+					}
 				}
 			}
 			else{

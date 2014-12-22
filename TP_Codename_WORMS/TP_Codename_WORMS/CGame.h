@@ -318,6 +318,11 @@ public:
 			if ((ActiveWorm->getWormState() == Dead) || (ActiveWorm->isOutOfBounds())){
 				NextTurn();
 			}
+			
+			if (ActiveWorm->isDamaged()){
+				NextTurn();
+			}
+			
 			else{
 				
 				switch (ActiveWorm->getWormState()) {
@@ -427,6 +432,7 @@ public:
 					m_pListeTeam->ObtenirElement()->setFocus(true);
 				}
 			}
+			m_pListeTeam->AllerSuivant();
 		}
 	}
 

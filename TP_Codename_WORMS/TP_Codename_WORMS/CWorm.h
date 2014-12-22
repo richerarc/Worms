@@ -15,7 +15,7 @@
 
 // Un worm possde dŽjˆ l'Žtat en chute, immobile, ou en dŽplacement, qu'il tient d'entity
 
-enum WormState { NoMotionLeft, NoMotionRight, MotionLeft, MotionRight, JumpLeft, JumpRight, UsingBazzLeft, UsingBazzRight, Damaged, Largage, SlideLeft, SlideRight, ChuteLeft, ChuteRight, Dead, GrenadeLaunchLeft, GrenadeLaunchRight, KnifeLeft, KnifeRight, JetpackLeftFly, JetpackLeftNoFly, JetpackRightFly, JetpackRightNoFly };
+enum WormState { NoMotionLeft, NoMotionRight, MotionLeft, MotionRight, JumpLeft, JumpRight, UsingBazzLeft, UsingBazzRight, Damaged, Largage, SlideLeft, SlideRight, ChuteLeft, ChuteRight, Dead = 1240, GrenadeLaunchLeft, GrenadeLaunchRight, KnifeLeft, KnifeRight, JetpackLeftFly, JetpackLeftNoFly, JetpackRightFly, JetpackRightNoFly };
 
 
 /*!
@@ -332,6 +332,8 @@ public:
 				if (Distance > 20)
 					m_iLife -= 100 - 100 * (Distance / _Explosion->getRadius());
 				else m_iLife = 0;
+				if (m_boPlaying)
+					m_boDamaged = true;
 			}
 		}
 		if (m_iLife > 1)
@@ -735,6 +737,8 @@ public:
 		m_BarredeVie.x = m_RectPosition.x;
 		m_BarredeVie.y = m_RectPosition.y;
 	}
+	
+	bool isDamaged(){return m_boDamaged;}
 
 	int getWormState(){
 		return m_EntityState;
