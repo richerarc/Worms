@@ -127,6 +127,10 @@ public:
 		return m_bodefeated;
 	}
 	
+	CListeDC<CWorm*>* getListeWorm(){
+		return m_pListWorm;
+	}
+	
 	/*!
 	 @Méthode:
 	 @ReactToExplosion

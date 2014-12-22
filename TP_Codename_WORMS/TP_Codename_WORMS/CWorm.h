@@ -348,6 +348,7 @@ public:
 			m_iLife = _iLifeActuelle;
 			m_BarredeVie.w = _iLifeActuelle / 2;
 		}
+	}
 
 	int getLife(){ return m_iLife; }
 
