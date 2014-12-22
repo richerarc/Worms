@@ -516,9 +516,10 @@ public:
 			}
 			// Si on descends
 			else if (dbl > 0){
-				RectCollision = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w + ((3 / 4)*m_RectPosition.w), m_RectPosition.h / 2 };
+				RectCollision = { m_RectPosition.x+10, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w + ((3 / 4)*m_RectPosition.w), m_RectPosition.h / 2 };
 				ftemp = RadToDeg(CPhysics::EvaluateSlope(RectCollision));
 				SDL_RenderDrawRect(_renderer, &RectCollision);
+				SDL_RenderPresent(_renderer);
 
 				if (ftemp > 60 && ftemp != (NOANGLE)){
 					m_EntityState = SlideRight;
@@ -563,7 +564,7 @@ public:
 				RectCollision = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w + ((3 / 4)*m_RectPosition.w), m_RectPosition.h / 2 };
 				ftemp = RadToDeg(CPhysics::EvaluateSlope(RectCollision));
 				SDL_RenderDrawRect(_renderer, &RectCollision);
-				//Si l'angle maximum est atteint alors on tomble forcément bloqué.
+				//Si l'angle maximum est atteint alors on tomble forcément en slide.
 				if (ftemp < -60){
 					m_EntityState = SlideLeft;
 					break;
