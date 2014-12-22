@@ -538,7 +538,7 @@ public:
 	 */
 	static int Move(SDL_Rect* _Rect, int _Direction){
 		if (_Direction == LEFT){
-			for (int i = 0; i < _Rect->h / 2; i++){
+			for (int i = 10; i < _Rect->h / 2; i++){
 				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x] != 0){
 					if (i < _Rect->h)
 						return BLOCKED;
@@ -550,7 +550,7 @@ public:
 			}
 		}
 		else{
-			for (int i = 0; i < _Rect->h / 2; i++){
+			for (int i = 10; i < _Rect->h / 2; i++){
 				if (((unsigned int*)m_Map->pixels)[m_Map->w * (_Rect->y + i) + _Rect->x + _Rect->w] != 0){
 					if (i < _Rect->h)
 						return BLOCKED;
