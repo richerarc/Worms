@@ -373,6 +373,10 @@ public:
 							m_pLauncher->setInUse(true);
 						}
 						break;
+					case KnifeLeft:
+					case KnifeRight:
+						
+						break;
 						
 				}
 			}
