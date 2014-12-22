@@ -34,6 +34,7 @@ private:
 	double 	m_dblYinitial;
 	bool m_boKnifeDone;
 	bool m_boPlaying;
+	bool m_boDamaged ;
 public:
 
 	/*!
@@ -61,6 +62,7 @@ public:
 		m_dblYinitial = 0;
 		m_boKnifeDone = false;
 		m_boPlaying = false;
+		m_boDamaged = false;
 		m_pSprite->Start();
 		
 
@@ -639,6 +641,8 @@ public:
 							uiTempsDeChute = m_Trajectoire->getSpeedMagnitude();
 							if (uiTempsDeChute >= 50)
 								SetLife(m_iLife - (uiTempsDeChute / 10));
+							if (m_boPlaying)
+								m_boDamaged = true;
 							delete m_Trajectoire;
 							m_Trajectoire = nullptr;
 						}
@@ -677,6 +681,8 @@ public:
 							uiTempsDeChute = m_Trajectoire->getSpeedMagnitude();
 							if (uiTempsDeChute >= 50)
 								SetLife(m_iLife - (uiTempsDeChute / 10));
+							if (m_boPlaying)
+								m_boDamaged = true;
 							delete m_Trajectoire;
 							m_Trajectoire = nullptr;
 						}
@@ -746,6 +752,7 @@ public:
 	}
 	void setPlaystate(bool _boPlaying){
 		m_boPlaying = _boPlaying;
+		if (m_boPlaying){ m_boDamaged = false; }
 	}
 };
 #endif
