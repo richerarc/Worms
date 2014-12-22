@@ -232,7 +232,6 @@ public:
 			case SlideRight:
 				if (m_pSprite->getCurrentAnimation() != 14)
 					m_pSprite->setCurrentAnimation(14);
-				//m_pSprite->Render(0, 4, _Renderer);
 				iAnglebitch += 0.5;
 				m_pSprite->Render(0, 4, _Renderer, iAnglebitch);
 				break;
@@ -283,24 +282,17 @@ public:
 			case JetpackRightNoFly:
 				if (m_pSprite->getCurrentAnimation() != 10)
 					m_pSprite->setCurrentAnimation(10);
-				m_pSprite->Render(1, 4, _Renderer);
+				m_pSprite->Render(0, 1, _Renderer);
 				break;
 			case JetpackLeftFly:
-				if (!(CPhysics::verifyGroundCollision(m_RectPosition))){
-					if (m_pSprite->getCurrentAnimation() != 11)
-						m_pSprite->setCurrentAnimation(11);
-					m_pSprite->Render(1, 4, _Renderer);
-				}
-				else{
-					if (m_pSprite->getCurrentAnimation() != 11)
-						m_pSprite->setCurrentAnimation(11);
-					m_pSprite->Render(0, 1, _Renderer);
-				}
+				if (m_pSprite->getCurrentAnimation() != 11)
+					m_pSprite->setCurrentAnimation(11);
+				m_pSprite->Render(1, 4, _Renderer);
 				break;
 			case JetpackLeftNoFly:
 				if (m_pSprite->getCurrentAnimation() != 11)
 					m_pSprite->setCurrentAnimation(11);
-				m_pSprite->Render(1, 4, _Renderer);
+				m_pSprite->Render(0, 1, _Renderer);
 				break;
 			}
 			if (m_boDrawRect)
