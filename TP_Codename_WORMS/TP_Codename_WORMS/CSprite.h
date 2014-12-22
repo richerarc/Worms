@@ -94,16 +94,7 @@ public:
 	
 	bool AnimationIsOver(){
 		if (m_currentFrame == m_NbrFrame - 1){
-			m_rSource.x = 0;
-			m_rSource.y = 0;
-			m_rDest.x = 0;
-			m_rDest.y = 0;
-			m_rDest.w = m_rSource.w;
-			m_rDest.h = m_rSource.h;
-			m_pTimer->Start();
 			m_currentFrame = 0;
-			m_uiCurrentLoop = 0;
-			m_boActif = false;
 			return true;
 		}
 		return false;

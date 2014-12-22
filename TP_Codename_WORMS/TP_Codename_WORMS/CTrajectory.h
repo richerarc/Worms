@@ -62,7 +62,7 @@ public:
 	}
 
 	/*
-	 Method : GetPosition
+	 Method : UpdatePosition
 	 Brief : Fonction qui retourne la variation de la position dans la trajectoire selon le temps
 	 Params :
 	 _Acceleration : AccŽlŽration appliquŽe ˆ la trajectoire
@@ -124,7 +124,7 @@ public:
 	 http://integraledesmaths.free.fr/idm/PagePrincipale.htm#http://integraledesmaths.free.fr/idm/GeoAPAngDro.htm
 	 */
 	void Bounce(double _Slope){
-		
+
 
 		double Slope1 = tan(_Slope);
 		double Slope2 = tan(m_ActualSpeed->getOrientation());
@@ -139,24 +139,38 @@ public:
 			m_InitSpeed->setComposanteXY(m_ActualSpeed->getComposanteX(), -m_ActualSpeed->getComposanteY());
 		}
 		else{
-			m_InitSpeed->setComposanteXY(m_ActualSpeed->getComposanteX(), m_ActualSpeed->getComposanteY());
+			m_InitSpeed->setComposanteXY(1.0*m_ActualSpeed->getComposanteX(), 1.0*m_ActualSpeed->getComposanteY());
+
 			if (m_ActualSpeed->getComposanteX() < 0){
-				m_InitSpeed->setOrientation(m_InitSpeed->getOrientation()+5*M_PI/4);
+				if (m_ActualSpeed->getComposanteY() > 0){
+					m_InitSpeed->setOrientation(3 * M_PI / 2 + _Slope / 2); //marche
+				}
+				else{
+					m_InitSpeed->setOrientation(_Slope + 2 * M_PI + AngleBetweenSlopes);
+					m_InitSpeed->setComposanteXY(-m_InitSpeed->getComposanteX(), -m_InitSpeed->getComposanteY());
+				}
 			}
 			else{
-				m_InitSpeed->setOrientation(M_PI + m_InitSpeed->getOrientation() + (M_PI / 4 - AngleBetweenSlopes));
+				if (m_ActualSpeed->getComposanteY() > 0){
+					m_InitSpeed->setOrientation(3 * M_PI / 2 + _Slope / 2); //marche
+				}
+				else{
+					m_InitSpeed->setOrientation(_Slope + 1 * M_PI + AngleBetweenSlopes);
+					m_InitSpeed->setComposanteXY(-m_InitSpeed->getComposanteX(), -m_InitSpeed->getComposanteY());
+				}
 			}
-			m_InitSpeed->setComposanteXY(m_InitSpeed->getComposanteX() / 1.3, m_InitSpeed->getComposanteY() / 1.3);
+
+			m_InitSpeed->setComposanteXY(m_InitSpeed->getComposanteX() / 1., m_InitSpeed->getComposanteY() / 1.);
 		}
 		unsigned int dTimeVariation = m_TrajectoryTime->getElapsedTime();
 		double DeltaT = 0.5 * dTimeVariation * dTimeVariation;
 		double DeltaX = ((m_InitSpeed->getComposanteX()*dTimeVariation) + (DeltaT * m_Acceleration->getComposanteX())) / 10000;
 		double DeltaY = ((m_InitSpeed->getComposanteY()*dTimeVariation) + (DeltaT * m_Acceleration->getComposanteY())) / 10000;
 
-		m_NextPos->setXY(m_ActualPos->getX() + DeltaX,m_ActualPos->getY() + DeltaY);
+		m_NextPos->setXY(m_ActualPos->getX() + DeltaX, m_ActualPos->getY() + DeltaY);
 		m_StartPos->setXY(m_ActualPos->getX(), m_ActualPos->getY());
 		if (_Slope == 0.0)
-			m_Acceleration->setComposanteXY(m_Acceleration->getComposanteX()/4, 1.6*m_Acceleration->getComposanteY());
+			m_Acceleration->setComposanteXY(m_Acceleration->getComposanteX() / 4, 1.1*m_Acceleration->getComposanteY());
 		rebonds++;
 	}
 	
@@ -224,6 +238,9 @@ public:
 		return m_Acceleration;
 	}
 
+	void AddSpeed(C2DVector* _Speed){
+		m_InitSpeed = m_InitSpeed->operator+(_Speed);
+	}
 	
 	double getSpeedMagnitude(){ return  m_ActualSpeed->getNorme(); }
 
