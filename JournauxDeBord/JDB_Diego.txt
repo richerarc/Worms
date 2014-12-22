@@ -55,3 +55,9 @@ Le 11 Decembre, j'ai créé des textures sur gimp. -environ 30 minutes
 18 et 19 Decembre -- (pas mal de 9h00 a 17h00, les deux jours)
 -Plusieurs petites taches completées ou en voie de completion incluant Le Menu d'armes ingame, le a classe jetpack (avec l'aide de Dominic, Richer et Jessy), elle est encore disfonctionnelle (lol) mais on s'approche du but.
 Aujourdhui (19) j,ai commis une petite erreur qui a causé un bug dans github (erreur de merde, serieux) qui a causé une perte d'environ 5h de travail a tous mes coequipiers :( . J'espere quils vont pouvoir me pardonner. Entre autres, j'ai créé toutes les testures et sprites pour le mennu d'armes et meme la texture du "care package".
+
+22 Decembre 2014 - de 9h a 18h (avec des pauses intermittantes)
+
+- On a fini le jetpack, jessy et moi. Dominique et moi avons complété les diaggrammes de classe pour quils soient en accord avec le projet en tant que tel.
+Le projet est pas mal fini, on a des bugs, richer et kevin vont rester jusqua 11h pour deboguer tout ca :)
+
