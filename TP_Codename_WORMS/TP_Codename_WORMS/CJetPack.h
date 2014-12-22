@@ -108,7 +108,8 @@ public:
 						if (Worm->getTrajectoire() == nullptr)
 							Worm->setTrajectory(new CTrajectory(new CPosition(Worm->getPosition().x, Worm->getPosition().y), new C2DVector(Worm->getPosition().x, Worm->getPosition().y, 0., -60.), new C2DVector(Worm->getPosition().x, Worm->getPosition().y, CPhysics::GetWind()->getComposanteX(), (CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity()))));
 						if (Worm->getTrajectoire() != nullptr){
-							Worm->getTrajectoire()->AddAcceleration(new C2DVector(Worm->getPosition().x, Worm->getPosition().y, 0., -0.32));
+							Worm->setTrajectory(new CTrajectory(new CPosition(Worm->getPosition().x, Worm->getPosition().y), new C2DVector(Worm->getPosition().x, Worm->getPosition().y, 0., -60.), new C2DVector(Worm->getPosition().x, Worm->getPosition().y, CPhysics::GetWind()->getComposanteX(), (CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity()))));
+							Worm->getTrajectoire()->AddAcceleration(new C2DVector(Worm->getPosition().x, Worm->getPosition().y, 0.,-0.3));
 							boGaz = true;
 						}
 					}
@@ -144,7 +145,8 @@ public:
 				if (Worm != nullptr){
 					if (!boGaz){
 						if (Worm->getTrajectoire() != nullptr){
-							Worm->getTrajectoire()->AddAcceleration(new C2DVector(Worm->getPosition().x, Worm->getPosition().y, -0.08, -0.28));
+							Worm->setTrajectory(new CTrajectory(new CPosition(Worm->getPosition().x, Worm->getPosition().y), new C2DVector(Worm->getPosition().x, Worm->getPosition().y, 0., -60.), new C2DVector(Worm->getPosition().x, Worm->getPosition().y, CPhysics::GetWind()->getComposanteX(), (CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity()))));
+							Worm->getTrajectoire()->AddAcceleration(new C2DVector(Worm->getPosition().x, Worm->getPosition().y, -0.2, -0.1));
 							boGaz = true;
 						}
 						Worm->setWormState(JetpackLeftFly);
@@ -170,7 +172,8 @@ public:
 				if (Worm != nullptr){
 					if (!boGaz){
 						if (Worm->getTrajectoire() != nullptr){
-							Worm->getTrajectoire()->AddAcceleration(new C2DVector(Worm->getPosition().x, Worm->getPosition().y, 0.08, -0.28));
+							Worm->setTrajectory(new CTrajectory(new CPosition(Worm->getPosition().x, Worm->getPosition().y), new C2DVector(Worm->getPosition().x, Worm->getPosition().y, 0., -60.), new C2DVector(Worm->getPosition().x, Worm->getPosition().y, CPhysics::GetWind()->getComposanteX(), (CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity()))));
+							Worm->getTrajectoire()->AddAcceleration(new C2DVector(Worm->getPosition().x, Worm->getPosition().y, 0.2, -0.1));
 							boGaz = true;
 						}
 						Worm->setWormState(JetpackRightFly);
