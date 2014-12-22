@@ -101,6 +101,7 @@ public:
 		case SDL_KEYDOWN:
 			switch (_Event.key.keysym.sym){
 				//JetPack monte...
+			case SDLK_SPACE:
 			case SDLK_UP:
 				if (Worm != nullptr){
 					//Si c'est la premiere montée
@@ -204,6 +205,7 @@ public:
 
 		case SDL_KEYUP:
 			switch (_Event.key.keysym.sym){
+			case SDLK_SPACE:
 			case(SDLK_UP):
 				if (Worm->getTrajectoire() != nullptr){
 					Vector = new C2DVector(Worm->getPosition().x, Worm->getPosition().y, Worm->getTrajectoire()->GetActualSpeed()->getComposanteX(), Worm->getTrajectoire()->GetActualSpeed()->getComposanteY());
@@ -253,6 +255,10 @@ public:
 	}
 	bool isLanded(){
 		return (!m_pBarreGaz.h);
+	}
+	
+	void reset(){
+		m_pBarreGaz.h = 50;
 	}
 
 

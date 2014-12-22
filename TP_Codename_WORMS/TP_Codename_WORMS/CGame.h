@@ -359,8 +359,8 @@ public:
 							else{
 								ActiveWorm->setWormState(NoMotionLeft);
 							}
-							NextTurn();
 							m_pJetpack->setInUse(false);
+							m_pJetpack->reset();
 						}
 						else{
 							m_pJetpack->setJetPack(ActiveWorm);
