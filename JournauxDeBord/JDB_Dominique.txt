@@ -47,3 +47,6 @@ semble assez bien avancé mais que je n'ai pas encore testé.
 
 15 et 16 déc : environ 8h30 à 4h00 pour les deux
 Le rebond était finalement catastrophique et à été refait, mais maintenant il est vraiment fonctionnel avec des petits bugs
+
+17-18-19-22 : au moin 4h par jour :
+J'ai fait le rebond, le glissage, les UMLs avec Diego, j'ai aidé pour le jetpack et la physique.
