@@ -77,11 +77,12 @@ public:
 void Draw(SDL_Renderer* _pRenderer){
 	if (!m_boIsexploded){
 		Move();
+		int i = 90 + RadToDeg(m_Trajectoire->GetActualSpeed()->getSDLOrientation());
 		if (m_EntityState == LaunchRight){
-			SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_RectPosition, -RadToDeg(m_Trajectoire->GetActualSpeed()->getSDLOrientation()), NULL, SDL_FLIP_NONE);
+			SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_RectPosition, 90 + RadToDeg(m_Trajectoire->GetActualSpeed()->getSDLOrientation()), NULL, SDL_FLIP_NONE);
 		}
 		else{
-			SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_RectPosition, -RadToDeg(m_Trajectoire->GetActualSpeed()->getSDLOrientation()), NULL, SDL_FLIP_HORIZONTAL);
+			SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_RectPosition, RadToDeg(m_Trajectoire->GetActualSpeed()->getSDLOrientation()) - 90, NULL, SDL_FLIP_HORIZONTAL);
 		}
 		
 	}
@@ -90,7 +91,6 @@ void Draw(SDL_Renderer* _pRenderer){
 		m_pExplosion->startExplosion();
 		m_pExplosion->Draw(_pRenderer);
 		if (m_pExplosion->IsDone()){
-			m_pExplosion->ExplodeMap(_pRenderer);
 			m_boHasExplosed = true;
 			m_pExplosion->ExplodeMap(_pRenderer);
 			CEntity::m_uiCurrentNbrOfEntityExplosed++;
