@@ -20,17 +20,30 @@ private:
 	const char* m_strName; // Nom de la ressource pour faciliter l'accès.
 	
 public:
-	//Constructeur...
+
+	/*!
+	@method Constructeur.
+	@brief Initialise les données membres.
+	@param _Name Nom de la ressource
+	@return Adresse mémoire de l'objet.
+	@discussion Avec un nom C'est plus facile de retrouver une ressource.
+	*/
 	CRessource(const char* _Name){
 		m_strName = _Name;
 	}
 
-	//Destructeur...
+	/*!
+	@method Destructeur:
+	@brief Permet  de détruire les objets créés en mémoire
+	*/
 	~CRessource(){
 		
 	}
 
-	//Accesseur...
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
 	const char* GetName(){
 		return m_strName;
 	}

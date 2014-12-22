@@ -17,32 +17,43 @@ class CGestionnaireRessources{
 private:
 	CListeDC<CSprite*>* m_pListeSprites;  // Liste de Sprites.
 	CListeDC<CFont*>* m_pListeFonts;	  // Liste de Police.
-	CListeDC<CMusic*>* m_pListeMusics;	  // Liste de Sons.
+	CListeDC<CSound*>* m_pListeSounds;	  // Liste de Sons.
 	CListeDC<CTexture*>* m_pListeTexture; // Liste de Textures.
 	CListeDC<CSurface*>* m_pListeSurface; // Liste de Surfaces.
 
 public:
 
-	//Constructeur...
+	/*!
+	@method Constructeur.
+	@brief Initialise les données membres.
+	@return Adresse mémoire de l'objet.
+	@discussion Nuff said.
+	*/
 	CGestionnaireRessources(){
 		m_pListeSprites = new CListeDC<CSprite*>();
 		m_pListeFonts = new CListeDC<CFont*>();
-		m_pListeMusics = new CListeDC<CMusic*>();
+		m_pListeSounds = new CListeDC<CSound*>();
 		m_pListeTexture = new CListeDC<CTexture*>();
 		m_pListeSurface = new CListeDC<CSurface*>();
 
 	}
 
-	//Destructeur...
+	/*!
+	@method Destructeur:
+	@brief Permet de détruire les objets créés en mémoire
+	*/
 	~CGestionnaireRessources(){
 		delete m_pListeSprites;
 		delete m_pListeFonts;
-		delete m_pListeMusics;
+		delete m_pListeSounds;
 		delete m_pListeTexture;
 		delete m_pListeSurface;
 	}
 
-	//Méthodes...
+	/*!
+	@method Acesseurs
+	@brief Servent à acceder/modifier aux données membres.
+	*/
 
 	/*
 	Méthode : AjouterSprite
@@ -70,8 +81,8 @@ public:
 	Param : _Ressource : Ressource à ajouter
 	Discussion : La ressource n'a pas besoin d'être ajouté spécifiquement à la fin, peut être changé
 	*/
-	void AjouterMusic(CMusic* _Ressource){
-		m_pListeMusics->AjouterFin(_Ressource);
+	void AjouterMusic(CSound* _Ressource){
+		m_pListeSounds->AjouterFin(_Ressource);
 	}
 
 	/*!
@@ -129,19 +140,19 @@ public:
 	}
 
 	/*
-	Méthode : RetirerMusic
+	Méthode : RetirerSound
 	Brief : Procédure qui retire une musique à la liste appropriée
 	Param : _Name : Ressource à retirer
 	*/
-	void RetirerMusic(const char* _Name){
-		m_pListeMusics->AllerDebut();
-		for (int i = 0; i < m_pListeMusics->Count(); i++){
-			if (m_pListeMusics->ObtenirElement()->GetName() == _Name){
-				m_pListeMusics->Retirer(true);
-				i = m_pListeMusics->Count();
+	void RetirerSound(const char* _Name){
+		m_pListeSounds->AllerDebut();
+		for (int i = 0; i < m_pListeSounds->Count(); i++){
+			if (m_pListeSounds->ObtenirElement()->GetName() == _Name){
+				m_pListeSounds->Retirer(true);
+				i = m_pListeSounds->Count();
 			}
 			else {
-				m_pListeMusics->AllerSuivant();
+				m_pListeSounds->AllerSuivant();
 			}
 		}
 	}
@@ -193,16 +204,16 @@ public:
 	Brief : Fonction qui retourne un font de la liste appropriée
 	Param : _Name : Nom de la ressource à obtenir
 	*/
-	CMusic* GetMusic(const char* _Name){
-		m_pListeMusics->AllerDebut();
-		for (int i = 0; i < m_pListeMusics->Count(); i++){
-			if (m_pListeMusics->ObtenirElement()->GetName() == _Name){
-				return m_pListeMusics->ObtenirElement();
+	CSound* GetSound(const char* _Name){
+		m_pListeSounds->AllerDebut();
+		for (int i = 0; i < m_pListeSounds->Count(); i++){
+			if (m_pListeSounds->ObtenirElement()->GetName() == _Name){
+				return m_pListeSounds->ObtenirElement();
 			}
 			else {
-				m_pListeMusics->AllerSuivant();
+				m_pListeSounds->AllerSuivant();
 			}
-			if (i == m_pListeMusics->Count() - 1){
+			if (i == m_pListeSounds->Count() - 1){
 				return nullptr;
 			}
 		}
@@ -217,7 +228,7 @@ public:
 	CTexture* GetTexture(const char* _Name){
 		m_pListeTexture->AllerDebut();
 		for (int i = 0; i < m_pListeTexture->Count(); i++){
-			if (m_pListeTexture->ObtenirElement()->GetName() == _Name){
+			if ((m_pListeTexture->ObtenirElement()->GetName()) == _Name){
 				return m_pListeTexture->ObtenirElement();
 			}
 			else {
