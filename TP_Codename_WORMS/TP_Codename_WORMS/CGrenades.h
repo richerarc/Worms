@@ -59,7 +59,6 @@ public:
 			m_pExplosion->ExplodeMap(_pRenderer);
 			m_pExplosion->Draw(_pRenderer);
 			if (m_pExplosion->IsDone()){
-				m_EntityState = LaunchLeft;
 				m_boHasExplosed = true;
 				m_pExplosion->ExplodeMap(_pRenderer);
 				CEntity::m_uiCurrentNbrOfEntityExplosed++;
@@ -154,6 +153,10 @@ public:
 			}
 			break;
 		}
+	}
+	
+	void setState(int _EntityState){
+		m_EntityState = _EntityState;
 	}
 
 };

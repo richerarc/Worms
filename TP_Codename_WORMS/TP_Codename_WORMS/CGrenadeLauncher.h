@@ -269,7 +269,7 @@ public:
 			boGrenadeIsExploded = true;
 			m_uiRayon = m_pGrenade->getRayon();
 			m_RectGrenade = m_pGrenade->getPosition();
-
+			m_pGrenade->setState(LaunchLeft);
 		}
 	}
 	int getWormState(){
