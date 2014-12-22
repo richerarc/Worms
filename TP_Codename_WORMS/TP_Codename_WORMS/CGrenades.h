@@ -140,13 +140,8 @@ public:
 						}
 					}
 					else {
-						if (VerifySliding(Slope)){
-							UpdateSlidePosition();
-						}
-						else{
-							m_Trajectoire->Bounce(Slope);
-							boBouncing = true;
-						}
+						m_Trajectoire->Bounce(Slope);
+						boBouncing = true;
 					}
 				}
 				else{
