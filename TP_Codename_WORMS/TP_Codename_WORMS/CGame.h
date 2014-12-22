@@ -53,6 +53,7 @@ private:
 	Uint8 m_uiTeamTurn;						// Indique a quelle équipe de jouer.
 	Uint8 m_uiNbOfPlayingTeams;				// Combien d'équipe participe a la partie.
 	Uint8 m_uiNbOfWormPerTeam;				// Combien de Worm par équipe participent a la partie.
+	unsigned int m_uiNbrOfWormsAlive;
 	SDL_Renderer* m_pRenderer;				// Rendu de la fenetre du jeu. 
 	CBoussole* m_pBoussole;					// Boussole de vents.
 	CMap* m_pMap;							// Champ de bataille.
@@ -93,6 +94,7 @@ public:
 		boBegin = false;
 		DropperTimer = new CTimer();
 		m_uiNbOfPlayingTeams = _NbOfTeam;
+		m_uiNbrOfWormsAlive = m_uiNbOfPlayingTeams * m_uiNbOfWormPerTeam;
 		m_uiNbOfWormPerTeam = _NbOfWormPerTeam;
 		m_Gestionaire = _Gestionaire;
 		m_pBoussole = _Boussole;
@@ -314,7 +316,10 @@ public:
 			if (CEntity::m_uiTotalNbrOfEntityExplosed != CEntity::m_uiCurrentNbrOfEntityExplosed){
 				VerifyGlobalExplosion();
 			}
-			EnterrerLesMorts();
+			int itemp = EnterrerLesMorts();
+			for (int i = 0; i< itemp; i++){
+				m_pListeObjets->AjouterFin(new CCaisses({ ((rand() % (WIDTH - 10)) + 5), 5, 20, 18 }, m_Gestionaire->GetTexture("caisse")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("BigEx"), 55, m_pMap)));
+			}
 			if ((ActiveWorm->getWormState() == Dead) || (ActiveWorm->isOutOfBounds())){
 				NextTurn();
 			}
@@ -423,9 +428,11 @@ public:
 		}
 	}
 
-	void EnterrerLesMorts(){
+	int EnterrerLesMorts(){
+		int itemp = 0;
 		m_pListeTeam->AllerDebut();
 		for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
+			itemp += m_pListeTeam->ObtenirElement()->EnterrerLesMorts();
 			if (m_pListeTeam->ObtenirElement()->isDefeated()){
 				m_pListeTeam->Retirer(true);
 				m_uiNbOfPlayingTeams--;
@@ -439,6 +446,7 @@ public:
 			}
 			m_pListeTeam->AllerSuivant();
 		}
+		return itemp;
 	}
 
 	/*!

@@ -80,7 +80,6 @@ public:
 	@discussion 
 	*/
 	void draw(SDL_Renderer* _Renderer){
-		EnterrerLesMorts();
 		if (m_pListWorm->Count()){
 			m_pListWorm->AllerDebut();
 			for (int i = 0; i < m_uiNbOfWorm; i++){
@@ -144,7 +143,8 @@ public:
 		}
 	}
 	
-	void EnterrerLesMorts(){
+	int EnterrerLesMorts(){
+		int itemp = 0;
 		if (!m_pListWorm->Count()){
 			m_bodefeated = true;
 		}
@@ -152,8 +152,9 @@ public:
 		for(int i = 0; i < m_pListWorm->Count(); i++){
 			if (m_pListWorm->ObtenirElement()->getWormState() == Dead){
 				if (!m_pListWorm->ObtenirElement()->isPlaying()){
+					m_pListWorm->Retirer(true);
+					itemp++;
 					if (m_pListWorm->ObtenirElement()->isFocused()){
-						m_pListWorm->Retirer(true);
 						if (m_pListWorm->Count()){
 							m_pListWorm->AllerPrecedent();
 							m_pListWorm->ObtenirElement()->setFocus(true);
@@ -161,14 +162,12 @@ public:
 						else{
 							m_bodefeated = true;
 						}
-					}
-					else{
-						m_pListWorm->Retirer(true);
 					}
 				}
 				else{
 					if (m_pListWorm->ObtenirElement()->isFocused()){
 						m_pListWorm->Retirer(false);
+						itemp++;
 						if (m_pListWorm->Count()){
 							m_pListWorm->AllerPrecedent();
 							m_pListWorm->ObtenirElement()->setFocus(true);
@@ -179,6 +178,7 @@ public:
 					}
 					else{
 						m_pListWorm->Retirer(true);
+						itemp++;
 					}
 				}
 			}
@@ -186,6 +186,7 @@ public:
 				m_pListWorm->AllerSuivant();
 			}
 		}
+		return itemp;
 	}
 
 
