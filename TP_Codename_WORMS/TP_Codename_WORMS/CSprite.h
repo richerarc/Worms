@@ -22,7 +22,19 @@ private:
 				m_uiCurrentLoop++;
 		}
 	}
+	
+	void setRectSource(int _StartFrame, int _NbFrameUsed){
+		if (m_pTimer->IsElapsed() && m_boActif && (m_uiCurrentLoop < m_uinbLoop)){
+			m_pTimer->Start();
+			m_currentFrame = ((m_currentFrame + 1) % (_NbFrameUsed)) + _StartFrame;
+			m_rSource.x = (m_rSource.w * m_currentFrame);
+			if (m_currentFrame == _NbFrameUsed - 1)
+				m_uiCurrentLoop++;
+		}
+	}
+
 public:
+
 	CSprite(const char* _Name, SDL_Texture* _Texture, int _nbrFrame, int _nbrAnimation, int _delai, int _loop) : CRessource(_Name){
 		m_pTexture = _Texture;
 		m_NbrFrame = _nbrFrame;
@@ -34,8 +46,8 @@ public:
 		m_rSource.h = m_rSource.h / m_NbrAnimation;
 		m_rSource.x = 0;
 		m_rSource.y = 0;
-		m_rDest.x = 500;
-		m_rDest.y = 200;
+		m_rDest.x = 0;
+		m_rDest.y = 0;
 		m_rDest.w = m_rSource.w;
 		m_rDest.h = m_rSource.h;
 		m_pTimer->Start();
@@ -46,11 +58,64 @@ public:
 			m_uinbLoop = 1;
 		m_uiCurrentLoop = 0;
 	}
+
 	~CSprite(){
-		delete m_pTimer;
-		SDL_DestroyTexture(m_pTexture);
+		if (m_pTimer != nullptr){
+			delete m_pTimer;
+			m_pTimer = nullptr;
+		}
 	}
 
+	/*!
+	@method Render
+	@brief Methode pour render le sprite à l'écran
+	@param _Renderer : Le rendrerer sur lequel dessiner le sprite
+	@return Aucun
+	*/
+	void Render(SDL_Renderer* _Renderer){
+		setRectSource();
+		SDL_RenderCopy(_Renderer, m_pTexture, &m_rSource, &m_rDest);
+	}
+	
+	void Render(unsigned int _StartFrame, unsigned int _NbOfFrameUsed, SDL_Renderer* _Renderer){
+		setRectSource(_StartFrame, _NbOfFrameUsed);
+		SDL_RenderCopy(_Renderer, m_pTexture, &m_rSource, &m_rDest);
+	}
+	
+	void Render(SDL_Renderer* _Renderer , int _iIMG){
+		m_rSource.x = _iIMG * m_rSource.w;
+		SDL_RenderCopy(_Renderer, m_pTexture, &m_rSource, &m_rDest);
+	}
+	
+	void Render(unsigned int _StartFrame, unsigned int _NbOfFrameUsed, SDL_Renderer* _Renderer, double _Angle){
+		setRectSource(_StartFrame, _NbOfFrameUsed);
+		SDL_RenderCopyEx(_Renderer, m_pTexture, &m_rSource, &m_rDest, RadToDeg(_Angle), NULL, SDL_FLIP_NONE);
+	}
+	
+	bool WormAnimationIsOver(){
+		if (m_currentFrame == m_NbrFrame - 1){
+			m_currentFrame = 0;
+			return true;
+		}
+		return false;
+	}
+
+	bool AnimationIsOver(){
+		if (m_currentFrame == m_NbrFrame - 1){
+			m_rSource.x = 0;
+			m_rSource.y = 0;
+			m_rDest.x = 0;
+			m_rDest.y = 0;
+			m_rDest.w = m_rSource.w;
+			m_rDest.h = m_rSource.h;
+			m_pTimer->Start();
+			m_currentFrame = 0;
+			m_uiCurrentLoop = 0;
+			m_boActif = false;
+			return true;
+		}
+		return false;
+	}
 
 	void setSpritePos(int _ix, int _iy){
 		m_rDest.x = _ix;
@@ -71,34 +136,25 @@ public:
 			m_uinbLoop = 1;
 	}
 
-	int getCurrentAnimation(){
-		return m_currentAnimation;
-	}
-
-	int getX(){
-		return m_rDest.x;
-	}
-	int getY(){
-		return m_rDest.y;
-	}
-
 	void setCurrentAnimation(int _currentAni){
 		m_currentAnimation = _currentAni;
 		m_rSource.y = m_rSource.h * m_currentAnimation;
+		m_currentFrame = 0;
 	}
-	/*!
-	@method Render
-	@brief Methode pour render le sprite à l'écran
-	@param _Renderer : Le rendrerer sur lequel dessiner le sprite
-	@return Aucun
-	*/
-	void Render(SDL_Renderer* _Renderer){
-		setRectSource();
-		SDL_RenderCopy(_Renderer, m_pTexture, &m_rSource, &m_rDest);
-	}
+
+	int getH(){ return m_rSource.h; }
+
+	int getW(){ return m_rSource.w; }
+
+	int getCurrentAnimation(){ return m_currentAnimation; }
+
+	int getX(){ return m_rDest.x; }
+
+	int getY(){ return m_rDest.y; }
+
+	SDL_Rect getRectSource(){ return m_rSource; }
 	
-	void Render(SDL_Renderer* _Renderer , int _iIMG){
-		m_rSource.x = _iIMG * m_rSource.w;
-		SDL_RenderCopy(_Renderer, m_pTexture, &m_rSource, &m_rDest);
-	}
+	unsigned int getNbrOfLoop(){return m_uinbLoop;}
+
+	bool isActif(){return m_boActif;}
 };

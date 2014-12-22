@@ -17,10 +17,11 @@ private:
 	SDL_Renderer* m_pRenderer; // Rendu de la fenêtre sur la quelle afficher le menu.
 	SDL_Rect m_MenuInfo;	   // Position et dimension du menu.
 	bool m_boMenuActif;		   // Indique si le menu est actif ou non
+	SDL_Texture* m_pBackground;
 public:
 
 	/*!
-	@ Constructeur
+	@method Constructeur
 	@brief Initialise les données membres.
 	@param _Renderer : Renderer de la fenetre.
 	@param _PositionDimension : Informations sur la position et la dimension de la fênetre.
@@ -34,6 +35,7 @@ public:
 		m_MenuInfo.w = _PositionDimension.w;
 		m_MenuInfo.h = _PositionDimension.h;
 		m_boMenuActif = false;
+		m_pBackground = nullptr;
 	}
 
 	~CMenu(){
@@ -66,12 +68,11 @@ public:
 	}
 
 	/*!
-	 @method ClickEvent.
-	 @brief Appelle le bon OnClick.
-	 @param  _uiX: Position en x de la souris.
-	 @param  _uiY: Position en y de la souris.
-	 @return Aucun.
-	 */
+	@method HandleEvent.
+	@brief Réagit aux events.
+	@param  _Event : Event SDL
+	@return Aucun.
+	*/
 	void HandleEvent(SDL_Event _Event){
 		if (m_boMenuActif){
 			CGUIE* Temp;
@@ -111,7 +112,7 @@ public:
 					break;
 				}
 			}
-			
+
 		}
 	}
 
@@ -124,6 +125,14 @@ public:
 	void Render(){
 		if (m_boMenuActif)
 		{
+			if (m_pBackground != nullptr){
+				SDL_RenderCopy(m_pRenderer, m_pBackground, NULL, &m_MenuInfo);
+			}
+			else{
+				SDL_SetRenderDrawBlendMode(m_pRenderer, SDL_BLENDMODE_BLEND);
+				SDL_SetRenderDrawColor(m_pRenderer, 50, 50, 50, 150);
+				SDL_RenderFillRect(m_pRenderer, &m_MenuInfo);
+			}
 			m_pList->AllerDebut();
 			for (int i = 0; i < m_pList->Count(); i++)
 			{
@@ -203,8 +212,18 @@ public:
 		return nullptr;
 	}
 
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
+
 	SDL_Renderer* getRenderer(){
 		return m_pRenderer;
 	}
+
+	void setBackground(SDL_Texture* _Texture){
+		m_pBackground = _Texture;
+	}
+
 
 };

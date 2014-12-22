@@ -18,6 +18,9 @@ class CTimer {
 private:
 	unsigned int m_uiTicks,			// Nombre de ticks du départ du timer (miliSecondes).
 				 m_uiTimeToElapse;	// Combien de ticks avant le déclenchement(miliSecondes).
+	bool m_boPause;
+	bool m_boIsStart;
+
 public:
 
 	/*!
@@ -26,6 +29,8 @@ public:
 	CTimer(){
 		m_uiTicks = 0;
 		m_uiTimeToElapse = 0;
+		m_boPause = false;
+		m_boIsStart = false;
 	}
 	
 	/*!
@@ -34,6 +39,7 @@ public:
 	 */
 	void Start(){
 		m_uiTicks = SDL_GetTicks();
+		m_boIsStart = true;
 	}
 	
 	/*!
@@ -52,15 +58,28 @@ public:
 	 @return false : la minuterie n'est pas écoulée
 	 */
 	bool IsElapsed(){
-		return ((SDL_GetTicks() - m_uiTicks) >= m_uiTimeToElapse);
+		if (m_boIsStart)
+			return ((SDL_GetTicks() - m_uiTicks) >= m_uiTimeToElapse);
+		
+		return false;
 	}
 
+	/*!
+	@method HasStarted
+	@brief Fonction qui retourne par un bool si la minuterie est commencée ou non
+	@return true : la minuterie est start
+	@return false : la minuterie n'est pas start
+	*/
+	bool HasStarted(){
+		return m_boIsStart;
+	}
 	/*!
 	 @method Pause
 	 @brief Méthode qui redéfinie le temps de la minuterie pour la mettre en pause
 	 */
 	void Pause(){
 		m_uiTimeToElapse = m_uiTimeToElapse - (SDL_GetTicks() - m_uiTicks);
+		m_boPause = true;
 	}
 
 	/*!
@@ -69,7 +88,14 @@ public:
 	 @discussion Assez superflu, mais pratique pour ne pas oublier de redémarrer la minuterie après une pause
 	 */
 	void UnPause(){
-		Start();
+		if (m_boPause){
+			Start();
+			m_boPause = false;
+		}
+	}
+	
+	unsigned int getElapsedTime(){
+		return SDL_GetTicks() - m_uiTicks;
 	}
 };
 

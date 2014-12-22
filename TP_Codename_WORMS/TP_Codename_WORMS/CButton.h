@@ -52,7 +52,10 @@ public:
 		}
 	}
 
-	//Acesseurs.
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
 
 	void setPos(int _ix, int _iy){
 		m_Rect.x = _ix;
@@ -83,8 +86,8 @@ public:
 		}
 		else
 			m_Sprite->Render(_Renderer, 0);
-		m_Font->setFontColor(SDL_Color{ 255, 255, 255, 0 });
-		m_Font->RenderText(_Renderer, m_strText.c_str(), m_RectText.x, m_RectText.y);
+		m_Font->setFontColor({ 255, 255, 255, 0 });
+		m_Font->RenderText(_Renderer, m_strText.c_str(), m_RectText.x+5, m_RectText.y);
 	}
 
 	/*!

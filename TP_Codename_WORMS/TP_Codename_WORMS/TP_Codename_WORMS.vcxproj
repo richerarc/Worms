@@ -70,15 +70,22 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="C2DVector.h" />
+    <ClInclude Include="CGrenadeLauncher.h" />
+    <ClInclude Include="CJetPack.h" />
+    <ClInclude Include="CPosition.h" />
+    <ClInclude Include="CBazouka.h" />
+    <ClInclude Include="CBoussole.h" />
     <ClInclude Include="CButton.h" />
     <ClInclude Include="CCaisses.h" />
     <ClInclude Include="CCaisseSoin.h" />
     <ClInclude Include="CEntity.h" />
+    <ClInclude Include="CExplosion.h" />
     <ClInclude Include="CFont.h" />
     <ClInclude Include="CGestionnaireRessources.h" />
     <ClInclude Include="CGrenades.h" />
     <ClInclude Include="CGUIE.h" />
-    <ClInclude Include="CInGame.h" />
+    <ClInclude Include="CGame.h" />
     <ClInclude Include="CLabel.h" />
     <ClInclude Include="ClabelImage.h" />
     <ClInclude Include="CListeDC.h" />
@@ -88,6 +95,8 @@
     <ClInclude Include="CMissiles.h" />
     <ClInclude Include="CMusic.h" />
     <ClInclude Include="CObjets.h" />
+    <ClInclude Include="CPhysic.h" />
+    <ClInclude Include="CPowerBar.h" />
     <ClInclude Include="CRessource.h" />
     <ClInclude Include="CSlideShow.h" />
     <ClInclude Include="CSprite.h" />
@@ -96,6 +105,7 @@
     <ClInclude Include="CTextBox.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTimer.h" />
+    <ClInclude Include="CTrajectory.h" />
     <ClInclude Include="CWindow.h" />
     <ClInclude Include="CWorm.h" />
     <ClInclude Include="CWorms.h" />

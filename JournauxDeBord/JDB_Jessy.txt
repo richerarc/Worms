@@ -48,3 +48,49 @@ fait ensemble l'UML du "InGame". J'ai ensuite fait les classes :
 Elles ne sont pas finales, il me reste à faire les méthodes HandleEvent
 et quelques autres éléments. Je dois également discuter avec les gars
 du fonctionnement du déclanchement de l'explosion des armes.
+
+13 novembre 14h40 à 17h15:
+J'ai continué de travailler sur les classes ci-hautes, nous avons modifier un peu la manière
+qu'exploseront les objets. J'ai mis à jour le diagramme de classe.
+
+18 novembre 8h à 10h:
+J'ai terminer les classes:
+-CObjets
+-CMissiles
+-CMines
+-CGrenades
+-CCaisses et CCaisseSoin 
+-CExplosion.
+
+22 novembre 19h à 20h30:
+J'ai commencé à construire la classe bazouka qui permettera l'affichage du bazouka , de sa rotation et de son utilisation.
+
+23 novembre 17h à 18h:
+Continuation + test dans un fichier appart afin de ne rien briser :
+le bazouka apparait lors de la touche b (changer cela pour la selection) apparait à une position définie (changer cela pour la pos du worms) et rotate
+
+24 novembre 18h à 19h:
+Affichage du sprite de la barre de lancement au dessus du bazouka lorsqu'on actionne la touche space. Plusieurs problèmes à regler.
+
+27 novembre 14h à 18h:
+TRAVAIL FAIT AVEC DIEGO:
+Nous avons avancé la classe CJetPack, il reste à faire apparaitre la barre de gaz + les commentaires.
+2 Décembre 8h à 10h30:
+Debuggage de la barre de lancement de CBazouka + CJetPack
+2 Décembre de 10h30 à 11h50:
+Debuggage de la barre de lancement avec Diego, problème résolue
+4 Décembre 14h30 à 17h30:
+Nouvelles conditions pour le handleEvent du CBazouka
+4 Décembre 20h30 à 22h:
+Les conditions pour le handleEvent de CBazouka sont maintenant fonctionnelles
+6 Décembre 10h à 13h:
+- Ajout d'une méthode pour calculer les points de vie rendu par la CCaisse
+- Ajout d'un accesseur setEntityState dans CWorm
+- Ajout de conditions dans le HandleEvent keyup du CBazouka
+9 Décembre 9h à 17h (avec plusieurs pauses) 
+- Lancer des missiles avec le bazouka (pas terminé)
+
+11 Décembre(ma fête)13h30 à 17h30:
+-Debuggage intensif de la trajectoire(problème finalement résolue)
+-Ajout du lancé de missile: le bazouka lance maintenant des missiles avec une bonne trajectoire
+-Ajout des conditions pour faire spawn le missile à l'embout du bazouka(pas terminé)
