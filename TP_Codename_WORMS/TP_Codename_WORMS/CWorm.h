@@ -205,7 +205,7 @@ public:
 					if (m_pSprite->getCurrentAnimation() != 13)
 						m_pSprite->setCurrentAnimation(13);
 					m_pSprite->Render(_Renderer);
-					if (m_pSprite->AnimationIsOver()){
+					if (m_pSprite->WormAnimationIsOver()){
 						m_boKnifeDone = true;
 						setPosXY(m_RectPosition.x, m_RectPosition.y);
 					}
@@ -214,7 +214,7 @@ public:
 					if (m_pSprite->getCurrentAnimation() != 12)
 						m_pSprite->setCurrentAnimation(12);
 					m_pSprite->Render(_Renderer);
-					if (m_pSprite->AnimationIsOver()){
+					if (m_pSprite->WormAnimationIsOver()){
 						m_boKnifeDone = true;
 						setPosXY(m_RectPosition.x, m_RectPosition.y);
 					}
@@ -299,7 +299,7 @@ public:
 				m_pSprite->setCurrentAnimation(16);
 				m_pSprite->setNbLoop(0);
 			}
-			if (m_pSprite->AnimationIsOver()){
+			if (m_pSprite->WormAnimationIsOver()){
 				setPosXY(m_RectPosition.x, m_RectPosition.y);
 				m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);
 				m_pExplosion->startExplosion();

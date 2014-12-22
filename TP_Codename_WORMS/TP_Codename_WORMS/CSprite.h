@@ -92,7 +92,7 @@ public:
 		SDL_RenderCopyEx(_Renderer, m_pTexture, &m_rSource, &m_rDest, RadToDeg(_Angle), NULL, SDL_FLIP_NONE);
 	}
 	
-	bool AnimationIsOver(){
+	bool WormAnimationIsOver(){
 		if (m_currentFrame == m_NbrFrame - 1){
 			m_currentFrame = 0;
 			return true;
@@ -100,7 +100,22 @@ public:
 		return false;
 	}
 
-
+	bool AnimationIsOver(){
+		if (m_currentFrame == m_NbrFrame - 1){
+			m_rSource.x = 0;
+			m_rSource.y = 0;
+			m_rDest.x = 0;
+			m_rDest.y = 0;
+			m_rDest.w = m_rSource.w;
+			m_rDest.h = m_rSource.h;
+			m_pTimer->Start();
+			m_currentFrame = 0;
+			m_uiCurrentLoop = 0;
+			m_boActif = false;
+			return true;
+		}
+		return false;
+	}
 
 	void setSpritePos(int _ix, int _iy){
 		m_rDest.x = _ix;

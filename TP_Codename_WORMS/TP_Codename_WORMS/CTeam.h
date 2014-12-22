@@ -64,6 +64,7 @@ public:
 			m_pListWorm->AllerA(temp);
 			if (m_pListWorm->ObtenirElement()->isFocused()){
 				m_pListWorm->ObtenirElement()->setFocus(false);
+				m_pListWorm->ObtenirElement()->setPlaystate(false);
 			}
 			m_pListWorm->AllerA(temp + 1);
 			m_pListWorm->ObtenirElement()->setFocus(true);
