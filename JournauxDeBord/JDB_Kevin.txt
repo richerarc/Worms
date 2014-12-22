@@ -123,6 +123,10 @@
 		  à comprendre le move du worm. Il reste beaucoup moins de choses à faire. Malheureusement je ne pourrai pas programmer
   		  de la fin de semaine, car je travaille, mais lundi je passe la journée a l'école pour arriver a terminer ça.
 		  Total d'heure pour aujourd'hui:8h.
+
+20:52 2014-12-21: Aujourd'hui, j'ai ajouté des vérifications dans la fonction Verifynextposition qui faisait planter le programme. Le 
+		  programme ne plante pus. Je testait le motion right en descente du worms lorsque j'ai vu un bug alors je tesrerai
+		  ça demain pour le régler. Ça ne devrait pas me prendre bien longtemps.
                                                                                     
                             `                                                       
                             ',;                                                     
