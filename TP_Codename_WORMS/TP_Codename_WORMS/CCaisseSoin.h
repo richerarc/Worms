@@ -9,7 +9,9 @@
 class CCaisseSoin : public CCaisses{
 private:
 public:
-	/* à faire si besoin*/
+	/* à faire si besoin 
+	
+	LOL finalement on a rien fait icitte*/
 };
 
 #endif
