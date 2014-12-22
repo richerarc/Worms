@@ -9,8 +9,10 @@
 class CGrenades : public CObjets{
 private:
 	//Données membres:
-	CTimer* m_pTimer;	// Déclaration d'une nouvelle minuterie pour le temps à écouler avant l'explosion.
-	bool boBouncing; //Nom assez explicite
+	CTimer* m_pTimer;//Déclaration d'une nouvelle minuterie pour le temps à écouler avant l'explosion.
+	bool boBouncing;//Booléen pour vérifier les rebonds.
+	int m_iAngle; //Un angle pour la rotation de la grenade.
+
 public:
 
 	/*!
@@ -29,6 +31,8 @@ public:
 		m_Trajectoire = nullptr;
 		m_Trajectoire = _Trajectory;
 		m_EntityState = Chute;
+		m_iAngle = 0;
+
 	}
 
 	/*!
@@ -51,7 +55,13 @@ public:
 	void Draw(SDL_Renderer* _pRenderer){
 		if (!m_boIsexploded){
 			Move();
-			SDL_RenderCopy(_pRenderer, m_pTexture, NULL, &m_RectPosition);
+			if (m_EntityState != Immobile){
+				if (m_EntityState == GrenadeLaunchLeft)
+					m_iAngle -= 4;
+				else
+					m_iAngle += 4;
+			}
+			SDL_RenderCopyEx(_pRenderer, m_pTexture, NULL, &m_RectPosition,m_iAngle,NULL,SDL_FLIP_NONE);
 		}
 		else{
 			m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);
