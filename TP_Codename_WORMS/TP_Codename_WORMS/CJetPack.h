@@ -138,7 +138,7 @@ public:
 								Worm->setWormState(ChuteRight);
 						}
 						else{
-							m_pBarreGaz.h--;
+							m_pBarreGaz.h-=2;
 						}
 					}
 				}
@@ -167,7 +167,7 @@ public:
 								Worm->setWormState(ChuteLeft);
 						}
 						else{
-							m_pBarreGaz.h--;
+							m_pBarreGaz.h -= 2;
 						}
 					}
 				}
@@ -194,7 +194,7 @@ public:
 								Worm->setWormState(ChuteRight);
 						}
 						else{
-							m_pBarreGaz.h--;
+							m_pBarreGaz.h -= 2;
 						}
 					}
 				}
