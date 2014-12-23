@@ -62,6 +62,7 @@ public:
 		m_flipType = SDL_FLIP_NONE;
 		m_PowerBar = new CPowerBar(m_RectGL);
 		m_PowerBar->setPowerLevel(m_uiPower);
+		boHasLaunch = false;
 		m_Worm = _pWorm;
 	}
 
@@ -114,11 +115,13 @@ public:
 
 			m_pGrenade->Draw(_pRenderer);
 			if (m_pGrenade->HasExploded() || m_pGrenade->isOutOfBounds()){
-				InitInfoGrenade();
 				if (m_pGrenade->isOutOfBounds())
 					m_pGrenade->setExplosion(true);
+				InitInfoGrenade();
 				delete m_pGrenade;
 				m_pGrenade = nullptr;
+				boHasLaunch = false;
+				boGrenadeIsExploded = true;
 			}
 		}
 	}
@@ -129,138 +132,138 @@ public:
 	@return null
 	*/
 	void HandleEvent(SDL_Event _Event){
-		switch (_Event.type)
-		{
-		case SDL_KEYDOWN:
-			switch (_Event.key.keysym.scancode)
+		if (!boHasLaunch){
+			switch (_Event.type)
 			{
-			case SDL_SCANCODE_UP:
-				boIsRotated = true;
-				if (m_Worm->getWormState() == GrenadeLaunchRight){
-					if (iAngle != -90)
-						iAngle -= 4;
-				}
-				if (m_Worm->getWormState() == GrenadeLaunchLeft){
-					if (iAngle != 90)
-						iAngle += 4;
+			case SDL_KEYDOWN:
+				switch (_Event.key.keysym.scancode)
+				{
+				case SDL_SCANCODE_UP:
+					boIsRotated = true;
+					if (m_Worm->getWormState() == GrenadeLaunchRight){
+						if (iAngle != -90)
+							iAngle -= 4;
+					}
+					if (m_Worm->getWormState() == GrenadeLaunchLeft){
+						if (iAngle != 90)
+							iAngle += 4;
+					}
+					break;
+
+				case SDL_SCANCODE_DOWN:
+					boIsRotated = true;
+					if (m_Worm->getWormState() == GrenadeLaunchRight){
+						if (iAngle != 90)
+							iAngle += 4;
+					}
+					if (m_Worm->getWormState() == GrenadeLaunchLeft){
+						if (iAngle != -90)
+							iAngle -= 4;
+					}
+					break;
+
+				case SDL_SCANCODE_SPACE:
+					boCharging = true;
+					m_PowerBar->PowerUp();
+					break;
 				}
 				break;
 
-			case SDL_SCANCODE_DOWN:
-				boIsRotated = true;
-				if (m_Worm->getWormState() == GrenadeLaunchRight){
-					if (iAngle != 90)
-						iAngle += 4;
-				}
-				if (m_Worm->getWormState() == GrenadeLaunchLeft){
-					if (iAngle != -90)
-						iAngle -= 4;
-				}
-				break;
+			case SDL_KEYUP:
+				switch (_Event.key.keysym.scancode)
+				{
 
-			case SDL_SCANCODE_SPACE:
-				boCharging = true;
-				m_PowerBar->PowerUp();
-				break;
-			}
-			break;
+				case SDL_SCANCODE_UP:
+					if (m_Worm->getWormState() == GrenadeLaunchRight){
+						if (iAngle == -90){
+							iAngle = 90;
+							m_Worm->setWormState(GrenadeLaunchLeft);
+							m_flipType = SDL_FLIP_HORIZONTAL;
+							break;
+						}
+					}
 
-		case SDL_KEYUP:
-			switch (_Event.key.keysym.scancode)
-			{
+					if (m_Worm->getWormState() == GrenadeLaunchLeft){
+						if (iAngle == 90){
+							iAngle = -90;
+							m_Worm->setWormState(GrenadeLaunchRight);
+							m_flipType = SDL_FLIP_NONE;
+							break;
+						}
+					}
+					break;
+				case SDL_SCANCODE_DOWN:
+					if (m_Worm->getWormState() == GrenadeLaunchRight){
+						if (iAngle == 90){
+							iAngle = -90;
+							m_Worm->setWormState(GrenadeLaunchLeft);
+							m_flipType = SDL_FLIP_HORIZONTAL;
+							break;
+						}
+					}
+					if (m_Worm->getWormState() == GrenadeLaunchLeft){
+						if (iAngle == -90){
+							iAngle = 90;
+							m_Worm->setWormState(GrenadeLaunchRight);
+							m_flipType = SDL_FLIP_NONE;
+							break;
+						}
+					}
+					break;
+				case SDL_SCANCODE_SPACE:
+					boIsLaunch = true;
+					//
+					if (m_Worm->getWormState() == GrenadeLaunchLeft){
+						fPosYTempo = m_RectGL.y + (-20 * sin(DegToRad(iAngle)));
+						fPosXTempo = m_RectGL.x + (-20 * cos(DegToRad(iAngle)));
+						iPosXTampon = fPosXTempo;
+						iPosYTampon = fPosYTempo;
+						if (fPosXTempo > iPosXTampon + 0.5)
+							iPosXTampon++;
+						if (fPosYTempo > iPosYTampon + 0.5)
+							iPosYTampon++;
+						m_RectGrenade.x = iPosXTampon;
+						m_RectGrenade.y = iPosYTampon;
+						m_pGrenade = new CGrenades(m_RectGrenade, m_pTextureGrenade, m_pExplosion, CPhysics::Propulsion((new CPosition((double)m_RectGrenade.x, (double)m_RectGrenade.y)), (new C2DVector(m_RectGrenade.x, m_RectGrenade.y, -3 * (int)m_PowerBar->getPower() * cos(DegToRad(iAngle)), -5 * (int)m_PowerBar->getPower() * sin(DegToRad(iAngle)))), (new C2DVector(m_RectGrenade.x, m_RectGrenade.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity()))));
+					}
 
-			case SDL_SCANCODE_UP:
-				if (m_Worm->getWormState() == GrenadeLaunchRight){
-					if (iAngle == -90){
-						iAngle = 90;
+					if (m_Worm->getWormState() == GrenadeLaunchRight){
+						fPosYTempo = m_RectGL.y + (26 * sin(DegToRad(iAngle)));
+						fPosXTempo = m_RectGL.x + (45 * cos(DegToRad(iAngle)));
+						iPosXTampon = fPosXTempo;
+						iPosYTampon = fPosYTempo;
+						if (fPosXTempo > iPosXTampon + 0.5)
+							iPosXTampon++;
+						if (fPosYTempo > iPosYTampon + 0.5)
+							iPosYTampon++;
+						m_RectGrenade.x = iPosXTampon;
+						m_RectGrenade.y = iPosYTampon;
+						m_pGrenade = new CGrenades(m_RectGrenade, m_pTextureGrenade, m_pExplosion, CPhysics::Propulsion((new CPosition((double)m_RectGrenade.x, (double)m_RectGrenade.y)), (new C2DVector(m_RectGrenade.x, m_RectGrenade.y, 3 * (int)m_PowerBar->getPower() * cos(DegToRad(iAngle)), 5 * (int)m_PowerBar->getPower() * sin(DegToRad(iAngle)))), (new C2DVector(m_RectGrenade.x, m_RectGrenade.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity()))));
+					}
+					boHasLaunch = true;
+					break;
+
+				case SDL_SCANCODE_LEFT:
+					if (m_flipType != SDL_FLIP_HORIZONTAL){
 						m_Worm->setWormState(GrenadeLaunchLeft);
 						m_flipType = SDL_FLIP_HORIZONTAL;
-						break;
+						iAngle = -iAngle;
 					}
-				}
-
-				if (m_Worm->getWormState() == GrenadeLaunchLeft){
-					if (iAngle == 90){
-						iAngle = -90;
+					break;
+				case SDL_SCANCODE_RIGHT:
+					if (m_flipType != SDL_FLIP_NONE){
 						m_Worm->setWormState(GrenadeLaunchRight);
 						m_flipType = SDL_FLIP_NONE;
-						break;
+						iAngle = -iAngle;
 					}
-				}
-				break;
-			case SDL_SCANCODE_DOWN:
-				if (m_Worm->getWormState() == GrenadeLaunchRight){
-					if (iAngle == 90){
-						iAngle = -90;
-						m_Worm->setWormState(GrenadeLaunchLeft);
-						m_flipType = SDL_FLIP_HORIZONTAL;
-						break;
-					}
-				}
-				if (m_Worm->getWormState() == GrenadeLaunchLeft){
-					if (iAngle == -90){
-						iAngle = 90;
-						m_Worm->setWormState(GrenadeLaunchRight);
-						m_flipType = SDL_FLIP_NONE;
-						break;
-					}
-				}
-				break;
-			case SDL_SCANCODE_SPACE:
-				boIsLaunch = true;
-				//
-				if (m_Worm->getWormState() == GrenadeLaunchLeft){
-					fPosYTempo = m_RectGL.y + (-20 * sin(DegToRad(iAngle)));
-					fPosXTempo = m_RectGL.x + (-20 * cos(DegToRad(iAngle)));
-					iPosXTampon = fPosXTempo;
-					iPosYTampon = fPosYTempo;
-					if (fPosXTempo > iPosXTampon + 0.5)
-						iPosXTampon++;
-					if (fPosYTempo > iPosYTampon + 0.5)
-						iPosYTampon++;
-					m_RectGrenade.x = iPosXTampon;
-					m_RectGrenade.y = iPosYTampon;
-					m_pGrenade = new CGrenades(m_RectGrenade, m_pTextureGrenade, m_pExplosion, CPhysics::Propulsion((new CPosition((double)m_RectGrenade.x, (double)m_RectGrenade.y)), (new C2DVector(m_RectGrenade.x, m_RectGrenade.y, -3 * (int)m_PowerBar->getPower() * cos(DegToRad(iAngle)), -5 * (int)m_PowerBar->getPower() * sin(DegToRad(iAngle)))), (new C2DVector(m_RectGrenade.x, m_RectGrenade.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity()))));
-					
 
-					}
-				if (m_Worm->getWormState() == GrenadeLaunchRight){
-					fPosYTempo = m_RectGL.y + (26 * sin(DegToRad(iAngle)));
-					fPosXTempo = m_RectGL.x + (45 * cos(DegToRad(iAngle)));
-					iPosXTampon = fPosXTempo;
-					iPosYTampon = fPosYTempo;
-					if (fPosXTempo > iPosXTampon + 0.5)
-						iPosXTampon++;
-					if (fPosYTempo > iPosYTampon + 0.5)
-						iPosYTampon++;
-					m_RectGrenade.x = iPosXTampon;
-					m_RectGrenade.y = iPosYTampon;
-					m_pGrenade = new CGrenades(m_RectGrenade, m_pTextureGrenade, m_pExplosion, CPhysics::Propulsion((new CPosition((double)m_RectGrenade.x, (double)m_RectGrenade.y)), (new C2DVector(m_RectGrenade.x, m_RectGrenade.y, 3 * (int)m_PowerBar->getPower() * cos(DegToRad(iAngle)), 5 * (int)m_PowerBar->getPower() * sin(DegToRad(iAngle)))), (new C2DVector(m_RectGrenade.x, m_RectGrenade.y, CPhysics::GetWind()->getComposanteX(), CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity()))));
+					break;
 				}
-				boHasLaunch = true;
-				
+				break;
+			default:
+				break;
 
-				break;
-			case SDL_SCANCODE_LEFT:
-				if (m_flipType != SDL_FLIP_HORIZONTAL){
-					m_Worm->setWormState(GrenadeLaunchLeft);
-					m_flipType = SDL_FLIP_HORIZONTAL;
-					iAngle = -iAngle;
-				}
-				break;
-			case SDL_SCANCODE_RIGHT:
-				if (m_flipType != SDL_FLIP_NONE){
-					m_Worm->setWormState(GrenadeLaunchRight);
-					m_flipType = SDL_FLIP_NONE;
-					iAngle = -iAngle;
-				}
-
-				break;
 			}
-			break;
-		default:
-			break;
-
 		}
 	}
 
