@@ -34,7 +34,7 @@ private:
 	double 	m_dblYinitial;
 	bool m_boKnifeDone;
 	bool m_boPlaying;
-	bool m_boDamaged ;
+	bool m_boDamaged;
 	double iAnglebitch;
 	int iPreviousState;
 public:
@@ -92,7 +92,7 @@ public:
 	 */
 	void ReactToExplosion(CExplosion * _Explosion){
 		RecieveDamage(_Explosion, false);
-		if (CPhysics::verifyGroundCollision({m_RectPosition.x + 2, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w - 4, 2})){
+		if (CPhysics::verifyGroundCollision({ m_RectPosition.x + 2, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w - 4, 2 })){
 			if (m_EntityState == NoMotionLeft)
 				m_EntityState = ChuteLeft;
 			else
@@ -109,14 +109,14 @@ public:
 		if (!((m_EntityState == JumpLeft) || (m_EntityState == JumpRight) || (m_EntityState == Largage) || (m_EntityState == ChuteLeft) || (m_EntityState == ChuteRight) || (m_EntityState == SlideLeft) || ((m_EntityState == SlideRight) || (m_iLife <= 1)))) {
 			switch (_Event.type) {
 			case SDL_KEYDOWN:
-				switch (_Event.key.keysym.sym){
-				case SDLK_g:
+				switch (_Event.key.keysym.scancode){
+				case SDL_SCANCODE_G:
 					m_boDrawRect = false;
 					break;
-				case SDLK_f:
+				case SDL_SCANCODE_F:
 					m_boDrawRect = true;
 					break;
-				case SDLK_1:
+				case SDL_SCANCODE_1:
 					if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight)){
 						m_EntityState = UsingBazzRight;
 					}
@@ -124,7 +124,7 @@ public:
 						m_EntityState = UsingBazzLeft;
 					}
 					break;
-				case SDLK_2:
+				case SDL_SCANCODE_2:
 					if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight)){
 						m_EntityState = GrenadeLaunchRight;
 					}
@@ -132,7 +132,7 @@ public:
 						m_EntityState = GrenadeLaunchLeft;
 					}
 					break;
-				case SDLK_3:
+				case SDL_SCANCODE_3:
 					if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight)){
 						m_EntityState = KnifeRight;
 					}
@@ -140,7 +140,7 @@ public:
 						m_EntityState = KnifeLeft;
 					}
 					break;
-				case SDLK_4:
+				case SDL_SCANCODE_4:
 					if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight)){
 						m_EntityState = JetpackRightNoFly;
 					}
@@ -148,18 +148,18 @@ public:
 						m_EntityState = JetpackLeftNoFly;
 					}
 					break;
-				case SDLK_UP:
-				case SDLK_w:
+				case SDL_SCANCODE_UP:
+				case SDL_SCANCODE_W:
 					break;
-				case SDLK_LEFT:
-				case SDLK_a:
+				case SDL_SCANCODE_LEFT:
+				case SDL_SCANCODE_A:
 					m_EntityState = MotionLeft;
 					break;
-				case SDLK_RIGHT:
-				case SDLK_d:
+				case SDL_SCANCODE_RIGHT:
+				case SDL_SCANCODE_D:
 					m_EntityState = MotionRight;
 					break;
-				case SDLK_SPACE:
+				case SDL_SCANCODE_SPACE:
 					if ((m_EntityState == NoMotionLeft) || (m_EntityState == MotionLeft))
 						m_EntityState = JumpLeft;
 					else if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight))
@@ -206,30 +206,30 @@ public:
 			SDL_RenderFillRect(_Renderer, &m_BarredeVie);
 			switch (m_EntityState) {
 			case KnifeLeft:
-					if (m_pSprite->getCurrentAnimation() != 13)
-						m_pSprite->setCurrentAnimation(13);
-					m_pSprite->Render(_Renderer);
-					if (m_pSprite->WormAnimationIsOver()){
-						m_boKnifeDone = true;
-						setPosXY(m_RectPosition.x, m_RectPosition.y);
-					}
-					break;
+				if (m_pSprite->getCurrentAnimation() != 13)
+					m_pSprite->setCurrentAnimation(13);
+				m_pSprite->Render(_Renderer);
+				if (m_pSprite->WormAnimationIsOver()){
+					m_boKnifeDone = true;
+					setPosXY(m_RectPosition.x, m_RectPosition.y);
+				}
+				break;
 			case KnifeRight:
-					if (m_pSprite->getCurrentAnimation() != 12)
-						m_pSprite->setCurrentAnimation(12);
-					m_pSprite->Render(_Renderer);
-					if (m_pSprite->WormAnimationIsOver()){
-						m_boKnifeDone = true;
-						setPosXY(m_RectPosition.x, m_RectPosition.y);
-					}
-					break;
+				if (m_pSprite->getCurrentAnimation() != 12)
+					m_pSprite->setCurrentAnimation(12);
+				m_pSprite->Render(_Renderer);
+				if (m_pSprite->WormAnimationIsOver()){
+					m_boKnifeDone = true;
+					setPosXY(m_RectPosition.x, m_RectPosition.y);
+				}
+				break;
 			case ChuteLeft:
 			case SlideLeft:
 				if (m_pSprite->getCurrentAnimation() != 15)
 					m_pSprite->setCurrentAnimation(15);
 				m_pSprite->setNbLoop(-1);
 				iAnglebitch -= 0.3;
-				m_pSprite->Render(0, 4, _Renderer,iAnglebitch);
+				m_pSprite->Render(0, 4, _Renderer, iAnglebitch);
 				break;
 			case ChuteRight:
 			case SlideRight:
@@ -317,7 +317,7 @@ public:
 			if (m_pSprite->WormAnimationIsOver()){
 				m_boIsexploded = true;
 			}
-			if(m_boIsexploded){
+			if (m_boIsexploded){
 				if (!m_pExplosion->HasStarted()){
 					setPosXY(m_RectPosition.x, m_RectPosition.y);
 					m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);
@@ -764,8 +764,8 @@ public:
 		m_BarredeVie.x = m_RectPosition.x;
 		m_BarredeVie.y = m_RectPosition.y;
 	}
-	
-	bool isDamaged(){return m_boDamaged;}
+
+	bool isDamaged(){ return m_boDamaged; }
 
 	int getWormState(){
 		return m_EntityState;
@@ -773,11 +773,11 @@ public:
 	void setWormState(int _EntityState){
 		m_EntityState = _EntityState;
 	}
-	
+
 	bool KnifeDone(){
 		return m_boKnifeDone;
 	}
-	
+
 	bool isPlaying(){
 		return m_boPlaying;
 	}
