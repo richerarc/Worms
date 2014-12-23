@@ -284,7 +284,6 @@ public:
 
 		if (m_pListeObjets->Count() < m_pMap->getMine()){
 			m_pListeObjets->AjouterFin(new CMines({ ((rand() % (WIDTH - 10)) + 5), 5, 12, 8 }, m_Gestionaire->GetTexture("mine")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 50, m_pMap)));
-			m_pListeObjets->AjouterFin(new CCaisses({ ((rand() % (WIDTH - 10)) + 5), 5, 20, 18 }, m_Gestionaire->GetTexture("caisse")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("BigEx"), 55, m_pMap)));
 		}
 
 		if (m_pListeObjets->Count() == m_pMap->getMine()){
