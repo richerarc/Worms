@@ -100,10 +100,10 @@ public:
 		switch (_Event.type) {
 			// -----------KEY DOWN-------------------
 		case SDL_KEYDOWN:
-			switch (_Event.key.keysym.sym){
+			switch (_Event.key.keysym.scancode){
 				//JetPack monte...
-			case SDLK_SPACE:
-			case SDLK_UP:
+			case SDL_SCANCODE_SPACE:
+			case SDL_SCANCODE_UP:
 				if (Worm != nullptr){
 					//Si c'est la premiere montée
 					if (!boGaz){
@@ -143,7 +143,7 @@ public:
 
 
 				break;
-			case SDLK_LEFT:
+			case SDL_SCANCODE_LEFT:
 				if (Worm != nullptr){
 					if (!boGaz){
 						if (Worm->getTrajectoire() != nullptr){
@@ -170,7 +170,7 @@ public:
 					}
 				}
 				break;
-			case SDLK_RIGHT:
+			case SDL_SCANCODE_RIGHT:
 				if (Worm != nullptr){
 					if (!boGaz){
 						if (Worm->getTrajectoire() != nullptr){
@@ -205,9 +205,9 @@ public:
 			// ------KEY UP ------------
 
 		case SDL_KEYUP:
-			switch (_Event.key.keysym.sym){
-			case SDLK_SPACE:
-			case(SDLK_UP):
+			switch (_Event.key.keysym.scancode){
+			case SDL_SCANCODE_SPACE:
+			case(SDL_SCANCODE_UP) :
 				if (Worm->getTrajectoire() != nullptr){
 					if (Vector != nullptr){
 						delete Vector;
@@ -224,7 +224,7 @@ public:
 					Worm->setWormState(JetpackRightNoFly);
 				break;
 
-			case(SDLK_LEFT):
+			case(SDL_SCANCODE_LEFT) :
 				if (Worm->getTrajectoire() != nullptr){
 					if (Vector != nullptr){
 						delete Vector;
@@ -238,7 +238,7 @@ public:
 				Worm->setWormState(JetpackLeftNoFly);
 				break;
 
-			case(SDLK_RIGHT):
+			case(SDL_SCANCODE_RIGHT) :
 				if (Worm->getTrajectoire() != nullptr){
 					if (Vector != nullptr){
 						delete Vector;

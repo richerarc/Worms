@@ -132,9 +132,9 @@ public:
 		switch (_Event.type)
 		{
 		case SDL_KEYDOWN:
-			switch (_Event.key.keysym.sym)
+			switch (_Event.key.keysym.scancode)
 			{
-			case SDLK_UP:
+			case SDL_SCANCODE_UP:
 				boIsRotated = true;
 				if (m_Worm->getWormState() == UsingBazzRight){
 					if (iAngle != -90)
@@ -146,7 +146,7 @@ public:
 				}
 				break;
 
-			case SDLK_DOWN:
+			case SDL_SCANCODE_DOWN:
 				boIsRotated = true;
 				if (m_Worm->getWormState() == UsingBazzRight){
 					if (iAngle != 90)
@@ -158,7 +158,7 @@ public:
 				}
 				break;
 
-			case SDLK_SPACE:
+			case SDL_SCANCODE_SPACE:
 				boCharging = true;
 				m_PowerBar->PowerUp();
 				break;
@@ -166,10 +166,10 @@ public:
 			break;
 
 		case SDL_KEYUP:
-			switch (_Event.key.keysym.sym)
+			switch (_Event.key.keysym.scancode)
 			{
 
-			case SDLK_UP:
+			case SDL_SCANCODE_UP:
 				if (m_Worm->getWormState() == UsingBazzRight){
 					if (iAngle == -90){
 						iAngle = 90;
@@ -190,7 +190,7 @@ public:
 				break;
 
 
-			case SDLK_DOWN:
+			case SDL_SCANCODE_DOWN:
 				if (m_Worm->getWormState() == UsingBazzRight){
 					if (iAngle == 90){
 						iAngle = -90;
@@ -209,7 +209,7 @@ public:
 				}
 					break;
 					
-				case SDLK_SPACE:
+				case SDL_SCANCODE_SPACE:
 					boIsLaunch = true;
 					if (m_Worm->getWormState() == UsingBazzLeft){
 						fPosYTempo = m_RectBazouka.y + (-20 * sin(DegToRad(iAngle)));
@@ -242,14 +242,14 @@ public:
 					m_PowerBar->setPowerLevel(m_uiPower);
 					
 					break;
-				case SDLK_LEFT:
+				case SDL_SCANCODE_LEFT:
 					if (m_flipType != SDL_FLIP_HORIZONTAL){
 						m_Worm->setWormState(UsingBazzLeft);
 						m_flipType = SDL_FLIP_HORIZONTAL;
 						iAngle = -iAngle;
 					}
 					break;
-				case SDLK_RIGHT:
+				case SDL_SCANCODE_RIGHT:
 					if (m_flipType != SDL_FLIP_NONE){
 						m_Worm->setWormState(UsingBazzRight);
 						m_flipType = SDL_FLIP_NONE;
