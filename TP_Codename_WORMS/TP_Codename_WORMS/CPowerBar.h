@@ -84,7 +84,7 @@ public:
 	}
 	void SetPosition(int _ix, int _iy){
 		m_RectPower.x = _ix;
-		m_RectPower.y = _iy - 15;
+		m_RectPower.y = _iy - 25;
 	}
 
 	//Power en pourcentage
