@@ -83,7 +83,7 @@ public:
 						else
 							Worm->setWormState(NoMotionLeft);
 
-						delete Worm->getTrajectoire();
+					//	delete Worm->getTrajectoire();
 						Worm->setTrajectory(nullptr);
 					}
 					Worm->setPosXY(temp->getX(), temp->getY());
@@ -216,7 +216,7 @@ public:
 						Vector = nullptr;
 					}
 					Vector = new C2DVector(Worm->getPosition().x, Worm->getPosition().y, Worm->getTrajectoire()->GetActualSpeed()->getComposanteX(), Worm->getTrajectoire()->GetActualSpeed()->getComposanteY());
-					delete Worm->getTrajectoire();
+				//	delete Worm->getTrajectoire();
 					Worm->setTrajectory(new CTrajectory(new CPosition(Worm->getPosition().x, Worm->getPosition().y), Vector, new C2DVector(Worm->getPosition().x, Worm->getPosition().y, CPhysics::GetWind()->getComposanteX(), (CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity()))));
 				}
 				boGaz = false;
@@ -233,7 +233,7 @@ public:
 						Vector = nullptr;
 					}
 					Vector = new C2DVector(Worm->getPosition().x, Worm->getPosition().y, Worm->getTrajectoire()->GetActualSpeed()->getComposanteX(), Worm->getTrajectoire()->GetActualSpeed()->getComposanteY());
-					delete Worm->getTrajectoire();
+				//	delete Worm->getTrajectoire();
 					Worm->setTrajectory(new CTrajectory(new CPosition(Worm->getPosition().x, Worm->getPosition().y), Vector, new C2DVector(Worm->getPosition().x, Worm->getPosition().y, CPhysics::GetWind()->getComposanteX(), (CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity()))));
 				}
 				boGaz = false;
@@ -247,7 +247,7 @@ public:
 						Vector = nullptr;
 					}
 					Vector = new C2DVector(Worm->getPosition().x, Worm->getPosition().y, Worm->getTrajectoire()->GetActualSpeed()->getComposanteX(), Worm->getTrajectoire()->GetActualSpeed()->getComposanteY());
-					delete Worm->getTrajectoire();
+				//	delete Worm->getTrajectoire();
 					Worm->setTrajectory(new CTrajectory(new CPosition(Worm->getPosition().x, Worm->getPosition().y), Vector, new C2DVector(Worm->getPosition().x, Worm->getPosition().y, CPhysics::GetWind()->getComposanteX(), (CPhysics::GetWind()->getComposanteY() + CPhysics::GetGravity()))));
 				}
 				boGaz = false;
