@@ -59,6 +59,7 @@ public:
 		m_PowerBar->setPowerLevel(m_uiPower);
 		m_Worm = _pWorm;
 		m_uiRayon = m_pExplosion->getRadius();
+		m_pMissile = nullptr;
 	}
 
 	/*!
@@ -104,7 +105,7 @@ public:
 			}
 			if (m_Worm->getWormState() == UsingBazzLeft){
 				SDL_RenderCopyEx(_pRenderer, m_pTextureBazouka, NULL, &m_RectBazouka, iAngle, NULL, m_flipType);
-
+				
 			}
 		}
 		if (boCharging){
