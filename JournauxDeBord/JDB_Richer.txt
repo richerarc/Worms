@@ -1,4 +1,4 @@
-﻿Ven. 24 oct. 11h00 :JÕai structurŽ de faon arbitraire le repo pour organisŽ les fichiers et ajoutŽ les journaux de bords
+Ven. 24 oct. 11h00 :JÕai structurŽ de faon arbitraire le repo pour organisŽ les fichiers et ajoutŽ les journaux de bords
 
 Mar. 28 oct. 14h17 : JÕai ajoutŽ les fichier nŽcŽssaire au dŽveloppement des ƒlŽments visuel (label button etc.) et dŽclarŽ les classes sans pour autant les coder. JÕai aussi codŽ la classe CGUIE (Graphic User Interface Elements) pour que chaque classe dŽrivŽes puisse dŽjˆ en hŽriter.
 
@@ -45,8 +45,10 @@ Jeudi le 18 déc + Vendredi le 19 décembre : On commence à voir le bout!!!! J'
 22:52 2014-12-22: Kev commit pour richer. 
 		  Nous avons enfin terminer mais il n'est pas parfait. J'ai teminer le move j'ai regler beaucoup de bug avec jess.
 		  Nous sommes rester toute la journée! de 8 à 23h.                                                                                             Richer nous à sauver la vie                                                           
-                                                                                                                                                                           
-                                                                                                                                                                           
+                                   
+
+                                                                                                                                        
+22:52 2014-12-22: j’ai eu le temps de mettre de la musique en boss.                                                                                                                                                                      
                                                                                                                                                                            
                                                                                                                                                                            
                                                                                                                                                                            
