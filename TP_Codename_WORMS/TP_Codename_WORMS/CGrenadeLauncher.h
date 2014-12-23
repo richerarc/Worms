@@ -263,6 +263,18 @@ public:
 		}
 	}
 
+	void reset(){
+		boCharging = false;
+		boIsRotated = false;
+		boIsLaunch = false;
+		boGrenadeIsExploded = false;
+		iAngle = 0;
+		m_PowerBar->setPowerLevel(0);
+		fPosXTempo = 0;
+		fPosYTempo = 0;
+		m_flipType = SDL_FLIP_NONE;
+	}
+
 	/*!
 	@method InitInfoMissile
 	@brief: Permet d'acceder au information d'un missile explosé.
@@ -277,18 +289,28 @@ public:
 			m_pGrenade->setState(LaunchLeft);
 		}
 	}
+
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
+
 	int getWormState(){
 		return m_Worm->getWormState();
 	}
+
 	bool getIfLaunch(){
 		return boHasLaunch;
 	}
+
 	bool GrenadeHasExploded(){
 		return boGrenadeIsExploded;
 	}
+
 	SDL_Rect GrenadePos(){
 		return m_RectGrenade;
 	}
+
 	int GrenadeRayon(){
 		return m_uiRayon;
 	}
@@ -301,17 +323,7 @@ public:
 		return m_boInUse;
 	}
 
-	void reset(){
-		boCharging = false;
-		boIsRotated = false;
-		boIsLaunch = false;
-		boGrenadeIsExploded = false;
-		iAngle = 0;
-		m_PowerBar->setPowerLevel(0);
-		fPosXTempo = 0;
-		fPosYTempo = 0;
-		m_flipType = SDL_FLIP_NONE;
-	}
+
 	
 	CExplosion* getExplosion(){return m_pExplosion;}
 };
