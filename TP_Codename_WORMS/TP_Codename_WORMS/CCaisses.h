@@ -59,15 +59,6 @@ public:
 	}
 
 	/*!
-	@method HandleEvent
-	@param _Event : Un SDL_Event pour traiter les evenement
-	@return null
-	*/
-	void HandleEvent(SDL_Event _Event){
-		m_boFocus = true;
-	}
-
-	/*!
 	@method ReactToExplosion
 	@brief réagit a une explosion.
 	@param _iX: Position en x de l'explosion.
@@ -142,17 +133,21 @@ public:
 			GiveLife(_pWorm);
 	}
 
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
 
 	void setExplosion(bool _boSet){
 		m_boIsexploded = _boSet;
 	}
+
 	void setPos(int _ix, int _iy){
 		m_RectPosition.x = _ix;
 		m_RectPosition.y = _iy;
 	}
 
-
-
+	bool isCarePackage(){return true;}
 
 };
 

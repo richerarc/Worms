@@ -78,7 +78,6 @@
     <ClInclude Include="CBoussole.h" />
     <ClInclude Include="CButton.h" />
     <ClInclude Include="CCaisses.h" />
-    <ClInclude Include="CCaisseSoin.h" />
     <ClInclude Include="CEntity.h" />
     <ClInclude Include="CExplosion.h" />
     <ClInclude Include="CFont.h" />

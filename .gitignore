@@ -54,6 +54,8 @@ build/
 *.pidb
 *.log
 *.scc
+*.exe
+*.idb
 
 # Visual C++ cache files
 ipch/
@@ -62,7 +64,8 @@ ipch/
 *.opensdf
 *.sdf
 *.cachefile
-
+*.exe
+*.idb
 # Visual Studio profiler
 *.psess
 *.vsp

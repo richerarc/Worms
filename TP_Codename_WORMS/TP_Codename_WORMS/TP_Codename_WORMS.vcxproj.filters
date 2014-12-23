@@ -89,9 +89,6 @@
     <ClInclude Include="CCaisses.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="CCaisseSoin.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="CEntity.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>

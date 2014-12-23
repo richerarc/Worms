@@ -74,6 +74,21 @@ public:
 		}
 	}
 
+	C2DVector(double _Norme, double _Orientation){
+		m_Norme = _Norme;
+		m_Orientation = _Orientation;
+		m_XOrigine = 0;
+		m_YOrigine = 0;
+		m_XFin = 0;
+		m_YFin = 0;
+		m_XStart = 0;
+		m_YStart = 0;
+		m_XEnd = 0;
+		m_YEnd = 0;
+		m_ComposanteX = m_Norme * cos(_Orientation);
+		m_ComposanteY = m_Norme*sin(_Orientation);
+	}
+
 	/*!
 	@method Constructeur.
 	@brief Initialise les données membres.
@@ -196,7 +211,6 @@ public:
 		m_YFin = m_YOrigine + (m_ComposanteY);
 		m_XEnd = m_XStart + (m_ComposanteX);
 		m_YEnd = m_YStart + (m_ComposanteY);;
-		//m_Norme = sqrt(pow(m_XFin - m_XOrigine, 2) + pow(m_YFin - m_YOrigine, 2));
 		m_Norme = sqrt(pow(m_ComposanteX, 2) + pow(m_ComposanteY, 2));
 		if ((m_ComposanteX == 0) && (m_ComposanteY > 0))
 			m_Orientation = M_PI / 2;

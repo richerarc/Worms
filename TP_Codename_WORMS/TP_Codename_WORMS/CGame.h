@@ -153,8 +153,9 @@ public:
 			}
 			ActiveWorm = m_pListeTeam->ObtenirElement()->getPlayingWorm();
 			ActiveWorm->setPlaystate(true);
+			CPhysics::RedefineWind();
+			m_pJetpack->reset();
 		}
-		CPhysics::RedefineWind();
 	}
 
 	/*!
@@ -311,11 +312,7 @@ public:
 	@discussion None.
 	*/
 	void MainGame(){
-		
 		if (boBegin){	// Si le jeu à commencé
-			if (CEntity::m_uiTotalNbrOfEntityExplosed != CEntity::m_uiCurrentNbrOfEntityExplosed){
-				VerifyGlobalExplosion();
-			}
 			int itemp = EnterrerLesMorts();
 			for (int i = 0; i< itemp; i++){
 				m_pListeObjets->AjouterFin(new CCaisses({ ((rand() % (WIDTH - 10)) + 5), 5, 20, 18 }, m_Gestionaire->GetTexture("caisse")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("BigEx"), 55, m_pMap)));
@@ -323,94 +320,96 @@ public:
 			if ((ActiveWorm->getWormState() == Dead) || (ActiveWorm->isOutOfBounds())){
 				NextTurn();
 			}
-			
 			if (ActiveWorm->isDamaged()){
 				NextTurn();
 			}
-			
-			else{
-				
-				switch (ActiveWorm->getWormState()) {
-					case UsingBazzLeft:
-					case UsingBazzRight:
-						if (m_pBazouka->isInUse() && m_pBazouka->MissileHasExploded()){
-							if (ActiveWorm->getWormState() == UsingBazzRight){
-								ActiveWorm->setWormState(NoMotionRight);
-								
-							}
-							else{
-								ActiveWorm->setWormState(NoMotionLeft);
-							}
-							NextTurn();
-							m_pBazouka->setInUse(false);
-							m_pBazouka->reset();
+			if (!((ActiveWorm->getWormState() == NoMotionLeft) || (ActiveWorm->getWormState() == NoMotionRight))){
+				VerifyGlobalContact();
+			}
+			switch (ActiveWorm->getWormState()) {
+				case UsingBazzLeft:
+				case UsingBazzRight:
+					if (m_pBazouka->isInUse() && m_pBazouka->MissileHasExploded()){
+						if (ActiveWorm->getWormState() == UsingBazzRight){
+							ActiveWorm->setWormState(NoMotionRight);
 						}
 						else{
-							m_pBazouka->setBazooka(ActiveWorm);
-							m_pBazouka->setInUse(true);
+							ActiveWorm->setWormState(NoMotionLeft);
 						}
-						break;
-					case JetpackLeftNoFly:
-					case JetpackRightNoFly:
-						if (m_pJetpack->isInUse() && m_pJetpack->isLanded()){
-							if (ActiveWorm->getWormState() == JetpackRightNoFly){
-								ActiveWorm->setWormState(NoMotionRight);
-							}
-							else{
-								ActiveWorm->setWormState(NoMotionLeft);
-							}
-							m_pJetpack->setInUse(false);
-							m_pJetpack->reset();
-						}
-						else{
-							m_pJetpack->setJetPack(ActiveWorm);
-							m_pJetpack->setInUse(true);
-						}
-						break;
-					case GrenadeLaunchLeft:
-					case GrenadeLaunchRight:
-						if (m_pLauncher->isInUse() && m_pLauncher->GrenadeHasExploded()){
-							if (ActiveWorm->getWormState() == GrenadeLaunchRight){
-								ActiveWorm->setWormState(NoMotionRight);
-							}
-							else{
-								ActiveWorm->setWormState(NoMotionLeft);
-							}
-							NextTurn();
-							m_pLauncher->setInUse(false);
-							m_pLauncher->reset();
+						NextTurn();
+						VerifyGlobalExplosion();
+						m_pBazouka->setInUse(false);
+						m_pBazouka->reset();
+					}
+					else{
+						m_pBazouka->setBazooka(ActiveWorm);
+						m_pBazouka->setInUse(true);
+					}
+					break;
+				case JetpackLeftNoFly:
+				case JetpackRightNoFly:
+					if (m_pJetpack->isInUse() && m_pJetpack->isLanded()){
+						if (ActiveWorm->getWormState() == JetpackRightNoFly){
+							ActiveWorm->setWormState(NoMotionRight);
 						}
 						else{
-							m_pLauncher->setGrenadeLauncher(ActiveWorm);
-							m_pLauncher->setInUse(true);
+							ActiveWorm->setWormState(NoMotionLeft);
 						}
-						break;
-					case KnifeLeft:
-					case KnifeRight:
-						if (ActiveWorm->KnifeDone()){
-							CTeam* TeamTemp;
-							m_pListeTeam->AllerDebut();
-							for (int i = 0; i < m_pListeTeam->Count(); i++) {
-								TeamTemp = m_pListeTeam->ObtenirElement();
-								for (int j = 0; j < TeamTemp->getListeWorm()->Count(); j++){
-									TeamTemp->getListeWorm()->AllerA(j);
-									if (!TeamTemp->getListeWorm()->ObtenirElement()->isPlaying()){
-										if (CPhysics::VerifyCollision(ActiveWorm->getPosition(), TeamTemp->getListeWorm()->ObtenirElement()->getPosition())){
-											TeamTemp->getListeWorm()->ObtenirElement()->RecieveDamage(nullptr, true);
-										}
+						m_pJetpack->setInUse(false);
+						m_pJetpack->reset();
+					}
+					else{
+						m_pJetpack->setJetPack(ActiveWorm);
+						m_pJetpack->setInUse(true);
+					}
+					break;
+				case GrenadeLaunchLeft:
+				case GrenadeLaunchRight:
+					if (m_pLauncher->isInUse() && m_pLauncher->GrenadeHasExploded()){
+						if (ActiveWorm->getWormState() == GrenadeLaunchRight){
+							ActiveWorm->setWormState(NoMotionRight);
+						}
+						else{
+							ActiveWorm->setWormState(NoMotionLeft);
+						}
+						VerifyGlobalExplosion();
+						NextTurn();
+						m_pLauncher->setInUse(false);
+						m_pLauncher->reset();
+					}
+					else{
+						m_pLauncher->setGrenadeLauncher(ActiveWorm);
+						m_pLauncher->setInUse(true);
+					}
+					break;
+				case KnifeLeft:
+				case KnifeRight:
+					if (ActiveWorm->KnifeDone()){
+						CTeam* TeamTemp;
+						m_pListeTeam->AllerDebut();
+						for (int i = 0; i < m_pListeTeam->Count(); i++) {
+							TeamTemp = m_pListeTeam->ObtenirElement();
+							for (int j = 0; j < TeamTemp->getListeWorm()->Count(); j++){
+								TeamTemp->getListeWorm()->AllerA(j);
+								if (!TeamTemp->getListeWorm()->ObtenirElement()->isPlaying()){
+									if (CPhysics::VerifyCollision(ActiveWorm->getPosition(), TeamTemp->getListeWorm()->ObtenirElement()->getPosition())){
+										TeamTemp->getListeWorm()->ObtenirElement()->RecieveDamage(nullptr, true);
 									}
 								}
-								m_pListeTeam->AllerSuivant();
 							}
-							if (ActiveWorm->getWormState() == KnifeLeft)
-								ActiveWorm->setWormState(NoMotionLeft);
-							else
-								ActiveWorm->setWormState(NoMotionRight);
-							NextTurn();
+							m_pListeTeam->AllerSuivant();
 						}
-						break;
-						
-				}
+						if (ActiveWorm->getWormState() == KnifeLeft)
+							ActiveWorm->setWormState(NoMotionLeft);
+						else
+							ActiveWorm->setWormState(NoMotionRight);
+						NextTurn();
+					}
+					break;
+					
+			}
+			if (CEntity::m_uiTotalNbrOfEntityExplosed != CEntity::m_uiCurrentNbrOfEntityExplosed){
+				VerifyGlobalExplosion();
 			}
 		}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -473,6 +472,22 @@ public:
 				CEntity::m_uiTotalNbrOfEntityExplosed++;
 			}
 		}
+		if ((m_pLauncher != nullptr) && (m_pLauncher->isInUse())){
+			if (m_pLauncher->GrenadeHasExploded()){
+				for (int j = 0; j < m_pListeObjets->Count(); j++){
+					m_pListeObjets->AllerA(j);
+					m_pListeObjets->ObtenirElement()->ReactToExplosion(m_pLauncher->GrenadePos().x, m_pLauncher->GrenadePos().y, m_pLauncher->GrenadeRayon());
+					if (m_pListeObjets->ObtenirElement()->IsExploded()){
+						CEntity::m_uiCurrentNbrOfEntityExplosed++;
+					}
+				}
+				for (int i = 0; i < m_pListeTeam->Count(); i++) {
+					m_pListeTeam->AllerA(i);
+					m_pListeTeam->ObtenirElement()->ReactToExplosion(m_pLauncher->getExplosion());
+				}
+				CEntity::m_uiTotalNbrOfEntityExplosed++;
+			}
+		}
 		else{
 			CObjets* pTemp;
 			for (int i = 0; i < m_pListeObjets->Count(); i++){
@@ -495,6 +510,86 @@ public:
 			}
 		}
 		
+	}
+	
+	/*!
+	 @method Verify global Contact
+	 @brief VÈrifier s'il y a des explosions en chaÓne
+	 @param Une pointeur de bazouka
+	 @return Aucun.
+	 @discussion None.
+	 */
+	void VerifyGlobalContact(){
+		if ((m_pBazouka != nullptr) && (m_pBazouka->isInUse())){
+			if (!m_pBazouka->MissileHasExploded()){
+				CTeam* TeamTemp;
+				CWorm* WormTemp;
+				for (int j = 0; j < m_pListeObjets->Count(); j++){
+					m_pListeObjets->AllerA(j);
+					if(CPhysics::VerifyCollision(m_pBazouka->MissilePos() ,m_pListeObjets->ObtenirElement()->getPosition())){
+						m_pBazouka->SetExplose(true);
+						VerifyGlobalExplosion();
+						break;
+					}
+				}
+				for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
+					m_pListeTeam->AllerA(i);
+					TeamTemp = m_pListeTeam->ObtenirElement();
+					for (int j = 0; j < TeamTemp->getListeWorm()->Count(); j++) {
+						TeamTemp->getListeWorm()->AllerA(j);
+						WormTemp = TeamTemp->getListeWorm()->ObtenirElement();
+						if (CPhysics::VerifyCollision(m_pBazouka->MissilePos() ,WormTemp->getPosition())){
+							WormTemp->SetLife(0);
+							VerifyGlobalExplosion();
+						}
+					}
+				}
+			}
+		}
+		else if ((ActiveWorm != nullptr) && (ActiveWorm->getWormState() != Largage)){
+			CObjets* pTemp;
+			for (int i = 0; i < m_pListeObjets->Count(); i++){
+				m_pListeObjets->AllerA(i);
+				pTemp = m_pListeObjets->ObtenirElement();
+				if (CPhysics::VerifyCollision(ActiveWorm->getPosition(), pTemp->getPosition())){
+					if (pTemp->isCarePackage()){
+						((CCaisses*)pTemp)->GiveLife(ActiveWorm);
+						m_pListeObjets->Retirer(true);
+					}
+					else{
+						pTemp->setExplosion(true);
+						VerifyGlobalExplosion();
+					}
+				}
+			}
+		}
+		else{
+			CTeam* TeamTemp;
+			CWorm* WormTemp;
+			CObjets* ObjetTemp;
+			for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
+				m_pListeTeam->AllerA(i);
+				TeamTemp = m_pListeTeam->ObtenirElement();
+				for (int j = 0; j < TeamTemp->getListeWorm()->Count(); j++) {
+					TeamTemp->getListeWorm()->AllerA(j);
+					WormTemp = TeamTemp->getListeWorm()->ObtenirElement();
+					for (int h = 0; h < m_pListeObjets->Count(); h++){
+						m_pListeObjets->AllerA(h);
+						ObjetTemp = m_pListeObjets->ObtenirElement();
+						if (CPhysics::VerifyCollision(WormTemp->getPosition(), ObjetTemp->getPosition())){
+							if (ObjetTemp->isCarePackage()){
+								((CCaisses*)ObjetTemp)->GiveLife(WormTemp);
+								m_pListeObjets->Retirer(true);
+							}
+							else{
+								ObjetTemp->setExplosion(true);
+								VerifyGlobalExplosion();
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	/*!
 	@method Verify Caisse contact

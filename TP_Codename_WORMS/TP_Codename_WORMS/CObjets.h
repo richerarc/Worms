@@ -48,8 +48,11 @@ public:
 	virtual bool IsExploded(){return m_boIsexploded;}
 	virtual bool HasExploded(){return m_boHasExplosed;}
 	virtual void Detonate(){}
-	
+	virtual bool isCarePackage(){ return false;}
 	CExplosion* getExplosion(){return m_pExplosion;}
+	virtual void setExplosion(bool _boSet){
+		m_boIsexploded = _boSet;
+	}
 };
 
 #endif

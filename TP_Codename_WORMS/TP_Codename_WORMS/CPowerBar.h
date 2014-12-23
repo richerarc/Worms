@@ -84,16 +84,15 @@ public:
 	}
 	void SetPosition(int _ix, int _iy){
 		m_RectPower.x = _ix;
-		m_RectPower.y = _iy - 15;
+		m_RectPower.y = _iy - 25;
 	}
 
-	//Power en pourcentage
+	//Obtenir le power entre 0 et 100
 	unsigned int getPowerLevel(){
 		unsigned int temp = m_uiPower * 2;
-//		m_uiPower = 0;
 		return temp;
 	}
-	//Power en entier
+	//Obtenir le power entre 0 et 50
 	unsigned int getPower(){
 		return m_uiPower;
 	}

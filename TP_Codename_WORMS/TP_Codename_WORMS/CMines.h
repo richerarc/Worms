@@ -13,9 +13,9 @@ public:
 	/*!
 	@method Constructeur.
 	@brief Initialise les données membres.
-	@param _iRayon: le rayond d'explosion de l'objet
 	@param _RectPos: la pos du rectangle de l'objet
-	@param _pTexture : texture de l'image à afficher
+	@param _pTexture: texture de l'image à afficher
+	@param _Explosion: Une explosion passée à Entity.
 	@return Adresse mémoire de l'objet.
 	@discussion Classe héritant de CObjets, elle prend donc les paramètres du constructeur CObjets
 	*/
@@ -52,20 +52,12 @@ public:
 			}
 		}
 	}
-
 	/*!
-	@method HandleEvent
-	@param _Event : Un SDL_Event pour traiter les evenement
+	@method ReactToExplosion
+	@param _iX : La position en x de l'explosion
+	@param _iY : La position en y de l'explosion
+	@param _iRayon : Le rayon de l'explosion
 	@return null
-	*/
-	void HandleEvent(SDL_Event _Event){
-		m_boFocus = true;
-	}
-
-	/*!
-	@Méthode:
-	@ReactToExplosion
-	@Permet de calculer les dommages subit par l'explosion
 	*/
 	void ReactToExplosion(int _iX, int _iY, int _iRayon){
 		//Objet a droite de l'explosion

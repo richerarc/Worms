@@ -16,9 +16,9 @@ private:
 	SDL_Texture* m_pArrow;			// Image de la flèche (Rotation).
 	SDL_Rect m_RectArrowPosition;	// Position de la fleche.
 	double m_dblAngle;				// Angle de la rotation en degrés.
-	CLabel* m_pLabel;
-	unsigned int m_uiSpeed;
-	string m_strWindSpeed;
+	CLabel* m_pLabel;				//Le label de la boussole
+	unsigned int m_uiSpeed;			//La vitesse du vent
+	string m_strWindSpeed;			//L'affichage de la vitesse du vent
 	
 public:
 

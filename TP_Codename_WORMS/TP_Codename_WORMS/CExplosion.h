@@ -78,7 +78,8 @@ public:
 	}
 
 	void startExplosion(){
-		m_pSprite->Start();
+		if (!m_pSprite->isActif())
+			m_pSprite->Start();
 	}
 
 	/*!
@@ -93,11 +94,13 @@ public:
 	CMap* getMap(){ return m_pMap; }
 
 	void setActiveMap(CMap* _Activemap){ m_pMap = _Activemap; }
+
 	void setPositionXY(int _iX, int _iY){
 		m_RectDestination.x = _iX - m_iRadius;
 		m_RectDestination.y = _iY - m_iRadius;
 		m_pSprite->setSpritePos(_iX - (m_pSprite->getW() / 2), _iY - (m_pSprite->getH()-m_iRadius/3));
 	}
+
 	CPosition * getPosition(){return new CPosition(m_RectDestination.x + m_iRadius, m_RectDestination.y + m_iRadius);}
 	
 	bool HasStarted(){return m_pSprite->isActif();}

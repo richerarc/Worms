@@ -29,9 +29,10 @@ public:
 	@method Constructeur.
 	@brief Initialise les données membres.
 	@param _Rectpos: Position de l'entité
-	@param _ArrowTexture: Texture de l'entité.
+	@param _EntityTexture: Texture de l'entité.
+	@param _Explosion: une nouvelle explosion
 	@return Adresse mémoire de l'objet.
-	@discussion Intialise un objet qui subbit les forces gravitationnelles.
+	@discussion Intialise un objet qui subit les forces gravitationnelles.
 	*/
 	CEntity(SDL_Rect _RectPos, SDL_Texture* _EntityTexture, CExplosion* _Explosion){
 		m_pExplosion = _Explosion;
@@ -96,40 +97,12 @@ public:
 				}
 			break;
 		}
-
-		/*
-		int iTemp = CPhysics::VerifyGroundCollision(m_RectPosition);
-		if (iTemp != NOCONTACT)
-		m_EntityState = Immobile;
-		switch (m_EntityState) {
-		case Immobile:
-		if (m_Trajectoire->GetInitSpeed())
-		m_Trajectoire->WipeOut();
-		break;
-		case Chute:
-		m_Trajectoire->UpdatePosition();
-		CPosition* temp =  CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
-		if (temp != nullptr){
-		m_RectPosition.y = temp->getY();
-		m_RectPosition.x = temp->getX();
-		}
-		else{
-		m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
-		m_RectPosition.y = m_Trajectoire->GetActualPosition()->getY();
-		}
-		delete temp;
-		break;
-		}
-		*/
 	}
-
-	/*
-	Method : VerifySliding
-	Brief : Fonction qui retourne si l'entité est en glissade, et qui le fait glisser s'il devrait le faire
-	Params :
-		_Angle : Angle de la pente
-	Return : true : L'entité glisse
-	false : L'entité ne glisse pas
+	/*!
+	@method VerifySliding
+	@brief Vérifie les glissements
+	@param L'angle de la pente.
+	@return Un booléen pour savoir s'il y a un glissement(true) ou pas (false)
 	*/
 	bool VerifySliding(double _Angle){
 		if (_Angle == 0.0){
@@ -150,16 +123,12 @@ public:
 		return false;
 	}
 
-	/*
-	Method : UpdateSlidePosition
-	Brief : Fonction qui ajuste la position en considérant que l'entité est en train de glisser
-	Params :
-	Return : Position de l'entité à ce moment
+	/*!
+	@method UpdateSlidePosition
+	@brief Méthode servant à ajuster la position en considérant que l'entié est en train de glisser
+	@param Aucun
+	@return Position de l'entité à ce moment
 	*/
-	void setTrajectory(CTrajectory* _Trajectoire){
-		m_Trajectoire = _Trajectoire;
-	}
-
 	void UpdateSlidePosition(){
 		double dStartSlope = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
 		bool boOnGround = false;
@@ -210,6 +179,14 @@ public:
 	*/
 	SDL_Rect getPosition(){
 		return m_RectPosition;
+	}
+
+	void setTrajectory(CTrajectory* _Trajectoire){
+		if (m_Trajectoire != nullptr){
+			delete m_Trajectoire;
+			m_Trajectoire = nullptr;
+		}
+		m_Trajectoire = _Trajectoire;
 	}
 
 	CTrajectory* getTrajectoire(){

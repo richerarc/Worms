@@ -8,10 +8,10 @@
 */
 class CGrenades : public CObjets{
 private:
-	//Données membres:
-	CTimer* m_pTimer;//Déclaration d'une nouvelle minuterie pour le temps à écouler avant l'explosion.
-	bool boBouncing;//Booléen pour vérifier les rebonds.
-	int m_iAngle; //Un angle pour la rotation de la grenade.
+	
+	CTimer* m_pTimer;	//Déclaration d'une nouvelle minuterie pour le temps à écouler avant l'explosion.
+	bool boBouncing;	//Booléen pour vérifier les rebonds.
+	int m_iAngle;		//Un angle pour la rotation de la grenade.
 
 public:
 
@@ -66,10 +66,18 @@ public:
 		else{
 			m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);
 			m_pExplosion->startExplosion();
-			m_pExplosion->ExplodeMap(_pRenderer);
 			m_pExplosion->Draw(_pRenderer);
 			if (m_pExplosion->IsDone()){
 				m_boHasExplosed = true;
+				m_pExplosion->ExplodeMap(_pRenderer);
+				CEntity::m_uiCurrentNbrOfEntityExplosed++;
+			}
+			m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);
+			m_pExplosion->startExplosion();
+			m_pExplosion->Draw(_pRenderer);
+			if (m_pExplosion->IsDone()){
+				m_boHasExplosed = true;
+				m_pExplosion->ExplodeMap(_pRenderer);
 				m_pExplosion->ExplodeMap(_pRenderer);
 				CEntity::m_uiCurrentNbrOfEntityExplosed++;
 			}
@@ -77,36 +85,11 @@ public:
 	}
 
 	/*!
-	@method HandleEvent
-	@param _Event : Un SDL_Event pour traiter les evenement
+	@method Move
+	@brief Permet le mouvement de la grenade
+	@param null
 	@return null
 	*/
-	void HandleEvent(SDL_Event _Event){
-	}
-
-	/*!
-	@Méthode:
-	@ReactToExplosion
-	@Permet de calculer les dommages subit par l'explosion
-	*/
-	void ReactToExplosion(int _iX, int _iY, int _iRayon){}
-
-	/*!
-	@method Acesseurs
-	@brief Servent a acceder/modifier aux données membres.
-	*/
-	
-
-	void setExplosion(bool _boSet){
-		m_boIsexploded = _boSet;
-	}
-
-	void setPos(int _ix, int _iy){
-		m_RectPosition.x = _ix;
-		m_RectPosition.y = _iy;
-	}
-
-
 	void Move(){
 		if (boBouncing && !m_pTimer->HasStarted()){
 			m_pTimer->Start();
@@ -129,8 +112,8 @@ public:
 			{
 				if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
 					double SpeedNorm = m_Trajectoire->GetActualSpeed()->getNorme();
-					double Slope = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
-					if (boBouncing){
+					double Slope = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h / 2, m_RectPosition.w, m_RectPosition.w });
+					if (SpeedNorm <= 35){
 						if (VerifySliding(Slope)){
 							UpdateSlidePosition();
 						}
@@ -152,7 +135,7 @@ public:
 
 				m_RectPosition.y = temp->getY();
 				m_RectPosition.x = temp->getX();
-		//		delete temp;
+				delete temp;
 			}
 			else{
 				m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();
@@ -161,7 +144,21 @@ public:
 			break;
 		}
 	}
+
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
 	
+	void setExplosion(bool _boSet){
+		m_boIsexploded = _boSet;
+	}
+
+	void setPos(int _ix, int _iy){
+		m_RectPosition.x = _ix;
+		m_RectPosition.y = _iy;
+	}
+
 	void setState(int _EntityState){
 		m_EntityState = _EntityState;
 	}

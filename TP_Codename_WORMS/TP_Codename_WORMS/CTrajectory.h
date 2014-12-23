@@ -49,16 +49,23 @@ public:
 			delete m_StartPos;
 		}
 		m_StartPos = nullptr;
-		if (m_InitSpeed)
+		if (m_InitSpeed != nullptr){
 			delete m_InitSpeed;
-		m_InitSpeed = nullptr;
-		if (m_Acceleration)
+			m_InitSpeed = nullptr;
+		}
+		if (m_Acceleration != nullptr){
 			delete m_Acceleration;
-		m_Acceleration = nullptr;
-		if (m_NextPos)
+			m_Acceleration = nullptr;
+		}
+		if (m_NextPos != nullptr){
 			delete m_NextPos;
-		m_NextPos = nullptr;
-		delete m_TrajectoryTime;
+			m_NextPos = nullptr;
+		}
+
+		if (m_TrajectoryTime != nullptr){
+			delete m_TrajectoryTime;
+			m_TrajectoryTime = nullptr;
+		}
 	}
 
 	/*
@@ -124,6 +131,23 @@ public:
 	 http://integraledesmaths.free.fr/idm/PagePrincipale.htm#http://integraledesmaths.free.fr/idm/GeoAPAngDro.htm
 	 */
 	void Bounce(double _Slope){
+		
+		C2DVector* vNormal = nullptr;
+		if ((m_ActualSpeed->getComposanteY() >= 0)){
+			vNormal = new C2DVector(m_NextPos->getX(), m_NextPos->getY(), 1.f, _Slope + 90);
+		}
+		
+//		if (pVecteurVitesse->ObtenirNorme() >= 35) {
+//			CVecteur2D VecteurNormal;
+//				// Rebond par rapport au dessus ou au dessous...
+//			if (pVecteurVitesse->ObtenirComposanteY() >= 0 || iY >= RectTmp->h)
+//				VecteurNormal = CVecteur2D(1, fangle + 90);
+//			else
+//				VecteurNormal = CVecteur2D(1, fangle - 90);
+//			double dScalaire = 2 * pVecteurVitesse->Scalaire(VecteurNormal.ObtenirComposanteX(), VecteurNormal.ObtenirComposanteY());
+//			*pVecteurVitesse -= VecteurNormal * dScalaire;
+//			*pVecteurVitesse = *pVecteurVitesse * 0.5;
+//		}
 
 
 		double Slope1 = tan(_Slope);

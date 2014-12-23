@@ -34,8 +34,9 @@ private:
 	double 	m_dblYinitial;
 	bool m_boKnifeDone;
 	bool m_boPlaying;
-	bool m_boDamaged ;
+	bool m_boDamaged;
 	double iAnglebitch;
+	int iPreviousState;
 public:
 
 	/*!
@@ -66,7 +67,7 @@ public:
 		m_boDamaged = false;
 		m_pSprite->Start();
 		iAnglebitch = 0;
-
+		iPreviousState = 0;
 	}
 
 	/*!
@@ -91,10 +92,12 @@ public:
 	 */
 	void ReactToExplosion(CExplosion * _Explosion){
 		RecieveDamage(_Explosion, false);
-		if (m_EntityState == NoMotionLeft)
-			m_EntityState = ChuteLeft;
-		else
-			m_EntityState = ChuteRight;
+		if (CPhysics::verifyGroundCollision({ m_RectPosition.x + 2, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w - 4, 2 })){
+			if (m_EntityState == NoMotionLeft)
+				m_EntityState = ChuteLeft;
+			else
+				m_EntityState = ChuteRight;
+		}
 	}
 
 	/*!
@@ -103,17 +106,17 @@ public:
 	 @return null
 	 */
 	void HandleEvent(SDL_Event _Event){
-		if (!((m_EntityState == JumpLeft) || (m_EntityState == JumpRight) || (m_EntityState == Largage) || (m_EntityState == ChuteLeft) || (m_EntityState == ChuteRight))) {
+		if (!((m_EntityState == JumpLeft) || (m_EntityState == JumpRight) || (m_EntityState == Largage) || (m_EntityState == ChuteLeft) || (m_EntityState == ChuteRight) || (m_EntityState == SlideLeft) || ((m_EntityState == SlideRight) || (m_iLife <= 1)))) {
 			switch (_Event.type) {
 			case SDL_KEYDOWN:
-				switch (_Event.key.keysym.sym){
-				case SDLK_g:
+				switch (_Event.key.keysym.scancode){
+				case SDL_SCANCODE_G:
 					m_boDrawRect = false;
 					break;
-				case SDLK_f:
+				case SDL_SCANCODE_F:
 					m_boDrawRect = true;
 					break;
-				case SDLK_1:
+				case SDL_SCANCODE_1:
 					if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight)){
 						m_EntityState = UsingBazzRight;
 					}
@@ -121,7 +124,7 @@ public:
 						m_EntityState = UsingBazzLeft;
 					}
 					break;
-				case SDLK_2:
+				case SDL_SCANCODE_2:
 					if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight)){
 						m_EntityState = GrenadeLaunchRight;
 					}
@@ -129,7 +132,7 @@ public:
 						m_EntityState = GrenadeLaunchLeft;
 					}
 					break;
-				case SDLK_3:
+				case SDL_SCANCODE_3:
 					if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight)){
 						m_EntityState = KnifeRight;
 					}
@@ -137,7 +140,7 @@ public:
 						m_EntityState = KnifeLeft;
 					}
 					break;
-				case SDLK_4:
+				case SDL_SCANCODE_4:
 					if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight)){
 						m_EntityState = JetpackRightNoFly;
 					}
@@ -145,18 +148,18 @@ public:
 						m_EntityState = JetpackLeftNoFly;
 					}
 					break;
-				case SDLK_UP:
-				case SDLK_w:
+				case SDL_SCANCODE_UP:
+				case SDL_SCANCODE_W:
 					break;
-				case SDLK_LEFT:
-				case SDLK_a:
+				case SDL_SCANCODE_LEFT:
+				case SDL_SCANCODE_A:
 					m_EntityState = MotionLeft;
 					break;
-				case SDLK_RIGHT:
-				case SDLK_d:
+				case SDL_SCANCODE_RIGHT:
+				case SDL_SCANCODE_D:
 					m_EntityState = MotionRight;
 					break;
-				case SDLK_SPACE:
+				case SDL_SCANCODE_SPACE:
 					if ((m_EntityState == NoMotionLeft) || (m_EntityState == MotionLeft))
 						m_EntityState = JumpLeft;
 					else if ((m_EntityState == NoMotionRight) || (m_EntityState == MotionRight))
@@ -203,30 +206,30 @@ public:
 			SDL_RenderFillRect(_Renderer, &m_BarredeVie);
 			switch (m_EntityState) {
 			case KnifeLeft:
-					if (m_pSprite->getCurrentAnimation() != 13)
-						m_pSprite->setCurrentAnimation(13);
-					m_pSprite->Render(_Renderer);
-					if (m_pSprite->WormAnimationIsOver()){
-						m_boKnifeDone = true;
-						setPosXY(m_RectPosition.x, m_RectPosition.y);
-					}
-					break;
+				if (m_pSprite->getCurrentAnimation() != 13)
+					m_pSprite->setCurrentAnimation(13);
+				m_pSprite->Render(_Renderer);
+				if (m_pSprite->WormAnimationIsOver()){
+					m_boKnifeDone = true;
+					setPosXY(m_RectPosition.x, m_RectPosition.y);
+				}
+				break;
 			case KnifeRight:
-					if (m_pSprite->getCurrentAnimation() != 12)
-						m_pSprite->setCurrentAnimation(12);
-					m_pSprite->Render(_Renderer);
-					if (m_pSprite->WormAnimationIsOver()){
-						m_boKnifeDone = true;
-						setPosXY(m_RectPosition.x, m_RectPosition.y);
-					}
-					break;
+				if (m_pSprite->getCurrentAnimation() != 12)
+					m_pSprite->setCurrentAnimation(12);
+				m_pSprite->Render(_Renderer);
+				if (m_pSprite->WormAnimationIsOver()){
+					m_boKnifeDone = true;
+					setPosXY(m_RectPosition.x, m_RectPosition.y);
+				}
+				break;
 			case ChuteLeft:
 			case SlideLeft:
 				if (m_pSprite->getCurrentAnimation() != 15)
 					m_pSprite->setCurrentAnimation(15);
 				m_pSprite->setNbLoop(-1);
 				iAnglebitch -= 0.3;
-				m_pSprite->Render(0, 4, _Renderer,iAnglebitch);
+				m_pSprite->Render(0, 4, _Renderer, iAnglebitch);
 				break;
 			case ChuteRight:
 			case SlideRight:
@@ -314,7 +317,7 @@ public:
 			if (m_pSprite->WormAnimationIsOver()){
 				m_boIsexploded = true;
 			}
-			if(m_boIsexploded){
+			if (m_boIsexploded){
 				if (!m_pExplosion->HasStarted()){
 					setPosXY(m_RectPosition.x, m_RectPosition.y);
 					m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);
@@ -381,7 +384,6 @@ public:
 
 	string getName(){ return m_strName; }
 
-
 	void Move(SDL_Renderer* _renderer){
 		double ftemp = 0;
 		double dbl = 0;
@@ -415,6 +417,7 @@ public:
 
 		switch (m_EntityState) {
 		case SlideLeft:
+			iPreviousState = SlideLeft;
 			if (m_Trajectoire == nullptr){
 				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, -1500., 2.), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.0, 10 * CPhysics::GetGravity()));
 			}
@@ -442,6 +445,7 @@ public:
 			}
 			break;
 		case SlideRight:
+			iPreviousState = SlideRight;
 			if (m_Trajectoire == nullptr){
 				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, 1500., 2.), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.0, 10 * CPhysics::GetGravity()));
 			}
@@ -468,7 +472,7 @@ public:
 			}
 			break;
 		case JumpLeft:
-
+			iPreviousState = JumpLeft;
 			if (m_Trajectoire == nullptr){
 				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
 					new C2DVector(m_RectPosition.x, m_RectPosition.y, -15.f, -85.f),
@@ -507,6 +511,7 @@ public:
 			break;
 
 		case JumpRight:
+			iPreviousState = JumpRight;
 			if (m_Trajectoire == nullptr){
 				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
 					new C2DVector(m_RectPosition.x, m_RectPosition.y, 15.f, -85.f),
@@ -545,7 +550,7 @@ public:
 			}
 			break;
 		case MotionRight:
-
+			iPreviousState = MotionRight;
 			//SI ON MONTE
 			if (dbl <= 0){
 				RectCollision = { m_RectPosition.x + m_RectPosition.w - 2, m_RectPosition.y + m_RectPosition.h / 4 * 3, m_RectPosition.w / 2, m_RectPosition.h / 2 - 5 };
@@ -598,7 +603,7 @@ public:
 			}
 			break;
 		case MotionLeft:
-
+			iPreviousState = MotionRight;
 			//Si on Monte
 			if (dbl >= 0){
 				RectCollision = { m_RectPosition.x - m_RectPosition.w / 2, m_RectPosition.y + m_RectPosition.h / 4 * 3, m_RectPosition.w / 2, m_RectPosition.h / 2 - 5 };
@@ -643,7 +648,8 @@ public:
 			}
 			break;
 		case ChuteRight:
-			RectTemp = { m_RectPosition.x , m_RectPosition.y + m_RectPosition.h + 1, m_RectPosition.w, 1 };
+			iPreviousState = ChuteRight;
+			RectTemp = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h + 1, m_RectPosition.w, 1 };
 			if (!CPhysics::verifyGroundCollision(RectTemp)){
 				if (m_Trajectoire == nullptr){
 					m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
@@ -683,6 +689,7 @@ public:
 			}
 			break;
 		case ChuteLeft:
+			iPreviousState = ChuteLeft;
 			RectTemp = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h + 1, m_RectPosition.w, 1 };
 			if (!CPhysics::verifyGroundCollision(RectTemp)){
 				if (m_Trajectoire == nullptr){
@@ -697,11 +704,13 @@ public:
 					{
 						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
 							m_EntityState = NoMotionLeft;
-							uiTempsDeChute = m_Trajectoire->getSpeedMagnitude();
-							if (uiTempsDeChute >= 50)
-								SetLife(m_iLife - (uiTempsDeChute / 10));
-							if (m_boPlaying)
-								m_boDamaged = true;
+							if (!(iPreviousState == SlideLeft || iPreviousState == SlideRight)){
+								uiTempsDeChute = m_Trajectoire->getSpeedMagnitude();
+								if (uiTempsDeChute >= 50)
+									SetLife(m_iLife - (uiTempsDeChute / 10));
+								if (m_boPlaying)
+									m_boDamaged = true;
+							}
 							delete m_Trajectoire;
 							m_Trajectoire = nullptr;
 						}
@@ -722,6 +731,7 @@ public:
 			}
 			break;
 		case Largage:
+			iPreviousState = Largage;
 			m_Trajectoire->UpdatePosition();
 			CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
 			if (temp != nullptr)
@@ -754,8 +764,8 @@ public:
 		m_BarredeVie.x = m_RectPosition.x;
 		m_BarredeVie.y = m_RectPosition.y;
 	}
-	
-	bool isDamaged(){return m_boDamaged;}
+
+	bool isDamaged(){ return m_boDamaged; }
 
 	int getWormState(){
 		return m_EntityState;
@@ -763,11 +773,11 @@ public:
 	void setWormState(int _EntityState){
 		m_EntityState = _EntityState;
 	}
-	
+
 	bool KnifeDone(){
 		return m_boKnifeDone;
 	}
-	
+
 	bool isPlaying(){
 		return m_boPlaying;
 	}

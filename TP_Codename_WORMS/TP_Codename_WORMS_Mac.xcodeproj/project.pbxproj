@@ -62,7 +62,6 @@
 		F9C1D2C51A12816E00AF2F13 /* CTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTeam.h; path = TP_Codename_WORMS/CTeam.h; sourceTree = SOURCE_ROOT; };
 		F9C1D2C61A12816E00AF2F13 /* CWorm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWorm.h; path = TP_Codename_WORMS/CWorm.h; sourceTree = SOURCE_ROOT; };
 		F9C1D2C71A12901C00AF2F13 /* CCaisses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCaisses.h; path = TP_Codename_WORMS/CCaisses.h; sourceTree = SOURCE_ROOT; };
-		F9C1D2C81A12901C00AF2F13 /* CCaisseSoin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCaisseSoin.h; path = TP_Codename_WORMS/CCaisseSoin.h; sourceTree = SOURCE_ROOT; };
 		F9C1D2C91A12901C00AF2F13 /* CEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CEntity.h; path = TP_Codename_WORMS/CEntity.h; sourceTree = SOURCE_ROOT; };
 		F9C1D2CA1A12901C00AF2F13 /* CGrenades.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGrenades.h; path = TP_Codename_WORMS/CGrenades.h; sourceTree = SOURCE_ROOT; };
 		F9C1D2CB1A12901C00AF2F13 /* CMines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMines.h; path = TP_Codename_WORMS/CMines.h; sourceTree = SOURCE_ROOT; };
@@ -132,7 +131,6 @@
 				F9EB8F2A1A1685FC00B210DD /* CExplosion.h */,
 				F9EB8F2B1A1685FC00B210DD /* CGame.h */,
 				F9C1D2C71A12901C00AF2F13 /* CCaisses.h */,
-				F9C1D2C81A12901C00AF2F13 /* CCaisseSoin.h */,
 				F9C1D2C91A12901C00AF2F13 /* CEntity.h */,
 				F9C1D2CA1A12901C00AF2F13 /* CGrenades.h */,
 				F9C1D2CB1A12901C00AF2F13 /* CMines.h */,
