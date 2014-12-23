@@ -91,6 +91,7 @@ public:
 			}
 		}
 	}
+
 	/*!
 	@method HandleEvent
 	@param _Event : Un SDL_Event pour traiter les evenement
@@ -256,7 +257,22 @@ public:
 
 		}
 	}
-	//Accesseurs:
+
+	/*!
+	@method reset
+	@brief: Permet de reseter les informations du jetpack
+	@param null
+	@return null
+	*/
+	void reset(){
+		m_pBarreGaz.h = 50;
+	}
+
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
+
 	void setInUse(bool _bo){
 		m_boInUse = _bo;
 	}
@@ -267,9 +283,7 @@ public:
 		return (!m_pBarreGaz.h);
 	}
 	
-	void reset(){
-		m_pBarreGaz.h = 50;
-	}
+
 
 
 };
