@@ -244,9 +244,6 @@ public:
 				case SDL_SCANCODE_ESCAPE:
 					PauseGame();
 					break;
-				case SDL_SCANCODE_T:
-					NextTurn();
-					break;
 				}
 				break;
 			case SDL_KEYUP:

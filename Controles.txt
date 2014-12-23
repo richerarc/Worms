@@ -1,0 +1,22 @@
+Pour les controles de base.
+
+Flèches ou AD   pour bouger 
+Spacebar 	pour sauter
+M 		Affiche le menu des armes.
+F		Affiche les FPS
+1		Quick Bazooka
+2		Quick Grenade Launcher
+3		Quick Knife
+4		Quick JetPack
+
+Bazooka et lance grenade.
+
+Gauche Droite   Changement d'orientation
+Haut BAS	Angle de tir
+SpaceBar	Puissance (Tenir pour plus de puissance)
+
+JetPack
+Fleches		Direction
+
+Knife
+Usage automatique unique. Doit être très près de l'ennemi.

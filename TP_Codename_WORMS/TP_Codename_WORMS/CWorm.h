@@ -647,7 +647,7 @@ public:
 				}
 				break;
 			case ChuteRight:
-				iPreviousState = ChuteRight;
+	
 				RectTemp = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h + 1, m_RectPosition.w, 1 };
 				if (!CPhysics::verifyGroundCollision(RectTemp)){
 					if (m_Trajectoire == nullptr){
@@ -662,11 +662,14 @@ public:
 						{
 							if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
 								m_EntityState = NoMotionRight;
-								uiTempsDeChute = m_Trajectoire->getSpeedMagnitude();
-								if (uiTempsDeChute >= 50)
-									SetLife(m_iLife - (uiTempsDeChute / 10));
-								if (m_boPlaying)
-									m_boDamaged = true;
+								if (!(iPreviousState == SlideLeft || iPreviousState == SlideRight)){
+									uiTempsDeChute = m_Trajectoire->getSpeedMagnitude();
+									if (uiTempsDeChute >= 50)
+										SetLife(m_iLife - (uiTempsDeChute / 10));
+									if (m_boPlaying)
+										m_boDamaged = true;
+								}
+								iPreviousState = ChuteRight;
 								delete m_Trajectoire;
 								m_Trajectoire = nullptr;
 							}
@@ -684,6 +687,7 @@ public:
 						delete m_Trajectoire;
 						m_Trajectoire = nullptr;
 					}
+					iPreviousState = ChuteRight;
 					m_EntityState = NoMotionRight;
 				}
 				if ((m_EntityState == JetpackLeftNoFly || m_EntityState == JetpackRightNoFly || m_EntityState == JetpackLeftFly || m_EntityState == JetpackRightFly || m_EntityState == UsingBazzLeft || m_EntityState == UsingBazzRight || m_EntityState == GrenadeLaunchLeft || m_EntityState == GrenadeLaunchRight || m_EntityState == KnifeLeft || m_EntityState == KnifeRight)){
@@ -691,7 +695,6 @@ public:
 				}
 				break;
 			case ChuteLeft:
-				iPreviousState = ChuteLeft;
 				RectTemp = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h + 1, m_RectPosition.w, 1 };
 				if (!CPhysics::verifyGroundCollision(RectTemp)){
 					if (m_Trajectoire == nullptr){
@@ -713,6 +716,7 @@ public:
 									if (m_boPlaying)
 										m_boDamaged = true;
 								}
+								iPreviousState = ChuteLeft;
 								delete m_Trajectoire;
 								m_Trajectoire = nullptr;
 							}
@@ -730,6 +734,7 @@ public:
 						m_Trajectoire = nullptr;
 					}
 					m_EntityState = NoMotionLeft;
+					iPreviousState = ChuteLeft;
 				}
 				if ((m_EntityState == JetpackLeftNoFly || m_EntityState == JetpackRightNoFly || m_EntityState == JetpackLeftFly || m_EntityState == JetpackRightFly || m_EntityState == UsingBazzLeft || m_EntityState == UsingBazzRight || m_EntityState == GrenadeLaunchLeft || m_EntityState == GrenadeLaunchRight || m_EntityState == KnifeLeft || m_EntityState == KnifeRight)){
 					m_EntityState = iPreviousState;

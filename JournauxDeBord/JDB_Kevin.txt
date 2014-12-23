@@ -130,3 +130,8 @@
 
 22:48 2014-12-22: Nous avons enfin terminer mais il n'est pas parfait. J'ai teminer le move j'ai regler beaucoup de bug avec jess.
 		  Nous sommes rester toute la journée! de 8 à 23h.
+
+15:17 2014-12-23: PArce que j'en ai rever cette nuit voila quelques modifications. Delete de m_music qu'on avait oublier dans le rush
+		  de derniere minute, le previous entity state est maintenant opérationnel. J'ai retirer le changement de tour lorsqu'on
+	    	  appuyait sur la touche "T". Je sais que ça ne compteras plus mais bon.. Il fallait que je le fasse sinon je n'aurais 
+		  pas dormi hahahaha.

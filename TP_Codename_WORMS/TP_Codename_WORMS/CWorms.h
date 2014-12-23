@@ -357,6 +357,7 @@ public:
 		delete m_MenuPause;
 		delete m_MenuWeapons;
 		delete m_Game;
+		delete m_music;
 		delete m_pEvent;
 		delete m_Gestionaire;
 		m_SaveFile->close();
