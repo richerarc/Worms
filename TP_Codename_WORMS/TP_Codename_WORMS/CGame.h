@@ -313,9 +313,6 @@ public:
 	void MainGame(){
 		
 		if (boBegin){	// Si le jeu à commencé
-			if (CEntity::m_uiTotalNbrOfEntityExplosed != CEntity::m_uiCurrentNbrOfEntityExplosed){
-				VerifyGlobalExplosion();
-			}
 			int itemp = EnterrerLesMorts();
 			for (int i = 0; i< itemp; i++){
 				m_pListeObjets->AjouterFin(new CCaisses({ ((rand() % (WIDTH - 10)) + 5), 5, 20, 18 }, m_Gestionaire->GetTexture("caisse")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("BigEx"), 55, m_pMap)));
@@ -329,19 +326,18 @@ public:
 			}
 			
 			else{
-				
 				switch (ActiveWorm->getWormState()) {
 					case UsingBazzLeft:
 					case UsingBazzRight:
 						if (m_pBazouka->isInUse() && m_pBazouka->MissileHasExploded()){
 							if (ActiveWorm->getWormState() == UsingBazzRight){
 								ActiveWorm->setWormState(NoMotionRight);
-								
 							}
 							else{
 								ActiveWorm->setWormState(NoMotionLeft);
 							}
 							NextTurn();
+							VerifyGlobalExplosion();
 							m_pBazouka->setInUse(false);
 							m_pBazouka->reset();
 						}
@@ -376,6 +372,7 @@ public:
 							else{
 								ActiveWorm->setWormState(NoMotionLeft);
 							}
+							VerifyGlobalExplosion();
 							NextTurn();
 							m_pLauncher->setInUse(false);
 							m_pLauncher->reset();
@@ -411,6 +408,9 @@ public:
 						break;
 						
 				}
+			}
+			if (CEntity::m_uiTotalNbrOfEntityExplosed != CEntity::m_uiCurrentNbrOfEntityExplosed){
+				VerifyGlobalExplosion();
 			}
 		}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -469,6 +469,22 @@ public:
 				for (int i = 0; i < m_pListeTeam->Count(); i++) {
 					m_pListeTeam->AllerA(i);
 					m_pListeTeam->ObtenirElement()->ReactToExplosion(m_pBazouka->getExplosion());
+				}
+				CEntity::m_uiTotalNbrOfEntityExplosed++;
+			}
+		}
+		if ((m_pLauncher != nullptr) && (m_pLauncher->isInUse())){
+			if (m_pLauncher->GrenadeHasExploded()){
+				for (int j = 0; j < m_pListeObjets->Count(); j++){
+					m_pListeObjets->AllerA(j);
+					m_pListeObjets->ObtenirElement()->ReactToExplosion(m_pLauncher->GrenadePos().x, m_pLauncher->GrenadePos().y, m_pLauncher->GrenadeRayon());
+					if (m_pListeObjets->ObtenirElement()->IsExploded()){
+						CEntity::m_uiCurrentNbrOfEntityExplosed++;
+					}
+				}
+				for (int i = 0; i < m_pListeTeam->Count(); i++) {
+					m_pListeTeam->AllerA(i);
+					m_pListeTeam->ObtenirElement()->ReactToExplosion(m_pLauncher->getExplosion());
 				}
 				CEntity::m_uiTotalNbrOfEntityExplosed++;
 			}

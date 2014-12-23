@@ -309,6 +309,8 @@ public:
 		fPosYTempo = 0;
 		m_flipType = SDL_FLIP_NONE;
 	}
+	
+	CExplosion* getExplosion(){return m_pExplosion;}
 };
 
 #endif

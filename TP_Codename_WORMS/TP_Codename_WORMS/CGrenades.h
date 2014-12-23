@@ -66,10 +66,18 @@ public:
 		else{
 			m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);
 			m_pExplosion->startExplosion();
-			m_pExplosion->ExplodeMap(_pRenderer);
 			m_pExplosion->Draw(_pRenderer);
 			if (m_pExplosion->IsDone()){
 				m_boHasExplosed = true;
+				m_pExplosion->ExplodeMap(_pRenderer);
+				CEntity::m_uiCurrentNbrOfEntityExplosed++;
+			}
+			m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);
+			m_pExplosion->startExplosion();
+			m_pExplosion->Draw(_pRenderer);
+			if (m_pExplosion->IsDone()){
+				m_boHasExplosed = true;
+				m_pExplosion->ExplodeMap(_pRenderer);
 				m_pExplosion->ExplodeMap(_pRenderer);
 				CEntity::m_uiCurrentNbrOfEntityExplosed++;
 			}

@@ -78,7 +78,8 @@ public:
 	}
 
 	void startExplosion(){
-		m_pSprite->Start();
+		if (!m_pSprite->isActif())
+			m_pSprite->Start();
 	}
 
 	/*!
