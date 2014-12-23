@@ -284,6 +284,7 @@ public:
 
 		if (m_pListeObjets->Count() < m_pMap->getMine()){
 			m_pListeObjets->AjouterFin(new CMines({ ((rand() % (WIDTH - 10)) + 5), 5, 12, 8 }, m_Gestionaire->GetTexture("mine")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("SmallEx"), 50, m_pMap)));
+			m_pListeObjets->AjouterFin(new CCaisses({ ((rand() % (WIDTH - 10)) + 5), 5, 20, 18 }, m_Gestionaire->GetTexture("caisse")->GetTexture(), new CExplosion(m_Gestionaire->GetTexture("BigEx"), 55, m_pMap)));
 		}
 
 		if (m_pListeObjets->Count() == m_pMap->getMine()){
@@ -540,6 +541,7 @@ public:
 				if (CPhysics::VerifyCollision(ActiveWorm->getPosition(), pTemp->getPosition())){
 					if (pTemp->isCarePackage()){
 						((CCaisses*)pTemp)->GiveLife(ActiveWorm);
+						m_pListeObjets->Retirer(true);
 					}
 					else{
 						pTemp->setExplosion(true);
@@ -564,6 +566,7 @@ public:
 						if (CPhysics::VerifyCollision(WormTemp->getPosition(), ObjetTemp->getPosition())){
 							if (ObjetTemp->isCarePackage()){
 								((CCaisses*)ObjetTemp)->GiveLife(WormTemp);
+								m_pListeObjets->Retirer(true);
 							}
 							else{
 								ObjetTemp->setExplosion(true);
