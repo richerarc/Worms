@@ -19,7 +19,7 @@ private:
 	bool m_boFocus;
 	bool m_bodefeated;
 public:
-	
+
 	/*!
 	@method Constructeur.
 	@brief Initialise les données membres.
@@ -42,14 +42,14 @@ public:
 		{
 			strNom.append(" ");
 			strNom.append(SDL_itoa(i, Buffer, 10));
-			m_pListWorm->AjouterFin(new CWorm(strNom, _WormRepo, new CSprite("", _TexSprite, 10, 17, 80, -1), _Font, {rand() % WIDTH, -50, 30, 50 }, &m_TeamColor, new CExplosion(_TextureExplosion, 50, _Map)));
+			m_pListWorm->AjouterFin(new CWorm(strNom, _WormRepo, new CSprite("", _TexSprite, 10, 17, 80, -1), _Font, { rand() % WIDTH, -50, 30, 50 }, &m_TeamColor, new CExplosion(_TextureExplosion, 50, _Map)));
 			strNom.pop_back();
 			strNom.pop_back();
 		}
 		m_pListWorm->AllerDebut();
 		m_pListWorm->ObtenirElement()->setFocus(true);
 	}
-	
+
 	~CTeam(){
 		delete m_pListWorm;
 	}
@@ -77,7 +77,7 @@ public:
 	@brief Affiche l'équipe
 	@param SDL_Renderer* _Renderer: Rendu de la fenetre sur laquelle afficher.
 	@return Aucun
-	@discussion 
+	@discussion
 	*/
 	void draw(SDL_Renderer* _Renderer){
 		if (m_pListWorm->Count()){
@@ -88,12 +88,12 @@ public:
 			}
 		}
 	}
-	
-	
+
+
 	void HandleEvent(SDL_Event _Event){
 		m_pListWorm->AllerDebut();
 		for (int i(0); i < m_uiNbOfWorm; i++){
-			if(m_pListWorm->ObtenirElement()->isFocused()){
+			if (m_pListWorm->ObtenirElement()->isFocused()){
 				m_pListWorm->ObtenirElement()->HandleEvent(_Event);
 				break;
 			}
@@ -121,16 +121,16 @@ public:
 				return m_pListWorm->ObtenirElement();
 		}
 		return nullptr;
- 	}
-	
+	}
+
 	bool isDefeated(){
 		return m_bodefeated;
 	}
-	
+
 	CListeDC<CWorm*>* getListeWorm(){
 		return m_pListWorm;
 	}
-	
+
 	/*!
 	 @Méthode:
 	 @ReactToExplosion
@@ -142,20 +142,20 @@ public:
 			m_pListWorm->ObtenirElement()->ReactToExplosion(_Explosion);
 		}
 	}
-	
+
 	int EnterrerLesMorts(){
 		int itemp = 0;
 		if (!m_pListWorm->Count()){
 			m_bodefeated = true;
 		}
 		m_pListWorm->AllerDebut();
-		for(int i = 0; i < m_pListWorm->Count(); i++){
+		for (int i = 0; i < m_pListWorm->Count(); i++){
 			if (m_pListWorm->ObtenirElement()->getWormState() == Dead){
 				if (!m_pListWorm->ObtenirElement()->isPlaying()){
 					m_pListWorm->Retirer(true);
 					itemp++;
-					if (m_pListWorm->ObtenirElement()->isFocused()){
-						if (m_pListWorm->Count()){
+					if (m_pListWorm->Count()){
+						if (m_pListWorm->ObtenirElement()->isFocused()){
 							m_pListWorm->AllerPrecedent();
 							m_pListWorm->ObtenirElement()->setFocus(true);
 						}
