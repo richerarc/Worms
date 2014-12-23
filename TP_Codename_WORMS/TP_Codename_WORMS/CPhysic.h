@@ -40,7 +40,6 @@ public:
 	 @return Adresse mémoire de l'objet.
 	 @discussion Comme tous les données membres sont statiques, Le init agit comme un constructeur.
 	 */
-
 	static void Init(SDL_Surface* _map, double _gravity, int _maxWind){
 		m_Wind = new C2DVector(0, 0, 0, 0);
 		m_Map = _map;
@@ -50,11 +49,11 @@ public:
 	}
 
 	/*!
-	 @method Annihilate.
-	 @brief Agit comme un destructeur, met tout a nullptr
-	 @return Aucun
-	 @discussion Aucune
-	 */
+	@method Annihilate.
+	@brief Agit comme un destructeur, met tout a nullptr
+	@return Aucun
+	@discussion Aucune
+	*/
 	static void Annihilate(){
 		m_Map = nullptr;
 		m_Gravity = 0;
@@ -64,12 +63,12 @@ public:
 	}
 
 	/*!
-	 @method RedefineWind
-	 @brief  Permet de changer aleatoirement la direction du vent.
-	 @param Aucun.
-	 @return Aucun
-	 @discussion Aucune.
-	 */
+	@method RedefineWind
+	@brief  Permet de changer aleatoirement la direction du vent.
+	@param Aucun.
+	@return Aucun
+	@discussion Aucune.
+	*/
 	static void RedefineWind(){
 		double temp = (rand() % (int)m_MaxWindSpeed);
 		double Norme = temp / 100;
@@ -79,14 +78,14 @@ public:
 	}
 
 	/*!
-	 @method Verify collision
-	 @brief Vérifie si deux rect se touche
-	 @param _Collider: Le rect en mouvement
-	 @param _Collidee: Le rect immobile .
-	 @return true si il y a un collision?
-	 @return false si il n'en a pas
-	 @discussion Aucune.
-	 */
+	@method Verify collision
+	@brief Vérifie si deux rect se touche
+	@param _Collider: Le rect en mouvement
+	@param _Collidee: Le rect immobile .
+	@return true si il y a un collision?
+	@return false si il n'en a pas
+	@discussion Aucune.
+	*/
 	static bool VerifyCollision(SDL_Rect _Collider, SDL_Rect _Collidee){
 		if ((_Collider.x + _Collider.w >= _Collidee.x) && (_Collider.x <= _Collidee.x + _Collidee.w)){
 			if ((_Collider.y + _Collider.h >= _Collidee.y) && (_Collider.y <= _Collidee.y + _Collidee.h)){
@@ -96,9 +95,15 @@ public:
 		return false;
 	}
 
-
-
-
+	/*!
+	@method HandleGroundCollision
+	@brief Gere la collision avec le sol
+	@param _Collider: Le rect en mouvement
+	@param _Collidee: Le rect immobile .
+	@return true si il y a un collision?
+	@return false si il n'en a pas
+	@discussion Aucune.
+	*/
 	static void HandleGroundCollisionTest(SDL_Rect* _Rect, int _Direction,double _Angle){
 		if (_Angle != 0){
 			switch (_Direction) {

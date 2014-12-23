@@ -49,16 +49,23 @@ public:
 			delete m_StartPos;
 		}
 		m_StartPos = nullptr;
-		if (m_InitSpeed)
+		if (m_InitSpeed != nullptr){
 			delete m_InitSpeed;
-		m_InitSpeed = nullptr;
-		if (m_Acceleration)
+			m_InitSpeed = nullptr;
+		}
+		if (m_Acceleration != nullptr){
 			delete m_Acceleration;
-		m_Acceleration = nullptr;
-		if (m_NextPos)
+			m_Acceleration = nullptr;
+		}
+		if (m_NextPos != nullptr){
 			delete m_NextPos;
-		m_NextPos = nullptr;
-		delete m_TrajectoryTime;
+			m_NextPos = nullptr;
+		}
+
+		if (m_TrajectoryTime != nullptr){
+			delete m_TrajectoryTime;
+			m_TrajectoryTime = nullptr;
+		}
 	}
 
 	/*
