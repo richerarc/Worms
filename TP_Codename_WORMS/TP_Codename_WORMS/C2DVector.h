@@ -74,6 +74,21 @@ public:
 		}
 	}
 
+	C2DVector(double _Norme, double _Orientation){
+		m_Norme = _Norme;
+		m_Orientation = _Orientation;
+		m_XOrigine = 0;
+		m_YOrigine = 0;
+		m_XFin = 0;
+		m_YFin = 0;
+		m_XStart = 0;
+		m_YStart = 0;
+		m_XEnd = 0;
+		m_YEnd = 0;
+		m_ComposanteX = m_Norme * cos(_Orientation);
+		m_ComposanteY = m_Norme*sin(_Orientation);
+	}
+
 	/*!
 	@method Constructeur.
 	@brief Initialise les données membres.
