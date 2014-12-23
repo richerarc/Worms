@@ -63,7 +63,8 @@ private:
 	static int m_nbrFPS;
 	static bool m_boFPS;
 	static CTimer* m_timerFPS;
-	static string strFilePath[35];
+	static string strFilePath[38];
+	static CSound* m_music;
 public:
 	static void Start(){
 		while (m_boRun) {
@@ -79,6 +80,9 @@ public:
 				m_boInMenu = true;
 			}
 			Render();
+			if (m_music != nullptr){
+				m_music->ContinuePlaying();
+			}
 			while (SDL_PollEvent(m_pEvent)) {
 				if (m_boInMenu){
 					if (m_MenuPrincipal->IsActive())
@@ -181,7 +185,7 @@ public:
 #elif defined (_WIN32)
 		strPath.append("\\");
 #endif
-		string FileName[35] = {
+		string FileName[38] = {
 			"Arpegius.ttf",
 			"Btn1.png",
 			"BtnL.png",
@@ -216,10 +220,13 @@ public:
 			"BazoukaDroite.png",
 			"Missile.png",
 			"Caisse.png",
-			"lancepatatedroite.png"
+			"lancepatatedroite.png",
+			"arcade.ogg",
+			"desert.ogg",
+			"menu.ogg"
 		};
 			//string strFilePath[34];
-		for (int i = 0; i < 35; i++){
+		for (int i = 0; i < 38; i++){
 			strFilePath[i] = strPath;
 			strFilePath[i].append(FileName[i]);
 		}
@@ -286,6 +293,8 @@ public:
 		m_Gestionaire->AjouterTexture(new CTexture("caisse", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[33].c_str())));
 		m_Gestionaire->AjouterTexture(new CTexture("launcher", IMG_LoadTexture(m_pWindow->getRenderer(), strFilePath[34].c_str())));
 		m_SaveFile->open(strFilePath[12].c_str());
+		
+		m_music = new CSound("", strFilePath[35].c_str(), strFilePath[36].c_str(), strFilePath[37].c_str());
 
 
 		}
@@ -520,4 +529,5 @@ string CWorms::m_strFPS = "FPS:";
 int CWorms::m_nbrFPS = 0;
 bool CWorms::m_boFPS = false;
 CTimer* CWorms::m_timerFPS = nullptr;
-string CWorms::strFilePath[35] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
+string CWorms::strFilePath[38] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
+CSound* CWorms::m_music = nullptr;
