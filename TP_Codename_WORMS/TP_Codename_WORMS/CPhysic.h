@@ -513,25 +513,7 @@ public:
 	static CTrajectory* Propulsion(CPosition* _PosInit, C2DVector* _Vit, C2DVector* _Acc){
 		return new CTrajectory(_PosInit, _Vit, *_Acc + m_Wind);
 	}
-
-	/*!
-	 @method Slide
-	 @brief  Fonction qui fait glisser si la pente est trop grande
-	 @param _Rect : Rectangle de l'objet impliqué
-	 @return La trajectoire du glissement
-	 */
-	/*static CTrajectory * Slide(CEntity* _Entity){
-		SDL_Rect* TmpRect = new SDL_Rect({ _Entity->getPosition().x, _Entity->getPosition().y + _Entity->getPosition().h
-		, 50, _Entity->getPosition().w }); //Le 50 est arbitraire because or reasons
-		double AngleDePente = CPhysics::EvaluateSlope(TmpRect);
-		if (_Entity->getTrajectoire() != nullptr){
-		}
-		else{
-		}
-		}*/
-
-
-
+	
 	/*!
 	 @method Move
 	 @brief  Fonction qui ajuste la position suite � un mouvement sans acc�l�ration

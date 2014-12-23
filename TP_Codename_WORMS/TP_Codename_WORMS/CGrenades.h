@@ -112,8 +112,8 @@ public:
 			{
 				if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
 					double SpeedNorm = m_Trajectoire->GetActualSpeed()->getNorme();
-					double Slope = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w, 50 });
-					if (boBouncing){
+					double Slope = CPhysics::EvaluateSlope({ m_RectPosition.x, m_RectPosition.y + m_RectPosition.h / 2, m_RectPosition.w, m_RectPosition.w });
+					if (SpeedNorm <= 35){
 						if (VerifySliding(Slope)){
 							UpdateSlidePosition();
 						}
@@ -135,7 +135,7 @@ public:
 
 				m_RectPosition.y = temp->getY();
 				m_RectPosition.x = temp->getX();
-		//		delete temp;
+				delete temp;
 			}
 			else{
 				m_RectPosition.x = m_Trajectoire->GetActualPosition()->getX();

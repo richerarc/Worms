@@ -131,6 +131,23 @@ public:
 	 http://integraledesmaths.free.fr/idm/PagePrincipale.htm#http://integraledesmaths.free.fr/idm/GeoAPAngDro.htm
 	 */
 	void Bounce(double _Slope){
+		
+		C2DVector* vNormal = nullptr;
+		if ((m_ActualSpeed->getComposanteY() >= 0)){
+			vNormal = new C2DVector(m_NextPos->getX(), m_NextPos->getY(), 1.f, _Slope + 90);
+		}
+		
+//		if (pVecteurVitesse->ObtenirNorme() >= 35) {
+//			CVecteur2D VecteurNormal;
+//				// Rebond par rapport au dessus ou au dessous...
+//			if (pVecteurVitesse->ObtenirComposanteY() >= 0 || iY >= RectTmp->h)
+//				VecteurNormal = CVecteur2D(1, fangle + 90);
+//			else
+//				VecteurNormal = CVecteur2D(1, fangle - 90);
+//			double dScalaire = 2 * pVecteurVitesse->Scalaire(VecteurNormal.ObtenirComposanteX(), VecteurNormal.ObtenirComposanteY());
+//			*pVecteurVitesse -= VecteurNormal * dScalaire;
+//			*pVecteurVitesse = *pVecteurVitesse * 0.5;
+//		}
 
 
 		double Slope1 = tan(_Slope);
