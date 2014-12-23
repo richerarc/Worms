@@ -261,8 +261,6 @@ public:
 					break;
 				}
 				break;
-			default:
-				break;
 
 			}
 		}
