@@ -28,6 +28,7 @@ public:
 		m_pBarreGaz = { 0, 0, 5, 50 };
 		boGaz = false;
 		Vector = nullptr;
+		m_boInUse = false;
 	}
 
 	/*!

@@ -54,6 +54,7 @@ public:
 		boIsRotated = false;
 		boIsLaunch = false;
 		boGrenadeIsExploded = false;
+		m_boInUse = false;
 		iAngle = 0;
 		m_uiPower = 0;
 		fPosXTempo = 0;

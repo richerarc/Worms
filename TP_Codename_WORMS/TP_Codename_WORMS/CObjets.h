@@ -50,6 +50,9 @@ public:
 	virtual void Detonate(){}
 	virtual bool isCarePackage(){ return false;}
 	CExplosion* getExplosion(){return m_pExplosion;}
+	virtual void setExplosion(bool _boSet){
+		m_boIsexploded = _boSet;
+	}
 };
 
 #endif
