@@ -94,3 +94,24 @@ Les conditions pour le handleEvent de CBazouka sont maintenant fonctionnelles
 -Debuggage intensif de la trajectoire(problème finalement résolue)
 -Ajout du lancé de missile: le bazouka lance maintenant des missiles avec une bonne trajectoire
 -Ajout des conditions pour faire spawn le missile à l'embout du bazouka(pas terminé)
+16 Décembre 9h à 16h30:
+-Le missile vérify les collisions
+-Il détruit la map en conséquence
+-Il affiche le sprite d'explosion lors de l'impact
+-Il affiche correctement a l'embout du bazouka
+17 Décembre 13h à 18h30:
+-J'ai fait le ReactToExplosion de la mine
+-J'ai ajouté quelques trucs nécessaires au bazouka
+-J'ai modifier le draw de la mine afin qu'elle affiche une explosion lors que nécessaire
+
+18 Décembre 13h30 à 16h:
+-J'ai completer la classe CCaisses afin que les caisses explosent lors que nécessaire
+-J'ai ajouter une méthode pour vérifier si des objets sont touchés par une explosion dans CGame
+-J'ai ajouter une méthode pour vérifier si un worm rentre en contact avec une caisse de soin
+
+19 Décembre 9h à 17h:
+-Ajout et implementation de la classe CGrenadeLauncher
+
+22 Décembre 8h à 20h: 
+-Terminer le mouvement du JetPack
+-Mise à jour des diagrammes UML
