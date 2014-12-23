@@ -36,6 +36,7 @@ private:
 	bool m_boPlaying;
 	bool m_boDamaged ;
 	double iAnglebitch;
+	int iPreviousState;
 public:
 
 	/*!
@@ -66,7 +67,7 @@ public:
 		m_boDamaged = false;
 		m_pSprite->Start();
 		iAnglebitch = 0;
-
+		iPreviousState = 0;
 	}
 
 	/*!
@@ -105,7 +106,7 @@ public:
 	 @return null
 	 */
 	void HandleEvent(SDL_Event _Event){
-		if (!((m_EntityState == JumpLeft) || (m_EntityState == JumpRight) || (m_EntityState == Largage) || (m_EntityState == ChuteLeft) || (m_EntityState == ChuteRight))) {
+		if (!((m_EntityState == JumpLeft) || (m_EntityState == JumpRight) || (m_EntityState == Largage) || (m_EntityState == ChuteLeft) || (m_EntityState == ChuteRight) || (m_EntityState == SlideLeft) || ((m_EntityState == SlideRight) || (m_iLife <= 1)))) {
 			switch (_Event.type) {
 			case SDL_KEYDOWN:
 				switch (_Event.key.keysym.sym){
@@ -383,7 +384,6 @@ public:
 
 	string getName(){ return m_strName; }
 
-
 	void Move(SDL_Renderer* _renderer){
 		double ftemp = 0;
 		double dbl = 0;
@@ -417,6 +417,7 @@ public:
 
 		switch (m_EntityState) {
 		case SlideLeft:
+			iPreviousState = SlideLeft;
 			if (m_Trajectoire == nullptr){
 				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, -1500., 2.), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.0, 10 * CPhysics::GetGravity()));
 			}
@@ -444,6 +445,7 @@ public:
 			}
 			break;
 		case SlideRight:
+			iPreviousState = SlideRight;
 			if (m_Trajectoire == nullptr){
 				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y), new C2DVector(m_RectPosition.x, m_RectPosition.y, 1500., 2.), new C2DVector(m_RectPosition.x, m_RectPosition.y, 0.0, 10 * CPhysics::GetGravity()));
 			}
@@ -470,7 +472,7 @@ public:
 			}
 			break;
 		case JumpLeft:
-
+			iPreviousState = JumpLeft;
 			if (m_Trajectoire == nullptr){
 				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
 					new C2DVector(m_RectPosition.x, m_RectPosition.y, -15.f, -85.f),
@@ -509,6 +511,7 @@ public:
 			break;
 
 		case JumpRight:
+			iPreviousState = JumpRight;
 			if (m_Trajectoire == nullptr){
 				m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
 					new C2DVector(m_RectPosition.x, m_RectPosition.y, 15.f, -85.f),
@@ -547,7 +550,7 @@ public:
 			}
 			break;
 		case MotionRight:
-
+			iPreviousState = MotionRight;
 			//SI ON MONTE
 			if (dbl <= 0){
 				RectCollision = { m_RectPosition.x + m_RectPosition.w - 2, m_RectPosition.y + m_RectPosition.h / 4 * 3, m_RectPosition.w / 2, m_RectPosition.h / 2 - 5 };
@@ -600,7 +603,7 @@ public:
 			}
 			break;
 		case MotionLeft:
-
+			iPreviousState = MotionRight;
 			//Si on Monte
 			if (dbl >= 0){
 				RectCollision = { m_RectPosition.x - m_RectPosition.w / 2, m_RectPosition.y + m_RectPosition.h / 4 * 3, m_RectPosition.w / 2, m_RectPosition.h / 2 - 5 };
@@ -645,7 +648,8 @@ public:
 			}
 			break;
 		case ChuteRight:
-			RectTemp = { m_RectPosition.x , m_RectPosition.y + m_RectPosition.h + 1, m_RectPosition.w, 1 };
+			iPreviousState = ChuteRight;
+			RectTemp = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h + 1, m_RectPosition.w, 1 };
 			if (!CPhysics::verifyGroundCollision(RectTemp)){
 				if (m_Trajectoire == nullptr){
 					m_Trajectoire = new CTrajectory(new CPosition(m_RectPosition.x, m_RectPosition.y),
@@ -685,6 +689,7 @@ public:
 			}
 			break;
 		case ChuteLeft:
+			iPreviousState = ChuteLeft;
 			RectTemp = { m_RectPosition.x, m_RectPosition.y + m_RectPosition.h + 1, m_RectPosition.w, 1 };
 			if (!CPhysics::verifyGroundCollision(RectTemp)){
 				if (m_Trajectoire == nullptr){
@@ -699,11 +704,13 @@ public:
 					{
 						if ((temp->getX() != (int)m_Trajectoire->getNextPos()->getX()) || (temp->getY() != (int)m_Trajectoire->getNextPos()->getY())){
 							m_EntityState = NoMotionLeft;
-							uiTempsDeChute = m_Trajectoire->getSpeedMagnitude();
-							if (uiTempsDeChute >= 50)
-								SetLife(m_iLife - (uiTempsDeChute / 10));
-							if (m_boPlaying)
-								m_boDamaged = true;
+							if (!(iPreviousState == SlideLeft || iPreviousState == SlideRight)){
+								uiTempsDeChute = m_Trajectoire->getSpeedMagnitude();
+								if (uiTempsDeChute >= 50)
+									SetLife(m_iLife - (uiTempsDeChute / 10));
+								if (m_boPlaying)
+									m_boDamaged = true;
+							}
 							delete m_Trajectoire;
 							m_Trajectoire = nullptr;
 						}
@@ -724,6 +731,7 @@ public:
 			}
 			break;
 		case Largage:
+			iPreviousState = Largage;
 			m_Trajectoire->UpdatePosition();
 			CPosition* temp = CPhysics::VerifyNextPosition(m_Trajectoire, m_RectPosition);
 			if (temp != nullptr)
