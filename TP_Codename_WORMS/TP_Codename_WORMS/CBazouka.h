@@ -1,12 +1,5 @@
 #ifndef TP_Codename_WORMS_CBazouka_h
 #define TP_Codename_WORMS_CBazouka_h
-/*
-To Do:
-
-*/
-
-
-
 /*!
 @CBazouka
 @Classe permettant l'affichage et la rotation du bazouka
@@ -15,21 +8,21 @@ To Do:
 class CBazouka{
 private:
 	//Données membres:
-	SDL_Rect m_RectBazouka; //La pos du rectangle de l'objet
-	SDL_Rect m_RectMissile; //Le rectangle du missile
-	double iAngle; // L'angle de rotation
-	SDL_Texture* m_pTextureBazouka; // Texture de l'image du Bazouka à afficher.
-	SDL_Texture* m_pTextureMissile; // Texture de l'image du Missile à afficher.
-	CExplosion* m_pExplosion;// Texture de l'image de l'explosion.
-	bool boCharging; // Booléen pour vérifier si le bazouka se prepare a lancer un missile
-	bool boIsRotated; // Booléen pour vérifier si le bazouka sera en rotation
-	bool boIsLaunch; // Booléen pour vérifier si le bazouka lance un missile
-	bool boHasLaunch; // Booléen pour vérifier si le bazouka a lancé un missile
-	bool boMissileIsExploded; // Booléen pour savoir si le missile à explosé
-	unsigned int m_uiPower; // Représente le power du missile.
-	CPowerBar* m_PowerBar; // Représente une nouvelle barre de lancement
-	CWorm* m_Worm; // Représente un pointeur de worm afin d'obtenir sa position et ses states
-	SDL_RendererFlip m_flipType; // Représente le type de rotation effectuer sur le bazouka
+	SDL_Rect m_RectBazouka;				//La pos du rectangle de l'objet
+	SDL_Rect m_RectMissile;				//Le rectangle du missile
+	double iAngle;						// L'angle de rotation
+	SDL_Texture* m_pTextureBazouka;		// Texture de l'image du Bazouka à afficher.
+	SDL_Texture* m_pTextureMissile;		// Texture de l'image du Missile à afficher.
+	CExplosion* m_pExplosion;			// Texture de l'image de l'explosion.
+	bool boCharging;					// Booléen pour vérifier si le bazouka se prepare a lancer un missile
+	bool boIsRotated;					// Booléen pour vérifier si le bazouka sera en rotation
+	bool boIsLaunch;					// Booléen pour vérifier si le bazouka lance un missile
+	bool boHasLaunch;					// Booléen pour vérifier si le bazouka a lancé un missile
+	bool boMissileIsExploded;			// Booléen pour savoir si le missile à explosé
+	unsigned int m_uiPower;				// Représente le power du missile.
+	CPowerBar* m_PowerBar;				// Représente une nouvelle barre de lancement
+	CWorm* m_Worm;						// Représente un pointeur de worm afin d'obtenir sa position et ses states
+	SDL_RendererFlip m_flipType;		// Représente le type de rotation effectuer sur le bazouka
 	CMissiles* m_pMissile;
 	float fPosXTempo;
 	float fPosYTempo;
@@ -76,7 +69,12 @@ public:
 			m_PowerBar = nullptr;
 		}
 	}
-
+	/*!
+	@method setBazooka
+	@brief: Permet de seter le bazouka à l'endroit où se trouve le worm jouant
+	@param _ActualWorm: le worm jouant.
+	@return null
+	*/
 	void setBazooka(CWorm* _ActualWorm){
 		m_Worm = _ActualWorm;
 		m_RectBazouka.x = m_Worm->getPosition().x;
@@ -278,41 +276,13 @@ public:
 
 		}
 	}
-	int getWormState(){
-		return m_Worm->getWormState();
-	}
-	bool getIfLaunch(){
-		return boHasLaunch;
-	}
-	bool MissileHasExploded(){
-		return boMissileIsExploded;
-	}
-	
-	bool MissileWillExplode(){
-		if (m_pMissile)
-			return m_pMissile->IsExploding();
-		return true;
-	}
-	
-	SDL_Rect MissilePos(){
-		return m_RectMissile;
-	}
-	int MissileRayon(){
-		return m_uiRayon;
-	}
-	
-	void setInUse(bool _bo){
-		m_boInUse = _bo;
-	}
-	
-	void SetExplose(bool _boExplose){
-		m_pMissile->setExplosion(_boExplose);
-	}
-	
-	bool isInUse(){
-		return m_boInUse;
-	}
-	
+
+	/*!
+	@method reset
+	@brief: Permet de reseter les informations du bazouka
+	@param null
+	@return null
+	*/
 	void reset(){
 		boCharging = false;
 		boIsRotated = false;
@@ -324,9 +294,25 @@ public:
 		fPosYTempo = 0;
 		m_flipType = SDL_FLIP_NONE;
 	}
-	
+
+
+	/*!
+	@Accesseurs
+	*/
+	int getWormState(){return m_Worm->getWormState();}
+	bool getIfLaunch(){return boHasLaunch;}
+	bool MissileHasExploded(){return boMissileIsExploded;}
+	bool MissileWillExplode(){
+		if (m_pMissile)
+			return m_pMissile->IsExploding();
+		return true;}
+	SDL_Rect MissilePos(){return m_RectMissile;}
+	int MissileRayon(){return m_uiRayon;}
+	void setInUse(bool _bo){m_boInUse = _bo;}
+	void SetExplose(bool _boExplose){m_pMissile->setExplosion(_boExplose);}
 	bool MissileExplosing(){return m_pExplosion->HasStarted();}
 	CExplosion* getExplosion(){return m_pExplosion;}
+	bool isInUse(){return m_boInUse;}
 };
 
 #endif
