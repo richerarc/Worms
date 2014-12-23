@@ -319,13 +319,9 @@ public:
 	void setInUse(bool _bo){
 		m_boInUse = _bo;
 	}
-
 	bool isInUse(){
 		return m_boInUse;
-	}
-
-
-	
+	}	
 	CExplosion* getExplosion(){return m_pExplosion;}
 };
 
