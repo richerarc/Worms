@@ -148,7 +148,7 @@ public:
 			m_pListeTeam->ObtenirElement()->setFocus(true);
 			m_uiTeamTurn++;
 			if ((ActiveWorm != nullptr) && (ActiveWorm->getWormState() == Dead) && (ActiveWorm->getLife() == 0)){
-				delete ActiveWorm;
+			//	delete ActiveWorm;
 				ActiveWorm = nullptr;
 			}
 			ActiveWorm = m_pListeTeam->ObtenirElement()->getPlayingWorm();
