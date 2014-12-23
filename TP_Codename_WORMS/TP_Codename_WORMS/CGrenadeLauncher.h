@@ -11,29 +11,30 @@
 class CGrenadeLauncher{
 private:
 	//Données membres:
-	SDL_Rect m_RectGL; //La pos du rectangle de l'objet
-	SDL_Rect m_RectGrenade; //Le rectangle de la grenade.
-	SDL_Texture* m_pTextureGL; //Texture de l'image du Bazouka à afficher.
+	SDL_Rect m_RectGL;				//La pos du rectangle de l'objet
+	SDL_Rect m_RectGrenade;			//Le rectangle de la grenade.
+	SDL_Texture* m_pTextureGL;		//Texture de l'image du Bazouka à afficher.
 	SDL_Texture* m_pTextureGrenade; //Texture de l'image du Missile à afficher.
-	CExplosion* m_pExplosion;//Texture de l'image de l'explosion.
-	bool boCharging; //Booléen pour vérifier si le GL se prepare a lancer un missile
-	bool boIsRotated; //Booléen pour vérifier si le GL sera en rotation
-	bool boIsLaunch; //Booléen pour vérifier si le GL lance un missile
-	bool boHasLaunch; //Booléen pour vérifier si le GL a lancé un missile
-	bool boGrenadeIsExploded; //Booléen pour savoir si la Grenade a explosée
-	unsigned int m_uiPower;//Représente le power du missile.
-	CPowerBar* m_PowerBar;//Représente une nouvelle barre de lancement
-	CWorm* m_Worm;//Représente un pointeur de worm afin d'obtenir sa position et ses states
-	SDL_RendererFlip m_flipType;//Représente le type de rotation effectuer sur le bazouka
-	CGrenades* m_pGrenade;//Un pointeur de grenade
-	float fPosXTempo;//Un float temporaire pour la position du lancer de grenade
-	float fPosYTempo;//Un float temporaire pour la position du lancer de grenade
-	int iPosXTampon;//Un int temporaire pour la position du lancer de grenade
-	int iPosYTampon;//Un int temporaire pour la position du lancer de grenade
-	unsigned int m_uiRayon; //Le rayon d'explosion de la grenade.
-	double iAngle; //L'angle de rotation du GL
-	bool m_boInUse; //Booléen pour vérifier si l'arme est en utilisation
+	CExplosion* m_pExplosion;		//Texture de l'image de l'explosion.
+	bool boCharging;				//Booléen pour vérifier si le GL se prepare a lancer un missile
+	bool boIsRotated;				//Booléen pour vérifier si le GL sera en rotation
+	bool boIsLaunch;				//Booléen pour vérifier si le GL lance un missile
+	bool boHasLaunch;				//Booléen pour vérifier si le GL a lancé un missile
+	bool boGrenadeIsExploded;		//Booléen pour savoir si la Grenade a explosée
+	unsigned int m_uiPower;			//Représente le power du missile.
+	CPowerBar* m_PowerBar;			//Représente une nouvelle barre de lancement
+	CWorm* m_Worm;					//Représente un pointeur de worm afin d'obtenir sa position et ses states
+	SDL_RendererFlip m_flipType;	//Représente le type de rotation effectuer sur le bazouka
+	CGrenades* m_pGrenade;			//Un pointeur de grenade
+	float fPosXTempo;				//Un float temporaire pour la position du lancer de grenade
+	float fPosYTempo;				//Un float temporaire pour la position du lancer de grenade
+	int iPosXTampon;				//Un int temporaire pour la position du lancer de grenade
+	int iPosYTampon;				//Un int temporaire pour la position du lancer de grenade
+	unsigned int m_uiRayon;			//Le rayon d'explosion de la grenade.
+	double iAngle;					//L'angle de rotation du GL
+	bool m_boInUse;					//Booléen pour vérifier si l'arme est en utilisation
 public:
+
 	/*!
 	@Constructeur
 	@Description:Permet d'initialiser les données membres
@@ -82,7 +83,8 @@ public:
 	}
 
 	/*!
-	@methodRender
+	@method Render
+	@brief Dessine sur la fenetre
 	@param _pRenderer :Renderer pour rendre la texture du grenade launcher.
 	@return null
 	*/
@@ -260,6 +262,7 @@ public:
 
 		}
 	}
+
 	/*!
 	@method InitInfoMissile
 	@brief: Permet d'acceder au information d'un missile explosé.
