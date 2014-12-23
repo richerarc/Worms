@@ -8,10 +8,10 @@
 */
 class CGrenades : public CObjets{
 private:
-	//Données membres:
-	CTimer* m_pTimer;//Déclaration d'une nouvelle minuterie pour le temps à écouler avant l'explosion.
-	bool boBouncing;//Booléen pour vérifier les rebonds.
-	int m_iAngle; //Un angle pour la rotation de la grenade.
+	
+	CTimer* m_pTimer;	//Déclaration d'une nouvelle minuterie pour le temps à écouler avant l'explosion.
+	bool boBouncing;	//Booléen pour vérifier les rebonds.
+	int m_iAngle;		//Un angle pour la rotation de la grenade.
 
 public:
 
@@ -85,36 +85,11 @@ public:
 	}
 
 	/*!
-	@method HandleEvent
-	@param _Event : Un SDL_Event pour traiter les evenement
+	@method Move
+	@brief Permet le mouvement de la grenade
+	@param null
 	@return null
 	*/
-	void HandleEvent(SDL_Event _Event){
-	}
-
-	/*!
-	@Méthode:
-	@ReactToExplosion
-	@Permet de calculer les dommages subit par l'explosion
-	*/
-	void ReactToExplosion(int _iX, int _iY, int _iRayon){}
-
-	/*!
-	@method Acesseurs
-	@brief Servent a acceder/modifier aux données membres.
-	*/
-	
-
-	void setExplosion(bool _boSet){
-		m_boIsexploded = _boSet;
-	}
-
-	void setPos(int _ix, int _iy){
-		m_RectPosition.x = _ix;
-		m_RectPosition.y = _iy;
-	}
-
-
 	void Move(){
 		if (boBouncing && !m_pTimer->HasStarted()){
 			m_pTimer->Start();
@@ -169,7 +144,21 @@ public:
 			break;
 		}
 	}
+
+	/*!
+	@method Acesseurs
+	@brief Servent a acceder/modifier aux données membres.
+	*/
 	
+	void setExplosion(bool _boSet){
+		m_boIsexploded = _boSet;
+	}
+
+	void setPos(int _ix, int _iy){
+		m_RectPosition.x = _ix;
+		m_RectPosition.y = _iy;
+	}
+
 	void setState(int _EntityState){
 		m_EntityState = _EntityState;
 	}
