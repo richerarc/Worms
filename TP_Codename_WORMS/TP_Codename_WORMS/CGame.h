@@ -153,8 +153,9 @@ public:
 			}
 			ActiveWorm = m_pListeTeam->ObtenirElement()->getPlayingWorm();
 			ActiveWorm->setPlaystate(true);
+			CPhysics::RedefineWind();
+			m_pJetpack->reset();
 		}
-		CPhysics::RedefineWind();
 	}
 
 	/*!
