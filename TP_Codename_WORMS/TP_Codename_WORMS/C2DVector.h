@@ -196,7 +196,6 @@ public:
 		m_YFin = m_YOrigine + (m_ComposanteY);
 		m_XEnd = m_XStart + (m_ComposanteX);
 		m_YEnd = m_YStart + (m_ComposanteY);;
-		//m_Norme = sqrt(pow(m_XFin - m_XOrigine, 2) + pow(m_YFin - m_YOrigine, 2));
 		m_Norme = sqrt(pow(m_ComposanteX, 2) + pow(m_ComposanteY, 2));
 		if ((m_ComposanteX == 0) && (m_ComposanteY > 0))
 			m_Orientation = M_PI / 2;
