@@ -91,7 +91,7 @@ void Draw(SDL_Renderer* _pRenderer){
 		
 	}
 	else{
-		m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y + 8);
+		m_pExplosion->setPositionXY(m_RectPosition.x + 14, m_RectPosition.y);
 		m_pExplosion->startExplosion();
 		m_pExplosion->Draw(_pRenderer);
 		if (m_pExplosion->IsDone()){
