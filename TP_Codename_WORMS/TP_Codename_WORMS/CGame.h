@@ -523,12 +523,26 @@ public:
 	void VerifyGlobalContact(){
 		if ((m_pBazouka != nullptr) && (m_pBazouka->isInUse())){
 			if (!m_pBazouka->MissileHasExploded()){
+				CTeam* TeamTemp;
+				CWorm* WormTemp;
 				for (int j = 0; j < m_pListeObjets->Count(); j++){
 					m_pListeObjets->AllerA(j);
 					if(CPhysics::VerifyCollision(m_pBazouka->MissilePos() ,m_pListeObjets->ObtenirElement()->getPosition())){
 						m_pBazouka->SetExplose(true);
 						VerifyGlobalExplosion();
 						break;
+					}
+				}
+				for (int i = 0; i < m_uiNbOfPlayingTeams; i++){
+					m_pListeTeam->AllerA(i);
+					TeamTemp = m_pListeTeam->ObtenirElement();
+					for (int j = 0; j < TeamTemp->getListeWorm()->Count(); j++) {
+						TeamTemp->getListeWorm()->AllerA(j);
+						WormTemp = TeamTemp->getListeWorm()->ObtenirElement();
+						if (CPhysics::VerifyCollision(m_pBazouka->MissilePos() ,WormTemp->getPosition())){
+							WormTemp->SetLife(0);
+							VerifyGlobalExplosion();
+						}
 					}
 				}
 			}
