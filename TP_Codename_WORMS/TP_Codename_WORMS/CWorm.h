@@ -91,10 +91,12 @@ public:
 	 */
 	void ReactToExplosion(CExplosion * _Explosion){
 		RecieveDamage(_Explosion, false);
-		if (m_EntityState == NoMotionLeft)
-			m_EntityState = ChuteLeft;
-		else
-			m_EntityState = ChuteRight;
+		if (CPhysics::verifyGroundCollision({m_RectPosition.x + 2, m_RectPosition.y + m_RectPosition.h, m_RectPosition.w - 4, 2})){
+			if (m_EntityState == NoMotionLeft)
+				m_EntityState = ChuteLeft;
+			else
+				m_EntityState = ChuteRight;
+		}
 	}
 
 	/*!

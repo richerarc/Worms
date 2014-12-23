@@ -305,6 +305,10 @@ public:
 		m_boInUse = _bo;
 	}
 	
+	void SetExplose(bool _boExplose){
+		m_pMissile->setExplosion(_boExplose);
+	}
+	
 	bool isInUse(){
 		return m_boInUse;
 	}

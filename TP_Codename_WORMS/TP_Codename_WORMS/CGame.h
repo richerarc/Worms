@@ -513,6 +513,45 @@ public:
 		}
 		
 	}
+	
+	/*!
+	 @method Verify global Explosion
+	 @brief Vérifier s'il y a des explosions en chaîne
+	 @param Une pointeur de bazouka
+	 @return Aucun.
+	 @discussion None.
+	 */
+	void VerifyGlobalContact(){
+		if ((m_pBazouka != nullptr) && (m_pBazouka->isInUse())){
+			if (!m_pBazouka->MissileHasExploded()){
+				for (int j = 0; j < m_pListeObjets->Count(); j++){
+					m_pListeObjets->AllerA(j);
+					if(CPhysics::VerifyCollision(m_pBazouka->MissilePos() ,m_pListeObjets->ObtenirElement()->getPosition())){
+						m_pBazouka->SetExplose(true);
+						VerifyGlobalExplosion();
+						break;
+					}
+				}
+			}
+		}
+		else if (ActiveWorm != nullptr){
+			CObjets* pTemp;
+			for (int i = 0; i < m_pListeObjets->Count(); i++){
+				m_pListeObjets->AllerA(i);
+				pTemp = m_pListeObjets->ObtenirElement();
+				if (CPhysics::VerifyCollision(ActiveWorm->getPosition(), pTemp->getPosition())){
+					if (pTemp->isCarePackage()){
+						
+					}
+					else{
+						
+					}
+						
+				}
+			}
+			
+		}
+	}
 	/*!
 	@method Verify Caisse contact
 	@brief Vérifier s'il y a un worm en contact avec une caisse

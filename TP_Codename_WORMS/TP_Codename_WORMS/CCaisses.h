@@ -151,7 +151,7 @@ public:
 		m_RectPosition.y = _iy;
 	}
 
-
+	bool isCarePackage(){return true;}
 
 
 };
