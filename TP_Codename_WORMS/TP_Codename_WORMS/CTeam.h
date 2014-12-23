@@ -66,7 +66,7 @@ public:
 				m_pListWorm->ObtenirElement()->setFocus(false);
 				m_pListWorm->ObtenirElement()->setPlaystate(false);
 			}
-			m_pListWorm->AllerA(temp + 1);
+			m_pListWorm->AllerA((temp + 1) % m_uiNbOfWorm);
 			m_pListWorm->ObtenirElement()->setFocus(true);
 			m_uiWormTurn++;
 		}
