@@ -219,9 +219,9 @@ public:
 						fPosXTempo = m_RectBazouka.x + (-20 * cos(DegToRad(iAngle)));
 						iPosXTampon = fPosXTempo;
 						iPosYTampon = fPosYTempo;
-						if (fPosXTempo > iPosXTampon + 0.5)
+						if (fPosXTempo > iPosXTampon + 2.5)
 							iPosXTampon++;
-						if (fPosYTempo > iPosYTampon + 0.5)
+						if (fPosYTempo > iPosYTampon + 2.5)
 							iPosYTampon++;
 						m_RectMissile.x = iPosXTampon;
 						m_RectMissile.y = iPosYTampon;
@@ -232,9 +232,9 @@ public:
 						fPosXTempo = m_RectBazouka.x + (49 * cos(DegToRad(iAngle)));
 						iPosXTampon = fPosXTempo;
 						iPosYTampon = fPosYTempo;
-						if (fPosXTempo > iPosXTampon + 0.5)
+						if (fPosXTempo > iPosXTampon + 2.5)
 							iPosXTampon++;
-						if (fPosYTempo > iPosYTampon + 0.5)
+						if (fPosYTempo > iPosYTampon + 2.5)
 							iPosYTampon++;
 						m_RectMissile.x = iPosXTampon;
 						m_RectMissile.y = iPosYTampon;

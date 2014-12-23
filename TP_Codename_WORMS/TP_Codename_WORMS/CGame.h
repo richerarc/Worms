@@ -538,7 +538,7 @@ public:
 					for (int j = 0; j < TeamTemp->getListeWorm()->Count(); j++) {
 						TeamTemp->getListeWorm()->AllerA(j);
 						WormTemp = TeamTemp->getListeWorm()->ObtenirElement();
-						if (CPhysics::VerifyCollision(m_pBazouka->MissilePos() ,WormTemp->getPosition())){
+						if (CPhysics::VerifyCollision(m_pBazouka->MissilePos() ,{WormTemp->getPosition().x, WormTemp->getPosition().y, WormTemp->getPosition().w, WormTemp->getPosition().h / 2})){
 							WormTemp->SetLife(0);
 							VerifyGlobalExplosion();
 						}
