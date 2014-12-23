@@ -152,7 +152,10 @@ public:
 				ActiveWorm = nullptr;
 			}
 			ActiveWorm = m_pListeTeam->ObtenirElement()->getPlayingWorm();
-			ActiveWorm->setPlaystate(true);
+			if (ActiveWorm != nullptr)
+				ActiveWorm->setPlaystate(true);
+			else
+				NextTurn();
 			CPhysics::RedefineWind();
 			m_pJetpack->reset();
 		}
@@ -297,7 +300,7 @@ public:
 		}
 
 		if (m_pListeTeam->Count() == m_uiNbOfPlayingTeams){
-			m_pListeTeam->AllerDebut();
+			m_pListeTeam->AllerFin();
 			m_pListeTeam->ObtenirElement()->setFocus(true);
 			ActiveWorm = m_pListeTeam->ObtenirElement()->getPlayingWorm();
 			ActiveWorm->setPlaystate(true);

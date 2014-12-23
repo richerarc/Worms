@@ -119,6 +119,7 @@ public:
 		for (int i = 0; i < m_uiNbOfWorm; i++){
 			if (m_pListWorm->ObtenirElement()->isFocused())
 				return m_pListWorm->ObtenirElement();
+			m_pListWorm->AllerSuivant();
 		}
 		return nullptr;
 	}
@@ -152,16 +153,16 @@ public:
 		for (int i = 0; i < m_pListWorm->Count(); i++){
 			if (m_pListWorm->ObtenirElement()->getWormState() == Dead){
 				if (!m_pListWorm->ObtenirElement()->isPlaying()){
-					m_pListWorm->Retirer(true);
+					m_pListWorm->Retirer(false);
 					itemp++;
 					if (m_pListWorm->Count()){
 						if (m_pListWorm->ObtenirElement()->isFocused()){
 							m_pListWorm->AllerPrecedent();
-							m_pListWorm->ObtenirElement()->setFocus(true);
+							m_pListWorm->ObtenirElement()->setFocus(false);
 						}
-						else{
-							m_bodefeated = true;
-						}
+					}
+					else{
+						m_bodefeated = true;
 					}
 				}
 				else{
@@ -170,14 +171,14 @@ public:
 						itemp++;
 						if (m_pListWorm->Count()){
 							m_pListWorm->AllerPrecedent();
-							m_pListWorm->ObtenirElement()->setFocus(true);
+							m_pListWorm->ObtenirElement()->setFocus(false);
 						}
 						else{
 							m_bodefeated = true;
 						}
 					}
 					else{
-						m_pListWorm->Retirer(true);
+						m_pListWorm->Retirer(false);
 						itemp++;
 					}
 				}
