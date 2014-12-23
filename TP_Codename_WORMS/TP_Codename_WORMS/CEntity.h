@@ -182,6 +182,10 @@ public:
 	}
 
 	void setTrajectory(CTrajectory* _Trajectoire){
+		if (m_Trajectoire != nullptr){
+			delete m_Trajectoire;
+			m_Trajectoire = nullptr;
+		}
 		m_Trajectoire = _Trajectoire;
 	}
 

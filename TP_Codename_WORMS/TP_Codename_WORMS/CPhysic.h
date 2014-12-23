@@ -99,7 +99,7 @@ public:
 	@method HandleGroundCollision
 	@brief Gere la collision avec le sol
 	@param _Collider: Le rect en mouvement
-	@param _Collidee: Le rect immobile .
+	@param _Direction: Le rect immobile .
 	@return true si il y a un collision?
 	@return false si il n'en a pas
 	@discussion Aucune.
