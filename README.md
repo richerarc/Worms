@@ -1,6 +1,8 @@
 ﻿Worms
 =====
 
+[![Join the chat at https://gitter.im/richerarc/Worms](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/richerarc/Worms?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Tp de Prog
 
 Pour le git:
